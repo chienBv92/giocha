@@ -28,6 +28,7 @@ namespace Web_Gio_Cha.Resources
         public const int MAX_INPUT_PASS = 50;
         public const string DEFAULT_VALUE = "0";
 
+
         public class DeleteFlag
         {
             public const string NON_DELETE = "0";
@@ -41,6 +42,21 @@ namespace Web_Gio_Cha.Resources
             }.AsReadOnly();
         }
 
+        public class CityLevel
+        {
+            public const int City = 0;
+
+            public const int District = 1;
+
+            public const int Town = 2;
+
+            public static readonly OrderedDictionary Items = new OrderedDictionary
+            {
+                { City, "tỉnh" },
+                { District, "quận, huyện" },
+                { Town, "xã, phường" },
+            }.AsReadOnly();
+        }
         public class ConfirmEmail
         {
             public const string NONE = "0";
@@ -73,5 +89,21 @@ namespace Web_Gio_Cha.Resources
         {
             { "Login", MAIN }
         }.AsReadOnly();
+    }
+
+    public class Level_City
+    {
+        public const string Level_0 = "";
+
+        public const string Level_1 = "1";
+
+        public const string Level_2 = "2";
+
+        public static readonly OrderedDictionary Items = new OrderedDictionary
+            {
+                { Level_0, "Cấp Tỉnh" },
+                { Level_1, "Cấp quận, huyện" },
+                { Level_2, "Cấp xã, phường" }
+            }.AsReadOnly();
     }
 }
