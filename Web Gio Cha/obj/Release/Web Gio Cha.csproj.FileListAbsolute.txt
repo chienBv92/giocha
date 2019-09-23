@@ -1,0 +1,61 @@
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Web Gio Cha.dll.config
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Web Gio Cha.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Web Gio Cha.pdb
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Antlr3.Runtime.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\CKFinder.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\EntityFramework.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\EntityFramework.SqlServer.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.AspNet.Identity.Core.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Cookies.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Facebook.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Google.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.OAuth.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Twitter.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Web.Infrastructure.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Newtonsoft.Json.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Owin.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Helpers.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Mvc.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Optimization.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Razor.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.WebPages.Deployment.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.WebPages.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.WebPages.Razor.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\WebGrease.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\CKFinder.pdb
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Helpers.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Mvc.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Optimization.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.Razor.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.WebPages.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.WebPages.Deployment.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\System.Web.WebPages.Razor.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Antlr3.Runtime.pdb
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Newtonsoft.Json.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\EntityFramework.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\EntityFramework.SqlServer.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.AspNet.Identity.Core.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Facebook.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Cookies.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.OAuth.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Google.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.Twitter.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Release\Web_Gio_Cha.Resources.AdminLabel.resources
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Release\Web_Gio_Cha.Resources.Message.resources
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Release\Web_Gio_Cha.Resources.SideMenu.resources
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Release\Web_Gio_Cha.Resources.UserLabel.resources
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Release\Web Gio Cha.csproj.GenerateResource.Cache
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Release\Web Gio Cha.dll
+D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Release\Web Gio Cha.pdb

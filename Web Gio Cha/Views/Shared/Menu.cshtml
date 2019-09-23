@@ -1,0 +1,41 @@
+﻿@{
+    var currentUser = HttpContext.Current.Session["CmnEntityModel"] as Web_Gio_Cha.Models.CmnEntityModel;
+}
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td height="69" align="center" valign="top" bgcolor="#FFFFFF" style="background-image:url(Images/background_menu.jpg); background-repeat:no-repeat; padding-top:8px">
+            <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a>
+            <table width="800" border="0" cellspacing="0" cellpadding="0" style="margin-top:6PX">
+                <tr>
+                    <td height="41" align="center" class="Texttopmenu"><a href="/trang-chu">TRANG CHỦ</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/gioi-thieu">GIỚI THIỆU</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/tin-tuc">TIN TỨC</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/san-pham">SẢN PHẨM</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/tro-giup">TRỢ GIÚP</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/lien-he">LIÊN HỆ</a></td>
+
+                    @if (currentUser != null)
+                    {
+                        if (currentUser.IsAdmin == true)
+                        {
+                            <td align="center" class="Texttopmenu"><a style="width:120px" href="/admin">Quản trị hệ thống</a></td>
+                            <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        }
+                        else
+                        {
+                            <td align="center" class="loginInfo">Chào: @currentUser.UserName </td>
+                            <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        }
+                    }
+                    else
+                    {
+                        <td align="center" class="Texttopmenu"><a href="/dang-ky">Đăng ký</a></td>
+                        <td align="center" class="Texttopmenu"><a href="/dang-nhap">Đăng nhập</a></td>
+                    }
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

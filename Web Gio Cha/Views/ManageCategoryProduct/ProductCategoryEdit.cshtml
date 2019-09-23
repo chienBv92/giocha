@@ -1,0 +1,236 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models.Define;
+
+@model ProductCategoryModel
+@{
+    ViewBag.Title = AdminLabel.ProductCategoryRegisterTitle;
+    if (@Model.ID != null && @Model.ID > 0)
+    {
+        ViewBag.Title = AdminLabel.ProductCategoryUpdate;
+    }
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="CityRegister" class="edit-screen col-md-6">
+    @using (Html.BeginForm("Edit", "ManageCategoryProduct", FormMethod.Post, new { id = "formCategoryRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        <div id="title">@ViewBag.Title</div>
+        <input id="CATEGORY_ID_HIDDEN" name="CATEGORY_ID_HIDDEN" type="hidden" value="@Model.ID">
+        @Html.HiddenFor(m => m.del_flg, new { @class = "sp-id" })
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.CategoryId <span class="RequiredField">*</span></label>
+            @if (Model.ID == 0)
+            {
+                @Html.TextBoxFor(m => m.ID, new { @class = "txt-w-250 numeric", style = "ime-mode: auto; ", maxlength = 5 })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.ID, new { @class = "ime-mode border-none txt-w-250", @readonly = "readonly" })
+            }
+        </div>
+
+        <span style="display:none">
+            <input name="autoComplete" type="text" value="reset" />
+        </span>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.CategoryName <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.Name, new { @class = "txt-w-250 ", maxlength = 50 })
+        </div>
+
+        @*<div class="form-group">
+                <label class="title-row">@AdminLabel.CityName <span class="RequiredField">*</span></label>
+                @Html.TextBoxFor(m => m.PICTURE, new { @class = "txt-w-250", maxlength = 50 })
+            </div>*@
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.DisplayOrder <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.DisplayOrder, new { @class = "txt-w-250 numeric", maxlength = 5 })
+        </div>
+        
+        <div class="form-group">
+            @Html.Label(@AdminLabel.lblStatus, new { @for = "STATUS", @class = "title-row" })
+            @if (Model.Status == null || Model.Status == false)
+            {
+                <input id="Status" type="checkbox">
+                <input id="STATUS_HIDDEN" name="Status" type="hidden" value="false">
+            }
+            else
+            {
+                <input id="Status" type="checkbox" checked="checked">
+                <input id="STATUS_HIDDEN" name="Status" type="hidden" value="true">
+            }
+        </div>
+
+        <div class="form-group action-button-bottom">
+            <button type="button" id="btnBack" name="btnBack" class="btn btn-default"><i class="btn-icon btn-back">@AdminLabel.btnBack</i></button>
+            <div class="pull-right">
+                <button type="button" id="btnClear" name="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                <button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-orange"><i class="btn-icon btn-edit">@AdminLabel.btnRegister</i></button>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+
+    var CategoryListUrl = '@Url.Action("ProductCategoryList", "ManageCategoryProduct")';
+    var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    $(function () {
+        $("#Status").prop('checked', true).change();
+        $('#STATUS_HIDDEN').val(true);
+    });
+
+    function validateData() {
+        var invalidMess = [];
+        var categoryId = $('#ID').val();
+        var categoryName = $('#Name').val();
+
+        var status = $('#Status').is(":checked");
+        var errContent = [];
+        var errDisplay = [];
+        var invalidMess = [];
+
+        if (categoryId == null || categoryId.trim() == "" || categoryId == 0) { // required content
+            errDisplay = '@AdminLabel.CategoryId' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+
+        if (categoryName == null || categoryName.trim() == "") { // required DSP_Priority
+            errDisplay = '@AdminLabel.CategoryName' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (categoryName.trim().length > Constant.CITY_NAME_LENGTH) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, AdminLabel.CategoryName, Constant.MAX_USER_NAME_LENGTH)");
+        }
+
+        return invalidMess;
+    }
+
+    $(document).off('#Status');
+    $(document).on('change', '#Status', function () {
+        if ($('#Status').is(":checked")) {
+            $('#STATUS_HIDDEN').val(true);
+        } else {
+            $('#STATUS_HIDDEN').val(false);
+        }
+    });
+
+    $(document).off('#btnSubmit');
+    $(document).on('click', '#btnSubmit', function () {
+        //if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+
+        $('.validation-summary-errors').remove();
+        var invalidMess = validateData();
+        if (invalidMess.length > 0) {
+            WebDuhoc.utility.showClientError(invalidMess);
+            return false;
+        }
+
+        var existcityCD = false;
+        var category_id = $('#ID').val().trim();
+        var categoryId_Old = $('#CATEGORY_ID_HIDDEN').val().trim();
+        var param = {
+            category_id: category_id,
+            categoryId_Old: categoryId_Old
+        };
+
+        if (category_id.length > 0) {
+            var data = WebDuhoc.utility.getDataByAjax('@Url.Action("CheckExistCategoryProduct", "ManageCategoryProduct")', param);
+            if (typeof (data) != 'undefined' || data != null) {
+                existCategory = data.exist;
+            }
+        }
+        var confirmMess = existCategory ? '@string.Format(Message.msgConfirmExistCategory)' : '@string.Format(Message.ConfirmSubmitData, (Model.ID > 0 ? Message.Update : Message.Register))';
+        if (existCategory) {
+            WebDuhoc.utility.showMessageModal(confirmMess, true);
+        } else {
+            WebDuhoc.utility.showConfirmModal(confirmMess, function (action) {
+                if (action) {
+                    $("#formCategoryRegis").submit();
+                }
+            })
+        }
+
+    });
+
+    $('#formCategoryRegis').submit(function (event) {
+        var formData = new FormData($(this)[0]);
+        $.ajax(
+            {
+                url: '@Url.Action("Edit", "ManageCategoryProduct")',
+                data: formData,
+                mimeType: "multipart/form-data",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    var result = jQuery.parseJSON(res);
+                    var message = "";
+                    if (result.ErrorMessages) {
+                        for (var i = 0; i < result.ErrorMessages.length; i++) {
+                            message += result.ErrorMessages[i] + "\n";
+                        }
+                        WebDuhoc.utility.showMessageModal(message, true);
+                    } else {
+                        message = result.isNew == true ? "@Message.RegisterSuccess" : "@Message.UpdateSuccess";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                            window.location.href = CategoryListUrl;
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    window.location.href = '/Common/Error/';
+                }
+            });
+        event.preventDefault();
+    });
+
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmClear)', function (action) {
+            $('.validation-summary-errors').remove();
+            if (action) {
+                if ($('#CATEGORY_ID_HIDDEN').val() == 0) {
+                    $("#ID").val(0);
+                    $("#DisplayOrder").val(0);
+                    $("#Name").val("");
+                    $("#Status").prop('checked', true).change();
+                    $('#STATUS_HIDDEN').val(true);
+                } else {
+
+                    $("#Name").val('@Model.Name');
+                    $("#DisplayOrder").val(@Model.DisplayOrder);
+                    $("#STATUS_HIDDEN").val('@Model.Status').change();
+                    if ('@Model.Status' == null || '@Model.Status' == "False") {
+                        $("#Status").prop("checked", false);
+                    } else {
+                        $("#Status").prop("checked", true);
+                    }
+
+                }
+            }
+        })
+    });
+
+    // Button Back
+    $(document).off('#btnBack');
+    $(document).on('click', '#btnBack', function () {
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmBack)', function (action) {
+            if (action) {
+
+                $(window).off('beforeunload');
+                window.location.href = CategoryListUrl;
+            }
+        })
+    });
+
+</script>
+
+
+
+
+

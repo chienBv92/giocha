@@ -1,0 +1,14 @@
+﻿@using WebDuhoc.Resources;
+@using WebDuhoc.Models;
+@{
+    //var currentUser = HttpContext.Current.Session["CmnEntityModel"] as CmnEntityModel;
+    //var authorityList = currentUser.AuthorityList as List<string>;
+}
+
+<ul class="dropdown-menu">
+    <b class="caret"></b>
+    <li><a href='@Url.Action("SetupPriceEdit", "AdminManageSetting")'><i class="fa fa-angle-right pull-left"></i>Thiết lập thông số hệ thống</a></li>
+
+    <li><a href='@Url.Action("SetupStatusEdit", "AdminManageSetting")'><i class="fa fa-angle-right pull-left"></i>Thiết lập trạng thái</a></li>
+
+</ul>

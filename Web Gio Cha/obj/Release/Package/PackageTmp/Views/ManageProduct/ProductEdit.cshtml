@@ -1,0 +1,417 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models.Define;
+
+@model ProductModel
+@{
+    ViewBag.Title = AdminLabel.ProductRegisterTitle;
+    if (@Model.ID != null && @Model.ID > 0)
+    {
+        ViewBag.Title = AdminLabel.ProductUpdate;
+    }
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    <script type="text/javascript" src="~/ckeditor4.8/ckeditor.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script>
+}
+
+<div id="NewsRegister" class="edit-screen">
+    @using (Html.BeginForm("Edit", "ManageProduct", FormMethod.Post, new { id = "formRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        <div id="title">@ViewBag.Title</div>
+        <input id="ID" name="ID" type="hidden" value="@Model.ID    ">
+
+        @Html.HiddenFor(m => m.del_flg, new { @class = "sp-id" })
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblCategory<span class="RequiredField">*</span></label>
+            @Html.DropDownListFor(m => m.CategoryID, Model.CATEGORY_LIST, new { @class = "width-200 padding-left-30  margin-0 category" })
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblProductName    <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.Name, new { @class = "lbltitle", maxlength = 100 })
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblMetaTitle    <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.MetaTitle, new { @class = "lbltitle", maxlength = 100 })
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblDetail    <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.Detail, new { @class = "content" })
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblPriceBefore    <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.PriceBefore, new { @class = "PriceBefore money", maxlength = 9 })
+            <span>VND</span>
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblPrice    <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.Price, new { @class = "price money", maxlength = 9 })
+            <span>VND</span>
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblDiscount </label>
+            @Html.TextBoxFor(m => m.Discount, new { @class = "ime-mode border-none", @readonly = "readonly" }) 
+            <span>%</span>
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblPromotion </label>
+            @Html.TextBoxFor(m => m.Promotion, new { @class = "lbltitle" })
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblQuatity </label>
+            @Html.TextBoxFor(m => m.Quantity, new { @class = "content", type = "number" })
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblUnit </label>
+            @Html.TextBoxFor(m => m.Unit, new { @class = "content" })
+        </div>
+        <div class="form-group">
+            @Html.Label(@AdminLabel.lblStatus, new { @for = "STATUS", @class = "title-row" })
+            @if (Model.Status == null || Model.Status == false)
+            {
+                <input id="Status" type="checkbox">
+                <input id="STATUS_HIDDEN" name="Status" type="hidden" value="false">
+            }
+            else
+            {
+                <input id="Status" type="checkbox" checked="checked">
+                <input id="STATUS_HIDDEN" name="Status" type="hidden" value="true">
+            }
+        </div>
+
+        <div class="form-group">
+            @Html.Label(@AdminLabel.lblHot, new { @for = "Is_Hot", @class = "title-row" })
+            @if (Model.Is_Hot == null || Model.Is_Hot == false)
+            {
+                <input id="Is_Hot" type="checkbox">
+                <input id="HOT_HIDDEN" name="Is_Hot" type="hidden" value="false">
+            }
+            else
+            {
+                <input id="Is_Hot" type="checkbox" checked="checked">
+                <input id="HOT_HIDDEN" name="Is_Hot" type="hidden" value="true">
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblSelectImage    </label>
+            @Html.TextBoxFor(m => m.Image, new { @class = "lblPicture" })
+            <button type="button" id="btnSelectImage" name="btnSelectImage" class="btn btn-default"><i class="btn-icon">Chọn ảnh </i></button>
+
+        </div>
+        @*<div class="form-group">
+            <label class="title-row">@AdminLabel.lblSelectMoreImage    </label>
+            @Html.TextBoxFor(m => m.MoreImages, new { @class = "lblFile" })
+            <button type="button" id="btnSelectFile" name="btnSelectFile" class="btn btn-default"><i class="btn-icon">Chọn file </i></button>
+        </div>*@
+
+        if (Model.ID > 0)
+        {
+            <div class="form-group">
+                <label class="title-row">@AdminLabel.lblInsertDate    </label>
+                @if (Model.CreatedDate.HasValue)
+                {
+                    <label class="title-disp">@Model.CreatedDate    </label>
+                }
+                <label class="title-row">@AdminLabel.lblInsertName    </label>
+                <label class="title-disp">@Model.CreateName    </label>
+            </div>
+            <div class="form-group">
+                <label class="title-row">@AdminLabel.lblUpdateDate    </label>
+                @if (Model.ModifiedDate.HasValue)
+                {
+                    <label class="title-disp">@Model.ModifiedDate    </label>
+                }
+                <label class="title-row">@AdminLabel.lblUpdateUser    </label>
+                <label class="title-disp">@Model.ModifiedName    </label>
+            </div>
+        }
+        <div class="form-group action-button-bottom">
+            <button type="button" id="btnBack" name="btnBack" class="btn btn-default"><i class="btn-icon btn-back">@AdminLabel.btnBack    </i></button>
+            <div class="pull-right">
+                <button type="button" id="btnClear" name="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear    </i></button>
+                <button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-orange"><i class="btn-icon btn-edit">@AdminLabel.btnRegister    </i></button>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    //CKEDITOR.editorConfig = function (config) {
+    //    config.language = 'vi';
+    //    config.uiColor = '#F7B42C';
+    //    config.height = '500px';
+    //    config.width = 450;
+    //    config.toolbarCanCollapse = true;
+    //    config.entities_latin = false;
+    //};
+    var UrlProductList = '@Url.Action("ProductList", "ManageProduct")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    WebDuhoc.utility.formatMoney();
+    WebDuhoc.utility.validFullHalfSize($("#Quantity"));
+    WebDuhoc.utility.imeControl($("#Quantity"), 'disable');
+    WebDuhoc.utility.checkInputNumber($("#Quantity"));
+
+
+    $(function () {
+        @*$('#CONTENT').html(@Model.CONTENT);*@
+
+        config = {};
+        config.width = 1024;
+        config.height = 300;
+
+        //config.toolbarCanCollapse = true;
+        config.entities_latin = false;
+        config.assets_languages = ['en'];
+
+        CKEDITOR.replace('Detail', config);
+
+        //CKEDITOR.replace('CONTENT', {
+        //    filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+        //    filebrowserUploadUrl: '/ckfinder/connector?command=QuickUpload&type=Files'
+        //});
+
+        // Hiển thị lại dữ liệu từ db
+        var html = WebDuhoc.utility.htmlDecode('@Model.Detail');
+        CKEDITOR.instances.Detail.setData(html);
+
+        //$("#Status").prop('checked', true).change();
+        //$('#STATUS_HIDDEN').val(true);
+        //$("#Is_Hot").prop('checked', true).change();
+        //$('#HOT_HIDDEN').val(true);
+
+        $('[name="Status"][value="@Model.Status"]').prop('checked', true);
+        $('#STATUS_HIDDEN').val('@Model.Status');
+        $('[name="Is_Hot"][value="@Model.Is_Hot"]').prop('checked', true);
+        $('#HOT_HIDDEN').val('@Model.Is_Hot');
+
+    })
+
+    $(document).off('#Status');
+    $(document).on('change', '#Status', function () {
+        if ($('#Status').is(":checked")) {
+            $('#STATUS_HIDDEN').val(true);
+        } else {
+            $('#STATUS_HIDDEN').val(false);
+        }
+    });
+
+    $(document).off('#Is_Hot');
+    $(document).on('change', '#Is_Hot', function () {
+        if ($('#Is_Hot').is(":checked")) {
+            $('#HOT_HIDDEN').val(true);
+        } else {
+            $('#HOT_HIDDEN').val(false);
+        }
+    });
+
+    function validateData() {
+        var invalidMess = [];
+
+        var category = $('#CategoryID').val();
+        var ProductName = $('#Name').val();
+        var metatitle = $('#MetaTitle').val();
+        var content = CKEDITOR.instances['Detail'].getData();
+
+        if (category == null || category.trim() == "" || category == "0") { // required content
+            errDisplay = '@AdminLabel.lblCategory' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+
+        if (ProductName == null || ProductName.trim() == "") { // required content
+            errDisplay = '@AdminLabel.lblProductName' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (ProductName.trim().length > 100) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @AdminLabel.lblProductName, Constant.MAX_EMAIL_LENGTH)");
+        }
+
+        if (metatitle == null || metatitle.trim() == "") { // required content
+            errDisplay = '@AdminLabel.lblMetaTitle' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (metatitle.trim().length > 100) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @AdminLabel.lblMetaTitle, Constant.MAX_EMAIL_LENGTH)");
+        }
+
+        if (content == null || content.trim() == "") { // required content
+            errDisplay = '@AdminLabel.lblDetail' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+
+        return invalidMess;
+    }
+
+    $(document).off('#btnSubmit');
+    $(document).on('click', '#btnSubmit', function () {
+        var result = WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null);
+        if (!result) return;
+
+        $('.validation-summary-errors').remove();
+        var invalidMess = validateData();
+        if (invalidMess.length > 0) {
+            WebDuhoc.utility.showClientError(invalidMess);
+            return false;
+        }
+
+        WebDuhoc.utility.showConfirmModal("Bạn muốn đăng kí sản phẩm mới?", function (action) {
+            if (action) {
+                var content = CKEDITOR.instances['Detail'].getData();
+
+                $('#Detail').val(content);
+                var value = $('#PriceBefore').val();
+                if (value.length > 0) {
+                    var price = WebDuhoc.utility.convertMoneyToInt(value, true);
+                }
+                $('#PriceBefore').val(price);
+
+                var value = $('#Price').val();
+                if (value.length > 0) {
+                    var price = WebDuhoc.utility.convertMoneyToInt(value, true);
+                }
+                $('#Price').val(price);
+
+                $("#formRegis").submit();
+            }
+        })
+    });
+
+    $('#formRegis').submit(function (event) {
+        var formData = new FormData($(this)[0]);
+        //add the content
+
+        $.ajax(
+            {
+                url: '@Url.Action("Edit", "ManageProduct")',
+                data: formData,
+                mimeType: "multipart/form-data",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    var result = jQuery.parseJSON(res);
+                    var message = "";
+                    if (result.ErrorMessages) {
+                        for (var i = 0; i < result.ErrorMessages.length; i++) {
+                            message += result.ErrorMessages[i] + "\n";
+                        }
+                        WebDuhoc.utility.showMessageModal(message, true);
+                    } else {
+                        message = result.isNew == true ? "@Message.RegisterSuccess" : "@Message.UpdateSuccess";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                            window.location.href = UrlProductList;
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    window.location.href = '/Common/Error/';
+                }
+            });
+        event.preventDefault();
+    });
+
+    // Button Back
+    $(document).off('#btnBack');
+    $(document).on('click', '#btnBack', function () {
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmBack)', function (action) {
+            if (action) {
+
+                $(window).off('beforeunload');
+                window.location.href = UrlProductList;
+            }
+        })
+    });
+
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmClear)', function (action) {
+            $('.validation-summary-errors').remove();
+
+            if (action) {
+                if ($('#ID').val() == 0) {
+                    $('#CategoryID').val('0');
+                    $('#Name').val('');
+                    $('#MetaTitle').val('');
+                    $('#Detail').val('');
+                    $('#PriceBefore').val(0);
+                    $('#Price').val(0);
+                    $('#Discount').val(0);
+                    $('#Promotion').val('');
+                    $('#Is_Hot').val(true);
+                    $('#Quantity').val(0);
+                    $('#Unit').val('');
+                    $('#Image').val('');
+
+                } else {
+                    $('#CategoryID').val('@Model.CategoryID');
+                    $('#Name').val('@Model.Name');
+                    $('#MetaTitle').val('@Model.MetaTitle');
+                    $('#PriceBefore').val('@Model.PriceBefore');
+                    $('#Price').val('@Model.Price');
+                    $('#Discount').val('@Model.Discount');
+                    $('#Promotion').val('@Model.Promotion');
+                    $('#Is_Hot').val(@Model.Is_Hot);
+                    $('#Quantity').val('@Model.Quantity');
+                    $('#Unit').val('@Model.Unit');
+                    $('#Promotion').val('@Model.Promotion');
+                    $('#Image').val('@Model.Image');
+
+                    var html = WebDuhoc.utility.htmlDecode('@Model.Detail');
+                    CKEDITOR.instances.Detail.setData(html);
+                }
+            }
+        })
+    });
+
+    // Click Button select picture
+    $(document).off('#btnSelectImage');
+    $(document).on('click', '#btnSelectImage', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        var finder = new CKFinder();
+        finder.resourceType = 'Images';
+        finder.selectActionFunction = function (url) {
+            $('#Image').val(url);
+        }
+        finder.popup();
+    })
+
+    // Click Button select picture
+    $(document).off('#btnSelectFile');
+    $(document).on('click', '#btnSelectFile', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        var finder = new CKFinder();
+        finder.resourceType = 'Files';
+        finder.selectActionFunction = function (url) {
+            $('#FILE').val(url);
+        }
+        finder.popup();
+    })
+
+    $(".PriceBefore, .price").change(function () {
+        var PriceBefore = $('#PriceBefore').val();
+        var Price = $('#Price').val();
+        var discount = 0;
+        if (PriceBefore.length > 0 && Price.length > 0) {
+            PriceBefore = WebDuhoc.utility.convertMoneyToInt(PriceBefore, true);
+            Price = WebDuhoc.utility.convertMoneyToInt(Price, true);
+            if (PriceBefore >= Price && PriceBefore > 0) {
+                discount = Math.round(((PriceBefore - Price) * 100) / PriceBefore);
+            }
+        }
+
+        $('#Discount').val(discount);
+    });
+
+</script>
+<style>
+    #NewsRegister #cke_CONTENT {
+        margin-left: 140px;
+    }
+</style>

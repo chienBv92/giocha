@@ -1,0 +1,19 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+
+@{
+    //var currentUser = HttpContext.Current.Session["CmnEntityModel"] as CmnEntityModel;
+    //var authorityList = currentUser.AuthorityList as List<string>;
+}
+
+<ul class="dropdown-menu">
+    <b class="caret"></b>
+
+    <li><a href='@Url.Action("NewsList", "ManageNews")'><i class="fa fa-angle-right pull-left"></i>Danh sách tin tức</a></li>
+
+    <li><a href='@Url.Action("NewsEdit", "ManageNews")'><i class="fa fa-angle-right pull-left"></i>Đăng kí tin mới</a></li>
+
+    <li><a href='@Url.Action("CategoryNewsList", "ManageCategoryNews")'><i class="fa fa-angle-right pull-left"></i>Danh sách danh mục tin tức</a></li>
+
+    <li><a href='@Url.Action("CategoryNewsEdit", "ManageCategoryNews")'><i class="fa fa-angle-right pull-left"></i>Đăng kí danh mục tin</a></li>
+</ul>

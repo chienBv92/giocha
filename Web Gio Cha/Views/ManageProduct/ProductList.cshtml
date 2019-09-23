@@ -1,0 +1,459 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models.Define;
+
+@model ProductModel
+@{
+    ViewBag.Title = AdminLabel.ProductListTitle;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="ProductList">
+    <div id="topContent">
+        <div id="title">@ViewBag.Title</div>
+        @using (Html.BeginForm("List", "ManageNews", FormMethod.Post, new { id = "formNewsSearch", enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div id="searchArea" class="clearfix">
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblCategory     </label>
+                    @Html.DropDownListFor(m => m.CategoryID, Model.CATEGORY_LIST, new { @class = "width-180 padding-left-30  margin-0 category" })
+                </div>
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblProductName    </label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "job-name", maxlength = 100 })
+                </div>
+
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblPriceBefore  </label>
+                    @Html.TextBoxFor(m => m.PriceBefore, new { @class = "money", maxlength = 9 })
+                    <label class="title-search">@AdminLabel.lblPrice    </label>
+                    @Html.TextBoxFor(m => m.Price, new { @class = "money", maxlength = 9 })
+                </div>
+                <div class="form-group">
+                    @Html.Label(@AdminLabel.lblStatus, new { @for = "STATUS", @class = "title-row" })
+                    @if (Model.Status == null || Model.Status == false)
+                    {
+                        <input id="Status" type="checkbox">
+                        <input id="STATUS_HIDDEN" name="Status" type="hidden" value="false">
+                    }
+                    else
+                    {
+                        <input id="Status" type="checkbox" checked="checked">
+                        <input id="STATUS_HIDDEN" name="Status" type="hidden" value="true">
+                    }
+                </div>
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblFromDate   </label>
+                    <span class="date datepicker-days">
+                        @Html.TextBoxFor(m => m.FromDate, "{0:dd/MM/yyyy}", new { @class = "ime-mode", maxlength = 10 })
+                        <button type="button" class="btn btn-default btn-add-on"><i class="btn-icon btn-calendar"></i></button>
+                    </span>
+
+                    <label class="title-row">@AdminLabel.lblToDate   </label>
+                    <span class="date datepicker-days">
+                        @Html.TextBoxFor(m => m.ToDate, "{0:dd/MM/yyyy}", new { @class = "ime-mode", maxlength = 10 })
+                        <button type="button" class="btn btn-default btn-add-on"><i class="btn-icon btn-calendar"></i></button>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label(@AdminLabel.lblDelete, new { @for = "del_flg", @class = "title-row" })
+                    @if (String.IsNullOrEmpty(Model.del_flg) || Model.del_flg.Equals("0"))
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="0">
+                    }
+                    else
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox" checked="checked">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="1">
+                    }
+                </div>
+            </div>
+
+            <hr />
+            <div id="searchAction">
+                <div class="pull-right">
+                    <button type="button" id="btnSearch" class="btn btn-green"><i class="btn-icon btn-search-white">@AdminLabel.btnSearch</i></button>
+                    <button type="button" id="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                </div>
+                @Html.HiddenFor(m => m.CategoryID)
+                @Html.HiddenFor(m => m.del_flg)
+            </div>
+        }
+    </div>
+
+    <div id="registButton">
+        <form id="frUpdateProduct" method="POST" action="@Url.Action("ProductEdit", "ManageProduct")">
+            <input type="hidden" id="hdnProductId" name="ProductId" value="0" />
+        </form>
+
+        <button type="button" id="btnRegister" name="btnRegister" class="btn btn-orange"><i class="btn-icon btn-regist"></i>@AdminLabel.btnRegister</button>
+    </div>
+
+    <hr />
+
+    <div id="mainContent">
+        <table id="InfoTable" class="dataTable cellspacing= " 0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>STT</th>
+                    <th>@AdminLabel.lblProductName</th>
+                    <th>@AdminLabel.lblImage</th>
+                    <th>@AdminLabel.lblPriceBefore</th>
+                    <th>@AdminLabel.lblPrice</th>
+                    <th>@AdminLabel.lblQuatity</th>
+                    <th>@AdminLabel.lblStatus</th>
+                    <th>@AdminLabel.lblInsertDate</th>
+                    <th>@AdminLabel.lblInsertName</th>
+                    <th>@AdminLabel.lblUpdateDate</th>
+                    <th>@AdminLabel.lblUpdateUser</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    var UrlProductRegister = '@Url.Action("ProductEdit", "ManageProduct")';
+    var UrlProductList = '@Url.Action("ProductList", "ManageProduct")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+    WebDuhoc.utility.formatMoney();
+
+    var dataTable = null;
+    var sort_colum = 0;
+    var sort_type = 'asc';
+    var deletelink = "Xóa";
+    var PRODUCT_ID = 0;
+    var ORDER = 1;
+    var PRODUCT_NAME = 2;
+    var IMAGE = 3;
+    var PRICE_BEFORE = 4;
+    var PRICE = 5;
+    var QUANTITY = 6;
+    var STATUS = 7;
+    var INS_DATE = 8;
+    var INS_USER_NAME = 9;
+    var UPD_DATE = 10;
+    var UPD_USER_NAME = 11;
+    var DELETE = 12;
+    var HOT = 13;
+
+    var rows_checked_list = [];
+
+    $(function () {
+        var oSorting = {
+            "bSort": false
+        };
+
+        var oPaginate = {
+            "bPaginate": true,
+            "iDisplayLength": 10, // setup amount record
+            "bStateSave": false
+        };
+
+        var oServerSide = {
+            "bServerSide": true,
+            "sAjaxSource": '@Url.Action("List", "ManageProduct")',
+            "fnServerParams": serverParams,
+            "fnInitComplete": displayComplete,
+            "fnDrawCallback": drawCallback,
+            "autoWidth": false,
+            "info": false
+        };
+        // Content in table
+        var aoColumnDefs = [
+             { "sName": "PRODUCT_ID", "bVisible": false, "aTargets": [PRODUCT_ID] },
+             { "sName": "ORDER", "bVisible": false, "aTargets": [ORDER] },
+             { "sName": "PRODUCT_NAME", "bVisible": false, "aTargets": [PRODUCT_NAME] },
+             { "sName": "IMAGE", "bVisible": false, "aTargets": [IMAGE] },
+             {
+                 "bSortable": false, "aTargets": [PRICE_BEFORE], "sWidth": "10%", "sClass": "cell_center",
+                 "mRender": function (data, type, full) { return formatMoney(full[PRICE_BEFORE]) }
+             },
+             {
+                 "bSortable": false, "aTargets": [PRICE], "sWidth": "10%", "sClass": "cell_center",
+                 "mRender": function (data, type, full) { return formatMoney(full[PRICE]) }
+             },
+             { "bSortable": false, "aTargets": [QUANTITY], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [STATUS], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [INS_DATE], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [INS_USER_NAME], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [UPD_DATE], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [UPD_USER_NAME], "sWidth": "20%", "sClass": "cell_center" },
+
+             { "bSortable": false, "aTargets": [DELETE], "sWidth": "5%", "sClass": "cell_center", "mRender": function (data, type, full) { return bindDeleteElement(full[PRODUCT_ID], 'delete-product-link btn btn-red', deletelink); } }
+
+        ];
+
+        // Tham so search input
+        function serverParams(aoData) {
+            aoData.push(
+                { "name": "CategoryID", "value": $("#CategoryID").val() },
+                { "name": "Name", "value": $("#Name").val() },
+                { "name": "PriceBefore", "value": $("#PriceBefore").val() },
+                { "name": "Price", "value": $("#Price").val() },
+                { "name": "FromDate", "value": $("#FromDate").val() },
+                { "name": "ToDate", "value": $("#ToDate").val() },
+                { "name": "del_flg", "value": $("#DEL_FLG_HIDDEN").val() },
+                { "name": "Status", "value": $("#STATUS_HIDDEN").val() }
+            );
+        }
+
+        function displayComplete(data) {
+            dataList = data.aaData;
+
+            if (sort_colum == 0) {
+                $('#InfoTable tr th:not(.sorting_disabled)').removeClass('sorting_asc sorting_desc').addClass('sorting').removeAttr('aria-sort');
+            }
+        }
+
+        function drawCallback() {
+            if ($('#tbLeft').length > 0) {
+                $('#InfoTable').unwrap();
+                $('.col-left, .rBarOn, .bBarOn').remove();
+            }
+
+            var htmlTbLeft = '<table id="tbLeft" class="dataTable" cellspacing="0">'
+                + ' <thead>'
+                + ' <tr>'
+                + ' <th>No</th>'
+                + ' <th>@AdminLabel.lblProductName</th>'
+                + ' <th>@AdminLabel.lblImage</th>'
+                + ' </tr>'
+                + ' </thead>'
+                + ' <tbody>';
+
+            if (dataList !== null && dataList.length > 0) {
+                for (var i = 0; i < dataList.length; i++) {
+                    var classRow = i % 2 == 0 ? 'odd' : 'even';
+                    //var height = $($('#InfoTable tbody tr')[i]).outerHeight();
+
+                    htmlTbLeft += ' <tr class="' + classRow + '">'
+                        + ' <td class="cell_center">' + WebDuhoc.utility.buildColumShortText(dataList[i][ORDER]) + '</td>'
+
+                    htmlTbLeft += ' <td class="titleNew text-overflow"> <div class = "titleNew" title="' + dataList[i][PRODUCT_NAME] + '">' + buildActionLink(dataList[i][PRODUCT_ID], dataList[i][PRODUCT_NAME], dataList[i][HOT], 'special-wrap') + '</div></td>'
+                                + ' <td class="category cell_center">' + bindpictureElement(dataList[i][IMAGE], dataList[i][PRODUCT_NAME], 'image-dsp') + '</td></tr>';
+                }
+            }
+
+            htmlTbLeft += '</tbody></table>';
+
+            $("#InfoTable").wrap('<div class="col-right dragOn"></div>').removeClass('no-footer');
+            $('div.col-right').before('<div class="col-left"> ' + htmlTbLeft + '</div>');
+            $('div.col-right').dragOn();
+            //$('div.col-right').barOn();
+
+        }
+
+        function formatMoney(money) {
+            var money = WebDuhoc.utility.convertIntToMoney(money);
+            return money + " VND";
+        }
+
+        function bindpictureElement(content, title, className) {
+            var html = '';
+            if (content != null) {
+                html = '<img class="' + className + '" src="' + content + '" title="' + title + '" alt="giò chả Vân Bảo">';
+            }
+            return html;
+        }
+
+        function buildDispDeadline(content) {
+            var html = '';
+            var currentDate = WebDuhoc.utility.GetDateNow();
+            var overDate = compareDateCustom(content, currentDate) == true ? 'dsp-deadline' : '';
+            {
+                html += '<label class="' + overDate + '">' + content + '</label>';
+            }
+            return html;
+        }
+
+        function compareDateCustom(startDate, endDate, format) {
+            var startYear = startDate.split('/')[2];
+            var startMonth = startDate.split('/')[1];
+            var startDay = startDate.split('/')[0];
+
+            var endYear = endDate.split('/')[2];
+            var endMonth = endDate.split('/')[1];
+            var endDay = endDate.split('/')[0];
+
+            var valid = true;
+            if (startYear > endYear) {
+                valid = false;
+            } else if (startYear == endYear) {
+                if (startMonth > endMonth) {
+                    valid = false;
+                } else if (startMonth == endMonth) {
+                    if (startDay > endDay) {
+                        valid = false;
+                    }
+                }
+            }
+
+            return valid;
+        }
+
+        function buildActionLink(id, content, hot) {
+            var html = '';
+
+            var htmlHot = hot > 0 ? '<img class="img-dsp" src="/Icons/icon-hot.gif" title="sản phẩm hot" alt="sản phẩm hot">' : "";
+            {
+                html += '<a class="ProductEdit link" data-productid="' + id + '">' + content + htmlHot + '</a>';
+            }
+            return html;
+        }
+
+        function bindDeleteElement(id, className, label) {
+            return '<a class="' + className + '" data-productid="' + id + '">' + label + '</a>';
+        }
+
+        dataTable = CreateDataTable('#InfoTable', oSorting, oPaginate, oServerSide, aoColumnDefs);
+
+    });
+
+    $(function () {
+        if ('@Model.del_flg' != ""){
+            $('[name="del_flg"][value="@Model.del_flg"]').prop('checked', true);
+            $('#DEL_FLG_HIDDEN').val('@Model.del_flg');
+        }
+        
+
+        $('[name="Status"][value="@Model.Status"]').prop('checked', true);
+        $('#Status_HIDDEN').val('@Model.Status');
+
+        $("#CategoryID").val('@Model.CategoryID');
+        $("#del_flg").val(@Model.del_flg);
+
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+
+        $("#Status").prop('checked', true).change();
+        $('#STATUS_HIDDEN').val(true);
+    });
+
+    $(document).off('#del_flg');
+    $(document).on('change', '#del_flg', function () {
+        if ($('#del_flg').is(":checked")) {
+            $('#DEL_FLG_HIDDEN').val('1');
+        } else {
+            $('#DEL_FLG_HIDDEN').val('0');
+        }
+        searchProducts();
+    });
+
+    $(document).off('#CategoryID');
+    $(document).on('change', '#CategoryID', function () {
+       
+        searchProducts();
+    });
+
+    $(document).off('#Status');
+    $(document).on('change', '#Status', function () {
+        if ($('#Status').is(":checked")) {
+            $('#STATUS_HIDDEN').val(true);
+        } else {
+            $('#STATUS_HIDDEN').val(false);
+        }
+        searchProducts();
+    });
+
+
+    // Button Search
+    $(document).off('#btnSearch');
+    $(document).on('click', '#btnSearch', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        searchProducts();
+    });
+
+    function searchProducts() {
+
+        var value = $('#PriceBefore').val();
+        if (value.length > 0) {
+            var price = WebDuhoc.utility.convertMoneyToInt(value, true);
+        }
+        $('#PriceBefore').val(price);
+
+        var value = $('#Price').val();
+        if (value.length > 0) {
+            var price = WebDuhoc.utility.convertMoneyToInt(value, true);
+        }
+        $('#Price').val(price);
+
+        dataTable.fnPageChange('first');
+    }
+
+    // Click Button Clear
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('.validation-summary-errors').remove();
+
+        $('#CategoryID').val('');
+        $('#Name').val('');
+        $('#FromDate').val('');
+        $('#ToDate').val('');
+        $('#PriceBefore').val(0);
+        $('#Price').val(0);
+        $('#Status').val(true);
+        $("#Status").prop('checked', true).change();
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+        searchProducts();
+
+    });
+
+    // Click redirect to Employee Register
+    $(document).off('#btnRegister');
+    $(document).on('click', '#btnRegister', function () {
+        window.location.href = UrlProductRegister; // Redirect to other Url
+
+    })
+    // click link edit
+    $(document).off('.ProductEdit');
+    $(document).on('click', '.ProductEdit', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('#hdnProductId').val($(this).data('productid'));
+        $('#frUpdateProduct').submit();
+    });
+
+    // Click link delete   delete-Account-link
+    $(document).off('.delete-product-link');
+    $(document).on('click', '.delete-product-link', function () {
+
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+        var productId = $(this).data('productid');
+
+        if (productId == '') return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmDelete, "sản phẩm ")', function (action) {
+            if (action) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: '@Url.Action("DeleteProduct")',
+                    data: { PRODUCT_ID: productId },
+                    success: function (data) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.DeleteSuccess)", true);
+                        dataTable.fnStandingRedraw();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.ConfirmDeleteError)", true);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+<style>
+
+</style>

@@ -1,0 +1,103 @@
+﻿@using Web_Gio_Cha.Resources;
+
+@{
+    var currentUser = HttpContext.Current.Session["CmnEntityModel"] as Web_Gio_Cha.Models.CmnEntityModel;
+    bool IsSmallMenu = Page.IsSmallMenu;
+}
+    <li class="parent-node">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" aria-expanded="false">
+            <i class="btn-icon btn-icon-manage"></i>
+            @if (!IsSmallMenu)
+            {
+                <span>@SideMenu.ManageCategory</span>
+            }
+        </a>
+        @RenderPage("_SideMenuPartialAdminManageCategory.cshtml")
+    </li>
+    @if (3 == 3)
+    {
+        <li class="parent-node">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" aria-expanded="false">
+                <i class="btn-icon btn-ds_don"></i>
+                @if (!IsSmallMenu)
+                {
+                    <span>@SideMenu.ManageProduct</span>
+                }
+            </a>
+            @RenderPage("_SideMenuPartialManageProduct.cshtml")
+        </li>
+
+    <li class="parent-node">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" aria-expanded="false">
+            <i class="btn-icon btn-icon-money"></i>
+            @if (!IsSmallMenu)
+            {
+                <span>@SideMenu.ManageOrder</span>
+            }
+        </a>
+        @RenderPage("_SideMenuPartialManageOrder.cshtml")
+    </li>
+
+    <li class="parent-node">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" aria-expanded="false">
+            <i class="btn-icon btn-icon-news"></i>
+            @if (!IsSmallMenu)
+            {
+                <span>@SideMenu.ManageNews</span>
+            }
+        </a>
+        @RenderPage("_SideMenuPartialManageNews.cshtml")
+    </li>
+
+    <li class="parent-node">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" aria-expanded="false">
+            <i class="btn-icon btn-icon-user"></i>
+            @if (!IsSmallMenu)
+            {
+                <span>@SideMenu.ManageUser</span>
+            }
+        </a>
+        @RenderPage("_SideMenuPartialManageUser.cshtml")
+    </li>
+        
+    <li class="parent-node">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="500" aria-expanded="false">
+            <i class="btn-icon btn-icon-address"></i>
+            @if (!IsSmallMenu)
+            {
+                <span>@SideMenu.ManageCityPrice</span>
+            }
+        </a>
+        @RenderPage("_SideMenuPartialManageAddress.cshtml")
+    </li>
+        
+    }
+
+    <li class="parent-node" id="linkLogout">
+        <a title="@SideMenu.LogOut" class="logOut dropdown-toggle" style="cursor:pointer">
+            <i class="btn-icon btn-logout"></i>
+        </a>
+    </li>
+
+
+<script>
+    var logoutUrl = '@Url.Action("Logout", "UserAccount")';
+
+    $('.parent-node').mouseover(function () {
+        $(this).addClass('open');
+    });
+    $('.parent-node').mouseout(function () {
+        $(this).removeClass('open');
+    });
+
+    $(document).off('.logOut');
+    $(document).on('click', '.logOut', function () {
+        event.preventDefault();
+        WebDuhoc.utility.showConfirmModal('@Message.ConfirmLogoutAccount', function (action) {
+            if (action) {
+                window.location.href = "/thoat";
+            }
+        })
+    });
+
+</script>

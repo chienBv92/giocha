@@ -1,0 +1,55 @@
+﻿
+@using Web_Gio_Cha.Models
+@model LoginModel
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<td class="row" align="center" valign="top">
+    <h2>@ViewBag.Title</h2>
+    <div class="col-md-12">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.Label("Email:", new { @class = "lblText" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.USER_EMAIL, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.USER_EMAIL, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.Label("Mật khẩu:", new { @class = "lblText" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.USER_PASSWORD, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.USER_PASSWORD, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Đăng nhập" class="btn btn-default" />
+                    </div>
+                </div>
+                <p>
+                    <span>Bạn chưa có tài khoản?</span><a href="/dang-ky"> Đăng ký</a>
+                </p>
+                <p>
+                    @Html.ActionLink("Quên mật khẩu?", "ForgotPassword")
+                </p>
+            }
+        </section>
+    </div>
+</td>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

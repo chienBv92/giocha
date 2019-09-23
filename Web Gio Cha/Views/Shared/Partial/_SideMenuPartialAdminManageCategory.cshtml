@@ -1,0 +1,13 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+
+@{
+    //var currentUser = HttpContext.Current.Session["CmnEntityModel"] as CmnEntityModel;
+    //var authorityList = currentUser.AuthorityList as List<string>;
+}
+
+<ul class="dropdown-menu">
+
+    <li><a href='@Url.Action("ProductCategoryList", "ManageCategoryProduct")'><i class="fa fa-angle-right pull-left"></i>Quản lí Category sản phẩm</a></li>
+    <li><a href='@Url.Action("ProductCategoryEdit", "ManageCategoryProduct")'><i class="fa fa-angle-right pull-left"></i>Đăng ký Category mới</a></li>
+</ul>

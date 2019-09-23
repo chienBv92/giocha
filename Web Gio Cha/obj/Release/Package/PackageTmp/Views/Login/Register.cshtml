@@ -1,0 +1,224 @@
+﻿@using Web_Gio_Cha.Models;
+@using Web_Gio_Cha.Resources;
+
+@model UserModel
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<td class="row" align="center" valign="top">
+    <div class="col-md-12">
+        <section id="loginForm">
+            @using (Html.BeginForm("Register", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "formUserRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
+            {
+                <h2 >@ViewBag.Title</h2>
+
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.HiddenFor(m => m.ID)
+   
+                @Html.ValidationSummary(false)
+                <span id="title"></span>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.Label("Email:", new { @class = "lblText" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.Label("Họ Tên:", new { @class = "lblText" })
+                    </div>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.Label("Mật khẩu:", new { @class = "lblText" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2">
+                        @Html.Label("Số điện thoại:", new { @class = "lblText" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group center margin-left-6" style="margin-bottom: 15px">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button id="btnSubmit" type="button" name="btnSubmit" style="margin-bottom: 10px" class="btn btn-green">Đăng ký</button>
+                    </div>
+                    <div class="col-md-offset-2 col-md-10" style="margin-bottom: 10px">
+                        <a href="@Url.Action("ResetPassword", "UserAccount")">Quên mật khẩu?</a>
+                    </div>
+                </div>
+                
+            }
+        </section>
+    </div>
+</td>
+
+<script>
+    $(function () {
+        WebDuhoc.utility.validFullHalfSize($("#Email"));
+        WebDuhoc.utility.imeControl($("#Email"), 'disable');
+        WebDuhoc.utility.validFullHalfSize($("#Password"));
+        WebDuhoc.utility.imeControl($("#Password"), 'disable');
+
+        WebDuhoc.utility.validFullHalfSize($("#Phone"));
+        WebDuhoc.utility.imeControl($("#Phone"), 'disable');
+        WebDuhoc.utility.checkInputNumber($("#Phone"));
+
+    })
+
+    function validateData() {
+        var invalidMess = [];
+
+        var userEmail = $('#Email').val();
+        var userName = $('#UserName').val();
+        var password = $('#Password').val();
+        var phone = $('#Phone').val();
+
+        var userID = $('#ID').val();
+        var status = $('#Status').val();
+        var errContent = [];
+        var errDisplay = [];
+        var invalidMess = [];
+
+        // validate user Email
+        if (userEmail == null || userEmail.trim() == "") { // required content
+            errDisplay = '@UserLabel.lblEmail' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (userEmail.trim().length > 100) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @UserLabel.lblEmail, Constant.MAX_EMAIL_LENGTH)");
+        }
+        else if (!WebDuhoc.utility.validEmail(userEmail)) {
+            invalidMess.push("@string.Format(@Message.IncorrectFormat, @UserLabel.lblEmail)");
+        }
+
+        // validate user name
+        if (userName == null || userName.trim() == "") { // required content
+            errDisplay = '@UserLabel.lblUserName' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (userName.trim().length > Constant.MAX_USER_NAME_LENGTH) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, UserLabel.lblUserName, Constant.MAX_USER_NAME_LENGTH)");
+        }
+        // Validate password
+        if (userID == 0) {
+            if (password == null || password.trim() == "") {
+                errDisplay = '@UserLabel.lblPassword' + Constant.ERR_REQUIRED;
+                invalidMess.push(errDisplay);
+            } else if (password.trim().length < Constant.MIN_INPUT_PASS) {
+                invalidMess.push("@string.Format(Message.CheckMinLength, UserLabel.lblPassword, Constant.MIN_INPUT_PASS)");
+            } else if (password.trim().length > Constant.MAX_INPUT_PASS) {
+                invalidMess.push("@string.Format(Message.CheckMaxLength, UserLabel.lblPassword, Constant.MAX_INPUT_PASS)");
+            }
+        }
+
+        if (phone == null || phone.trim() == "" || phone == 0) {
+            errDisplay = '@UserLabel.lblPhone' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (phone.trim().length > 13) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @UserLabel.lblPhone, Constant.MAX_PHONE_LENGTH)");
+        }
+            // check numberic
+        else if (!WebDuhoc.utility.validPhone(phone)) {
+            invalidMess.push("@string.Format(@Message.IncorrectFormat, @UserLabel.lblPhone)");
+        }
+
+        return invalidMess;
+    }
+
+    $(document).off('#btnSubmit');
+    $(document).on('click', '#btnSubmit', function () {
+        //if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('.validation-summary-errors').remove();
+        var invalidMess = validateData();
+        if (invalidMess.length > 0) {
+            WebDuhoc.utility.showClientError(invalidMess);
+            return false;
+        }
+
+        var existUser = false;
+        var userOld = $('#ID').val();
+
+        // Chi truong hop dang ki moi thi moi check trung code
+        if (userOld == 0) {
+            var userEmail = $('#Email').val();
+
+            var paramCheckExist = {
+                userEmail: userEmail
+            };
+
+            var data = WebDuhoc.utility.getDataByAjax('@Url.Action("CheckExistUserEmail", "Login")', paramCheckExist);
+            if (typeof (data) != 'undefined' || data != null) {
+                existUser = data.exist;
+            } else {
+                WebDuhoc.utility.showMessageModal('@string.Format(Message.msgErrorWhenCheckExist)', true);
+            }
+        }
+
+        var confirmMess = existUser ? '@string.Format(Message.msgConfirmExistAccount)' : '@string.Format(Message.ConfirmSubmitData, (Model.ID > 0 ? Message.Update : Message.Register))';
+        if (existUser) {
+            WebDuhoc.utility.showMessageModal(confirmMess, true);
+        } else {
+            WebDuhoc.utility.showConfirmModal(confirmMess, function (action) {
+                if (action) {
+
+                    $("#formUserRegis").submit();
+                }
+            })
+        }
+
+    });
+
+    $('#formUserRegis').submit(function (event) {
+        var formData = new FormData($(this)[0]);
+        $.ajax(
+            {
+                url: '@Url.Action("Register", "Login")',
+                data: formData,
+                mimeType: "multipart/form-data",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    var result = jQuery.parseJSON(res);
+                    var message = "";
+                    if (result.ErrorMessages) {
+                        for (var i = 0; i < result.ErrorMessages.length; i++) {
+                            message += result.ErrorMessages[i] + "\n";
+                        }
+                        WebDuhoc.utility.showMessageModal(message, true);
+                    } else {
+                        message = result.isNew == true ? "@Message.RegisterSuccess" : "@Message.UpdateSuccess";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                            window.location.href = "/trang-chu";
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    window.location.href = '/Common/Error/';
+                }
+            });
+        event.preventDefault();
+    });
+</script>

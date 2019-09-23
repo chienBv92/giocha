@@ -1,0 +1,413 @@
+﻿body {
+    padding: 0px;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    font-weight:normal;
+    font-size:13px;
+}
+
+@media screen and (max-width: 1024px) {
+    .row {
+        width: 100%;
+    }
+}
+
+.center{
+    text-align:center;
+}
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+.font-bold {
+    font-weight: bold;
+}
+.RequiredField {
+    color: red;
+}
+.container .link-top{
+    padding-left:20px;
+    padding-right:20px;
+}
+.container .link-top .nav-link{
+    color:#f7f9f7;
+}
+.banner-left #myCarousel .img-banner{
+    height: 450px;
+    width: 100%!important;
+}
+.banner-right #myCarousel .img-banner{
+    height: 450px;
+    width: 100%!important;
+}
+#navbarSupportedContent {
+    margin-top: 20px;
+    float: right;
+}
+#navbarSupportedContent .navbar-right .nav-link{
+    color:rgba(0,0,0,.5);
+    text-decoration:none;
+}
+.validation-summary-errors{
+    color:red;
+    text-align:left;
+}
+.first last ul li {
+    list-style-type: none;
+}
+
+.container-fluid {
+    padding: 0px;
+}
+
+.navbar-toggler .icon-menu {
+    font-size: 25px;
+}
+
+.navbar-nav ul {
+    list-style-type: none;
+}
+
+@media (max-width: 768px) {
+    .divTop {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    #btnShowMenu {
+        display: inline-block;
+    }
+    #Listduhoc .QuangCaoBanner {
+        display: none;
+    }
+}
+@media (min-width: 992px) {
+
+     #btnShowMenu {
+        display: inline-block;
+    }
+
+    .navbar-expand-lg .navbar-collapse {
+        display: none!important;
+    }
+
+    /*.divMainTop .navbar-collapse {
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+    }*/
+}
+@media (min-width: 1200px) {
+
+    #btnShowMenu {
+        display: none;
+    }
+
+    .divMainTop .navbar-collapse {
+        display: inline-block !important;
+    }
+}
+
+.divBottom{
+   background:#8b8c8a;
+}
+
+.divTop {
+    border-bottom: 1px solid #e8ebf2;
+    background: #1e73be;
+}
+.divTop .txt-header{
+    float: left;
+    font-size: 12px;
+    color: white;
+}
+    .divMainTop .navbar {
+        margin-bottom: 0px;
+    }
+
+    .divTop .navbar-nav, .divMainTop .navbar-nav {
+        list-style-type: none;
+    }
+
+        .divTop .navbar-nav .nav-item, .divTop .navbar-nav .nav-link {
+            padding: 5px;
+            color: white;
+        }
+
+    .divTop .nav-item:hover, .divTop .nav-item .nav-link:hover {
+        color: wheat !important;
+    }
+     .divTop .img-iconTop {
+        padding:5px;
+    }
+.container #btnShowMenu {
+    margin: 30px;
+    margin-top: 50px;
+}
+
+.divMainTop .navbar-brand {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.divMainTop .navbar-nav {
+    margin-top: 20px;
+    float: right;
+}
+
+.divMainTop .nav-link  {
+    padding: 5px;
+    font-weight: bold;
+    font-weight:bold;
+    font-size:16px;
+}
+
+#navbarSupportedContent li> a{
+     line-height: 60px!important;
+}
+.divMainTop .nav-item {
+    padding: 5px;
+}
+
+    .divMainTop .nav-item:hover {
+        background: #0088cc;
+        line-height: 60px;
+        color: white;
+    }
+
+#Home .bannerDisplay{
+    padding: 5px;
+}
+#Home .bannerDisplay #carouselExampleControls .img-banner{
+    height:450px;
+}
+#Home .bannerDisplay.banner-right{
+    padding-left: 0px;
+}
+
+#Home .divDuhoc {
+    margin-top:10px;
+    background:#efefef;
+}
+#Home .divDuhoc .banner-left{
+    background:#efefef;
+    /*border-right:1px solid #abafb5;*/
+
+}
+#Home .divDuhoc .banner-left .divTitle{
+    
+}
+#Home .divDuhoc .infoDuhoc .formDuhoc{
+    line-height: 23px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    border-bottom: 1px dashed;
+}
+#Home .divDuhoc .infoDuhoc .formDuhoc .NewsView {
+    width:100%;
+    display:inline-block;
+}
+#Home .divDuhoc .infoDuhoc .formDuhoc .inner-img{
+    float:left;
+    padding-right:10px;
+}
+#Home .divDuhoc .infoDuhoc .formDuhoc .img-dsp{
+    height: 85px;
+    width: 120px;
+}
+#Home .divDuhoc .infoDuhoc .formDuhoc .titleTxt{
+    margin:0px;
+    margin-top:5px;
+    font-size:20px;
+}
+#Home .divDuhoc .infoDuhoc .formDuhoc .date-dsp{
+    float:right;
+    margin-top:5px;
+    color:#f9547e;
+}
+#Home .divDuhoc .infoDuhoc .formDuhoc a:hover{
+    color:#c40339;
+    text-decoration:none;
+    background-color:#738fd6;
+}
+
+#Home .divCSNhat .formTin{
+    line-height: 23px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+#Home .divCSNhat .formTin a:hover{
+    color:#c40339;
+}
+
+#Home .divCSNhat .viewMore .clickMore{
+    padding-bottom: 10px;
+    font-weight:bold;
+    font-size:14px;
+}
+#Home .divCSNhat .viewMore a:hover{
+    color:#c40339;
+    font-weight:bold;
+    font-size:14px;
+}
+
+#Home .divDuhoc .infoTinTuc .formDuhoc{
+    line-height: 23px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+#Home .divDuhoc .infoTinTuc .formDuhoc a:hover{
+    color:#c40339;
+}
+
+#Home .divDuhoc .viewMore .clickMore{
+    padding-bottom: 10px;
+    font-weight:bold;
+    font-size:14px;
+}
+#Home .divDuhoc .viewMore a:hover{
+    color:#c40339;
+    font-weight:bold;
+    font-size:14px;
+}
+
+#Home .divDuhoc .banner-right{
+    background:#efefef;
+}
+
+#Home .divViecLam #tbJobs{
+    background-color: WhiteSmoke;
+    border-style: None;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#Home .divViecLam .banner-left{
+    background:#efefef;
+    border-right:1px solid #abafb5;
+}
+
+#Home .divNganhNghe{
+   background:WhiteSmoke;
+   margin:5px;
+}
+
+#Home .divNganhNghe .infoNghanh{
+    margin:10px;
+    padding:20px;
+    background:#f5f9f4;
+}
+
+#Home .divCSNhat{
+   background:WhiteSmoke;
+   margin:5px;
+}
+
+#Home .divCSNhat .infoNghanh{
+    padding:20px;
+    background:#f5f9f4;
+}
+
+/*Màn hình danh sách tin du học*/
+#Listduhoc {
+    width:100%;
+    margin:0px;
+    background:#efefef;
+}
+#Listduhoc .box-duhoc{
+    border:1px solid #efefef;
+    background: white;
+}
+#Listduhoc .infoDuhoc .formDuhoc{
+    line-height: 23px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    border-bottom: 1px dashed;
+}
+#Listduhoc .infoDuhoc .formDuhoc .NewsView {
+    width:100%;
+    display:inline-block;
+}
+#Listduhoc .infoDuhoc .formDuhoc .inner-img{
+    float:left;
+    padding-right:10px;
+}
+#Listduhoc .infoDuhoc .formDuhoc .img-dsp{
+    height: 120px;
+    width: 150px;
+    margin:5px 10px 5px 10px;
+}
+#Listduhoc .infoDuhoc .formDuhoc .date-dsp{
+    float: right;
+    margin-right: 20px;
+}
+#Listduhoc .infoDuhoc .formDuhoc a:hover{
+    color:#c40339;
+    text-decoration:none;
+    background-color:#f2dfc4;
+    border:2px solid #f9bd66;
+    border-top:none;
+}
+#Listduhoc #pagination{
+    float:right;
+}
+#Listduhoc #loadingPopup {
+    display:none;
+    position: fixed;
+    z-index: 998!important;
+    top: 300px;
+    left: 600px;
+    height: 100%;
+    width: 100%;
+}
+
+#Listduhoc #loadingPopup #TB_load {
+    display:block;
+}
+
+.infoBottom .link-bottom{
+    text-align:center;
+}
+.infoBottom .link-bottom .nav-link {
+        line-height: 34px;
+        font-size: 23px;
+        color:wheat;
+    }
+.infoBottom .link-bottom .nav-link:hover{
+        color:#e177ff;
+    }
+
+#Home .divNganhNghe .txt-description{
+    height:90px;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    font-weight:normal;
+}
+
+/*phan vung tuy chinh man hinh lien he tu van*/ 
+#ConactForUser {
+    background: aliceblue;
+}
+#ConactForUser #RegisterContact .txt-name{
+    width:300px;
+}
+#ConactForUser #RegisterContact .note-textarea{
+    width:300px;
+    min-height:100px;
+}
+#ConactCompany {
+    background: aliceblue;
+}
+#ConactCompany #RegisterContact .txt-name{
+    width:300px;
+}
+#ConactCompany #RegisterContact .note-textarea{
+    width:300px;
+    min-height:100px;
+}
