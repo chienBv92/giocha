@@ -168,4 +168,7 @@
   <data name="DeleteSuccess" xml:space="preserve">
     <value>Đã xóa bản ghi!</value>
   </data>
+  <data name="DistrictNameLength" xml:space="preserve">
+    <value>{0} tối đa 50 kí tự!</value>
+  </data>
 </root>

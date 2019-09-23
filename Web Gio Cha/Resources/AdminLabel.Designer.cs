@@ -115,11 +115,65 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hiển thị.
+        /// </summary>
+        public static string CityDisplay {
+            get {
+                return ResourceManager.GetString("CityDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tỉnh, thành phố.
+        /// </summary>
+        public static string CityName {
+            get {
+                return ResourceManager.GetString("CityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thứ tự .
         /// </summary>
         public static string DisplayOrder {
             get {
                 return ResourceManager.GetString("DisplayOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã quận huyện.
+        /// </summary>
+        public static string DistricCode {
+            get {
+                return ResourceManager.GetString("DistricCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên quận huyện.
+        /// </summary>
+        public static string DistricName {
+            get {
+                return ResourceManager.GetString("DistricName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng kí quận huyện.
+        /// </summary>
+        public static string DistrictRegisterTitle {
+            get {
+                return ResourceManager.GetString("DistrictRegisterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉnh sửa quận huyện.
+        /// </summary>
+        public static string DistricUpdateTitle {
+            get {
+                return ResourceManager.GetString("DistricUpdateTitle", resourceCulture);
             }
         }
         
@@ -318,6 +372,24 @@ namespace Web_Gio_Cha.Resources {
         public static string lblUpdateUser {
             get {
                 return ResourceManager.GetString("lblUpdateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cấp.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giá ship.
+        /// </summary>
+        public static string PriceShip {
+            get {
+                return ResourceManager.GetString("PriceShip", resourceCulture);
             }
         }
         

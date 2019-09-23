@@ -142,6 +142,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} tối đa 50 kí tự!.
+        /// </summary>
+        public static string DistrictNameLength {
+            get {
+                return ResourceManager.GetString("DistrictNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} không đúng định dạng!.
         /// </summary>
         public static string IncorrectFormat {

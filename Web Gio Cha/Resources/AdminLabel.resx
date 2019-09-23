@@ -222,4 +222,28 @@
   <data name="lblUpdateUser" xml:space="preserve">
     <value>Người cập nhật</value>
   </data>
+  <data name="CityDisplay" xml:space="preserve">
+    <value>Hiển thị</value>
+  </data>
+  <data name="CityName" xml:space="preserve">
+    <value>Tỉnh, thành phố</value>
+  </data>
+  <data name="DistricCode" xml:space="preserve">
+    <value>Mã quận huyện</value>
+  </data>
+  <data name="DistricName" xml:space="preserve">
+    <value>Tên quận huyện</value>
+  </data>
+  <data name="DistrictRegisterTitle" xml:space="preserve">
+    <value>Đăng kí quận huyện</value>
+  </data>
+  <data name="DistricUpdateTitle" xml:space="preserve">
+    <value>Chỉnh sửa quận huyện</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Cấp</value>
+  </data>
+  <data name="PriceShip" xml:space="preserve">
+    <value>Giá ship</value>
+  </data>
 </root>
