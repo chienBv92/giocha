@@ -1,142 +1,341 @@
 ﻿@charset "utf-8";
+
+/*==================================================
+=            Bootstrap 3 Media Queries             =
+==================================================*/
+
+/*==========  Mobile First Method  ==========*/
+
+/* Custom, iPhone Retina */
+@media only screen and (min-width : 320px) {
+    .slideshow {
+        height: 100px;
+    }
+    .slideshow img{
+        width:auto;
+        height:100%;
+    }
+
+    .product {
+        height: 255px;
+    }
+    .prd-content{
+        height: 205px;
+    }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+    .slideshow {
+        height: 150px;
+    }
+
+    .product {
+        height: 380px;
+    }
+    .prd-content {
+        height: 300px;
+    }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    .menu tbody tr td {
+        width: 80px;
+    }
+
+    .Texttopmenu {
+        font-size: 8px;
+    }
+
+        .Texttopmenu a {
+            font-size: 8px;
+        }
+
+    .slideshow {
+        height: 150px;
+    }
+
+    .product {
+        height: 310px;
+    }
+    .prd-content {
+        height: 220px;
+    }
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+    .menu tbody tr td {
+        width: 106px;
+    }
+
+    .Texttopmenu {
+        font-size: 12px;
+    }
+
+        .Texttopmenu a {
+            font-size: 12px;
+        }
+
+    .slideshow {
+        height: 300px;
+    }
+
+    .product {
+        height: 255px;
+    }
+    .prd-content {
+        height: 205px;
+    }
+}
+
+.nopadding {
+    padding: 0 !important;
+}
+
+.nomargin {
+    margin: 0 !important;
+}
+
+.padding-2 {
+    padding: 2px;
+}
+
 body {
-	font: 100% Tahoma, Geneva, sans-serif;
-	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
-	padding: 0;
-	text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
-	font-size:13px
+    font: 100% Tahoma, Geneva, sans-serif;
+    margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+    padding: 0;
+    text-align: center; /* this centers the container in IE 5* browsers. The text is then set to the left aligned default in the #container selector */
+    font-size: 13px
 }
-.codo { color:#F00}
-.boderright {border-right: dotted 1px #999}
-.boderbottom {border-bottom:1px solid #999}
-h1 { font-size:16px; color:#666;}
-.subtitle { font-size:11px; color: #666; font-style:italic}
-.white { color:#FFF}
-.link a { color:#333; text-decoration:none}
-.link a:hover { text-decoration: underline}
+
+.codo {
+    color: #F00
+}
+
+.boderright {
+    border-right: dotted 1px #999
+}
+
+.boderbottom {
+    border-bottom: 1px solid #999
+}
+
+h1 {
+    font-size: 16px;
+    color: #666;
+}
+
+.subtitle {
+    font-size: 11px;
+    color: #666;
+    font-style: italic
+}
+
+.white {
+    color: #FFF
+}
+
+.link a {
+    color: #333;
+    text-decoration: none
+}
+
+    .link a:hover {
+        text-decoration: underline
+    }
+
 .co4f790d {
-	color:#4f790d; line-height:18px
+    color: #4f790d;
+    line-height: 18px
 }
+
 .co12a9c7 {
-	color:#12a9c7
+    color: #12a9c7
 }
+
 .MenuLeft {
-	background-image:url(../Images/bg_danhmucLeft.jpg);
-	height:24px;
-	width:196px;
-	color:#FFF;
-	padding-left:22px;
-	font-size:12px;
-	font-family:Tahoma, Geneva, sans-serif
+    background-image: url(../Images/bg_danhmucLeft.jpg);
+    height: 24px;
+    width: 196px;
+    color: #FFF;
+    padding-left: 22px;
+    font-size: 12px;
+    font-family: Tahoma, Geneva, sans-serif
 }
+
 .Titlesanpham {
-	color:#ff3300;
-	font-weight:bold;
-	font-size:12px
+    color: #ff3300;
+    font-weight: bold;
+    font-size: 12px
 }
+
 .Texttopmenu {
-	color:#FFF;
-	font-weight:bold;
-	font-size:12px;
-	text-decoration:none
+    color: #FFF;
+    font-weight: bold;
+    text-decoration: none;
 }
-.Texttopmenu a {
-	color:#FFF;
-	font-weight:bold;
-	font-size:12px;
-	text-decoration:none; height:34px; width:106px; line-height:34px;
-	padding-top:5px;
-	display:block;
-}
-.Texttopmenu a:hover {
-	color: #000;
-	background-image:url(../Images/bg_topmenu.png);
-	
-}
+
+    .Texttopmenu a {
+        color: #FFF;
+        font-weight: bold;
+        text-decoration: none;
+        height: 34px;
+        line-height: 34px;
+        display: block;
+    }
+
+        .Texttopmenu a:hover {
+            color: #000;
+            background-image: url(../Images/bg_topmenu.png);
+            background-size: 100% 100%;
+        }
+
 .textfooter {
-	color:#9a9998;
-	text-align:center
+    color: #9a9998;
+    text-align: center
 }
+
 .linkgiohang a {
-	color:#3333ff;
-	text-decoration:underline
+    color: #3333ff;
+    text-decoration: underline
 }
+
 .numberphone1 {
-	color:#12a9c7;
-	font-size:18px;
-	font-weight:bolder
+    color: #12a9c7;
+    font-size: 18px;
+    font-weight: bolder
 }
+
 .numberphone2 {
-	color:#1e4353;
-	font-size:18px;
-	font-weight:bolder
+    color: #1e4353;
+    font-size: 18px;
+    font-weight: bolder
 }
+
 .Titlesanpham {
-	height:31px;
-	width:203px;
-	background-image:url(../Images/bg_titlesanpham.jpg);
-	background-repeat:no-repeat;
-	display:block;
-	color:#FFF;
-	text-align:center;
-	line-height:31px
+    background-image: url(../Images/bg_titlesanpham.jpg);
+    background-repeat: no-repeat;
+    display: block;
+    color: #FFF;
+    text-align: center;
+    line-height: 31px;
+    background-size: 100% 100%;
 }
+
 .Titlesanpham2 {
-	height:31px;
-	width:203px;
-	background-image:url(../Images/bg_titlesanpham.jpg);
-	background-repeat:no-repeat;
-	display:block;
-	color:#FFF;
-	text-align: left;
-	line-height:31px;
-	padding-left:20px
+    height: 31px;
+    width: 203px;
+    background-image: url(../Images/bg_titlesanpham.jpg);
+    background-repeat: no-repeat;
+    display: block;
+    color: #FFF;
+    text-align: left;
+    line-height: 31px;
+    padding-left: 20px
 }
+
 .co0066cc {
-	color:#0066cc;
-	font-weight:bold;
-	font-size:12px
+    color: #0066cc;
+    font-weight: bold;
+    font-size: 12px
 }
+
+    .co0066cc:after {
+        margin-left: 2px;
+        content: "";
+        width: 11px;
+        height: 11px;
+        background: url(../Images/iconVND.jpg) no-repeat;
+        display: inline-block;
+    }
+
 .cored {
-	color:#F00;
-	text-decoration:line-through;
-	font-size:14px
+    color: #F00;
+    text-decoration: line-through;
+    font-size: 14px
 }
+
 .bold {
-	font-weight:bold
+    font-weight: bold
 }
+
 .size14 {
-	font-size:14px
+    font-size: 14px
 }
+
 .co333 {
-	color:#333
+    color: #333
 }
-.linkfooter a{ color:#FFF; text-decoration:none}
-.linkfooter a:hover { text-decoration:underline}
-.linkmenuleft a{ color:#FFF; background-image:url(../Images/bg_danhmucLeft.jpg); height:24px; width:176px; line-height:24px; text-align:left; display:block; text-decoration:none; padding-left:20px}
-.linkmenuleft a:hover { background-image:url(../Images/bg_danhmucLeft_over.jpg);}
-.boder { border:1px solid #CCC}
-.textcontent { padding:15px}
-.textdetail { padding:3px 3px 3px 8px}
-.Price { font-weight:bold; font-size:12px; color:#F30}
-.black { color:#000}
+
+.linkfooter a {
+    color: #FFF;
+    text-decoration: none
+}
+
+    .linkfooter a:hover {
+        text-decoration: underline
+    }
+
+.linkmenuleft a {
+    color: #FFF;
+    background-image: url(../Images/bg_danhmucLeft.jpg);
+    height: 24px;
+    width: 176px;
+    line-height: 24px;
+    text-align: left;
+    display: block;
+    text-decoration: none;
+    padding-left: 20px
+}
+
+    .linkmenuleft a:hover {
+        background-image: url(../Images/bg_danhmucLeft_over.jpg);
+    }
+
+.boder {
+    border: 1px solid #CCC
+}
+
+.textcontent {
+    padding: 15px
+}
+
+.textdetail {
+    padding: 3px 3px 3px 8px
+}
+
+.Price {
+    font-weight: bold;
+    font-size: 12px;
+    color: #F30
+}
+
+.black {
+    color: #000
+}
 
 .btn-green {
     background-color: #3fa012;
     color: #fff;
 }
-.validation-summary-errors{
-    text-align:left;
-    margin-left:30px;
+
+.validation-summary-errors {
+    text-align: left;
+    margin-left: 30px;
 }
-.margin-left-30{
-    margin-left:30px;
+
+.margin-left-30 {
+    margin-left: 30px;
 }
-.left{
-    text-align:left;
+
+.left {
+    text-align: left;
 }
-.right{
-    text-align:right;
+
+.right {
+    text-align: right;
 }
 
 input[type="password"], select {
@@ -145,15 +344,37 @@ input[type="password"], select {
     box-shadow: 0 4px 4px 0 #ECECEC inset;
 }
 
-.lblText{
-    font-weight:normal;
-    font-size:13px;
-    text-align:left;
-    float:left;
+.lblText {
+    font-weight: normal;
+    font-size: 13px;
+    text-align: left;
+    float: left;
 }
-.loginInfo{
-    font-weight:normal;
-    font-size:13px;
-    min-width:120px;
-    color:blue;
+
+.loginInfo {
+    font-weight: normal;
+    font-size: 13px;
+    min-width: 120px;
+    color: blue;
+}
+
+.product {
+    background-image: url(../Images/background_sanpham.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding-top: 15px;
+}
+
+.prd-img {
+    width: 100%;
+    height: auto;
+}
+
+.btn-img {
+    width: 100%;
+    height: auto;
+}
+
+.prd-title {
+    font-weight: bold;
 }
