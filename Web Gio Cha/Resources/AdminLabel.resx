@@ -249,4 +249,16 @@
   <data name="DistrictListTitle" xml:space="preserve">
     <value />
   </data>
+  <data name="lblContent" xml:space="preserve">
+    <value>Nội dung</value>
+  </data>
+  <data name="lblEditNews" xml:space="preserve">
+    <value>Cập nhật tin tức</value>
+  </data>
+  <data name="lblRegisterNews" xml:space="preserve">
+    <value>Đăng kí tin tức</value>
+  </data>
+  <data name="lblTitleNews" xml:space="preserve">
+    <value>Tiêu đề</value>
+  </data>
 </root>

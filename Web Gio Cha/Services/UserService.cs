@@ -24,7 +24,7 @@ namespace Web_Gio_Cha.Services
             {
                 try
                 {
-                    User User = new User();
+                    TblUser User = new TblUser();
                     User.Email = model.Email;
                     User.UserName = model.UserName;
                     User.Password = SafePassword.GetSaltedPassword(model.Password);
@@ -65,7 +65,7 @@ namespace Web_Gio_Cha.Services
             {
                 try
                 {
-                    User User = new User();
+                    TblUser User = new TblUser();
                     User.UserName = model.UserName;
                     User.Name = model.Name;
                     User.Phone = model.Phone;

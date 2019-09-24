@@ -196,6 +196,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nội dung.
+        /// </summary>
+        public static string lblContent {
+            get {
+                return ResourceManager.GetString("lblContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xóa.
         /// </summary>
         public static string lblDelete {
@@ -219,6 +228,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblDiscount {
             get {
                 return ResourceManager.GetString("lblDiscount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật tin tức.
+        /// </summary>
+        public static string lblEditNews {
+            get {
+                return ResourceManager.GetString("lblEditNews", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đăng kí tin tức.
+        /// </summary>
+        public static string lblRegisterNews {
+            get {
+                return ResourceManager.GetString("lblRegisterNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ảnh đại diện.
         /// </summary>
         public static string lblSelectImage {
@@ -345,6 +372,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblStatus {
             get {
                 return ResourceManager.GetString("lblStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiêu đề.
+        /// </summary>
+        public static string lblTitleNews {
+            get {
+                return ResourceManager.GetString("lblTitleNews", resourceCulture);
             }
         }
         
