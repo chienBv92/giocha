@@ -115,3 +115,65 @@ D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Debug\Web_Gio_Cha.Reso
 D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\obj\Debug\Web_Gio_Cha.Resources.AdminLabel.resources
 D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\CKFinder.dll
 D:\OneDrive\Du an Web Gio Cha\Web Gio Cha\Web Gio Cha\bin\CKFinder.pdb
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Web Gio Cha.dll.config
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Web Gio Cha.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Web Gio Cha.pdb
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Antlr3.Runtime.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\CKFinder.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\EntityFramework.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\EntityFramework.SqlServer.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.AspNet.Identity.Core.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.AspNet.Identity.Owin.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Cookies.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Facebook.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Google.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.OAuth.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Twitter.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Web.Infrastructure.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Newtonsoft.Json.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Owin.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Helpers.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Mvc.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Optimization.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Razor.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.WebPages.Deployment.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.WebPages.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.WebPages.Razor.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\WebGrease.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\CKFinder.pdb
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Helpers.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Mvc.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Optimization.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.Razor.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.WebPages.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.WebPages.Deployment.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\System.Web.WebPages.Razor.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Antlr3.Runtime.pdb
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Newtonsoft.Json.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\EntityFramework.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\EntityFramework.SqlServer.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.AspNet.Identity.Core.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.AspNet.Identity.Owin.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Facebook.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Cookies.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.OAuth.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Google.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.Twitter.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web Gio Cha.csprojResolveAssemblyReference.cache
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web_Gio_Cha.Resources.AdminLabel.resources
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web_Gio_Cha.Resources.Message.resources
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web_Gio_Cha.Resources.SideMenu.resources
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web_Gio_Cha.Resources.UserLabel.resources
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web Gio Cha.csproj.GenerateResource.Cache
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web Gio Cha.dll
+D:\2019_DU AN\Web Gio Cha v1.0\Web Gio Cha\obj\Debug\Web Gio Cha.pdb
