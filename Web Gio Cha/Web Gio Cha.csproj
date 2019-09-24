@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1588,6 +1590,7 @@
     <Content Include="Images\bt_xoa.gif" />
     <Content Include="Images\bulletNews.gif" />
     <Content Include="Images\caytre.png" />
+    <Content Include="Images\deal-tag.png" />
     <Content Include="Images\demosanpham1.jpg" />
     <Content Include="Images\demosanpham2.jpg" />
     <Content Include="Images\dienthoai.jpg" />
@@ -1682,7 +1685,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -1731,6 +1734,7 @@
     <Content Include="Views\ManageProduct\ProductEdit.cshtml" />
     <Content Include="Views\ManageProduct\ProductList.cshtml" />
     <Content Include="Views\ManageDistrict\DistrictEdit.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

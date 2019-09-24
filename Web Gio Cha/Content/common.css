@@ -11,15 +11,17 @@
     .slideshow {
         height: 100px;
     }
-    .slideshow img{
-        width:auto;
-        height:100%;
-    }
+
+        .slideshow img {
+            width: auto;
+            height: 100%;
+        }
 
     .product {
         height: 255px;
     }
-    .prd-content{
+
+    .prd-content {
         height: 205px;
     }
 }
@@ -33,6 +35,7 @@
     .product {
         height: 380px;
     }
+
     .prd-content {
         height: 300px;
     }
@@ -59,6 +62,7 @@
     .product {
         height: 310px;
     }
+
     .prd-content {
         height: 220px;
     }
@@ -85,6 +89,7 @@
     .product {
         height: 255px;
     }
+
     .prd-content {
         height: 205px;
     }
@@ -242,19 +247,11 @@ h1 {
     font-size: 12px
 }
 
-    .co0066cc:after {
-        margin-left: 2px;
-        content: "";
-        width: 11px;
-        height: 11px;
-        background: url(../Images/iconVND.jpg) no-repeat;
-        display: inline-block;
-    }
 
 .cored {
     color: #F00;
     text-decoration: line-through;
-    font-size: 14px
+    font-size: 14px;
 }
 
 .bold {
@@ -370,6 +367,20 @@ input[type="password"], select {
     height: auto;
 }
 
+.discount:after {
+    content: attr(data-content);
+    width: 40px;
+    height: 40px;
+    background-image: url(../Images/deal-tag.png);
+    background-repeat: no-repeat;
+    top: 15px;
+    right: 30px;
+    color: white;
+    line-height: 30px;
+    position: absolute;
+    display: inline-block;
+}
+
 .btn-img {
     width: 100%;
     height: auto;
@@ -378,3 +389,32 @@ input[type="password"], select {
 .prd-title {
     font-weight: bold;
 }
+
+.money:after {
+    content: "đ";
+}
+
+.div-menu:before {
+    height: 150px;
+    width: 80px;
+    content: "";
+    background-image: url(../Images/bg_menuLeft.png);
+    background-repeat: no-repeat;
+    left: -54px;
+    top: 15px;
+    position: absolute;
+    display: inline-block;
+}
+
+.div-menu:after {
+    height: 150px;
+    width: 80px;
+    content: "";
+    background-image: url(../Images/bg_menuRight.png);
+    background-repeat: no-repeat;
+    right: -79px;
+    top: 15px;
+    position: absolute;
+    display: inline-block;
+}
+
