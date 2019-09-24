@@ -68,9 +68,9 @@ namespace Web_Gio_Cha.Da
             return product;
         }
 
-        public User getUserByID(long Id)
+        public TblUser getUserByID(long Id)
         {
-            User user = da.User.Where(s => s.ID == Id).SingleOrDefault();
+            TblUser user = da.TblUser.Where(s => s.ID == Id).SingleOrDefault();
             return user;
         }
 
@@ -81,8 +81,8 @@ namespace Web_Gio_Cha.Da
         {
             var lstProduct = (from pro in da.Product
                               join cate in da.Product_Category on pro.CategoryID equals cate.ID
-                              join user in da.User on pro.CreatedBy equals user.ID
-                              from userB in da.User.Where(i=>i.ID == pro.ModifiedBy).DefaultIfEmpty()
+                              join user in da.TblUser on pro.CreatedBy equals user.ID
+                              from userB in da.TblUser.Where(i => i.ID == pro.ModifiedBy).DefaultIfEmpty()
                               //join userB in da.User.DefaultIfEmpty on pro.ModifiedBy equals userB.ID
                               where (pro.del_flg == model.del_flg && (!String.IsNullOrEmpty(model.Name) == true ? pro.Name.Contains(model.Name) : 1 == 1))
                               where (pro.Status.HasValue ? pro.Status == model.Status : 1 == 1)

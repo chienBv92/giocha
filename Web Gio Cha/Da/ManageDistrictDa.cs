@@ -44,6 +44,10 @@ namespace Web_Gio_Cha.Da
                 try
                 {
                     // set data
+                    city.Name = entity.Name;
+                    city.Level = entity.Level;
+                    city.Status = entity.Status;
+                    city.PriceShip = entity.PriceShip;
                     city.del_flg = Constant.DeleteFlag.NON_DELETE;
                     city.ModifiedDate = DateTime.Now;
                     city.ModifiedBy = CmnEntityModel.ID;
@@ -67,9 +71,9 @@ namespace Web_Gio_Cha.Da
             return product;
         }
 
-        public User getUserByID(long Id)
+        public TblUser getUserByID(long Id)
         {
-            User user = da.User.Where(s => s.ID == Id).SingleOrDefault();
+            TblUser user = da.TblUser.Where(s => s.ID == Id).SingleOrDefault();
             return user;
         }
 

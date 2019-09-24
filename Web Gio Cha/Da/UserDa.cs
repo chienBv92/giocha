@@ -10,17 +10,17 @@ namespace Web_Gio_Cha.Da
 {
     public class UserDa:BaseDa
     {
-        public long InsertUser(User entity)
+        public long InsertUser(TblUser entity)
         {
-            da.User.Add(entity);
+            da.TblUser.Add(entity);
             da.SaveChanges();
             return entity.ID;
         }
 
         // Update
-        public long UpdateUser(User entity)
+        public long UpdateUser(TblUser entity)
         {
-            var user = da.User.Find(entity.ID);
+            var user = da.TblUser.Find(entity.ID);
             if (user != null)
             {
                 //kan.HanViet = entity.HanViet;
@@ -49,13 +49,13 @@ namespace Web_Gio_Cha.Da
 
         public bool Login(string Email, string password)
         {
-            var result = da.User.Count(i => i.Email == Email && i.Password == password);
+            var result = da.TblUser.Count(i => i.Email == Email && i.Password == password);
             return result > 0 ? true : false;
         }
 
-        public User getUserByEmail(string Email)
+        public TblUser getUserByEmail(string Email)
         {
-            var result = da.User.SingleOrDefault(i => i.Email == Email);
+            var result = da.TblUser.SingleOrDefault(i => i.Email == Email);
             return result;
         }
 
@@ -63,7 +63,7 @@ namespace Web_Gio_Cha.Da
         {
             UserModel model = new UserModel();
 
-            User user = da.User.Where(s => s.ID == userId).SingleOrDefault();
+            TblUser user = da.TblUser.Where(s => s.ID == userId).SingleOrDefault();
             if (user != null)
             {
                 model.ID = user.ID;
@@ -75,7 +75,7 @@ namespace Web_Gio_Cha.Da
         public bool CheckExistUserEmail(string Email)
         {
             Email = Email.Trim();
-            var result = da.User.Where(x => x.Email == Email).SingleOrDefault();
+            var result = da.TblUser.Where(x => x.Email == Email).SingleOrDefault();
 
             if (result != null)
             {
