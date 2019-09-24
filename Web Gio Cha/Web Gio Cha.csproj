@@ -176,12 +176,14 @@
     <Compile Include="Controllers\ManageCategoryProductController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManageDistrictController.cs" />
+    <Compile Include="Controllers\ManageNewsController.cs" />
     <Compile Include="Controllers\ManageProductController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Da\BaseDa.cs" />
     <Compile Include="Da\CommonDa.cs" />
     <Compile Include="Da\KanjiDa.cs" />
     <Compile Include="Da\ManageDistrictDa.cs" />
+    <Compile Include="Da\ManageNewsDa.cs" />
     <Compile Include="Da\ProductCategoryDa.cs" />
     <Compile Include="Da\ProductDa.cs" />
     <Compile Include="Da\UserDa.cs" />
@@ -239,6 +241,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Define\CityModel.cs" />
     <Compile Include="Models\Define\DataTableModel.cs" />
+    <Compile Include="Models\Define\NewsModel.cs" />
     <Compile Include="Models\Define\ProductCategoryModel.cs" />
     <Compile Include="Models\Define\ProductModel.cs" />
     <Compile Include="Models\Define\UserModel.cs" />
@@ -273,6 +276,7 @@
     <Compile Include="Services\CommonService.cs" />
     <Compile Include="Services\KanjiService.cs" />
     <Compile Include="Services\ManageDistrictService.cs" />
+    <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\ProductCategoryService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -1735,6 +1739,8 @@
     <Content Include="Views\ManageProduct\ProductList.cshtml" />
     <Content Include="Views\ManageDistrict\DistrictEdit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\ManageNews\NewsEdit.cshtml" />
+    <Content Include="Views\ManageNews\NewsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
