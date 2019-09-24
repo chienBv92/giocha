@@ -150,6 +150,13 @@ namespace Web_Gio_Cha.Services
             IEnumerable<ProductModel> results = dataAccess.SearchProductList(dt, model, out total_row);
             return results;
         }
+
+        public IEnumerable<Product> SearchProductList(int maxItem = 12)
+        {
+            ProductDa dataAccess = new ProductDa();
+            IEnumerable<Product> results = dataAccess.GetHotProducts(maxItem);
+            return results;
+        }
         #endregion
 
         #region DELETE

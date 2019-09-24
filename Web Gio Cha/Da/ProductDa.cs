@@ -123,6 +123,12 @@ namespace Web_Gio_Cha.Da
 
             return lstProduct;
         }
+
+        public List<Product> GetHotProducts(int maxItem)
+        {
+            var lstProduct = da.Product.Where(x => x.Is_Hot.Value && x.Status.Value && x.del_flg.Equals("0")).OrderByDescending(o => o.ModifiedDate).OrderByDescending(o => o.CreatedDate).Take(maxItem);
+            return lstProduct.ToList();
+        }
         #endregion
 
         #region DELETE

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web_Gio_Cha.Services;
 
 namespace Web_Gio_Cha.Controllers
 {
@@ -10,6 +11,14 @@ namespace Web_Gio_Cha.Controllers
     {
         public ActionResult Index()
         {
+            if (ModelState.IsValid)
+            {
+                using (ProductService service = new ProductService())
+                {
+                    var dataList = service.SearchProductList();
+                    return View(dataList);
+                }
+            }
             return View();
         }
 
