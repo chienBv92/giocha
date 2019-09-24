@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="GioChaModel.TblCity" Width="1.5" PointX="8.75" PointY="0.75" />
         <EntityTypeShape EntityType="GioChaModel.TblMenuContent" Width="1.5" PointX="8.75" PointY="4.75" />
         <EntityTypeShape EntityType="GioChaModel.TblNews" Width="1.5" PointX="8.75" PointY="7.75" />
-        <EntityTypeShape EntityType="GioChaModel.User" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GioChaModel.TblUser" Width="1.5" PointX="10.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

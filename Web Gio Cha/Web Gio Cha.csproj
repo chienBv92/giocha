@@ -230,7 +230,7 @@
     <Compile Include="EF\TblNews.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\User.cs">
+    <Compile Include="EF\TblUser.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">

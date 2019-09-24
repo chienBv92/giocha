@@ -8,7 +8,7 @@ using Web_Gio_Cha.EF;
 
 namespace Web_Gio_Cha.Models
 {
-    public class UserModel: User
+    public class UserModel: TblUser
     {
         public int USER_ID { get; set; }
     }

@@ -15,26 +15,30 @@ namespace Web_Gio_Cha.EF
 using System;
     using System.Collections.Generic;
     
-public partial class Slide
+public partial class TblUser
 {
 
-    public int ID { get; set; }
+    public long ID { get; set; }
 
-    public string Image { get; set; }
+    public string UserName { get; set; }
 
-    public Nullable<int> DisplayOrder { get; set; }
+    public string Email { get; set; }
 
-    public string Link { get; set; }
+    public string Password { get; set; }
+
+    public string Name { get; set; }
+
+    public string Phone { get; set; }
 
     public Nullable<System.DateTime> CreatedDate { get; set; }
 
-    public Nullable<long> CreatedBy { get; set; }
-
     public Nullable<System.DateTime> ModifiedDate { get; set; }
 
-    public string ModifiedBy { get; set; }
-
     public Nullable<bool> Status { get; set; }
+
+    public Nullable<bool> IsAdmin { get; set; }
+
+    public string Email_Confirm { get; set; }
 
     public string del_flg { get; set; }
 

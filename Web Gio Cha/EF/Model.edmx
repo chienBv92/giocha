@@ -166,7 +166,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="MetaTitle" Type="varchar" MaxLength="250" />
           <Property Name="Content" Type="ntext" />
           <Property Name="Image" Type="nvarchar" MaxLength="250" />
@@ -174,10 +174,10 @@
           <Property Name="CreatedBy" Type="bigint" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedBy" Type="bigint" />
-          <Property Name="Display" Type="bit" />
+          <Property Name="Status" Type="bit" />
           <Property Name="del_flg" Type="char" MaxLength="1" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="TblUser">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -205,7 +205,7 @@
           <EntitySet Name="TblCity" EntityType="Self.TblCity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblMenuContent" EntityType="Self.TblMenuContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblNews" EntityType="Self.TblNews" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblUser" EntityType="Self.TblUser" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -222,7 +222,7 @@
           <EntitySet Name="TblCity" EntityType="GioChaModel.TblCity" />
           <EntitySet Name="TblMenuContent" EntityType="GioChaModel.TblMenuContent" />
           <EntitySet Name="TblNews" EntityType="GioChaModel.TblNews" />
-          <EntitySet Name="User" EntityType="GioChaModel.User" />
+          <EntitySet Name="TblUser" EntityType="GioChaModel.TblUser" />
         </EntityContainer>
         <EntityType Name="Menu">
           <Key>
@@ -385,7 +385,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MetaTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -393,10 +393,10 @@
           <Property Name="CreatedBy" Type="Int64" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="Int64" />
-          <Property Name="Display" Type="Boolean" />
+          <Property Name="Status" Type="Boolean" />
           <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="TblUser">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -587,7 +587,7 @@
             <EntityTypeMapping TypeName="GioChaModel.TblNews">
               <MappingFragment StoreEntitySet="TblNews">
                 <ScalarProperty Name="del_flg" ColumnName="del_flg" />
-                <ScalarProperty Name="Display" ColumnName="Display" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -600,9 +600,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User">
-            <EntityTypeMapping TypeName="GioChaModel.User">
-              <MappingFragment StoreEntitySet="User">
+          <EntitySetMapping Name="TblUser">
+            <EntityTypeMapping TypeName="GioChaModel.TblUser">
+              <MappingFragment StoreEntitySet="TblUser">
                 <ScalarProperty Name="del_flg" ColumnName="del_flg" />
                 <ScalarProperty Name="Email_Confirm" ColumnName="Email_Confirm" />
                 <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
