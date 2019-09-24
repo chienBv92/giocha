@@ -1,0 +1,287 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models.Define;
+
+@model NewsModel
+@{
+    ViewBag.Title = AdminLabel.DistrictListTitle;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="CityList">
+    <div id="topContent">
+        <div id="title">@ViewBag.Title</div>
+        @using (Html.BeginForm("Search", "AdminManageDistrict", FormMethod.Post, new { id = "formDistrictSearch", enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div id="searchArea" class="clearfix">
+
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblTitleNews</label>
+                    @Html.TextBoxFor(m => m.Name, new { @class = "txt-w-250", @style = "ime-mode: auto;", maxlength = 50 })
+
+                </div>
+
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblFromDate   </label>
+                    <span class="date datepicker-days">
+                        @Html.TextBoxFor(m => m.FromDate, "{0:dd/MM/yyyy}", new { @class = "ime-mode", maxlength = 10 })
+                        <button type="button" class="btn btn-default btn-add-on"><i class="btn-icon btn-calendar"></i></button>
+                    </span>
+
+                    <label class="title-row">@AdminLabel.lblToDate   </label>
+                    <span class="date datepicker-days">
+                        @Html.TextBoxFor(m => m.ToDate, "{0:dd/MM/yyyy}", new { @class = "ime-mode", maxlength = 10 })
+                        <button type="button" class="btn btn-default btn-add-on"><i class="btn-icon btn-calendar"></i></button>
+                    </span>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label(@AdminLabel.lblDelete, new { @for = "del_flg", @class = "title-row" })
+                    @if (String.IsNullOrEmpty(Model.del_flg) || Model.del_flg.Equals("0"))
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="0">
+                    }
+                    else
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox" checked="checked">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="1">
+                    }
+                </div>
+            </div>
+
+            <hr />
+            <div id="searchAction">
+                <div class="pull-right">
+                    <button type="button" id="btnSearch" class="btn btn-green"><i class="btn-icon btn-search-white">@AdminLabel.btnSearch</i></button>
+                    <button type="button" id="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="registButton">
+        <form id="frUpdateNews" method="POST" action="@Url.Action("NewsEdit", "ManageNews")">
+            <input type="hidden" id="hdnNewsId" name="newsId" value="0" />
+        </form>
+
+        <button type="button" id="btnRegister" name="btnRegister" class="btn btn-orange"><i class="btn-icon btn-regist"></i>@AdminLabel.btnRegister</button>
+    </div>
+
+    <hr />
+
+    <div id="mainContent">
+        <table id="InfoTable" class="dataTable cellspacing= " 0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>STT</th>
+                    <th>@AdminLabel.lblTitleNews</th>
+                    <th>@AdminLabel.CityDisplay</th>
+                    <th>@AdminLabel.lblInsertDate</th>
+                    <th>@AdminLabel.lblInsertName</th>
+                    <th>@AdminLabel.lblUpdateDate</th>
+                    <th>@AdminLabel.lblUpdateUser</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    var UrlNewsRegister = '@Url.Action("NewsEdit", "ManageNews")';
+    var UrlNewsList = '@Url.Action("NewsList", "ManageNews")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    var dataTable = null;
+    var sort_colum = 0;
+    var sort_type = 'asc';
+    var deletelink = "Xóa";
+    var NEWS_ID = 0;
+    var ORDER = 1;
+    var TITLE = 2;
+    var STATUS = 3;
+    var INS_DATE = 4;
+    var INS_USER_NAME = 5;
+    var UPD_DATE = 6;
+    var UPD_USER_NAME = 7;
+    var DELETE = 8;
+
+    var rows_checked_list = [];
+
+    $(function () {
+        var oSorting = {
+            "bSort": false
+        };
+
+        var oPaginate = {
+            "bPaginate": true,
+            "iDisplayLength": 10, // setup amount record
+            "bStateSave": false
+        };
+
+        var oServerSide = {
+            "bServerSide": true,
+            "sAjaxSource": '@Url.Action("NewsList", "ManageNews")',
+            "fnServerParams": serverParams,
+            "fnInitComplete": displayComplete,
+            "fnDrawCallback": drawCallback,
+            "autoWidth": false,
+            "info": false
+        };
+        // Content in table
+        var aoColumnDefs = [
+             { "sName": "NEWS_ID", "bVisible": false, "aTargets": [NEWS_ID] },
+             { "bSortable": false, "aTargets": [ORDER], "sWidth": "10%", "sClass": "cell_center order text-overflow", "sName": "ORDER" },
+             {
+                 "bSortable": false, "aTargets": [TITLE], "sWidth": "10%", "sClass": "cell_center",
+                 "mRender": function (data, type, full) { return buildActionLink(full[NEWS_ID], full[TITLE]); }
+             },
+             { "bSortable": false, "aTargets": [STATUS], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [INS_DATE], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [INS_USER_NAME], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [UPD_DATE], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [UPD_USER_NAME], "sWidth": "20%", "sClass": "cell_center" },
+
+             { "bSortable": false, "aTargets": [DELETE], "sWidth": "10%", "sClass": "cell_center", "mRender": function (data, type, full) { return bindDeleteElement(full[NEWS_ID], 'delete-news-link btn btn-red', deletelink); } }
+
+        ];
+
+        // Tham so search input
+        function serverParams(aoData) {
+            aoData.push(
+                { "name": "Name", "value": $("#Name").val() },
+                { "name": "FromDate", "value": $("#FromDate").val() },
+                { "name": "ToDate", "value": $("#ToDate").val() },
+                { "name": "del_flg", "value": $("#DEL_FLG_HIDDEN").val() }
+            );
+        }
+
+        function displayComplete(data) {
+            dataList = data.aaData;
+
+            if (sort_colum == 0) {
+                $('#InfoTable tr th:not(.sorting_disabled)').removeClass('sorting_asc sorting_desc').addClass('sorting').removeAttr('aria-sort');
+            }
+        }
+
+        function formatMoney(money) {
+            var money = WebDuhoc.utility.convertIntToMoney(money);
+            return money + " VND";
+        }
+
+        function drawCallback() { }
+
+        function buildActionLink(id, content) {
+            var html = '';
+            {
+                html += '<a class="NewsEdit link" data-newsid="' + id + '">' + content + '</a>';
+            }
+            return html;
+        }
+
+        function bindDeleteElement(id, className, label) {
+            return '<a class="' + className + '" data-newsid="' + id + '">' + label + '</a>';
+        }
+
+        dataTable = CreateDataTable('#InfoTable', oSorting, oPaginate, oServerSide, aoColumnDefs);
+
+    });
+
+    $(function () {
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+
+    });
+
+    $(document).off('#del_flg');
+    $(document).on('change', '#del_flg', function () {
+        if ($('#del_flg').is(":checked")) {
+            $('#DEL_FLG_HIDDEN').val('1');
+        } else {
+            $('#DEL_FLG_HIDDEN').val('0');
+        }
+        searchNews();
+    });
+
+    // Button Search
+    $(document).off('#btnSearch');
+    $(document).on('click', '#btnSearch', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        searchNews();
+    });
+
+    function searchNews() {
+
+        dataTable.fnPageChange('first');
+    }
+
+    // Click Button Clear
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+
+        $("#Name").val("");
+        $('#FromDate').val('');
+        $('#ToDate').val('');
+
+        searchNews();
+    })
+
+    // Click redirect to Employee Register
+    $(document).off('#btnRegister');
+    $(document).on('click', '#btnRegister', function () {
+        window.location.href = UrlNewsRegister; // Redirect to other Url
+
+    })
+    // click link edit
+    $(document).off('.NewsEdit');
+    $(document).on('click', '.NewsEdit', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('#hdnNewsId').val($(this).data('newsid'));
+        $('#frUpdateNews').submit();
+    });
+
+    // Click link delete   delete-Account-link
+    $(document).off('.delete-news-link');
+    $(document).on('click', '.delete-news-link', function () {
+
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+        var newsId = $(this).data('newsid');
+
+        if (newsId == '') return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmDelete, "tin ")', function (action) {
+            if (action) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: '@Url.Action("DeleteNews")',
+                    data: { NEWS_ID: newsId },
+                    success: function (data) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.DeleteSuccess)", true);
+                        dataTable.fnStandingRedraw();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.ConfirmDeleteError)", true);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+<style>
+    #CityList {
+        margin: 25px;
+    }
+</style>
