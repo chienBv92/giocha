@@ -83,7 +83,7 @@ namespace Web_Gio_Cha.Da
 
             var lstCategory = (from cate in da.Product_Category
                                join user in da.User on cate.CreatedBy equals user.ID
-                               where (cate.del_flg == model.del_flg && (!String.IsNullOrEmpty(model.Name) == true ? cate.Name == model.Name : 1 == 1))
+                               where (cate.del_flg == model.del_flg && (!String.IsNullOrEmpty(model.Name) == true ? cate.Name.Contains(model.Name) : 1 == 1))
                                select new ProductCategoryModel
                                {
                                    Name = cate.Name,

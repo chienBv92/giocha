@@ -7,6 +7,7 @@ using Web_Gio_Cha.Da;
 using Web_Gio_Cha.EF;
 using Web_Gio_Cha.Models.Define;
 using Web_Gio_Cha.Resources;
+using WebDuhoc.Models.Define;
 
 namespace Web_Gio_Cha.Services
 {
@@ -61,7 +62,8 @@ namespace Web_Gio_Cha.Services
                 try
                 {
                     TblCity city = new TblCity();
-
+                    city.ID = model.ID;
+                    city.Parent_Code = model.CITY_ID;
                     city.Name = model.Name;
                     city.Level = model.Level;
                     city.Status = model.Status;
@@ -124,6 +126,48 @@ namespace Web_Gio_Cha.Services
             }
             return model;
         }
+        #endregion
+
+        #region Search
+        public IEnumerable<TblCity> SearchDistrictList(DataTableModel dt, CityModel model, out int total_row)
+        {
+            ManageDistrictDa dataAccess = new ManageDistrictDa();
+            IEnumerable<TblCity> results = dataAccess.SearchDistrictList(dt, model, out total_row);
+            return results;
+        }
+        #endregion
+
+        #region DELETE
+        public bool DeleteDistrict(long DISTRICT_ID)
+        {
+            ManageDistrictDa dataAccess = new ManageDistrictDa();
+
+            long result = 0;
+
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    result = dataAccess.DeleteDistrict(DISTRICT_ID);
+
+                    if (result > 0)
+                        transaction.Complete();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Dispose();
+                    result = -1;
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
+            }
+
+            return (result > 0);
+        }
+
         #endregion
 
     }

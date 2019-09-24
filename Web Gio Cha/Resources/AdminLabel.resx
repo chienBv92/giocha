@@ -246,4 +246,7 @@
   <data name="PriceShip" xml:space="preserve">
     <value>Giá ship</value>
   </data>
+  <data name="DistrictListTitle" xml:space="preserve">
+    <value />
+  </data>
 </root>

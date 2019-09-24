@@ -160,6 +160,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string DistrictListTitle {
+            get {
+                return ResourceManager.GetString("DistrictListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đăng kí quận huyện.
         /// </summary>
         public static string DistrictRegisterTitle {
