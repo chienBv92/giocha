@@ -183,7 +183,7 @@ h1 {
 }
 
     .Texttopmenu a {
-        color: #FFF;
+        color: #FFF !important;
         font-weight: bold;
         text-decoration: none;
         height: 34px;

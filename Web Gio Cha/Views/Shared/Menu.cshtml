@@ -2,38 +2,61 @@
     var currentUser = HttpContext.Current.Session["CmnEntityModel"] as Web_Gio_Cha.Models.CmnEntityModel;
 }
 
-<div class="row nomargin">
-    <div class="col-md-12 col-sm-12 hidden-xs div-menu" align="center" valign="top" bgcolor="#FFFFFF" style="height: 69px; background-image:url(Images/background_menu.jpg); background-repeat:no-repeat; background-size:100% 101%; background-origin:padding-box; padding-top:10px">
-        <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a>
-        <table class="menu" border="0" cellspacing="0" cellpadding="0" style="margin-top:6px;">
-            <tr>
-                <td height="41" align="center" class="Texttopmenu"><a href="/trang-chu">TRANG CHỦ</a></td>
-                <td align="center" class="Texttopmenu"><a href="/gioi-thieu">GIỚI THIỆU</a></td>
-                <td align="center" class="Texttopmenu"><a href="/tin-tuc">TIN TỨC</a></td>
-                <td align="center" class="Texttopmenu"><a href="/san-pham">SẢN PHẨM</a></td>
-                <td align="center" class="Texttopmenu"><a href="/tro-giup">TRỢ GIÚP</a></td>
-                <td align="center" class="Texttopmenu"><a href="/lien-he">LIÊN HỆ</a></td>
+@*<div class="row nomargin">
+    <nav class="navbar navbar-inverse nomargin div-menu" style="border:none; height: 69px; background-image:url(Images/background_menu.jpg); background-repeat:no-repeat; background-size:100% 101%; background-origin:padding-box; padding-top:10px">
+        <div class="navbar-header" align="center">
+            <button id="toggle-menu" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse nomargin" id="menu">
+            <ul class="nav navbar-nav" style="padding-top:5px;">
+                <li align="center" class="Texttopmenu"><a href="">Trang chủ</a></li>
+                <li align="center" class="Texttopmenu"><a href="">Giới thiệu</a></li>
+                <li align="center" class="Texttopmenu"><a href="">Tin tức</a></li>
+                <li align="center" class="Texttopmenu"><a href="">Thương hiệu</a></li>
+                <li align="center" class="Texttopmenu"><a href="">Liên hệ</a></li>
+            </ul>
+        </div>
 
-                @if (currentUser != null)
-                {
-                    if (currentUser.IsAdmin == true)
+    </nav>
+</div>*@
+
+<div class="row nomargin">
+        <div class="col-md-12 col-sm-12 hidden-xs div-menu" align="center" valign="top" bgcolor="#FFFFFF" style="height: 69px; background-image:url(Images/background_menu.jpg); background-repeat:no-repeat; background-size:100% 101%; background-origin:padding-box; padding-top:10px">
+            <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a>
+            <table class="menu" border="0" cellspacing="0" cellpadding="0" style="margin-top:6px;">
+                <tr>
+                    <td height="41" align="center" class="Texttopmenu"><a href="/trang-chu">TRANG CHỦ</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/gioi-thieu">GIỚI THIỆU</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/tin-tuc">TIN TỨC</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/san-pham">SẢN PHẨM</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/tro-giup">TRỢ GIÚP</a></td>
+                    <td align="center" class="Texttopmenu"><a href="/lien-he">LIÊN HỆ</a></td>
+
+                    @if (currentUser != null)
                     {
-                        <td align="center" class="Texttopmenu"><a style="width:120px" href="/admin">Quản trị hệ thống</a></td>
-                        <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        if (currentUser.IsAdmin == true)
+                        {
+                            <td align="center" class="Texttopmenu"><a style="width:120px" href="/admin">Quản trị hệ thống</a></td>
+                            <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        }
+                        else
+                        {
+                            <td align="center" class="loginInfo">Chào: @currentUser.UserName </td>
+                            <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        }
                     }
                     else
                     {
-                        <td align="center" class="loginInfo">Chào: @currentUser.UserName </td>
-                        <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        <td align="center" class="Texttopmenu"><a href="/dang-ky">Đăng ký</a></td>
+                        <td align="center" class="Texttopmenu"><a href="/dang-nhap">Đăng nhập</a></td>
                     }
-                }
-                else
-                {
-                    <td align="center" class="Texttopmenu"><a href="/dang-ky">Đăng ký</a></td>
-                    <td align="center" class="Texttopmenu"><a href="/dang-nhap">Đăng nhập</a></td>
-                }
 
-            </tr>
-        </table>
+                </tr>
+            </table>
+        </div>
     </div>
-</div>
