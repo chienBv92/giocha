@@ -75,12 +75,6 @@ namespace Web_Gio_Cha.Da
         #region LIST
         public IEnumerable<ProductCategoryModel> SearchProductCategoryList(DataTableModel dt, ProductCategoryModel model, out int total_row)
         {
-            var lst = da.Product_Category.Where(i => i.del_flg == Constant.DeleteFlag.NON_DELETE);
-            if (String.IsNullOrEmpty(model.Name))
-            {
-                lst.Where(i => i.Name == model.Name);
-            }
-
             var lstCategory = (from cate in da.Product_Category
                                join user in da.TblUser on cate.CreatedBy equals user.ID
                                where (cate.del_flg == model.del_flg && (!String.IsNullOrEmpty(model.Name) == true ? cate.Name.Contains(model.Name) : 1 == 1))

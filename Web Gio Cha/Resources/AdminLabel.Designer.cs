@@ -160,7 +160,7 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Danh sách quận huyện.
         /// </summary>
         public static string DistrictListTitle {
             get {
@@ -426,6 +426,15 @@ namespace Web_Gio_Cha.Resources {
         public static string Level {
             get {
                 return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danh sách tin tức.
+        /// </summary>
+        public static string NewsListTitle {
+            get {
+                return ResourceManager.GetString("NewsListTitle", resourceCulture);
             }
         }
         

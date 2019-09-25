@@ -247,7 +247,7 @@
     <value>Giá ship</value>
   </data>
   <data name="DistrictListTitle" xml:space="preserve">
-    <value />
+    <value>Danh sách quận huyện</value>
   </data>
   <data name="lblContent" xml:space="preserve">
     <value>Nội dung</value>
@@ -260,5 +260,8 @@
   </data>
   <data name="lblTitleNews" xml:space="preserve">
     <value>Tiêu đề</value>
+  </data>
+  <data name="NewsListTitle" xml:space="preserve">
+    <value>Danh sách tin tức</value>
   </data>
 </root>

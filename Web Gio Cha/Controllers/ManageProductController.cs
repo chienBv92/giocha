@@ -103,7 +103,7 @@ namespace Web_Gio_Cha.Controllers
 
             if (currentUser == null || currentUser.ID == 0 || currentUser.IsAdmin == false)
             {
-                return RedirectToAction("Login", "UserAccount");
+                return RedirectToAction("Login", "Login");
             }
 
             ProductModel model = new ProductModel();

@@ -3,7 +3,7 @@
 
 @model NewsModel
 @{
-    ViewBag.Title = AdminLabel.DistrictListTitle;
+    ViewBag.Title = AdminLabel.NewsListTitle;
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -137,7 +137,7 @@
              { "sName": "NEWS_ID", "bVisible": false, "aTargets": [NEWS_ID] },
              { "bSortable": false, "aTargets": [ORDER], "sWidth": "10%", "sClass": "cell_center order text-overflow", "sName": "ORDER" },
              {
-                 "bSortable": false, "aTargets": [TITLE], "sWidth": "10%", "sClass": "cell_center",
+                 "bSortable": false, "aTargets": [TITLE], "sWidth": "10%", "sClass": "cell_left",
                  "mRender": function (data, type, full) { return buildActionLink(full[NEWS_ID], full[TITLE]); }
              },
              { "bSortable": false, "aTargets": [STATUS], "sWidth": "10%", "sClass": "cell_center" },

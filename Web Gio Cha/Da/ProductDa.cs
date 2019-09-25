@@ -85,7 +85,7 @@ namespace Web_Gio_Cha.Da
                               from userB in da.TblUser.Where(i => i.ID == pro.ModifiedBy).DefaultIfEmpty()
                               //join userB in da.User.DefaultIfEmpty on pro.ModifiedBy equals userB.ID
                               where (pro.del_flg == model.del_flg && (!String.IsNullOrEmpty(model.Name) == true ? pro.Name.Contains(model.Name) : 1 == 1))
-                              where (pro.Status.HasValue ? pro.Status == model.Status : 1 == 1)
+                              where (model.Status.HasValue ? pro.Status == model.Status : 1 == 1)
                               where (model.CategoryID > 0 ? pro.CategoryID == model.CategoryID : 1 == 1)
                               where (model.PriceBefore > 0 ? pro.PriceBefore == model.PriceBefore : 1 == 1)
                               where (model.Price > 0 ? pro.Price == model.Price : 1 == 1)

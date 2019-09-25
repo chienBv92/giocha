@@ -73,21 +73,21 @@ namespace Web_Gio_Cha.Da
         #region LIST
         public IEnumerable<NewsModel> SearchNewsList(DataTableModel dt, NewsModel model, out int total_row)
         {
-            StringBuilder sql = new StringBuilder();
-            sql.Append(@" Select A.*, B.UserName as CreateName, C.UserName as ModifiedName from TblNews A
-                        left join TblUser B
-                        on A.CreatedBy = B.ID
-                        left join TblUser C
-                        on A.ModifiedBy = C.ID ");
+//            StringBuilder sql = new StringBuilder();
+//            sql.Append(@" Select A.*, B.UserName as CreateName, C.UserName as ModifiedName from TblNews A
+//                        left join TblUser B
+//                        on A.CreatedBy = B.ID
+//                        left join TblUser C
+//                        on A.ModifiedBy = C.ID ");
 
-            sql.AppendFormat("Where A.del_flg = '{0}' ", model.del_flg);
-            if(model.Status.HasValue){
-                sql.AppendFormat(" AND A.Status = {0} ", model.Status == true ? "1" : "0");
-            }
-            if (!String.IsNullOrEmpty(model.Name))
-            {
-                sql.AppendFormat(" AND A.Name like '{0}' ", "%" + model.Name + "%");
-            }
+//            sql.AppendFormat("Where A.del_flg = '{0}' ", model.del_flg);
+//            if(model.Status.HasValue){
+//                sql.AppendFormat(" AND A.Status = {0} ", model.Status == true ? "1" : "0");
+//            }
+//            if (!String.IsNullOrEmpty(model.Name))
+//            {
+//                sql.AppendFormat(" AND A.Name like '{0}' ", "%" + model.Name + "%");
+//            }
             //if (model.FromDate.HasValue)
             //{
             //    sql.AppendFormat(" AND A.ModifiedDate >= '{0}' ", model.FromDate);
@@ -96,12 +96,29 @@ namespace Web_Gio_Cha.Da
             //{
             //    sql.AppendFormat(" AND A.ModifiedDate <= '{0}' ", model.ToDate);
             //}
-            sql.Append("Order by A.ModifiedDate desc, A.CreatedDate desc ");
+            //sql.Append("Order by A.ModifiedDate desc, A.CreatedDate desc ");
 
-            var listNews = da.Database.SqlQuery<NewsModel>(sql.ToString()).Skip(dt.iDisplayStart).Take(dt.iDisplayLength).ToList();
+            var listNews = (from cate in da.TblNews
+                               from userB in da.TblUser.Where(i => i.ID == cate.CreatedBy).DefaultIfEmpty()
+                               from userC in da.TblUser.Where(i => i.ID == cate.ModifiedBy).DefaultIfEmpty()
+                               where (cate.del_flg == model.del_flg && (!String.IsNullOrEmpty(model.Name) == true ? cate.Name.Contains(model.Name) : 1 == 1))
+                               where (model.Status.HasValue ? cate.Status == model.Status : 1 == 1)
+                               where (model.FromDate.HasValue ? cate.ModifiedDate >= model.FromDate : 1 == 1)
+                               where (model.ToDate.HasValue ? cate.ModifiedDate <= model.ToDate : 1 == 1)
+                               select new NewsModel
+                               {
+                                   ID = cate.ID,
+                                   Name = cate.Name,
+                                   Status = cate.Status,
+                                   CreatedDate = cate.CreatedDate,
+                                   ModifiedDate = cate.ModifiedDate,
+                                   CreateName = userB.UserName,
+                                   ModifiedName = userC.UserName,
+                                   del_flg = cate.del_flg
+                               });
 
-            var listNewsTotal = da.Database.SqlQuery<NewsModel>(sql.ToString()).ToList();
-            total_row = listNewsTotal.Count();
+            total_row = listNews.Count();
+            listNews = listNews.OrderByDescending(i=>i.ModifiedDate).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
 
             return listNews;
         }
