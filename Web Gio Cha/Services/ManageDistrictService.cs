@@ -25,7 +25,7 @@ namespace Web_Gio_Cha.Services
                 try
                 {
                     TblCity city = new TblCity();
-                    city.ID = model.ID;
+                    //city.ID = model.ID;
                     city.Level = model.Level;
                     city.Parent_Code = model.CITY_ID;
                     city.Name = model.Name;

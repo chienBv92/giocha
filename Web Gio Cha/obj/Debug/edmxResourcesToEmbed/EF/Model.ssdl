@@ -134,7 +134,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="Level" Type="int" />
     <Property Name="Parent_Code" Type="int" />
@@ -161,7 +161,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
     <Property Name="MetaTitle" Type="varchar" MaxLength="250" />
     <Property Name="Content" Type="ntext" />
     <Property Name="Image" Type="nvarchar" MaxLength="250" />
@@ -169,10 +169,10 @@
     <Property Name="CreatedBy" Type="bigint" />
     <Property Name="ModifiedDate" Type="datetime" />
     <Property Name="ModifiedBy" Type="bigint" />
-    <Property Name="Display" Type="bit" />
+    <Property Name="Status" Type="bit" />
     <Property Name="del_flg" Type="char" MaxLength="1" />
   </EntityType>
-  <EntityType Name="User">
+  <EntityType Name="TblUser">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -200,6 +200,6 @@
     <EntitySet Name="TblCity" EntityType="Self.TblCity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TblMenuContent" EntityType="Self.TblMenuContent" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TblNews" EntityType="Self.TblNews" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblUser" EntityType="Self.TblUser" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

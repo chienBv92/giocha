@@ -69,9 +69,11 @@ namespace Web_Gio_Cha.Controllers
                         bool isNew = false;
                         TblCity entity = new TblCity();
 
-                        if (model.DISTRICT_ID_HIDDEN == 0)
+                        if (model.ID == 0)
                         {
                             isNew = true;
+                            model.CITY_ID = 1;
+                            model.Level = Constant.CityLevel.District;
 
                             service.InsertCity(model);
                             JsonResult result = Json(new { isNew = isNew }, JsonRequestBehavior.AllowGet);
@@ -80,6 +82,8 @@ namespace Web_Gio_Cha.Controllers
                         else
                         {
                             isNew = false;
+                            model.CITY_ID = 1;
+                            model.Level = Constant.CityLevel.District;
 
                             service.UpdateCity(model);
                             JsonResult result = Json(new { isNew = isNew }, JsonRequestBehavior.AllowGet);

@@ -11,7 +11,7 @@
     <EntitySet Name="TblCity" EntityType="GioChaModel.TblCity" />
     <EntitySet Name="TblMenuContent" EntityType="GioChaModel.TblMenuContent" />
     <EntitySet Name="TblNews" EntityType="GioChaModel.TblNews" />
-    <EntitySet Name="User" EntityType="GioChaModel.User" />
+    <EntitySet Name="TblUser" EntityType="GioChaModel.TblUser" />
   </EntityContainer>
   <EntityType Name="Menu">
     <Key>
@@ -147,7 +147,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Level" Type="Int32" />
     <Property Name="Parent_Code" Type="Int32" />
@@ -174,7 +174,7 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="MetaTitle" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -182,10 +182,10 @@
     <Property Name="CreatedBy" Type="Int64" />
     <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
     <Property Name="ModifiedBy" Type="Int64" />
-    <Property Name="Display" Type="Boolean" />
+    <Property Name="Status" Type="Boolean" />
     <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
-  <EntityType Name="User">
+  <EntityType Name="TblUser">
     <Key>
       <PropertyRef Name="ID" />
     </Key>

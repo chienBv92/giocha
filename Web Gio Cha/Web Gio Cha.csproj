@@ -1676,6 +1676,7 @@
     <Content Include="Scripts\WebDuhoc.Utility.js" />
     <Content Include="Scripts\zxcvbn.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\ManageDistrict\DistrictEdit.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1737,10 +1738,12 @@
     <Content Include="Views\ManageCategoryProduct\ProductCategoryList.cshtml" />
     <Content Include="Views\ManageProduct\ProductEdit.cshtml" />
     <Content Include="Views\ManageProduct\ProductList.cshtml" />
-    <Content Include="Views\ManageDistrict\DistrictEdit.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\ManageNews\NewsEdit.cshtml" />
     <Content Include="Views\ManageNews\NewsList.cshtml" />
+    <Content Include="Views\ManageDistrict\DistrictList.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

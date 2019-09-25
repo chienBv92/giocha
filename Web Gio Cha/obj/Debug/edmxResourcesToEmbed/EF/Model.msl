@@ -169,7 +169,7 @@
       <EntityTypeMapping TypeName="GioChaModel.TblNews">
         <MappingFragment StoreEntitySet="TblNews">
           <ScalarProperty Name="del_flg" ColumnName="del_flg" />
-          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -182,9 +182,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="User">
-      <EntityTypeMapping TypeName="GioChaModel.User">
-        <MappingFragment StoreEntitySet="User">
+    <EntitySetMapping Name="TblUser">
+      <EntityTypeMapping TypeName="GioChaModel.TblUser">
+        <MappingFragment StoreEntitySet="TblUser">
           <ScalarProperty Name="del_flg" ColumnName="del_flg" />
           <ScalarProperty Name="Email_Confirm" ColumnName="Email_Confirm" />
           <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />

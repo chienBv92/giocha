@@ -15,11 +15,13 @@
     @using (Html.BeginForm("Edit", "ManageDistrict", FormMethod.Post, new { id = "formDistrictRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
     {
         <div id="title">@ViewBag.Title</div>
-        <input id="DISTRICT_ID_HIDDEN" name="DISTRICT_ID_HIDDEN" type="hidden" value="@Model.ID">
+        <input id="ID" name="ID" type="hidden" value="@Model.ID">
         @Html.HiddenFor(m => m.del_flg, new { @class = "sp-id" })
         <div class="form-group">
             <label class="title-row">@AdminLabel.CityName <span class="RequiredField">*</span></label>
-            @if (Model.CITY_ID == 0)
+            @Html.Label("Hà Nội", new { @class = "margin-left-5 readonly" })
+            @Html.HiddenFor(m => m.CITY_ID)
+            @*@if (Model.CITY_ID == 0)
             {
                 @Html.DropDownListFor(m => m.CITY_ID, Model.CITY_LIST, new { @class = "width-200 padding-left-30  margin-0" })
 
@@ -28,14 +30,14 @@
             {
                 @Html.Label("Hà Nội", new { @class = "margin-left-5 readonly" })
                 @Html.HiddenFor(m => m.CITY_ID)
-            }
+            }*@
         </div>
-        <div class="form-group">
+        @*<div class="form-group">
             <label class="title-row">@AdminLabel.Level <span class="RequiredField">*</span></label>
             @Html.DropDownListFor(m => m.Level, new SelectList(Level_City.Items, "Key", "Value"), new { @class = "no-margin" })
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             <label class="title-row">@AdminLabel.DistricCode <span class="RequiredField">*</span></label>
             @if (Model.ID == 0)
             {
@@ -45,7 +47,7 @@
             {
                 @Html.TextBoxFor(m => m.ID, new { @class = "ime-mode border-none txt-w-250 disabled", @readonly = "readonly" })
             }
-        </div>
+        </div>*@
 
         <div class="form-group">
             <label class="title-row">@AdminLabel.DistricName <span class="RequiredField">*</span></label>
@@ -89,7 +91,7 @@
     var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
     WebDuhoc.utility.formatMoney();
     $(function () {
-        var oldDistrict = $('#DISTRICT_ID_HIDDEN').val();
+        var oldDistrict = $('#ID').val();
         if (oldDistrict == 0) {
             $("#Status").prop('checked', true).change();
             $('#STATUS_HIDDEN').val(true);
@@ -99,8 +101,8 @@
 
     function validateData() {
         var invalidMess = [];
-        var cityCD = $('#CITY_ID').val();
-        var districtCode = $('#ID').val();
+        //var cityCD = $('#CITY_ID').val();
+        //var districtCode = $('#ID').val();
         var districtName = $('#Name').val();
 
         var displayFlg = $('#Status').val();
@@ -108,15 +110,15 @@
         var errDisplay = [];
         var invalidMess = [];
 
-        if (cityCD == null || cityCD.trim() == "" || cityCD == 0) { // required content
+        @*if (cityCD == null || cityCD.trim() == "" || cityCD == 0) { // required content
             errDisplay = '@AdminLabel.CityName' + Constant.ERR_REQUIRED;
             invalidMess.push(errDisplay);
-        }
+        }*@
 
-        if (districtCode == null || districtCode.trim() == "" || districtCode == 0) {
+        @*if (districtCode == null || districtCode.trim() == "" || districtCode == 0) {
             errDisplay = '@AdminLabel.DistricCode' + Constant.ERR_REQUIRED;
             invalidMess.push(errDisplay);
-        }
+        }*@
 
         if (districtName == null || districtName.trim() == "") {
             errDisplay = '@AdminLabel.DistricName' + Constant.ERR_REQUIRED;
@@ -150,6 +152,8 @@
         }
 
         var existDistrictCD = false;
+        //var districtCd = $('#ID').val().trim();
+
         //var cityCd = $('#CITY_ID').val().trim();
         //var districtCd = $('#DISTRICT_CD').val().trim();
         //var districtCdOld = $('#DISTRICT_CD_HIDDEN').val().trim();
@@ -213,7 +217,7 @@
                     }
                 },
                 error: function (xhr) {
-                    window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
                     window.location.href = '/Common/Error/';
                 }
             });
@@ -227,17 +231,13 @@
         WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmClear)', function (action) {
             $('.validation-summary-errors').remove();
             if (action) {
-                if ($('#CITY_ID').val() == 0) {
-                    $("#CITY_ID").val(0);
-                    $("#ID").val(0);
+                if ($('#ID').val() == 0) {
                     $("#Name").val('');
 
                     $("#Status").prop('checked', true).change();
                     $('#STATUS_HIDDEN').val('1');
 
                 } else {
-                    $("#CITY_ID").val('@Model.CITY_ID');
-                    $("#ID").val(@Model.ID);
                     $("#Name").val('@Model.Name');
 
                     $("#STATUS_HIDDEN").val('@Model.Status').change();

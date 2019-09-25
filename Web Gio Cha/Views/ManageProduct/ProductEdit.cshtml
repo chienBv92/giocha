@@ -31,10 +31,6 @@
             @Html.TextBoxFor(m => m.Name, new { @class = "lbltitle", maxlength = 100 })
         </div>
         <div class="form-group">
-            <label class="title-row">@AdminLabel.lblMetaTitle    <span class="RequiredField">*</span></label>
-            @Html.TextBoxFor(m => m.MetaTitle, new { @class = "lbltitle", maxlength = 100 })
-        </div>
-        <div class="form-group">
             <label class="title-row">@AdminLabel.lblDetail    <span class="RequiredField">*</span></label>
             @Html.TextBoxFor(m => m.Detail, new { @class = "content" })
         </div>
@@ -211,7 +207,6 @@
 
         var category = $('#CategoryID').val();
         var ProductName = $('#Name').val();
-        var metatitle = $('#MetaTitle').val();
         var content = CKEDITOR.instances['Detail'].getData();
 
         if (category == null || category.trim() == "" || category == "0") { // required content
@@ -225,14 +220,6 @@
         }
         else if (ProductName.trim().length > 100) {
             invalidMess.push("@string.Format(Message.CheckMaxLength, @AdminLabel.lblProductName, Constant.MAX_EMAIL_LENGTH)");
-        }
-
-        if (metatitle == null || metatitle.trim() == "") { // required content
-            errDisplay = '@AdminLabel.lblMetaTitle' + Constant.ERR_REQUIRED;
-            invalidMess.push(errDisplay);
-        }
-        else if (metatitle.trim().length > 100) {
-            invalidMess.push("@string.Format(Message.CheckMaxLength, @AdminLabel.lblMetaTitle, Constant.MAX_EMAIL_LENGTH)");
         }
 
         if (content == null || content.trim() == "") { // required content
@@ -306,7 +293,7 @@
                     }
                 },
                 error: function (xhr) {
-                    window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
                     window.location.href = '/Common/Error/';
                 }
             });
@@ -336,7 +323,6 @@
                 if ($('#ID').val() == 0) {
                     $('#CategoryID').val('0');
                     $('#Name').val('');
-                    $('#MetaTitle').val('');
                     $('#Detail').val('');
                     $('#PriceBefore').val(0);
                     $('#Price').val(0);
@@ -350,7 +336,6 @@
                 } else {
                     $('#CategoryID').val('@Model.CategoryID');
                     $('#Name').val('@Model.Name');
-                    $('#MetaTitle').val('@Model.MetaTitle');
                     $('#PriceBefore').val('@Model.PriceBefore');
                     $('#Price').val('@Model.Price');
                     $('#Discount').val('@Model.Discount');

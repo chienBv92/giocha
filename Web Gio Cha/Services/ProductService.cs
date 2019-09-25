@@ -27,7 +27,8 @@ namespace Web_Gio_Cha.Services
                     Product product = new Product();
                     product.CategoryID = model.CategoryID;
                     product.Name = model.Name;
-                    product.MetaTitle = UtilityServices.UtilityServices.ConvertToUnsign(model.MetaTitle);
+                    product.MetaTitle = model.Name.Contains("/") ? model.Name.Replace("/", "") : model.Name;
+                    product.MetaTitle = UtilityServices.UtilityServices.ConvertToUnsign(product.MetaTitle);
                     product.Detail = model.Detail;
                     product.PriceBefore = model.PriceBefore;
                     product.Price = model.Price;
@@ -72,7 +73,8 @@ namespace Web_Gio_Cha.Services
                     product.ID = model.ID;
                     product.CategoryID = model.CategoryID;
                     product.Name = model.Name;
-                    product.MetaTitle = UtilityServices.UtilityServices.ConvertToUnsign(model.MetaTitle);
+                    product.MetaTitle = model.Name.Contains("/") ? model.Name.Replace("/", "") : model.Name;
+                    product.MetaTitle = UtilityServices.UtilityServices.ConvertToUnsign(product.MetaTitle);
                     product.Detail = model.Detail;
                     product.PriceBefore = model.PriceBefore;
                     product.Price = model.Price;
