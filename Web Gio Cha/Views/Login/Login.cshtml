@@ -1,4 +1,4 @@
-﻿
+﻿@using Web_Gio_Cha.Resources;
 @using Web_Gio_Cha.Models
 @model LoginModel
 @{
@@ -9,6 +9,15 @@
 <div class="col-md-12" align="center" valign="top">
     <h2>@ViewBag.Title</h2>
     <div class="col-md-12">
+        @if (ViewBag.confirmPasswordSuccess != null)
+        {
+            <div class="col-md-12" style="margin-bottom:10px; text-align:center"><span style="color:red">@ViewBag.confirmPasswordSuccess</span></div>
+        }
+        @if (ViewBag.confirmEmailSuccess != null)
+        {
+        <div class="col-md-12" style="margin-bottom:10px; text-align:center"><span style="color:red">@ViewBag.confirmEmailSuccess</span></div>
+        }
+        <div style="margin-top:15px"> <span class="mesLoginRequire" style="color:red">@AdminLabel.MessessLogin</span></div>
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -42,7 +51,7 @@
                     <span>Bạn chưa có tài khoản?</span><a href="/dang-ky"> Đăng ký</a>
                 </p>
                 <p>
-                    @Html.ActionLink("Quên mật khẩu?", "ForgotPassword")
+                    <a href="/quen-mat-khau">Quên mật khẩu?</a>
                 </p>
             }
         </section>

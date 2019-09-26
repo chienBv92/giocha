@@ -20,38 +20,20 @@ namespace Web_Gio_Cha.Services
             // Declare new DataAccess object
             UserDa dataAccess = new UserDa();
 
-            using (var transaction = new TransactionScope())
-            {
-                try
-                {
-                    TblUser User = new TblUser();
-                    User.Email = model.Email;
-                    User.UserName = model.UserName;
-                    User.Password = SafePassword.GetSaltedPassword(model.Password);
-                    User.Phone = model.Phone;
-                    User.IsAdmin = false;
-                    // Tạm thời cho active trước, sau làm xác nhận email 
-                    User.Email_Confirm = Constant.ConfirmEmail.CONFIRMED;
-                    User.Status = Constant.Status.ACTIVE;
+            TblUser User = new TblUser();
+            User.Email = model.Email;
+            User.UserName = model.UserName;
+            User.Password = SafePassword.GetSaltedPassword(model.Password);
+            User.Phone = model.Phone;
+            User.IsAdmin = false;
+            // Chưa xác nhận email
+            User.Email_Confirm = Constant.ConfirmEmail.NONE;
+            User.Status = Constant.Status.NONE;
 
-                    User.del_flg = Constant.DeleteFlag.NON_DELETE;
-                    User.CreatedDate = DateTime.Now;
+            User.del_flg = Constant.DeleteFlag.NON_DELETE;
+            User.CreatedDate = DateTime.Now;
 
-                    res = dataAccess.InsertUser(User);
-
-                    if (res <= 0)
-                        transaction.Dispose();
-                    transaction.Complete();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message, ex);
-                }
-                finally
-                {
-                    transaction.Dispose();
-                }
-            }
+            res = dataAccess.InsertUser(User);
             return res;
         }
 
@@ -61,32 +43,14 @@ namespace Web_Gio_Cha.Services
             // Declare new DataAccess object
             UserDa dataAccess = new UserDa();
 
-            using (var transaction = new TransactionScope())
-            {
-                try
-                {
-                    TblUser User = new TblUser();
-                    User.UserName = model.UserName;
-                    User.Name = model.Name;
-                    User.Phone = model.Phone;
-                    User.del_flg = Constant.DeleteFlag.NON_DELETE;
-                    User.ModifiedDate = DateTime.Now;
+            TblUser User = new TblUser();
+            User.UserName = model.UserName;
+            User.Name = model.Name;
+            User.Phone = model.Phone;
+            User.del_flg = Constant.DeleteFlag.NON_DELETE;
+            User.ModifiedDate = DateTime.Now;
 
-                    res = dataAccess.UpdateUser(User);
-
-                    if (res <= 0)
-                        transaction.Dispose();
-                    transaction.Complete();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message, ex);
-                }
-                finally
-                {
-                    transaction.Dispose();
-                }
-            }
+            res = dataAccess.UpdateUser(User);
             return res;
         }
 

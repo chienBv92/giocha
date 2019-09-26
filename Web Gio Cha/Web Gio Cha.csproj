@@ -232,6 +232,9 @@
     <Compile Include="EF\TblNews.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\TblOrderHistory.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\TblUser.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -279,6 +282,7 @@
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\ProductCategoryService.cs" />
     <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\SendMailService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UtilityService\CacheUtil.cs" />
@@ -1744,12 +1748,15 @@
     <Content Include="Views\ManageDistrict\DistrictList.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Common\PopupGetDateTime.cshtml" />
+    <Content Include="Views\Common\ResetPassword.cshtml" />
+    <Content Include="Views\Common\Sendmail.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="UPLOAD\Images\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
