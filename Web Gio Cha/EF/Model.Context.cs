@@ -35,6 +35,7 @@ namespace Web_Gio_Cha.EF
         public virtual DbSet<TblCity> TblCity { get; set; }
         public virtual DbSet<TblMenuContent> TblMenuContent { get; set; }
         public virtual DbSet<TblNews> TblNews { get; set; }
+        public virtual DbSet<TblOrderHistory> TblOrderHistory { get; set; }
         public virtual DbSet<TblUser> TblUser { get; set; }
     }
 }

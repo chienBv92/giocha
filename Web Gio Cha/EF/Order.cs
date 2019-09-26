@@ -15,8 +15,8 @@ namespace Web_Gio_Cha.EF
     public partial class Order
     {
         public long ID { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<long> UserID { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<decimal> PriceTotal { get; set; }
         public Nullable<decimal> PriceDiscountTotal { get; set; }
@@ -31,5 +31,7 @@ namespace Web_Gio_Cha.EF
         public string Receive_Address { get; set; }
         public string Receive_Phone { get; set; }
         public string del_flg { get; set; }
+        public string Code { get; set; }
+        public string Success { get; set; }
     }
 }

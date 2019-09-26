@@ -23,8 +23,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UserID" Type="bigint" />
+          <Property Name="CreatedDate" Type="datetime" />
           <Property Name="Status" Type="int" />
           <Property Name="PriceTotal" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PriceDiscountTotal" Type="decimal" Precision="18" Scale="0" />
@@ -39,6 +39,8 @@
           <Property Name="Receive_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Receive_Phone" Type="varchar" MaxLength="13" />
           <Property Name="del_flg" Type="char" MaxLength="1" />
+          <Property Name="Code" Type="varchar" MaxLength="10" />
+          <Property Name="Success" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -156,7 +158,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Menu_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="MenuCd" Type="int" Nullable="false" />
           <Property Name="Menu_Content" Type="ntext" />
           <Property Name="Status" Type="bit" />
           <Property Name="del_flg" Type="char" MaxLength="1" />
@@ -177,6 +179,37 @@
           <Property Name="Status" Type="bit" />
           <Property Name="del_flg" Type="char" MaxLength="1" />
         </EntityType>
+        <EntityType Name="TblOrderHistory">
+          <Key>
+            <PropertyRef Name="HISTORY_ID" />
+          </Key>
+          <Property Name="HISTORY_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ORDER_ID" Type="bigint" />
+          <Property Name="DSP_ORDER" Type="int" />
+          <Property Name="STATUS_HISTORY" Type="int" />
+          <Property Name="DATE_HISTORY" Type="datetime" />
+          <Property Name="USER_HISTORY" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp01' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TblTemp01">
+          <Property Name="id" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp02' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TblTemp02">
+          <Property Name="id" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp03' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TblTemp03">
+          <Property Name="id" Type="bigint" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TblTemp04">
+          <Property Name="id" Type="bigint" />
+        </EntityType>-->
         <EntityType Name="TblUser">
           <Key>
             <PropertyRef Name="ID" />
@@ -205,6 +238,7 @@
           <EntitySet Name="TblCity" EntityType="Self.TblCity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblMenuContent" EntityType="Self.TblMenuContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblNews" EntityType="Self.TblNews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblOrderHistory" EntityType="Self.TblOrderHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblUser" EntityType="Self.TblUser" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -222,6 +256,7 @@
           <EntitySet Name="TblCity" EntityType="GioChaModel.TblCity" />
           <EntitySet Name="TblMenuContent" EntityType="GioChaModel.TblMenuContent" />
           <EntitySet Name="TblNews" EntityType="GioChaModel.TblNews" />
+          <EntitySet Name="TblOrderHistory" EntityType="GioChaModel.TblOrderHistory" />
           <EntitySet Name="TblUser" EntityType="GioChaModel.TblUser" />
         </EntityContainer>
         <EntityType Name="Menu">
@@ -242,8 +277,8 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int64" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" />
           <Property Name="PriceTotal" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PriceDiscountTotal" Type="Decimal" Precision="18" Scale="0" />
@@ -258,6 +293,8 @@
           <Property Name="Receive_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Receive_Phone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Success" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -375,7 +412,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Menu_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuCd" Type="Int32" Nullable="false" />
           <Property Name="Menu_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
@@ -395,6 +432,17 @@
           <Property Name="ModifiedBy" Type="Int64" />
           <Property Name="Status" Type="Boolean" />
           <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TblOrderHistory">
+          <Key>
+            <PropertyRef Name="HISTORY_ID" />
+          </Key>
+          <Property Name="HISTORY_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ORDER_ID" Type="Int64" />
+          <Property Name="DSP_ORDER" Type="Int32" />
+          <Property Name="STATUS_HISTORY" Type="Int32" />
+          <Property Name="DATE_HISTORY" Type="DateTime" Precision="3" />
+          <Property Name="USER_HISTORY" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="TblUser">
           <Key>
@@ -436,6 +484,8 @@
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="GioChaModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="del_flg" ColumnName="del_flg" />
                 <ScalarProperty Name="Receive_Phone" ColumnName="Receive_Phone" />
                 <ScalarProperty Name="Receive_Address" ColumnName="Receive_Address" />
@@ -450,8 +500,8 @@
                 <ScalarProperty Name="PriceDiscountTotal" ColumnName="PriceDiscountTotal" />
                 <ScalarProperty Name="PriceTotal" ColumnName="PriceTotal" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -578,7 +628,7 @@
                 <ScalarProperty Name="del_flg" ColumnName="del_flg" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Menu_Content" ColumnName="Menu_Content" />
-                <ScalarProperty Name="Menu_Name" ColumnName="Menu_Name" />
+                <ScalarProperty Name="MenuCd" ColumnName="MenuCd" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -597,6 +647,18 @@
                 <ScalarProperty Name="MetaTitle" ColumnName="MetaTitle" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblOrderHistory">
+            <EntityTypeMapping TypeName="GioChaModel.TblOrderHistory">
+              <MappingFragment StoreEntitySet="TblOrderHistory">
+                <ScalarProperty Name="USER_HISTORY" ColumnName="USER_HISTORY" />
+                <ScalarProperty Name="DATE_HISTORY" ColumnName="DATE_HISTORY" />
+                <ScalarProperty Name="STATUS_HISTORY" ColumnName="STATUS_HISTORY" />
+                <ScalarProperty Name="DSP_ORDER" ColumnName="DSP_ORDER" />
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="HISTORY_ID" ColumnName="HISTORY_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

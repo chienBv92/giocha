@@ -15,7 +15,7 @@ namespace Web_Gio_Cha.EF
     public partial class TblMenuContent
     {
         public int ID { get; set; }
-        public string Menu_Name { get; set; }
+        public int MenuCd { get; set; }
         public string Menu_Content { get; set; }
         public Nullable<bool> Status { get; set; }
         public string del_flg { get; set; }
