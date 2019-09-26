@@ -171,4 +171,10 @@
   <data name="DistrictNameLength" xml:space="preserve">
     <value>{0} tối đa 50 kí tự!</value>
   </data>
+  <data name="msgEmailNotExist" xml:space="preserve">
+    <value>Email chưa được đăng ký! Vui lòng đăng ký!</value>
+  </data>
+  <data name="RegisterWaitEmail" xml:space="preserve">
+    <value>Vui lòng kiểm tra email để xác nhận tài khoản!</value>
+  </data>
 </root>

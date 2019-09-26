@@ -178,6 +178,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email chưa được đăng ký! Vui lòng đăng ký!.
+        /// </summary>
+        public static string msgEmailNotExist {
+            get {
+                return ResourceManager.GetString("msgEmailNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Không có phản hồi từ server!.
         /// </summary>
         public static string msgErrorWhenCheckExist {
@@ -201,6 +210,15 @@ namespace Web_Gio_Cha.Resources {
         public static string RegisterSuccess {
             get {
                 return ResourceManager.GetString("RegisterSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng kiểm tra email để xác nhận tài khoản!.
+        /// </summary>
+        public static string RegisterWaitEmail {
+            get {
+                return ResourceManager.GetString("RegisterWaitEmail", resourceCulture);
             }
         }
         

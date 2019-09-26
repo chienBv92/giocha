@@ -241,6 +241,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string lblEmail {
+            get {
+                return ResourceManager.GetString("lblEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Từ ngày.
         /// </summary>
         public static string lblFromDate {
@@ -426,6 +435,15 @@ namespace Web_Gio_Cha.Resources {
         public static string Level {
             get {
                 return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng đăng nhập để tiếp tục!.
+        /// </summary>
+        public static string MessessLogin {
+            get {
+                return ResourceManager.GetString("MessessLogin", resourceCulture);
             }
         }
         

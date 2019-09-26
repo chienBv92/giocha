@@ -27,6 +27,7 @@ namespace Web_Gio_Cha.Resources
         public const int MIN_INPUT_PASS = 6;
         public const int MAX_INPUT_PASS = 50;
         public const string DEFAULT_VALUE = "0";
+        public const string DEFAULT_PASSWORD = "123456";
 
 
         public class DeleteFlag
@@ -63,10 +64,13 @@ namespace Web_Gio_Cha.Resources
 
             public const string CONFIRMED = "1";
 
+            public const string RESET_PASSWORD = "2";
+
             public static readonly OrderedDictionary Items = new OrderedDictionary
             {
                 { NONE, "Chưa xác nhận" },
-                { CONFIRMED, "Đã xác nhận" }
+                { CONFIRMED, "Đã xác nhận" },
+                { RESET_PASSWORD, "Reset password" }
             }.AsReadOnly();
         }
 

@@ -8,6 +8,7 @@ using Web_Gio_Cha.Da;
 using Web_Gio_Cha.Services;
 using Web_Gio_Cha.UtilityServices.SafePassword;
 using System.Web.Security;
+using System.Transactions;
 
 namespace Web_Gio_Cha.Controllers
 {
@@ -101,7 +102,7 @@ namespace Web_Gio_Cha.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Register(UserModel model)
+        public ActionResult Edit(UserModel model)
         {
             try
             {
@@ -110,26 +111,43 @@ namespace Web_Gio_Cha.Controllers
                     if (ModelState.IsValid)
                     {
                         bool isNew = false;
+                        long res = 0;
                         //SendMailService sendMailservice = new SendMailService();
-                        if (model.ID == 0)
-                        {
-                            isNew = true;
+                        //using (var transaction = new TransactionScope())
+                        //{
+                        //    try
+                        //    {
+                                if (model.ID == 0)
+                                {
+                                    isNew = true;
 
-                            var res = service.InsertUser(model);
-                            // send mail confirm account
-                            //sendMailRegisterAccount(model);
-
-                            JsonResult result = Json(new { isNew = isNew, res =  res}, JsonRequestBehavior.AllowGet);
+                                    res = service.InsertUser(model);
+                                    //if (res <= 0)
+                                    //    transaction.Dispose();
+                                    // send mail confirm account
+                                    sendMailRegisterAccount(model);
+                                    //transaction.Complete();
+                                }
+                                else
+                                {
+                                    isNew = false;
+                                    res = service.UpdateUser(model);
+                                    //if (res <= 0)
+                                    //    transaction.Dispose();
+                                    //transaction.Complete();
+                                }
+                            //}
+                            //catch (Exception ex)
+                            //{
+                            //    throw new Exception(ex.Message, ex);
+                            //}
+                            //finally
+                            //{
+                            //    transaction.Dispose();
+                            //}
+                            JsonResult result = Json(new { isNew = isNew, res = res }, JsonRequestBehavior.AllowGet);
                             return result;
-                        }
-                        else
-                        {
-                            isNew = false;
-
-                            var res = service.UpdateUser(model);
-                            JsonResult result = Json(new { isNew = isNew, res =  res }, JsonRequestBehavior.AllowGet);
-                            return result;
-                        }
+                        //}
                     }
                     else
                     {
@@ -169,6 +187,120 @@ namespace Web_Gio_Cha.Controllers
 
             }
             return new EmptyResult();
+        }
+        #endregion
+
+        #region SEND MAIL
+        // send email confirm account
+        public void sendMailRegisterAccount(UserModel model)
+        {
+            SendMailService sendMailservice = new SendMailService();
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Views/Common/Sendmail.cshtml"));
+
+            content = content.Replace("{{UserEmail}}", model.Email);
+            content = content.Replace("{{UserName}}", model.UserName);
+            content = content.Replace("{{Phone}}", model.Phone);
+            string subject = "Xác nhận tài khoản mới";
+            var callbackUrl = Url.Action("ConfirmEmail", "Login", new { UserEmail = model.Email }, protocol: Request.Url.Scheme);
+            content = content.Replace("{{callback}}", callbackUrl);
+            //var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+            //sendMailservice.SendMail(toEmail, subject, content);
+            sendMailservice.SendMail(model.Email, subject, content); // Gửi email đến tài khoản đăng kí
+        }
+
+        // send mail reset password
+        public void sendMailResetPassword(string UserEmail)
+        {
+            SendMailService sendMailservice = new SendMailService();
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Views/Common/ResetPassword.cshtml"));
+
+            content = content.Replace("{{UserEmail}}", UserEmail);
+            string subject = "Xác nhận thiết lập mật khẩu";
+            var callbackUrl = Url.Action("ConfirmResetPassword", "Login", new { UserEmail = UserEmail }, protocol: Request.Url.Scheme);
+            content = content.Replace("{{callback}}", callbackUrl);
+
+            sendMailservice.SendMail(UserEmail, subject, content); // Gửi email đến tài khoản đăng kí
+        }
+
+        // check exist user
+        public ActionResult ConfirmEmail(string UserEmail)
+        {
+            // Declare new DataAccess object
+            UserDa dataAccess = new UserDa();
+
+            var user = dataAccess.getUserByEmail(UserEmail);
+            if (user != null)
+            {
+                long suscess = dataAccess.ConfirmEmail(user);
+                if (suscess > 0)
+                {
+                    ViewBag.confirmEmailSuccess = "Xác nhận Email thành công! Vui lòng đăng nhập!";
+                    return this.RedirectToAction("Login", "Login");
+                }
+            }
+
+            return new EmptyResult();
+        }
+
+        // check exist user
+        public ActionResult ConfirmResetPassword(string UserEmail)
+        {
+            // Declare new DataAccess object
+            UserDa dataAccess = new UserDa();
+
+            var user = dataAccess.getUserByEmail(UserEmail);
+            if (user != null)
+            {
+                var suscess = dataAccess.ConfirmEmail(user);
+                if (suscess > 0)
+                {
+                    ViewBag.confirmPasswordSuccess = "Mật khẩu đã được thay đổi! Vui lòng đăng nhập!";
+                    return this.RedirectToAction("Login", "Login");
+                }
+            }
+
+            return new EmptyResult();
+        }
+        #endregion
+
+        #region PASSWORD
+        [HttpGet]
+        public ActionResult ResetPassword()
+        {
+            UserModel model = new UserModel();
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult ResetPassword(UserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (UserService service = new UserService())
+                {
+                    UserDa dataAccess = new UserDa();
+
+                    var user = dataAccess.getUserByEmail(model.Email);
+                    if (user != null)
+                    {
+                        var suscess = dataAccess.ReSetPassword(user);
+                        sendMailResetPassword(model.Email);
+                        if (suscess > 0)
+                        {
+                            ViewBag.sendMailSuccess = "Yêu cầu reset mật khẩu của bạn đã được gửi tới email:" + model.Email;
+                        }
+                        return this.View();
+                    }
+                }
+            }
+            {
+                var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            }
+
+            return View();
         }
         #endregion
 

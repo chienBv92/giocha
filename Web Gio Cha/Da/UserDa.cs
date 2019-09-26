@@ -5,6 +5,7 @@ using System.Web;
 using Web_Gio_Cha.EF;
 using Web_Gio_Cha.Models;
 using Web_Gio_Cha.Resources;
+using Web_Gio_Cha.UtilityServices.SafePassword;
 
 namespace Web_Gio_Cha.Da
 {
@@ -32,7 +33,7 @@ namespace Web_Gio_Cha.Da
                     user.Phone = entity.Phone;
 
                     user.del_flg = Constant.DeleteFlag.NON_DELETE;
-                    user.ModifiedDate = entity.ModifiedDate;
+                    user.ModifiedDate = DateTime.Now;
 
                     da.SaveChanges();
                 }
@@ -57,6 +58,59 @@ namespace Web_Gio_Cha.Da
         {
             var result = da.TblUser.SingleOrDefault(i => i.Email == Email);
             return result;
+        }
+
+        public long ConfirmEmail(TblUser entity)
+        {
+            var user = da.TblUser.Find(entity.ID);
+            if (user != null)
+            {
+                //kan.HanViet = entity.HanViet;
+                try
+                {
+                    // set data
+                    user.Email_Confirm = Constant.ConfirmEmail.CONFIRMED;
+                    user.Status = Constant.Status.ACTIVE;
+                    user.ModifiedDate = DateTime.Now;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return entity.ID;
+        }
+
+        public long ReSetPassword(TblUser entity)
+        {
+            var user = da.TblUser.Find(entity.ID);
+            if (user != null)
+            {
+                //kan.HanViet = entity.HanViet;
+                try
+                {
+                    // set data
+                    user.Password = SafePassword.GetSaltedPassword(Constant.DEFAULT_PASSWORD); 
+                    user.Email_Confirm = Constant.ConfirmEmail.RESET_PASSWORD;
+                    user.Status = Constant.Status.NONE;
+                    user.ModifiedDate = DateTime.Now;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return entity.ID;
         }
 
         public UserModel getInfoUser(long userId)

@@ -264,4 +264,10 @@
   <data name="NewsListTitle" xml:space="preserve">
     <value>Danh sách tin tức</value>
   </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="MessessLogin" xml:space="preserve">
+    <value>Vui lòng đăng nhập để tiếp tục!</value>
+  </data>
 </root>
