@@ -101,7 +101,7 @@
             errDisplay = "Chưa chọn trang hiển thị";
             invalidMess.push(errDisplay);
         }
-       
+
         if (content == null || content.trim() == "") { // required content
             errDisplay = '@AdminLabel.lblContent' + Constant.ERR_REQUIRED;
             invalidMess.push(errDisplay);
@@ -131,6 +131,26 @@
             WebDuhoc.utility.showClientError(invalidMess);
             return false;
         }
+
+        var existUser = false;
+        var userOld = $('#ID').val();
+
+        // Chi truong hop dang ki moi thi moi check trung code
+        if (userOld == 0) {
+            var MenuCd = $('#MenuCd').val();
+
+            var paramCheckExist = {
+                MenuCd: MenuCd
+            };
+
+            var data = WebDuhoc.utility.getDataByAjax('@Url.Action("CheckExistMenuCode", "Login")', paramCheckExist);
+            if (typeof (data) != 'undefined' || data != null) {
+                existUser = data.exist;
+            } else {
+                WebDuhoc.utility.showMessageModal('@string.Format(Message.msgErrorWhenCheckExist)', true);
+            }
+        }
+
 
         WebDuhoc.utility.showConfirmModal("Bạn muốn đăng kí nội dung cho trang?", function (action) {
             if (action) {
