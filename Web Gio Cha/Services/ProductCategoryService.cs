@@ -144,5 +144,20 @@ namespace Web_Gio_Cha.Services
 
         #endregion
 
+        #region GET DATA
+        public IEnumerable<Product_Category> GetListCategory(int maxItem = 12)
+        {
+            ProductCategoryDa dataAccess = new ProductCategoryDa();
+            IEnumerable<Product_Category> results = dataAccess.GetListCategory(maxItem);
+            return results;
+        }
+
+        public IEnumerable<Product> GetListProductByCategory(long categoryID)
+        {
+            ProductCategoryDa dataAccess = new ProductCategoryDa();
+            IEnumerable<Product> results = dataAccess.GetListProductByCategory(categoryID);
+            return results;
+        }
+        #endregion
     }
 }

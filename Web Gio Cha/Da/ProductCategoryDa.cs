@@ -57,6 +57,13 @@ namespace Web_Gio_Cha.Da
             return cate;
         }
 
+        public string getCategoryName(long Id)
+        {
+            Product_Category cate = da.Product_Category.Where(s => s.ID == Id).SingleOrDefault();
+            string CategoryName = cate != null ? cate.Name.ToUpper() : "";
+            return CategoryName;
+        }
+
         public bool FindCategoryProduct(int category_id, int categoryId_Old)
         {
             var category = da.Product_Category.Where(x => x.ID == category_id).SingleOrDefault();
@@ -123,5 +130,18 @@ namespace Web_Gio_Cha.Da
 
         #endregion
 
+        #region GET DATA
+        public List<Product_Category> GetListCategory(int maxItem)
+        {
+            var lstCategory = da.Product_Category.Where(x=> x.Status == true && x.del_flg.Equals("0")).OrderBy(o=>o.DisplayOrder).ThenByDescending(o => o.ModifiedDate).Take(maxItem);
+            return lstCategory.ToList();
+        }
+
+        public List<Product> GetListProductByCategory(long categoryID)
+        {
+            var lstProduct = da.Product.Where(x => x.CategoryID == categoryID && x.Status == true && x.del_flg.Equals("0")).OrderByDescending(o => o.ModifiedDate);
+            return lstProduct.ToList();
+        }
+        #endregion
     }
 }

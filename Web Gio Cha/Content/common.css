@@ -364,7 +364,14 @@ input[type="password"], select {
 
 .prd-img {
     width: 100%;
-    height: auto;
+    height: 100px;
+}
+
+.break-text{
+    overflow: hidden;
+    word-break: break-all;
+    max-height: 35px;
+    height:35px;
 }
 
 .discount:after {

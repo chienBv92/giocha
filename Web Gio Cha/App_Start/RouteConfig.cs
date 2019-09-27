@@ -20,11 +20,18 @@ namespace Web_Gio_Cha
              defaults: new { controller = "AdminSystem", action = "Index", id = UrlParameter.Optional }
          );
 
+            // Tao Url view tin du hoc
             routes.MapRoute(
-            name: "RePassword",
-            url: "quen-mat-khau/{id}",
-            defaults: new { controller = "Login", action = "ResetPassword", id = UrlParameter.Optional }
-        );
+                name: "GetProductByCategory",
+                url: "san-pham-{metatitle}/{categoryId}",
+                defaults: new { controller = "Category", action = "GetProductByCategory", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+             name: "RePassword",
+             url: "quen-mat-khau/{id}",
+             defaults: new { controller = "Login", action = "ResetPassword", id = UrlParameter.Optional }
+         );
 
             routes.MapRoute(
              name: "Register",

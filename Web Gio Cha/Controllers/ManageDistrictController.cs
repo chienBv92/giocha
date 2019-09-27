@@ -13,7 +13,7 @@ using WebDuhoc.Models.Define;
 
 namespace Web_Gio_Cha.Controllers
 {
-    public class ManageDistrictController : Controller
+    public class ManageDistrictController : BaseController
     {
         // GET: ManageDistrict
         #region REGISTER/ UPDATE

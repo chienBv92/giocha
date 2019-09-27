@@ -13,7 +13,7 @@ using WebDuhoc.Models.Define;
 
 namespace Web_Gio_Cha.Controllers
 {
-    public class ManageCategoryProductController : Controller
+    public class ManageCategoryProductController : BaseController
     {
         // GET: ManageCategoryProduct
         public ActionResult Index()
