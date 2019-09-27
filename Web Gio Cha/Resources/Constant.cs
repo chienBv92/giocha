@@ -110,4 +110,22 @@ namespace Web_Gio_Cha.Resources
                 { Level_2, "Cấp xã, phường" }
             }.AsReadOnly();
     }
+
+    public class MenuCode
+    {
+        public const int None = 0;
+        public const int Intro = 1;
+
+        public const int Level_1 = 2;
+
+        public const int Level_2 = 3;
+
+        public static readonly OrderedDictionary Items = new OrderedDictionary
+            {
+                { None, "Chọn trang" },
+                { Intro, "Trang giới thiệu" },
+                { Level_1, "Trang trợ giúp" },
+                { Level_2, "Trang " }
+            }.AsReadOnly();
+    }
 }

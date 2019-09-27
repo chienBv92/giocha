@@ -295,6 +295,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trang hiển thị.
+        /// </summary>
+        public static string lblMenuCode {
+            get {
+                return ResourceManager.GetString("lblMenuCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thẻ meta title.
         /// </summary>
         public static string lblMetaTitle {
@@ -435,6 +444,33 @@ namespace Web_Gio_Cha.Resources {
         public static string Level {
             get {
                 return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉnh sửa nội dung trang.
+        /// </summary>
+        public static string MenuPageEditTitle {
+            get {
+                return ResourceManager.GetString("MenuPageEditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danh sách quản lí trang.
+        /// </summary>
+        public static string MenuPageListTitle {
+            get {
+                return ResourceManager.GetString("MenuPageListTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tạo nội dung trang.
+        /// </summary>
+        public static string MenuPageRegisterTitle {
+            get {
+                return ResourceManager.GetString("MenuPageRegisterTitle", resourceCulture);
             }
         }
         

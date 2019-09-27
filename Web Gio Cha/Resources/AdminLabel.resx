@@ -270,4 +270,16 @@
   <data name="MessessLogin" xml:space="preserve">
     <value>Vui lòng đăng nhập để tiếp tục!</value>
   </data>
+  <data name="lblMenuCode" xml:space="preserve">
+    <value>Trang hiển thị</value>
+  </data>
+  <data name="MenuPageEditTitle" xml:space="preserve">
+    <value>Chỉnh sửa nội dung trang</value>
+  </data>
+  <data name="MenuPageListTitle" xml:space="preserve">
+    <value>Danh sách quản lí trang</value>
+  </data>
+  <data name="MenuPageRegisterTitle" xml:space="preserve">
+    <value>Tạo nội dung trang</value>
+  </data>
 </root>
