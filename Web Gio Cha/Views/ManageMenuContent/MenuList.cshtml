@@ -108,12 +108,12 @@
              { "sName": "MENU_ID", "bVisible": false, "aTargets": [MENU_ID] },
              { "bSortable": false, "aTargets": [ORDER], "sWidth": "10%", "sClass": "cell_center order text-overflow", "sName": "ORDER" },
              {
-                 "bSortable": false, "aTargets": [MENU_CD], "sWidth": "10%", "sClass": "cell_left",
+                 "bSortable": false, "aTargets": [MENU_CD], "sWidth": "10%", "sClass": "cell_center",
                  "mRender": function (data, type, full) { return buildActionLink(full[MENU_ID], full[MENU_CD]); }
              },
              { "bSortable": false, "aTargets": [STATUS], "sWidth": "10%", "sClass": "cell_center" },
 
-             { "bSortable": false, "aTargets": [DELETE], "sWidth": "10%", "sClass": "cell_center", "mRender": function (data, type, full) { return bindDeleteElement(full[MENU_ID], 'delete-news-link btn btn-red', deletelink); } }
+             { "bSortable": false, "aTargets": [DELETE], "sWidth": "10%", "sClass": "cell_center", "mRender": function (data, type, full) { return bindDeleteElement(full[MENU_ID], 'delete-menu-link btn btn-red', deletelink); } }
 
         ];
 

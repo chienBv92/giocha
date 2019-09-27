@@ -17,7 +17,7 @@ namespace Web_Gio_Cha.Controllers
     {
         // GET: ManageMenuContent
         #region REGISTER/ UPDATE
-        public ActionResult MenuContentEdit(long newsId = 0)
+        public ActionResult MenuContentEdit(long menuId = 0)
         {
             CmnEntityModel currentUser = Session["CmnEntityModel"] as CmnEntityModel;
 
@@ -31,10 +31,10 @@ namespace Web_Gio_Cha.Controllers
             ManageMenuDa dataAccess = new ManageMenuDa();
             model.Status = Constant.Status.ACTIVE;
 
-            if (newsId > 0)
+            if (menuId > 0)
             {
                 TblMenuContent infor = new TblMenuContent();
-                infor = dataAccess.getInfoMenuContent(newsId);
+                infor = dataAccess.getInfoMenuContent(menuId);
                 model = infor != null ? infor : model;
                 model.Menu_Content = HttpUtility.HtmlDecode(model.Menu_Content);
             }

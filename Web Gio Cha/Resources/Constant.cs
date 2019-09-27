@@ -116,16 +116,16 @@ namespace Web_Gio_Cha.Resources
         public const int None = 0;
         public const int Intro = 1;
 
-        public const int Level_1 = 2;
+        public const int Help = 2;
 
-        public const int Level_2 = 3;
+        public const int Contact = 3;
 
         public static readonly OrderedDictionary Items = new OrderedDictionary
             {
                 { None, "Chọn trang" },
                 { Intro, "Trang giới thiệu" },
-                { Level_1, "Trang trợ giúp" },
-                { Level_2, "Trang " }
+                { Help, "Trang trợ giúp" },
+                { Contact, "Trang liên hệ" }
             }.AsReadOnly();
     }
 }

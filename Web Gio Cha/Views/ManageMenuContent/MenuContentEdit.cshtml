@@ -1,9 +1,7 @@
 ﻿@using Web_Gio_Cha.Resources;
 @using Web_Gio_Cha.Models.Define;
 @using Web_Gio_Cha.EF;
-
 @model TblMenuContent
-
 @{
     ViewBag.Title = AdminLabel.MenuPageRegisterTitle;
     if (@Model.ID != null && @Model.ID > 0)
@@ -14,7 +12,6 @@
     <script type="text/javascript" src="~/ckeditor4.8/ckeditor.js"></script>
     <script src="/ckfinder/ckfinder.js"></script>
 }
-
 <div id="NewsRegister" class="edit-screen">
     @using (Html.BeginForm("Edit", "ManageNews", FormMethod.Post, new { id = "formRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
     {
@@ -23,7 +20,16 @@
 
         <div class="form-group">
             <label class="title-row">@AdminLabel.lblMenuCode <span class="RequiredField">*</span></label>
-            @Html.DropDownListFor(m => m.MenuCd, new SelectList(MenuCode.Items, "Key", "Value"), new { @class = "no-margin" })
+            @if (Model.ID == 0)
+            {
+                @Html.DropDownListFor(m => m.MenuCd, new SelectList(MenuCode.Items, "Key", "Value"), new { @class = "no-margin" })
+
+            }
+            else
+            {
+                @Html.Label(MenuCode.Items[Model.MenuCd].ToString(), new { @class = "margin-left-5 readonly" })
+                @Html.HiddenFor(m => m.MenuCd)
+            }
         </div>
         <div class="form-group">
             <label class="title-row">@AdminLabel.lblContent    <span class="RequiredField">*</span></label>
