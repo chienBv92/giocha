@@ -143,7 +143,7 @@
                 MenuCd: MenuCd
             };
 
-            var data = WebDuhoc.utility.getDataByAjax('@Url.Action("CheckExistMenuCode", "Login")', paramCheckExist);
+            var data = WebDuhoc.utility.getDataByAjax('@Url.Action("CheckExistMenuCode", "ManageMenuContent")', paramCheckExist);
             if (typeof (data) != 'undefined' || data != null) {
                 existUser = data.exist;
             } else {
@@ -151,16 +151,20 @@
             }
         }
 
+        var confirmMess = existUser ? '@string.Format(Message.msgConfirmExistMenuCd)' : '@string.Format(Message.ConfirmSubmitData, (Model.ID > 0 ? Message.Update : Message.Register))';
+        if (existUser) {
+            WebDuhoc.utility.showMessageModal(confirmMess, true);
+        } else {
+            WebDuhoc.utility.showConfirmModal(confirmMess, function (action) {
+                if (action) {
+                    var content = CKEDITOR.instances['Menu_Content'].getData();
 
-        WebDuhoc.utility.showConfirmModal("Bạn muốn đăng kí nội dung cho trang?", function (action) {
-            if (action) {
-                var content = CKEDITOR.instances['Menu_Content'].getData();
+                    $('#Menu_Content').val(content);
 
-                $('#Menu_Content').val(content);
-
-                $("#formRegis").submit();
-            }
-        })
+                    $("#formRegis").submit();
+                }
+            })
+        }
     });
 
     $('#formRegis').submit(function (event) {

@@ -178,6 +178,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trang đã được tạo! Vui lòng chỉnh sửa!.
+        /// </summary>
+        public static string msgConfirmExistMenuCd {
+            get {
+                return ResourceManager.GetString("msgConfirmExistMenuCd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email chưa được đăng ký! Vui lòng đăng ký!.
         /// </summary>
         public static string msgEmailNotExist {

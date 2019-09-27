@@ -1761,6 +1761,7 @@
     <Content Include="Views\Common\Sendmail.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\ManageMenuContent\MenuContentEdit.cshtml" />
+    <Content Include="Views\ManageMenuContent\MenuList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

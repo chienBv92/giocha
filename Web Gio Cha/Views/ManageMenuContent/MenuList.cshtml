@@ -1,0 +1,242 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.EF;
+
+@model TblMenuContent
+@{
+    ViewBag.Title = AdminLabel.MenuPageListTitle;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="CityList">
+    <div id="topContent">
+        <div id="title">@ViewBag.Title</div>
+        @using (Html.BeginForm("Search", "AdminManageDistrict", FormMethod.Post, new { id = "formDistrictSearch", enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div id="searchArea" class="clearfix">
+
+                <div class="form-group">
+                    @Html.Label(@AdminLabel.lblDelete, new { @for = "del_flg", @class = "title-row" })
+                    @if (String.IsNullOrEmpty(Model.del_flg) || Model.del_flg.Equals("0"))
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="0">
+                    }
+                    else
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox" checked="checked">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="1">
+                    }
+                </div>
+            </div>
+
+            <hr />
+            <div id="searchAction">
+                <div class="pull-right">
+                    <button type="button" id="btnSearch" class="btn btn-green"><i class="btn-icon btn-search-white">@AdminLabel.btnSearch</i></button>
+                    <button type="button" id="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="registButton">
+        <form id="frUpdateMenu" method="POST" action="@Url.Action("MenuContentEdit", "ManageMenuContent")">
+            <input type="hidden" id="hdnMenuId" name="menuId" value="0" />
+        </form>
+
+        <button type="button" id="btnRegister" name="btnRegister" class="btn btn-orange"><i class="btn-icon btn-regist"></i>@AdminLabel.btnRegister</button>
+    </div>
+
+    <hr />
+
+    <div id="mainContent">
+        <table id="InfoTable" class="dataTable cellspacing= " 0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>STT</th>
+                    <th>@AdminLabel.lblMenuCode</th>
+                    <th>@AdminLabel.CityDisplay</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    var UrlMenuRegister = '@Url.Action("MenuContentEdit", "ManageMenuContent")';
+    var UrlNewsList = '@Url.Action("MenuList", "ManageMenuContent")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    var dataTable = null;
+    var sort_colum = 0;
+    var sort_type = 'asc';
+    var deletelink = "Xóa";
+    var MENU_ID = 0;
+    var ORDER = 1;
+    var MENU_CD = 2;
+    var STATUS = 3;
+    var DELETE = 4;
+
+    var rows_checked_list = [];
+
+    $(function () {
+        var oSorting = {
+            "bSort": false
+        };
+
+        var oPaginate = {
+            "bPaginate": true,
+            "iDisplayLength": 10, // setup amount record
+            "bStateSave": false
+        };
+
+        var oServerSide = {
+            "bServerSide": true,
+            "sAjaxSource": '@Url.Action("List", "ManageMenuContent")',
+            "fnServerParams": serverParams,
+            "fnInitComplete": displayComplete,
+            "fnDrawCallback": drawCallback,
+            "autoWidth": false,
+            "info": false
+        };
+        // Content in table
+        var aoColumnDefs = [
+             { "sName": "MENU_ID", "bVisible": false, "aTargets": [MENU_ID] },
+             { "bSortable": false, "aTargets": [ORDER], "sWidth": "10%", "sClass": "cell_center order text-overflow", "sName": "ORDER" },
+             {
+                 "bSortable": false, "aTargets": [MENU_CD], "sWidth": "10%", "sClass": "cell_left",
+                 "mRender": function (data, type, full) { return buildActionLink(full[MENU_ID], full[MENU_CD]); }
+             },
+             { "bSortable": false, "aTargets": [STATUS], "sWidth": "10%", "sClass": "cell_center" },
+
+             { "bSortable": false, "aTargets": [DELETE], "sWidth": "10%", "sClass": "cell_center", "mRender": function (data, type, full) { return bindDeleteElement(full[MENU_ID], 'delete-news-link btn btn-red', deletelink); } }
+
+        ];
+
+        // Tham so search input
+        function serverParams(aoData) {
+            aoData.push(
+                { "name": "del_flg", "value": $("#DEL_FLG_HIDDEN").val() }
+            );
+        }
+
+        function displayComplete(data) {
+            dataList = data.aaData;
+
+            if (sort_colum == 0) {
+                $('#InfoTable tr th:not(.sorting_disabled)').removeClass('sorting_asc sorting_desc').addClass('sorting').removeAttr('aria-sort');
+            }
+        }
+
+        function drawCallback() { }
+
+        function buildActionLink(id, content) {
+            var html = '';
+            {
+                html += '<a class="MenuEdit link" data-menuid="' + id + '">' + content + '</a>';
+            }
+            return html;
+        }
+
+        function bindDeleteElement(id, className, label) {
+            return '<a class="' + className + '" data-menuid="' + id + '">' + label + '</a>';
+        }
+
+        dataTable = CreateDataTable('#InfoTable', oSorting, oPaginate, oServerSide, aoColumnDefs);
+
+    });
+
+    $(function () {
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+
+    });
+
+    $(document).off('#del_flg');
+    $(document).on('change', '#del_flg', function () {
+        if ($('#del_flg').is(":checked")) {
+            $('#DEL_FLG_HIDDEN').val('1');
+        } else {
+            $('#DEL_FLG_HIDDEN').val('0');
+        }
+        searchMenuContent();
+    });
+
+    // Button Search
+    $(document).off('#btnSearch');
+    $(document).on('click', '#btnSearch', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        searchMenuContent();
+    });
+
+    function searchMenuContent() {
+
+        dataTable.fnPageChange('first');
+    }
+
+    // Click Button Clear
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+
+        searchMenuContent();
+    })
+
+    // Click redirect to Employee Register
+    $(document).off('#btnRegister');
+    $(document).on('click', '#btnRegister', function () {
+        window.location.href = UrlMenuRegister; // Redirect to other Url
+
+    })
+    // click link edit
+    $(document).off('.MenuEdit');
+    $(document).on('click', '.MenuEdit', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('#hdnMenuId').val($(this).data('menuid'));
+        $('#frUpdateMenu').submit();
+    });
+
+    // Click link delete   delete-Account-link
+    $(document).off('.delete-menu-link');
+    $(document).on('click', '.delete-menu-link', function () {
+
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+        var menuId = $(this).data('menuid');
+
+        if (menuId == '') return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmDelete, "trang ")', function (action) {
+            if (action) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: '@Url.Action("DeleteMenu")',
+                    data: { MENU_ID: menuId },
+                    success: function (data) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.DeleteSuccess)", true);
+                        dataTable.fnStandingRedraw();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.ConfirmDeleteError)", true);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+<style>
+    #CityList {
+        margin: 25px;
+    }
+</style>

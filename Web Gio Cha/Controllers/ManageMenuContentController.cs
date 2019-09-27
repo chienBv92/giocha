@@ -28,15 +28,15 @@ namespace Web_Gio_Cha.Controllers
 
             TblMenuContent model = new TblMenuContent();
             CommonService comService = new CommonService();
-            MenuContentDa dataAccess = new MenuContentDa();
+            ManageMenuDa dataAccess = new ManageMenuDa();
             model.Status = Constant.Status.ACTIVE;
 
             if (newsId > 0)
             {
                 TblMenuContent infor = new TblMenuContent();
-                //infor = dataAccess.getInfoNews(newsId);
-                //model = infor != null ? infor : model;
-                //model.Content = HttpUtility.HtmlDecode(model.Content);
+                infor = dataAccess.getInfoMenuContent(newsId);
+                model = infor != null ? infor : model;
+                model.Menu_Content = HttpUtility.HtmlDecode(model.Menu_Content);
             }
 
             return View(model);
@@ -85,6 +85,25 @@ namespace Web_Gio_Cha.Controllers
             }
         }
 
+        public ActionResult CheckExistMenuCode(int MenuCd)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                // Declare new DataAccess object
+                ManageMenuDa dataAccess = new ManageMenuDa();
+
+                var exist = dataAccess.CheckExistMenuCode(MenuCd);
+                JsonResult result = Json(new
+                {
+                    exist
+                }, JsonRequestBehavior.AllowGet);
+
+                return result;
+
+            }
+            return new EmptyResult();
+        }
+
         #endregion
 
         #region LIST
@@ -98,12 +117,12 @@ namespace Web_Gio_Cha.Controllers
                 return RedirectToAction("Login", "Login");
             }
 
-            NewsModel model = new NewsModel();
+            TblMenuContent model = new TblMenuContent();
 
             CommonService comService = new CommonService();
-            ManageNewsDa dataAccess = new ManageNewsDa();
+            ManageMenuDa dataAccess = new ManageMenuDa();
 
-            var tmpCondition = GetRestoreData() as NewsModel;
+            var tmpCondition = GetRestoreData() as TblMenuContent;
             if (tmpCondition != null)
             {
                 model = tmpCondition;
@@ -158,15 +177,15 @@ namespace Web_Gio_Cha.Controllers
         #endregion
 
         #region DELETE
-        public ActionResult DeleteMenu(long NEWS_ID = 0)
+        public ActionResult DeleteMenu(long MENU_ID = 0)
         {
             if (Request.IsAjaxRequest())
             {
-                if (NEWS_ID > 0)
+                if (MENU_ID > 0)
                 {
                     using (var service = new MenuService())
                     {
-                        var deleteResult = service.DeleteMenu(NEWS_ID);
+                        var deleteResult = service.DeleteMenu(MENU_ID);
 
                         JsonResult result = Json(new
                         {

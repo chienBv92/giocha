@@ -82,7 +82,7 @@ namespace Web_Gio_Cha.Services
         #endregion
 
         #region DELETE
-        public bool DeleteMenu(long NEWS_ID = 0)
+        public bool DeleteMenu(long MENU_ID = 0)
         {
             ManageMenuDa dataAccess = new ManageMenuDa();
 
@@ -92,7 +92,7 @@ namespace Web_Gio_Cha.Services
             {
                 try
                 {
-                    result = dataAccess.DeleteMenu(NEWS_ID);
+                    result = dataAccess.DeleteMenu(MENU_ID);
 
                     if (result > 0)
                         transaction.Complete();

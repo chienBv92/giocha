@@ -172,11 +172,6 @@
         var html = WebDuhoc.utility.htmlDecode('@Model.Detail');
         CKEDITOR.instances.Detail.setData(html);
 
-        //$("#Status").prop('checked', true).change();
-        //$('#STATUS_HIDDEN').val(true);
-        //$("#Is_Hot").prop('checked', true).change();
-        //$('#HOT_HIDDEN').val(true);
-
         $('[name="Status"][value="@Model.Status"]').prop('checked', true);
         $('#STATUS_HIDDEN').val('@Model.Status');
         $('[name="Is_Hot"][value="@Model.Is_Hot"]').prop('checked', true);

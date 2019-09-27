@@ -177,4 +177,7 @@
   <data name="RegisterWaitEmail" xml:space="preserve">
     <value>Vui lòng kiểm tra email để xác nhận tài khoản!</value>
   </data>
+  <data name="msgConfirmExistMenuCd" xml:space="preserve">
+    <value>Trang đã được tạo! Vui lòng chỉnh sửa!</value>
+  </data>
 </root>

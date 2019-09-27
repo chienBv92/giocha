@@ -58,12 +58,25 @@ namespace Web_Gio_Cha.Da
             return user;
         }
 
+        public bool CheckExistMenuCode(int MenuCd)
+        {
+            var result = da.TblMenuContent.Where(x => x.MenuCd == MenuCd).SingleOrDefault();
+
+            if (result != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         #endregion
 
         #region LIST
         public List<TblMenuContent> SearchMenuList(DataTableModel dt, TblMenuContent model, out int total_row)
         {
-            var listMenu = da.TblMenuContent.ToList();
+            var listMenu = da.TblMenuContent.Where(i=>i.del_flg == model.del_flg).ToList();
             total_row = listMenu.Count();
             return listMenu;
         }
@@ -71,9 +84,9 @@ namespace Web_Gio_Cha.Da
         #endregion
 
         #region DELETE
-        public long DeleteMenu(long NEWS_ID = 0)
+        public long DeleteMenu(long MENU_ID = 0)
         {
-            var news = da.TblMenuContent.Where(x => x.ID == NEWS_ID).SingleOrDefault();
+            var news = da.TblMenuContent.Where(x => x.ID == MENU_ID).SingleOrDefault();
             if (news != null)
             {
                 try
