@@ -1,23 +1,21 @@
 ﻿@using Web_Gio_Cha.Models;
 @using Web_Gio_Cha.Resources;
-
 @model UserModel
 @{
     ViewBag.Title = "Đăng ký";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <td class="row" align="center" valign="top">
     <div class="col-md-12">
         <section id="loginForm">
-            @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { id = "formUserRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
+            @using (Html.BeginForm("Edit", "Login", FormMethod.Post, new { id = "formUserRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
             {
-                <h2 >@ViewBag.Title</h2>
+                <h2>@ViewBag.Title</h2>
 
-                @Html.AntiForgeryToken()
+                @*@Html.AntiForgeryToken()*@
                 <hr />
                 @Html.HiddenFor(m => m.ID)
-   
+
                 @Html.ValidationSummary(false)
                 <span id="title"></span>
                 <div class="form-group">
@@ -33,11 +31,11 @@
                     <div class="col-md-2">
                         @Html.Label("Họ Tên:", new { @class = "lblText" })
                     </div>
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
                     </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-2">
                         @Html.Label("Mật khẩu:", new { @class = "lblText" })
@@ -64,7 +62,7 @@
                         <a href="/quen-mat-khau">Quên mật khẩu?</a>
                     </div>
                 </div>
-                
+
             }
         </section>
     </div>
@@ -190,6 +188,8 @@
 
     $('#formUserRegis').submit(function (event) {
         var formData = new FormData($(this)[0]);
+        //add the content
+
         $.ajax(
             {
                 url: '@Url.Action("Edit", "Login")',
@@ -225,4 +225,43 @@
             });
         event.preventDefault();
     });
+
+
+    @*$('#formUserRegis').submit(function (event) {
+        var formData = new FormData($(this)[0]);
+        $.ajax(
+            {
+                url: '@Url.Action("Edit", "Login")',
+                data: formData,
+                mimeType: "multipart/form-data",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    var result = jQuery.parseJSON(res);
+                    var message = "";
+                    if (result.ErrorMessages) {
+                        for (var i = 0; i < result.ErrorMessages.length; i++) {
+                            message += result.ErrorMessages[i] + "\n";
+                        }
+                        WebDuhoc.utility.showMessageModal(message, true);
+                    } else {
+                        message = result.isNew == true ? "@Message.RegisterWaitEmail" : "@Message.UpdateSuccess";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                            if (result.isNew == true) {
+                                window.location.href = "/dang-nhap";
+                            } else {
+                                window.location.href = "/trang-chu";
+                            }
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    window.location.href = '/Common/Error/';
+                }
+            });
+        event.preventDefault();
+    });*@
 </script>

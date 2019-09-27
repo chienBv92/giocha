@@ -21,6 +21,12 @@ namespace Web_Gio_Cha
          );
 
             routes.MapRoute(
+            name: "RePassword",
+            url: "quen-mat-khau/{id}",
+            defaults: new { controller = "Login", action = "ResetPassword", id = UrlParameter.Optional }
+        );
+
+            routes.MapRoute(
              name: "Register",
              url: "dang-ky/{id}",
              defaults: new { controller = "Login", action = "Register", id = UrlParameter.Optional }

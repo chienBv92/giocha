@@ -113,41 +113,41 @@ namespace Web_Gio_Cha.Controllers
                         bool isNew = false;
                         long res = 0;
                         //SendMailService sendMailservice = new SendMailService();
-                        //using (var transaction = new TransactionScope())
-                        //{
-                        //    try
-                        //    {
+                        using (var transaction = new TransactionScope())
+                        {
+                            try
+                            {
                                 if (model.ID == 0)
                                 {
                                     isNew = true;
 
                                     res = service.InsertUser(model);
-                                    //if (res <= 0)
-                                    //    transaction.Dispose();
+                                    if (res <= 0)
+                                        transaction.Dispose();
                                     // send mail confirm account
-                                    sendMailRegisterAccount(model);
-                                    //transaction.Complete();
+                                    res = sendMailRegisterAccount(model);
+                                    transaction.Complete();
                                 }
                                 else
                                 {
                                     isNew = false;
                                     res = service.UpdateUser(model);
-                                    //if (res <= 0)
-                                    //    transaction.Dispose();
-                                    //transaction.Complete();
+                                    if (res <= 0)
+                                        transaction.Dispose();
+                                    transaction.Complete();
                                 }
-                            //}
-                            //catch (Exception ex)
-                            //{
-                            //    throw new Exception(ex.Message, ex);
-                            //}
-                            //finally
-                            //{
-                            //    transaction.Dispose();
-                            //}
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception(ex.Message, ex);
+                            }
+                            finally
+                            {
+                                transaction.Dispose();
+                            }
                             JsonResult result = Json(new { isNew = isNew, res = res }, JsonRequestBehavior.AllowGet);
                             return result;
-                        //}
+                        }
                     }
                     else
                     {
@@ -157,7 +157,6 @@ namespace Web_Gio_Cha.Controllers
                             ModelState.AddModelError(mes.Key, mes.Errors.ToString());
                         }
                     }
-
                     return new EmptyResult();
                 }
             }
@@ -192,7 +191,7 @@ namespace Web_Gio_Cha.Controllers
 
         #region SEND MAIL
         // send email confirm account
-        public void sendMailRegisterAccount(UserModel model)
+        public int sendMailRegisterAccount(UserModel model)
         {
             SendMailService sendMailservice = new SendMailService();
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Views/Common/Sendmail.cshtml"));
@@ -205,11 +204,12 @@ namespace Web_Gio_Cha.Controllers
             content = content.Replace("{{callback}}", callbackUrl);
             //var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
             //sendMailservice.SendMail(toEmail, subject, content);
-            sendMailservice.SendMail(model.Email, subject, content); // Gửi email đến tài khoản đăng kí
+            var res = sendMailservice.SendMail(model.Email, subject, content); // Gửi email đến tài khoản đăng kí
+            return res;
         }
 
         // send mail reset password
-        public void sendMailResetPassword(string UserEmail)
+        public int sendMailResetPassword(string UserEmail)
         {
             SendMailService sendMailservice = new SendMailService();
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Views/Common/ResetPassword.cshtml"));
@@ -219,7 +219,8 @@ namespace Web_Gio_Cha.Controllers
             var callbackUrl = Url.Action("ConfirmResetPassword", "Login", new { UserEmail = UserEmail }, protocol: Request.Url.Scheme);
             content = content.Replace("{{callback}}", callbackUrl);
 
-            sendMailservice.SendMail(UserEmail, subject, content); // Gửi email đến tài khoản đăng kí
+            var res = sendMailservice.SendMail(UserEmail, subject, content); // Gửi email đến tài khoản đăng kí
+            return res;
         }
 
         // check exist user
@@ -287,10 +288,15 @@ namespace Web_Gio_Cha.Controllers
                     if (user != null)
                     {
                         var suscess = dataAccess.ReSetPassword(user);
-                        sendMailResetPassword(model.Email);
+                        suscess = sendMailResetPassword(model.Email);
                         if (suscess > 0)
                         {
                             ViewBag.sendMailSuccess = "Yêu cầu reset mật khẩu của bạn đã được gửi tới email:" + model.Email;
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("ResetPass", "Có lỗi xảy ra, vui lòng thực hiện lại!");
+                            ViewBag.sendMailError = "Có lỗi xảy ra, vui lòng thực hiện lại!";
                         }
                         return this.View();
                     }
