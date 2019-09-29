@@ -141,5 +141,14 @@ namespace Web_Gio_Cha.Controllers
             JsonResult result = Json(new { TongSoLuong = TongSoLuong, TotalMoney = TotalMoney }, JsonRequestBehavior.AllowGet);
             return result;
         }
+
+        #region VIEW
+        // Xem giỏ hàng
+        public ActionResult XemGioHang()
+        {
+            List<ItemGioHang> lstGioHang = LayGioHang();
+            return View(lstGioHang);
+        }
+        #endregion
     }
 }

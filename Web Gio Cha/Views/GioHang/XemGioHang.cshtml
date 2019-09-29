@@ -1,0 +1,43 @@
+﻿@model List<Web_Gio_Cha.Models.Define.ItemGioHang>
+@{
+    ViewBag.Title = "Xem Giỏ Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" border="0" cellspacing="0" cellpadding="0">
+    <div class="row form-group nomargin" style="padding-bottom:15px;    ">
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham black" style="margin-top:10px"> GIỎ HÀNG CỦA BẠN</span></div>
+    </div>
+    @if (Model == null || Model.Count() == 0)
+    {
+        <p style="font-size:2em;padding:10px;margin:10px"> Giỏ hàng trống! </p>
+        <a href="@Url.Action("Index","Home")" style="font-size:2em;padding:10px;margin:10px">Vui lòng quay trở lại trang chủ để mua hàng !! </a>
+    }
+    else
+    {
+        for (int i = 0; i< Model.Count();i++)
+        {
+            var link = "/xem-chi-tiet/" + Model[i].IdSanPham;
+            var imglink = Model[i].HinhAnh != null ? Model[i].HinhAnh : "/Images/demosanpham1.jpg";
+
+            <div class="col-md-8 col-sm-8 col-xs-8 col-xs-12">
+                <div class="col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <img class="ImgProduct-view" src="@imglink" title="@Model[i].TenSanPham" alt="giò chả Vân Bảo" />
+                </div>
+                <div class="col-md-6 col-sm-4 col-xs-6 col-xs-6">
+                    <p class="col-md-8 col-sm-6 col-xs-6 bold left">@Model[i].TenSanPham</p>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-6 col-xs-6">
+                    <p class="col-md-8 col-sm-6 col-xs-6 bold left">@Model[i].DonGia</p>
+                    @Html.TextBoxFor(m=> Model[i].SoLuong)
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-4 col-xs-12">
+                <span>Tạm tính:</span>
+                <span></span>
+            </div>
+        }
+    }
+</div>

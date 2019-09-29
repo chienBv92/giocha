@@ -44,8 +44,8 @@
                             @*@Ajax.ActionLink("Thêm vào giỏ", "ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-success" })*@
                             @*<button class="add-to-cart" title="Thêm vào giỏ" type="button" style="width:50%; height:30px">
                                 @*<i class="btn-icon btn-regist"></i>*@
-                                @*<img class="img-add-cart" src="~/Icons/add-cart.png" alt="" title="Thêm giỏ hàng" />
-                            </button>*@
+                            @*<img class="img-add-cart" src="~/Icons/add-cart.png" alt="" title="Thêm giỏ hàng" />
+                                </button>*@
                             <img class="img-add-cart" src="~/Icons/add-cart.png" data-id="@item.ID" title="Thêm giỏ hàng" style="cursor:pointer" />
                             @*<a href="@Ajax.ActionLink("ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl= Request.Url.ToString() })"><img class="img-add-cart" src="~/Icons/add-cart.png" alt="" title="Thêm giỏ hàng" /></a>*@
                         </div>
@@ -95,20 +95,20 @@
         //var parentLeft = parent.offset().left;
 
         //var src = parent.find('.prd-img').attr('src');
-        //var img = $('<img />', { 
+        //var img = $('<img />', {
         //    src: src,
         //    id: 'img-product-fly',
         //    alt: 'thêm giỏ hàng'
         //});
         //img.appendTo($('body').css({
         //    'top': parentTop,
-        //    'left': parseInt(parentLeft) + parent.width() - 50}         
+        //    'left': parseInt(parentLeft) + parent.width() - 50}
         //    ));
-        
+
         //setTimeout(function(){
         //    $(document).find('#img-product-fly').css({
         //        'top': cart.offset.top,
-        //        'left': cart.offset.left  
+        //        'left': cart.offset.left
         //    });
 
         //    setTimeout(function(){
@@ -125,12 +125,13 @@
             url: '@Url.Action("ThemGioHangAjax", "GioHang")',
             data: { Id: Id },
             success: function (res) {
-                alert("Đã thêm vào giỏ hàng!");
                 if(res.TongSoLuong > 0){
-                        $("#update-SoLuong").text(res.TongSoLuong + " sản phẩm");
-                        var totalMoney = WebDuhoc.utility.convertIntToMoney(res.TotalMoney);
-                        $("#updateTotalMoney").text(totalMoney);
+                    $("#update-SoLuong").text(res.TongSoLuong + " sản phẩm");
+                    var totalMoney = WebDuhoc.utility.convertIntToMoney(res.TotalMoney);
+                    $("#updateTotalMoney").text(totalMoney);
+                    alert("Đã thêm vào giỏ hàng!");
                 }
+
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 window.location.href = '/Common/Error/';
@@ -141,18 +142,18 @@
 </script>
 
 <style>
-    body{
-        position:relative;
+    body {
+        position: relative;
     }
 
-    #img-product-fly{
-        position:absolute;
-        z-index:99999;
-        width:50px;
-        height:50px;
-        object-fit:cover;
-        border-radius:100%;
-        border:2px solid #ff0000;
+    #img-product-fly {
+        position: absolute;
+        z-index: 99999;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 100%;
+        border: 2px solid #ff0000;
         transition: all 1s ease;
     }
 </style>
