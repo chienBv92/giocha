@@ -41,7 +41,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row nomargin">
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
-                            <a href="#"><img class="btn-img" src="~/Images/btDathang.jpg" alt="" /></a>
+                            <a href="@Url.Action("ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl= Request.Url.ToString() })"><img class="img-add-cart" src="~/Icons/add-cart.png" style="width: 42%!important;height: 24px!important;" alt="" title="Thêm giỏ hàng" /></a>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
                             <a href="#"><img class="btn-img" src="/Images/btBogio.jpg" alt="" /></a>

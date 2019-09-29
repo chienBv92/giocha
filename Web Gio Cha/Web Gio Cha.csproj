@@ -254,6 +254,8 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Define\CityModel.cs" />
     <Compile Include="Models\Define\DataTableModel.cs" />
+    <Compile Include="Models\Define\GioHang.cs" />
+    <Compile Include="Models\Define\ItemGioHang.cs" />
     <Compile Include="Models\Define\NewsModel.cs" />
     <Compile Include="Models\Define\ProductCategoryModel.cs" />
     <Compile Include="Models\Define\ProductModel.cs" />
@@ -1483,6 +1485,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Icons\add-cart.png" />
+    <Content Include="Icons\cart.ico" />
+    <Content Include="Icons\cart.png" />
     <Content Include="Icons\icon-hot.gif" />
     <Content Include="Icons\icon_cap_nhat_trang_thai.png" />
     <Content Include="Icons\icon_chinh_sua.png" />

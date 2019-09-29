@@ -41,10 +41,16 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row nomargin">
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
-                            <a href="#"><img class="btn-img" src="/Images/btDathang.jpg" alt="" /></a>
+                            @*@Ajax.ActionLink("Thêm vào giỏ", "ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-success" })*@
+                            @*<button class="add-to-cart" title="Thêm vào giỏ" type="button" style="width:50%; height:30px">
+                                @*<i class="btn-icon btn-regist"></i>*@
+                                @*<img class="img-add-cart" src="~/Icons/add-cart.png" alt="" title="Thêm giỏ hàng" />
+                            </button>*@
+                            <img class="img-add-cart" src="~/Icons/add-cart.png" data-id="@item.ID" title="Thêm giỏ hàng" style="cursor:pointer" />
+                            @*<a href="@Ajax.ActionLink("ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl= Request.Url.ToString() })"><img class="img-add-cart" src="~/Icons/add-cart.png" alt="" title="Thêm giỏ hàng" /></a>*@
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
-                            <a href="#"><img class="btn-img" src="/Images/btBogio.jpg" alt="" /></a>
+                            <a href="#"><img class="btn-img" src="/Images/btBogio.jpg" alt="" title="Đặt hàng" /></a>
                         </div>
                     </div>
                 </div>
@@ -76,5 +82,77 @@
         });
     }
 
+    $(document).off('.img-add-cart');
+    $(document).on('click', '.img-add-cart', function () {
 
+        //var cart = $('.Viewcart');
+
+        //var parent = $(this).parents('.product');
+
+        //var pos = parent.position();
+
+        //var parentTop = parent.offset().top;
+        //var parentLeft = parent.offset().left;
+
+        //var src = parent.find('.prd-img').attr('src');
+        //var img = $('<img />', { 
+        //    src: src,
+        //    id: 'img-product-fly',
+        //    alt: 'thêm giỏ hàng'
+        //});
+        //img.appendTo($('body').css({
+        //    'top': parentTop,
+        //    'left': parseInt(parentLeft) + parent.width() - 50}         
+        //    ));
+        
+        //setTimeout(function(){
+        //    $(document).find('#img-product-fly').css({
+        //        'top': cart.offset.top,
+        //        'left': cart.offset.left  
+        //    });
+
+        //    setTimeout(function(){
+        //        $(document).find('#img-product-fly').remove();
+        //    }, 1000)
+        //}, 500)
+
+        var Id = $(this).data('id');
+        if (Id == '') return;
+
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: '@Url.Action("ThemGioHangAjax", "GioHang")',
+            data: { Id: Id },
+            success: function (res) {
+                alert("Đã thêm vào giỏ hàng!");
+                if(res.TongSoLuong > 0){
+                        $("#update-SoLuong").text(res.TongSoLuong + " sản phẩm");
+                        var totalMoney = WebDuhoc.utility.convertIntToMoney(res.TotalMoney);
+                        $("#updateTotalMoney").text(totalMoney);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                window.location.href = '/Common/Error/';
+            }
+        });
+
+    });
 </script>
+
+<style>
+    body{
+        position:relative;
+    }
+
+    #img-product-fly{
+        position:absolute;
+        z-index:99999;
+        width:50px;
+        height:50px;
+        object-fit:cover;
+        border-radius:100%;
+        border:2px solid #ff0000;
+        transition: all 1s ease;
+    }
+</style>

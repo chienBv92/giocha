@@ -400,6 +400,11 @@ input[type="password"], select {
     height: auto;
 }
 
+.img-add-cart{
+    width: 42%;
+    height: 24px;
+}
+
 .prd-title {
     font-weight: bold;
 }
