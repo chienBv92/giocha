@@ -1,20 +1,22 @@
 ﻿@model IEnumerable<Web_Gio_Cha.EF.Product>
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+
 @foreach (var item in Model)
 {
     var data = item.Discount;
 
 }
-@* Slideshow *@
-<div class="row form-group nomargin">
-    <div class=" col-md-12 col-sm-12 col-xs-12 slideshow"><img src="/Images/bannerMain.jpg" alt="" style="width:100%;" /></div>
-</div>
+<head>
+    <title></title>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/input")
+
+
+</head>
+<script src="/Scripts/WebDuhoc.Utility.js"></script>
 @* Favourites *@
 <div class="row form-group nomargin" style="padding-bottom:15px;    ">
     <div class="col-md-4 col-sm-3 col-xs-3"></div>
-    <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham" style="margin-top:10px"> SẢN PHẨM TIÊU BIỂU</span></div>
+    <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham" style="margin-top:10px"> SẢN PHẨM CÙNG LOẠI</span></div>
 </div>
 @* Product item *@
 <div class="row form-group nomargin">
@@ -26,12 +28,10 @@
         <div class="product col-md-3 col-sm-4 col-xs-6">
             <div class="row nomargin prd-content discount">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="@link"><img class="prd-img" src="@imglink" title="@item.Name" alt="giò chả Vân Bảo" /></a>
+                    <a href="@link"><img class="prd-img" src="@imglink" title="@item.Name" style="height: 100px !important" alt="giò chả Vân Bảo" /></a>
                 </div>
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="@link" class="link-normal">
-                        <p height="20" align="center" class="prd-title break-text" title="@item.Name">@item.Name</p>
-                    </a>
+                    <p height="20" align="center" class="prd-title break-text" title="@item.Name">@item.Name</p>
                     <p><strong>Giá gốc: <s class="co0066cc money">@item.PriceBefore</s></strong></p>
                     <p><strong style="color: #ff0000">Giá KM: <span class="co0066cc money" style="color:#ff0000">@item.Price</span></strong></p>
                 </div>
@@ -41,7 +41,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row nomargin">
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
-                            <a href="#"><img class="btn-img" src="/Images/btDathang.jpg" alt="" /></a>
+                            <a href="#"><img class="btn-img" src="~/Images/btDathang.jpg" alt="" /></a>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
                             <a href="#"><img class="btn-img" src="/Images/btBogio.jpg" alt="" /></a>

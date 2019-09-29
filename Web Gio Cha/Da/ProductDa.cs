@@ -159,5 +159,12 @@ namespace Web_Gio_Cha.Da
 
         #endregion
 
+        #region GET VIEW PRODUCT
+        public Product getProductDetail(long Id)
+        {
+            Product product = da.Product.Where(s => s.ID == Id && s.Status == true && s.del_flg == Constant.DeleteFlag.NON_DELETE).SingleOrDefault();
+            return product;
+        }
+        #endregion
     }
 }

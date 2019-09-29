@@ -151,6 +151,9 @@ h1 {
         text-decoration: underline
     }
 
+    .link-normal{
+         text-decoration: none
+    }
 .co4f790d {
     color: #4f790d;
     line-height: 18px
@@ -367,6 +370,10 @@ input[type="password"], select {
     height: 100px;
 }
 
+.ImgProduct-view {
+    width: 100%!important;
+}
+
 .break-text{
     overflow: hidden;
     word-break: break-all;
@@ -425,3 +432,19 @@ input[type="password"], select {
     display: inline-block;
 }
 
+.text-break {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/*@media (max-width: 1500px) {
+  #viewProductDetail img {
+    width: 100%!important;
+    height: auto;
+  }
+}*/
+
+#viewProductDetail img {
+    width: 100%!important;
+    height: auto!important;
+  }

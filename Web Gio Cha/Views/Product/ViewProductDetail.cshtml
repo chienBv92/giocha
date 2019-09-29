@@ -1,0 +1,73 @@
+﻿@model Web_Gio_Cha.EF.Product
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row form-group nomargin" style="padding-bottom:15px;    ">
+    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham text-break" style="margin-top:10px" title="@ViewBag.ProductName"> @ViewBag.ProductName</span></div>
+</div>
+
+<div id="viewProductDetail" class="row form-group nomargin">
+    @if (Model != null)
+    {
+        <div class="col-md-12">
+            <div class="col-md-5 col-sm-12 col-xs-12">
+                <img class="ImgProduct-view" src="@Model.Image" title="@Model.Name" alt="giò chả Vân Bảo" />
+            </div>
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="col-md-12 col-sm-12 col-xs-12" style="display:inline-block">
+                    <p class="col-md-4 col-sm-6 col-xs-6 bold left">Giá gốc:</p>
+                    <p class="col-md-8 col-sm-6 col-xs-6 bold left"><s class="co0066cc money">@Model.PriceBefore</s></p>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="display:inline-block">
+                    <p class="col-md-4 col-sm-6 col-xs-6 bold left">Giá KM:</p>
+                    <p class="col-md-8 col-sm-6 col-xs-6 bold left money" style="color:#ff0000">@Model.Price</p>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="display:inline-block">
+                    <p class="col-md-4 col-sm-6 col-xs-6 bold left">Giảm giá:</p>
+                    <p class="col-md-8 col-sm-6 col-xs-6 bold left">@Model.Discount %</p>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="display:inline-block">
+                    <p class="col-md-4 col-sm-6 col-xs-6 bold left">Giao hàng</p>
+                    <p class="col-md-8 col-sm-6 col-xs-6 bold left">Giao trong ngày</p>
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12" style="display:inline-block">
+                    <div class="col-md-4 col-sm-4 col-xs-4 bold left"><a href="#"><img src="/Images/btBogio.jpg" width="60%" height="auto" border="0" /></a></div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12 left"><h3>Giới thiệu sản phẩm:</h3></div>
+        <div class="col-md-12 col-sm-12 col-xs-12 left">
+            @Html.Raw(Model.Detail)
+        </div>
+    }
+    else
+    {
+        <div style="text-align:center; padding:50px">
+            <h3>Sản phẩm không tồn tại!</h3>
+        </div>
+    }
+
+    @{Html.RenderAction("GetProductSameCategory", "Category", new { @categoryId = Model.CategoryID, @strUrl = Request.Url.ToString() });}
+</div>
+<style>
+
+</style>
+<script>
+    $(document).ready(function () {
+        // Format money
+        $(".money").each(function () {
+            var data = WebDuhoc.utility.convertIntToMoney($(this).text());
+            $(this).text(data);
+        });
+
+    });
+
+
+</script>

@@ -194,5 +194,14 @@ namespace Web_Gio_Cha.Services
 
         #endregion
 
+        #region GET VIEW PRODUCT
+        public Product getProductDetail(long PRODUCT_ID)
+        {
+            ProductDa dataAccess = new ProductDa();
+            Product product = dataAccess.getProductDetail(PRODUCT_ID);
+
+            return product;
+        }
+        #endregion
     }
 }

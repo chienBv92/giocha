@@ -20,7 +20,35 @@ namespace Web_Gio_Cha
              defaults: new { controller = "AdminSystem", action = "Index", id = UrlParameter.Optional }
          );
 
-            // Tao Url view tin du hoc
+            // Tao Url view liên hệ
+            routes.MapRoute(
+           name: "Contact",
+           url: "lien-he/{id}",
+           defaults: new { controller = "Home", action = "Contact", id = UrlParameter.Optional }
+       );
+
+            // Tao Url view trợ giúp
+            routes.MapRoute(
+              name: "Help",
+              url: "tro-giup/{id}",
+              defaults: new { controller = "Home", action = "Help", id = UrlParameter.Optional }
+          );
+
+            // Tao Url view giới thiệu
+            routes.MapRoute(
+                name: "Intro",
+                url: "gioi-thieu/{id}",
+                defaults: new { controller = "Home", action = "Intro", id = UrlParameter.Optional }
+            );
+
+            // Tao Url view product by category
+            routes.MapRoute(
+                name: "ViewProductDetail",
+                url: "xem-chi-tiet/{metatitle}/{id}",
+                defaults: new { controller = "Product", action = "ViewProductDetail", id = UrlParameter.Optional }
+            );
+
+            // Tao Url view product by category
             routes.MapRoute(
                 name: "GetProductByCategory",
                 url: "san-pham-{metatitle}/{categoryId}",
@@ -49,23 +77,7 @@ namespace Web_Gio_Cha
             defaults: new { controller = "Login", action = "Logout", id = UrlParameter.Optional }
         );
 
-            routes.MapRoute(
-             name: "Contact",
-             url: "lien-he/{id}",
-             defaults: new { controller = "Home", action = "Contact", id = UrlParameter.Optional }
-         );
-
-            routes.MapRoute(
-             name: "Intro",
-             url: "gioi-thieu/{id}",
-             defaults: new { controller = "Home", action = "Intro", id = UrlParameter.Optional }
-         );
-
-            routes.MapRoute(
-              name: "Help",
-              url: "tro-giup/{id}",
-              defaults: new { controller = "Home", action = "Help", id = UrlParameter.Optional }
-          );
+          
             routes.MapRoute(
               name: "Products",
               url: "san-pham/{id}",

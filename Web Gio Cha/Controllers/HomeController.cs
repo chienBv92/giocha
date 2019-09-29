@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Web_Gio_Cha.Da;
+using Web_Gio_Cha.EF;
+using Web_Gio_Cha.Resources;
 using Web_Gio_Cha.Services;
 
 namespace Web_Gio_Cha.Controllers
@@ -22,18 +25,40 @@ namespace Web_Gio_Cha.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Intro(int MenuCd = MenuCode.Intro)
         {
-            ViewBag.Message = "Your application description page.";
+            ManageMenuDa dataAccess = new ManageMenuDa();
+            TblMenuContent model = new TblMenuContent();
+            model = dataAccess.getMenuContentDisplay(MenuCd);
 
-            return View();
+            return View(model);
         }
 
-        public ActionResult Contact()
+        public ActionResult Help(int MenuCd = MenuCode.Help)
         {
-            ViewBag.Message = "Your contact page.";
+            ManageMenuDa dataAccess = new ManageMenuDa();
+            TblMenuContent model = new TblMenuContent();
+            model = dataAccess.getMenuContentDisplay(MenuCd);
 
-            return View();
+            return View(model);
+        }
+
+        public ActionResult About(int MenuCd = 4)
+        {
+            ManageMenuDa dataAccess = new ManageMenuDa();
+            TblMenuContent model = new TblMenuContent();
+            model = dataAccess.getMenuContentDisplay(MenuCd);
+
+            return View(model);
+        }
+
+        public ActionResult Contact(int MenuCd = MenuCode.Contact)
+        {
+            ManageMenuDa dataAccess = new ManageMenuDa();
+            TblMenuContent model = new TblMenuContent();
+            model = dataAccess.getMenuContentDisplay(MenuCd);
+
+            return View(model);
         }
     }
 }

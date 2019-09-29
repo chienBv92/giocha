@@ -52,6 +52,12 @@ namespace Web_Gio_Cha.Da
             return product;
         }
 
+        public TblMenuContent getMenuContentDisplay(long Id)
+        {
+            TblMenuContent product = da.TblMenuContent.Where(s => s.ID == Id && s.Status == true && s.del_flg == Constant.DeleteFlag.NON_DELETE).SingleOrDefault();
+            return product;
+        }
+
         public TblUser getUserByID(long Id)
         {
             TblUser user = da.TblUser.Where(s => s.ID == Id).SingleOrDefault();

@@ -29,5 +29,15 @@ namespace Web_Gio_Cha.Controllers
             IEnumerable<Product> model = service.GetListProductByCategory(categoryId);
             return View(model);
         }
+
+        public ActionResult GetProductSameCategory(long categoryId = 0)
+        {
+            ProductCategoryService service = new ProductCategoryService();
+            ProductCategoryDa da = new ProductCategoryDa();
+            int maxItem = 10;
+            ViewBag.CategoryName = da.getCategoryName(categoryId);
+            IEnumerable<Product> model = service.GetListProductByCategory(categoryId);
+            return PartialView(model);
+        }
     }
 }

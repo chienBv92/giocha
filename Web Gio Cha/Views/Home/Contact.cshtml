@@ -1,17 +1,22 @@
-﻿@{
-    ViewBag.Title = "Contact";
+﻿@model Web_Gio_Cha.EF.TblMenuContent
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="row form-group nomargin">
+    <div class="col-md-12 col-sm-12 col-xs-12 left">
+        @if (Model != null)
+        {
+            @Html.Raw(Model.Menu_Content)
+        }
+        else
+        {
+            <div style="text-align:center; padding:50px">
+                <h3>Trang chưa có nội dung hoặc không tồn tại!</h3>
+            </div>
+        }
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    </div>
+</div>
+
+
