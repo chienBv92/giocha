@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row" border="0" cellspacing="0" cellpadding="0">
+<div id="view-cart" class="row" border="0" cellspacing="0" cellpadding="0">
     <div class="row form-group nomargin" style="padding-bottom:15px;    ">
         <div class="col-md-3 col-sm-3 col-xs-3"></div>
         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham black" style="margin-top:10px"> GIỎ HÀNG CỦA BẠN</span></div>
@@ -16,28 +16,150 @@
     }
     else
     {
-        for (int i = 0; i< Model.Count();i++)
-        {
-            var link = "/xem-chi-tiet/" + Model[i].IdSanPham;
-            var imglink = Model[i].HinhAnh != null ? Model[i].HinhAnh : "/Images/demosanpham1.jpg";
+        <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var link = "/xem-chi-tiet/" + Model[i].IdSanPham;
+                var imglink = Model[i].HinhAnh != null ? Model[i].HinhAnh : "/Images/demosanpham1.jpg";
 
-            <div class="col-md-8 col-sm-8 col-xs-8 col-xs-12">
-                <div class="col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                    <img class="ImgProduct-view" src="@imglink" title="@Model[i].TenSanPham" alt="giò chả Vân Bảo" />
-                </div>
-                <div class="col-md-6 col-sm-4 col-xs-6 col-xs-6">
-                    <p class="col-md-8 col-sm-6 col-xs-6 bold left">@Model[i].TenSanPham</p>
-                </div>
-                <div class="col-md-3 col-sm-4 col-xs-6 col-xs-6">
-                    <p class="col-md-8 col-sm-6 col-xs-6 bold left">@Model[i].DonGia</p>
-                    @Html.TextBoxFor(m=> Model[i].SoLuong)
-                </div>
-            </div>
+                <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 product-cart" style="display:inline-block; margin:5px">
+                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
+                        <img class="ImgProduct-view" src="@imglink" title="@Model[i].TenSanPham" alt="giò chả Vân Bảo" style="height:70px"/>
+                    </div>
+                    <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                        <a class="col-md-12 left title-product" href="@link" title="@Model[i].TenSanPham">@Model[i].TenSanPham</a>
+                        <a class="left" href="">Xóa</a>
+                        @*<p class="col-md-8 col-sm-6 col-xs-6 bold left">@Model[i].TenSanPham</p>*@
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
+                        <p class="bold left money donGia">@Model[i].DonGia</p>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 quantity">
 
-            <div class="col-md-4 col-sm-4 col-xs-4 col-xs-12">
+                        <button class="btn btn-default touchspin-down col-md-4" type="button">-</button>
+                        @Html.TextBoxFor(m => Model[i].SoLuong, new { @class = "qty col-md-4", maxlength = 2, min = 0 })
+                        <button class="btn btn-default touchspin-up col-md-4" type="button">+</button>
+
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
+                        <p class="bold left money tienHang">@Model[i].TienHang</p>
+                    </div>
+                </div>
+
+            }
+            <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
                 <span>Tạm tính:</span>
                 <span></span>
             </div>
-        }
+        </div>
+
     }
 </div>
+<script>
+    //WebDuhoc.utility.validFullHalfSize($(".qty"));
+    //WebDuhoc.utility.imeControl($(".qty"), 'disable');
+
+    $(document).ready(function () {
+        // Format money
+        $(".money").each(function () {
+            var data = WebDuhoc.utility.convertIntToMoney($(this).text());
+            $(this).text(data);
+        });
+
+        $(document).on("input", ".qty", function () {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    });
+
+    $(document).off('.qty');
+    $(document).on('change', '.qty', function () {
+        var qty = $(this).val();
+        if (qty <= 1) {
+            $(this).val(1);
+        }
+        qty = $(this).val();
+        var parent = $(this).parents('.product-cart');
+        var donGia = WebDuhoc.utility.convertMoneyToInt(parent.find('.donGia').text());
+        var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
+        parent.find('.tienHang').text(tienHang);
+
+    });
+
+    $(document).off('.touchspin-down');
+    $(document).on('click', '.touchspin-down', function () {
+        var parent = $(this).parent('.quantity');
+        var qty = parent.find('.qty').val();
+        // set gia tri qty
+        if (qty <= 1) {
+            parent.find('.qty').val(1);
+        } else {
+            parent.find('.qty').val(parseInt(qty) - 1);
+        }
+        // Tinh toan lai tien
+        qty = parent.find('.qty').val();
+        var parentAll = $(this).parents('.product-cart');
+        var donGia = WebDuhoc.utility.convertMoneyToInt(parentAll.find('.donGia').text());
+        var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
+        parentAll.find('.tienHang').text(tienHang);
+    });
+
+    $(document).off('.touchspin-up');
+    $(document).on('click', '.touchspin-up', function () {
+        var parent = $(this).parent('.quantity');
+        var qty = parent.find('.qty').val();
+        // set gia tri qty
+        if (qty < 1) {
+            return false;
+        } else {
+            parent.find('.qty').val(parseInt(qty) + 1);
+        }
+        // Tinh toan lai tien
+        qty = parent.find('.qty').val();
+        var parentAll = $(this).parents('.product-cart');
+        var donGia = WebDuhoc.utility.convertMoneyToInt(parentAll.find('.donGia').text());
+        var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
+        parentAll.find('.tienHang').text(tienHang);
+    });
+
+</script>
+
+<style>
+    #view-cart .qty{
+        width:30%;
+        padding:0px;
+        margin:0px;
+        text-align:center;
+        float:left;
+    }
+
+    #view-cart .title-product {
+        height: 50px;
+        word-break: break-word;
+        overflow: hidden;
+    }
+    .touchspin-down, .touchspin-up{
+    display: inline-block;
+    height: 28px;
+    padding: 3px 8px;
+    margin:0px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    border-radius: 3px;
+    width:30%;
+    float:left;
+}
+
+</style>
+

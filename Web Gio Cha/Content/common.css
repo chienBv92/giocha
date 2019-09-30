@@ -376,9 +376,9 @@ input[type="password"], select {
 
 .break-text{
     overflow: hidden;
-    word-break: break-all;
     max-height: 35px;
     height:35px;
+    word-break: break-word; 
 }
 
 .discount:after {
