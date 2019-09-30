@@ -13,7 +13,6 @@
 </div>
 @* Favourites *@
 <div class="row form-group nomargin" style="padding-bottom:15px;    ">
-    <div class="col-md-4 col-sm-3 col-xs-3"></div>
     <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham" style="margin-top:10px"> SẢN PHẨM TIÊU BIỂU</span></div>
 </div>
 @* Product item *@
@@ -28,12 +27,17 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <a href="@link"><img class="prd-img" src="@imglink" title="@item.Name" alt="giò chả Vân Bảo" /></a>
                 </div>
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <a href="@link" class="link-normal">
-                        <p height="20" align="center" class="prd-title break-text" title="@item.Name">@item.Name</p>
-                    </a>
-                    <p><strong>Giá gốc: <s class="co0066cc money">@item.PriceBefore</s></strong></p>
-                    <p><strong style="color: #ff0000">Giá KM: <span class="co0066cc money" style="color:#ff0000">@item.Price</span></strong></p>
+                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:10px">
+                    <p height="20" align="center" class="prd-title break-text" title="@item.Name">@item.Name</p>
+                    @if (item.Discount > 0)
+                    {
+                        <p><strong>Giá gốc: <s class="co0066cc money">@item.PriceBefore</s></strong></p>
+                        <p><strong style="color: #ff0000">Giá KM: <span class="co0066cc money" style="color:#ff0000">@item.Price</span></strong></p>
+                    }
+                    else
+                    {
+                        <p><strong>Giá: <span class="co0066cc money" style="color:#ff0000"> @item.PriceBefore</span></strong></p>
+                    }
                 </div>
             </div>
             @* Button *@
@@ -41,16 +45,10 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row nomargin">
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
-                            @*@Ajax.ActionLink("Thêm vào giỏ", "ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl = Request.Url.ToString() }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "divGioHang", InsertionMode = InsertionMode.Replace }, new { @class = "btn btn-success" })*@
-                            @*<button class="add-to-cart" title="Thêm vào giỏ" type="button" style="width:50%; height:30px">
-                                @*<i class="btn-icon btn-regist"></i>*@
-                            @*<img class="img-add-cart" src="~/Icons/add-cart.png" alt="" title="Thêm giỏ hàng" />
-                                </button>*@
-                            <img class="img-add-cart" src="~/Icons/add-cart.png" data-id="@item.ID" title="Thêm giỏ hàng" style="cursor:pointer" />
-                            @*<a href="@Ajax.ActionLink("ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl= Request.Url.ToString() })"><img class="img-add-cart" src="~/Icons/add-cart.png" alt="" title="Thêm giỏ hàng" /></a>*@
+                            <a href="@Url.Action("ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl= Request.Url.ToString() })"><img class="btn-img" src="~/Images/btBogio.jpg" alt="" /></a>
                         </div>
                         <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
-                            <a href="#"><img class="btn-img" src="/Images/btBogio.jpg" alt="" title="Đặt hàng" /></a>
+                            <a href="@link"><img class="btn-img" src="~/Images/btChitiet.jpg" alt="" /></a>
                         </div>
                     </div>
                 </div>
@@ -59,6 +57,7 @@
 
     }
 </div>
+
 <script>
     $(document).ready(function () {
         setDiscount();

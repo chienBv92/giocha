@@ -1486,7 +1486,6 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Icons\add-cart.png" />
-    <Content Include="Icons\cart.ico" />
     <Content Include="Icons\cart.png" />
     <Content Include="Icons\icon-hot.gif" />
     <Content Include="Icons\icon_cap_nhat_trang_thai.png" />
@@ -1603,7 +1602,7 @@
     <Content Include="Images\bg_titlesanpham.jpg" />
     <Content Include="Images\bg_topmenu.png" />
     <Content Include="Images\btBogio.jpg" />
-    <Content Include="Images\btDathang.jpg" />
+    <Content Include="Images\btChitiet.jpg" />
     <Content Include="Images\bt_capnhat.gif" />
     <Content Include="Images\bt_continues.gif" />
     <Content Include="Images\bt_dathangxong.gif" />
