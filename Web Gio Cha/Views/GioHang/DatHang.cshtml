@@ -1,0 +1,352 @@
+﻿@using Web_Gio_Cha.Models.Define;
+@using Web_Gio_Cha.Resources;
+
+@model OrderModel
+@{
+    ViewBag.Title = "Đặt Hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="DatHang" class="row" border="0" cellspacing="0" cellpadding="0">
+    <div class="row form-group nomargin" style="padding-bottom:15px;    ">
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham black" style="margin-top:10px"> ĐẶT HÀNG</span></div>
+    </div>
+    @if (Model.ItemGioHangList == null || Model.ItemGioHangList.Count() == 0)
+    {
+        <p style="font-size:2em;padding:10px;margin:10px"> Giỏ hàng trống! </p>
+        <a href="@Url.Action("Index","Home")" style="font-size:2em;padding:10px;margin:10px">Vui lòng quay trở lại trang chủ để mua hàng !! </a>
+    }
+    else
+    {
+        using (Html.BeginForm("CartSubmit", "GioHang", FormMethod.Post, new { id = "formOrderCart", enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin">
+
+                @for (int i = 0; i < Model.ItemGioHangList.Count(); i++)
+                {
+                    @Html.HiddenFor(m => m.ItemGioHangList);
+                    @Html.HiddenFor(m => m.ItemGioHangList[i].IdSanPham, new { @class = "setup-id" })
+                    @Html.HiddenFor(m => m.ItemGioHangList[i].HinhAnh, new { @class = "noi-vung" })
+                    @Html.HiddenFor(m => m.ItemGioHangList[i].MetaTitle, new { @class = "noi-tinh" })
+                    @Html.HiddenFor(m => m.ItemGioHangList[i].SoLuong, new { @class = "special-city" })
+                    @Html.HiddenFor(m => m.ItemGioHangList[i].TenSanPham, new { @class = "noi-thanh" })
+                    @Html.HiddenFor(m => m.ItemGioHangList[i].TienHang, new { @class = "ship-type" })
+                    @Html.HiddenFor(m => m.ItemGioHangList[i].DonGia, new { @class = " del-flg" })
+                                                           
+                    var link = "/xem-chi-tiet/" + Model.ItemGioHangList[i].MetaTitle + "/" + Model.ItemGioHangList[i].IdSanPham;
+
+                                                           var imglink = Model.ItemGioHangList[i].HinhAnh != null ? Model.ItemGioHangList[i].HinhAnh : "/Images/demosanpham1.jpg";
+                    <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 product-cart" style="display:inline-block; margin:5px">
+                        <input id="IdSanPham" name="ID" type="hidden" value="@Model.ItemGioHangList[i].IdSanPham">
+
+                        <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
+                            <img class="ImgProduct-view" src="@imglink" title="@Model.ItemGioHangList[i].TenSanPham" alt="giò chả Vân Bảo" style="height:70px" />
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                            <a class="col-md-12 left title-product" href="@link" title="@Model.ItemGioHangList[i].TenSanPham">@Model.ItemGioHangList[i].TenSanPham</a>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
+                            <p class="left money donGia">@Model.ItemGioHangList[i].DonGia</p>
+                            <input id="DonGia" name="DonGia" type="hidden" value="@Model.ItemGioHangList[i].DonGia">
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 quantity">
+
+                            <p class="qty col-md-4">@Model.ItemGioHangList[i].SoLuong</p>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
+                            <p class="left money tienHang">@Model.ItemGioHangList[i].TienHang</p>
+                        </div>
+                    </div>
+
+                }
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Tổng tiền:</div>
+                        <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12 bold" style="width:50%;text-align:right">@Model.TongTien</div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Phí vận chuyển:</div>
+                        <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; text-align:right">@Model.PriceShip</div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Tổng tiền:</div>
+                        <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; color:red; text-align:right">@Model.PriceTotal</div>
+                    </div>
+                </div>
+
+                <div id="title" class="col-md-12 col-sm-6 col-xs-6 col-xs-12 left bold" style="background-color: #F7950C; margin-top:10px">
+                    <span style="margin-top:10px" class="lblCustomer">THÔNG TIN KHÁCH HÀNG</span>
+                    
+                </div>
+
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
+                    <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left padding-0" style="margin-top:20px">
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                            <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Họ Tên:</div>
+                            <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "username txt-box", maxlength = 100 })
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                            <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Quận:</div>
+                            <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
+                                @Html.DropDownListFor(m => m.Receive_District, Model.DISTRICT_LIST, new { @class = "username txt-box", maxlength = 100 })
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                            <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Địa chỉ:</div>
+                            <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
+                                @Html.TextBoxFor(m => m.Receive_Address, new { @class = "address txt-box", maxlength = 100 })
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                            <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Số điện thoại:</div>
+                            <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
+                                @Html.TextBoxFor(m => m.Receive_Phone, new { @class = "phone txt-box", maxlength = 13 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 padding-0" style="margin-top:20px">
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5 padding-0" style="display:inline-block">
+                            <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left padding-0" style="line-height:28px">Ghi chú:</div>
+                            <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left padding-0">
+                                @Html.TextAreaFor(m => m.Note, new { @class = "note", maxlength = 100 })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-sm-6 col-xs-6 col-xs-12 left bold" style="background-color: #F7950C; margin-top:10px">
+                    <span style="margin-top:10px" class="lblCustomer"> PHƯƠNG THỨC THANH TOÁN</span>
+                </div>
+
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
+                    <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 left">
+                        <input type="radio" id="method_type_1" name="METHOD_TYPE" value="1" checked="checked"> Thu tiền tận nơi
+                    </div>
+                    <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 left">
+                        <input type="radio" id="method_type_2" name="METHOD_TYPE" value="2"> Chuyển khoản
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
+                    <div class="col-md-3 col-sm-6 col-xs-6 col-xs-12 left" style="margin-top:20px">
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="margin-top:20px">
+                        <button class="" onclick="window.location.href = '/xem-gio-hang'" style="height:27px">Quay lại giỏ hàng</button>
+                        <button class="btn btn-green" id="btnCartSubmit">Xác nhận đặt hành</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<script>
+    WebDuhoc.utility.validFullHalfSize($("#Receive_Phone"));
+    WebDuhoc.utility.imeControl($("#Receive_Phone"), 'disable');
+    WebDuhoc.utility.checkInputNumber($("#Receive_Phone"));
+
+    var DistrictListUrl = '@Url.Action("DistrictList", "ManageDistrict")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    $(document).ready(function () {
+        // Format money
+        $(".money").each(function () {
+            var data = WebDuhoc.utility.convertIntToMoney($(this).text());
+            $(this).text(data);
+        });
+
+        $(document).on("input", ".qty", function () {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    });
+
+    $('input[name="METHOD_TYPE"]').on('change', function () {
+        if ($('#method_type_1').is(":checked")) {
+
+        }
+    });
+
+    function validateData() {
+        var invalidMess = [];
+        var UserName = $('#UserName').val();
+        var Receive_District = $('#Receive_District').val();
+        var Receive_Address = $('#Receive_Address').val();
+        var Receive_Phone = $('#Receive_Phone').val();
+
+        var errContent = [];
+        var errDisplay = [];
+        var invalidMess = [];
+
+        if (UserName == null || UserName.trim() == "") {
+            errDisplay = '@AdminLabel.lblUserName' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (UserName.trim().length > 50) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, AdminLabel.lblUserName, Constant.MAX_USER_NAME_LENGTH)");
+        }
+
+        if (Receive_District == null || Receive_District.trim() == "" || Receive_District == 0) {
+            errDisplay = '@AdminLabel.lblDistrict' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+
+        if (Receive_Address == null || Receive_Address.trim() == "") {
+            errDisplay = '@AdminLabel.lblAddress' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (Receive_Address.trim().length > 100) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, AdminLabel.lblUserName, Constant.MAX_EMAIL_LENGTH)");
+        }
+
+        if (Receive_Phone == null || Receive_Phone.trim() == "" || Receive_Phone == 0) {
+            errDisplay = '@UserLabel.lblPhone' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (Receive_Phone.trim().length > 13) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @UserLabel.lblPhone, Constant.MAX_PHONE_LENGTH)");
+        }
+            // check numberic
+        else if (!WebDuhoc.utility.validPhone(Receive_Phone)) {
+            invalidMess.push("@string.Format(@Message.IncorrectFormat, @UserLabel.lblPhone)");
+        }
+        return invalidMess;
+    }
+
+    $(document).off('#btnCartSubmit');
+    $(document).on('click', '#btnCartSubmit', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('.validation-summary-errors').remove();
+        var invalidMess = validateData();
+        if (invalidMess.length > 0) {
+            WebDuhoc.utility.showClientError(invalidMess);
+            return false;
+        }
+
+        //var existDistrictCD = false;
+        ////var districtCd = $('#ID').val().trim();
+
+        //var value = $('#PriceShip').val();
+        //if (value.length > 0) {
+        //    var price = WebDuhoc.utility.convertMoneyToInt(value, true);
+        //}
+        //$('#PriceShip').val(price);
+
+        $("#formOrderCart").submit();
+
+    });
+
+    $('#formOrderCart').submit(function (event) {
+        var formData = new FormData($(this)[0]);
+        $.ajax(
+            {
+                url: '@Url.Action("CartSubmit", "GioHang")',
+                data: formData,
+                mimeType: "multipart/form-data",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    var result = jQuery.parseJSON(res);
+                    var message = "";
+                    if (result.ErrorMessages) {
+                        for (var i = 0; i < result.ErrorMessages.length; i++) {
+                            message += result.ErrorMessages[i] + "\n";
+                        }
+                        WebDuhoc.utility.showMessageModal(message, true);
+                    } else {
+                        message = result.isNew == true ? "Đã đặt đơn thành công! Vui lòng kiểm tra quản lí đơn!" : "";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                            window.location.href = managerOrderUrl;
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    window.location.href = '/Common/Error/';
+                }
+            });
+        event.preventDefault();
+    });
+
+</script>
+
+<style>
+    #DatHang .qty {
+        width: 30%;
+        padding: 0px;
+        margin: 0px;
+        text-align: center;
+        float: left;
+    }
+
+    #DatHang .title-product {
+        height: 50px;
+        word-break: break-word;
+        overflow: hidden;
+    }
+
+    .touchspin-down, .touchspin-up {
+        display: inline-block;
+        height: 28px;
+        padding: 3px 8px;
+        margin: 0px;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-color: #ffffff;
+        border-color: #cccccc;
+        border-radius: 3px;
+        width: 30%;
+        float: left;
+    }
+
+    #DatHang .lblCustomer {
+        font-size: 14px;
+        line-height: 26px;
+    }
+
+    #DatHang .txt-box {
+        width: 100%;
+    }
+
+    #DatHang .margintop-5 {
+        margin-top: 5px;
+    }
+
+    .padding-0 {
+        padding: 0px;
+    }
+
+    #DatHang .note {
+        width: 100%;
+        height: 100px;
+    }
+</style>

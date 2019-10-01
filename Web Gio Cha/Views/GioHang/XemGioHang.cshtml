@@ -19,20 +19,22 @@
         <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin">
             @for (int i = 0; i < Model.Count(); i++)
             {
-                var link = "/xem-chi-tiet/" + Model[i].IdSanPham;
+                var link = "/xem-chi-tiet/" + Model[i].MetaTitle + "/" + Model[i].IdSanPham;
+                
                 var imglink = Model[i].HinhAnh != null ? Model[i].HinhAnh : "/Images/demosanpham1.jpg";
-
                 <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 product-cart" style="display:inline-block; margin:5px">
+                    <input id="IdSanPham" name="ID" type="hidden" value="@Model[i].IdSanPham">
+
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
                         <img class="ImgProduct-view" src="@imglink" title="@Model[i].TenSanPham" alt="giò chả Vân Bảo" style="height:70px"/>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6">
                         <a class="col-md-12 left title-product" href="@link" title="@Model[i].TenSanPham">@Model[i].TenSanPham</a>
-                        <a class="left" href="">Xóa</a>
-                        @*<p class="col-md-8 col-sm-6 col-xs-6 bold left">@Model[i].TenSanPham</p>*@
+                        <a class="left delete-cart" href="@Url.Action("XoaGioHang", "GioHang", new { @Id = @Model[i].IdSanPham, @strUrl = Request.Url.ToString() })">Xóa</a>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
                         <p class="bold left money donGia">@Model[i].DonGia</p>
+                        <input id="DonGia" name="DonGia" type="hidden" value="@Model[i].DonGia">
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 quantity">
 
@@ -48,8 +50,21 @@
 
             }
             <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
-                <span>Tạm tính:</span>
-                <span></span>
+                <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12">
+
+                </div>
+                <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold">Tổng tiền:</div>
+                    <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; color:red">@ViewBag.TongTien</div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xs-12 left" style="margin-top:20px">
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="margin-top:20px">
+                    <button class="" onclick="window.location.href='/trang-chu'" style="height:27px">Tiếp tục mua hàng</button>
+                    <button class="btn btn-green" id="btnCartSubmit" onclick="window.location.href='/dat-hang'">Tiến hành đặt hành</button>
+                </div>
             </div>
         </div>
 
@@ -79,11 +94,26 @@
         }
         qty = $(this).val();
         var parent = $(this).parents('.product-cart');
-        var donGia = WebDuhoc.utility.convertMoneyToInt(parent.find('.donGia').text());
-        var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
-        parent.find('.tienHang').text(tienHang);
+        var IdSanPham = parent.find('#IdSanPham').val();
 
+        var data = SaveSessionCart(IdSanPham, qty);
+        if (data != nulll && data.TongSoLuong > 0) {
+            var donGia = WebDuhoc.utility.convertMoneyToInt(parent.find('.donGia').text());
+            var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
+            parent.find('.tienHang').text(tienHang);
+            $('.moneyTotal').text(WebDuhoc.utility.convertIntToMoney(data.TotalMoney))
+        };
     });
+
+    function SaveSessionCart(Id, qty) {
+        var param = {
+            Id: Id,
+            qty: qty
+        }
+
+        var data = WebDuhoc.utility.getDataByAjax('@Url.Action("SaveSessionCart", "GioHang")', param);
+        return data;
+    };
 
     $(document).off('.touchspin-down');
     $(document).on('click', '.touchspin-down', function () {
@@ -98,9 +128,15 @@
         // Tinh toan lai tien
         qty = parent.find('.qty').val();
         var parentAll = $(this).parents('.product-cart');
-        var donGia = WebDuhoc.utility.convertMoneyToInt(parentAll.find('.donGia').text());
-        var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
-        parentAll.find('.tienHang').text(tienHang);
+        var IdSanPham = parentAll.find('#IdSanPham').val();
+
+        var data = SaveSessionCart(IdSanPham, qty);
+        if (data != null && data.TongSoLuong > 0) {
+            var donGia = WebDuhoc.utility.convertMoneyToInt(parentAll.find('.donGia').text());
+            var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
+            parentAll.find('.tienHang').text(tienHang);
+            $('.moneyTotal').text(WebDuhoc.utility.convertIntToMoney(data.TotalMoney))
+        };
     });
 
     $(document).off('.touchspin-up');
@@ -116,9 +152,16 @@
         // Tinh toan lai tien
         qty = parent.find('.qty').val();
         var parentAll = $(this).parents('.product-cart');
-        var donGia = WebDuhoc.utility.convertMoneyToInt(parentAll.find('.donGia').text());
-        var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
-        parentAll.find('.tienHang').text(tienHang);
+        var IdSanPham = parentAll.find('#IdSanPham').val();
+        var data = SaveSessionCart(IdSanPham, qty);
+
+        if (data != null && data.TongSoLuong > 0) {
+            var donGia = WebDuhoc.utility.convertMoneyToInt(parentAll.find('.donGia').text());
+            var tienHang = WebDuhoc.utility.convertIntToMoney(donGia * qty);
+            parentAll.find('.tienHang').text(tienHang);
+            $('.moneyTotal').text(WebDuhoc.utility.convertIntToMoney(data.TotalMoney))
+
+        };
     });
 
 </script>

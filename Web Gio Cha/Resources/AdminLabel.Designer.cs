@@ -187,6 +187,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ.
+        /// </summary>
+        public static string lblAddress {
+            get {
+                return ResourceManager.GetString("lblAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danh mục.
         /// </summary>
         public static string lblCategory {
@@ -228,6 +237,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblDiscount {
             get {
                 return ResourceManager.GetString("lblDiscount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quận, huyện.
+        /// </summary>
+        public static string lblDistrict {
+            get {
+                return ResourceManager.GetString("lblDistrict", resourceCulture);
             }
         }
         
@@ -309,6 +327,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblMetaTitle {
             get {
                 return ResourceManager.GetString("lblMetaTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại.
+        /// </summary>
+        public static string lblPhone {
+            get {
+                return ResourceManager.GetString("lblPhone", resourceCulture);
             }
         }
         
@@ -435,6 +462,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblUpdateUser {
             get {
                 return ResourceManager.GetString("lblUpdateUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Họ Tên.
+        /// </summary>
+        public static string lblUserName {
+            get {
+                return ResourceManager.GetString("lblUserName", resourceCulture);
             }
         }
         

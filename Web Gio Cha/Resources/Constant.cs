@@ -128,4 +128,75 @@ namespace Web_Gio_Cha.Resources
                 { Contact, "Trang liên hệ" }
             }.AsReadOnly();
     }
+
+    public class PaymentMethodType
+    {
+        public const int None = 0;
+
+        public const int Tien_mat = 1;
+
+        public const int Bank = 2;
+
+
+        public static readonly OrderedDictionary Items = new OrderedDictionary
+            {
+                { None, "Chọn PP thanh toán" },
+                { Tien_mat, "Thanh toán tại nhà" },
+                { Bank, "Chuyển khoản ngân hàng" },
+
+            }.AsReadOnly();
+    }
+
+    public class PayStatus
+    {
+        public const bool None = false;
+
+        public const bool Paid = true;
+
+        public static readonly OrderedDictionary Items = new OrderedDictionary
+            {
+                { None, "Chưa thanh toán" },
+                { Paid, "Đã thanh toán" }
+            }.AsReadOnly();
+    }
+
+    public class OrderStatus
+    {
+        public const int Create = 0;
+
+        public const int TakingOrder = 1;
+
+        public const int TakedOrder = 2;
+
+        public const int Shiping = 3;
+
+        public const int Delivery = 4;
+
+        public const int ReShip = 5;
+
+        public const int ReturnOrder = 6;
+
+        public const int ReturnOrderSuccess = 7;
+
+        public const int Finished = 8;
+
+        public const int WaitCOD = 9;
+
+        public const int Error = 10;
+
+        public static readonly OrderedDictionary Items = new OrderedDictionary
+            {
+                { Create, "Mới khởi tạo" },
+                { TakingOrder, "Đã duyệt" },
+                { TakedOrder, "Đã lấy hàng" },
+                { Shiping, "Đang giao hàng" },
+                { Delivery, "Đã giao" },
+                { ReShip, "Chờ giao lại" },
+                { ReturnOrder, "Hoàn hàng" },
+                { ReturnOrderSuccess, " Đã hoàn hàng" },
+                { Finished, "Hoàn tất" },
+                { WaitCOD, "Chờ COD" },
+                { Error, "Lỗi" }
+            }.AsReadOnly();
+    }
 }

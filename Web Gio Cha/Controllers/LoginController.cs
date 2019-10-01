@@ -45,6 +45,8 @@ namespace Web_Gio_Cha.Controllers
                         session.IsAdmin = user.IsAdmin;
                         session.Phone = user.Phone;
                         session.Status = user.Status;
+                        session.USER_DISTRICT = user.Receive_District.HasValue ? user.Receive_District.Value : 0;
+                        session.USER_ADDRESS = user.Receive_Address;
                         Session.Add("CmnEntityModel", session);
 
                         return RedirectToAction("Index", "Home");

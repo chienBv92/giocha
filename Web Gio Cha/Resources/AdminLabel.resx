@@ -282,4 +282,16 @@
   <data name="MenuPageRegisterTitle" xml:space="preserve">
     <value>Tạo nội dung trang</value>
   </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="lblDistrict" xml:space="preserve">
+    <value>Quận, huyện</value>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="lblUserName" xml:space="preserve">
+    <value>Họ Tên</value>
+  </data>
 </root>

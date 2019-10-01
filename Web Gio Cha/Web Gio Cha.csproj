@@ -194,6 +194,7 @@
     <Compile Include="Da\ManageMenuDa.cs" />
     <Compile Include="Da\ManageNewsDa.cs" />
     <Compile Include="Da\MenuContentDa.cs" />
+    <Compile Include="Da\OrderCartDa.cs" />
     <Compile Include="Da\ProductCategoryDa.cs" />
     <Compile Include="Da\ProductDa.cs" />
     <Compile Include="Da\UserDa.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="Models\Define\GioHang.cs" />
     <Compile Include="Models\Define\ItemGioHang.cs" />
     <Compile Include="Models\Define\NewsModel.cs" />
+    <Compile Include="Models\Define\OrderModel.cs" />
     <Compile Include="Models\Define\ProductCategoryModel.cs" />
     <Compile Include="Models\Define\ProductModel.cs" />
     <Compile Include="Models\Define\UserModel.cs" />
@@ -293,6 +295,7 @@
     <Compile Include="Services\ManageDistrictService.cs" />
     <Compile Include="Services\MenuService.cs" />
     <Compile Include="Services\NewsService.cs" />
+    <Compile Include="Services\OrderCartService.cs" />
     <Compile Include="Services\ProductCategoryService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SendMailService.cs" />
@@ -1777,7 +1780,8 @@
     <Content Include="Views\Product\ViewProductDetail.cshtml" />
     <Content Include="Views\Category\GetProductSameCategory.cshtml" />
     <Content Include="Views\GioHang\XemGioHang.cshtml" />
-    <Content Include="Views\GioHang\XemGioHang - Copy.cshtml" />
+    <Content Include="Views\GioHang\DatHang.cshtml" />
+    <Content Include="Views\GioHang\DatHang - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

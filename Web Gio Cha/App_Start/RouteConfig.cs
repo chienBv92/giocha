@@ -22,6 +22,13 @@ namespace Web_Gio_Cha
 
             // Tao Url view liên hệ
             routes.MapRoute(
+           name: "DatHang",
+           url: "dat-hang/{id}",
+           defaults: new { controller = "GioHang", action = "DatHang", id = UrlParameter.Optional }
+       );
+
+            // Tao Url view liên hệ
+            routes.MapRoute(
            name: "XemGioHang",
            url: "xem-gio-hang/{id}",
            defaults: new { controller = "GioHang", action = "XemGioHang", id = UrlParameter.Optional }

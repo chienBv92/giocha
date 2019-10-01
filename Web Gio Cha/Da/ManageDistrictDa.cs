@@ -23,6 +23,12 @@ namespace Web_Gio_Cha.Da
             return cityList;
         }
 
+        public List<TblCity> getDistrictList(int city)
+        {
+            List<TblCity> distrcitList = da.TblCity.Where(s => s.Level == Constant.CityLevel.District && s.Parent_Code == city && s.del_flg == Constant.DeleteFlag.NON_DELETE && s.Status == Constant.Status.ACTIVE).ToList();
+            return distrcitList;
+        }
+
         #region INSERT/UPDATE
         public long InsertCity(TblCity entity)
         {
