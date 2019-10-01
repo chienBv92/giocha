@@ -11,6 +11,7 @@ namespace Web_Gio_Cha.Models.Define
     {
         public long IdSanPham { get; set; }
         public string TenSanPham { get; set; }
+        public string MetaTitle { get; set; }
         public int SoLuong { get; set; }
         public decimal DonGia { get; set; }
         public decimal TienHang { get; set; }
@@ -22,6 +23,7 @@ namespace Web_Gio_Cha.Models.Define
             this.IdSanPham = IdSanPham;
             Product sanpham = db.getProductByID(IdSanPham);
             this.TenSanPham = sanpham.Name;
+            this.MetaTitle = sanpham.MetaTitle;
             this.HinhAnh = sanpham.Image;
             this.DonGia = sanpham.Price.Value;
             this.SoLuong = 1;
@@ -34,6 +36,7 @@ namespace Web_Gio_Cha.Models.Define
             this.IdSanPham = IdSanPham;
             Product sanpham = db.getProductByID(IdSanPham);
             this.TenSanPham = sanpham.Name;
+            this.MetaTitle = sanpham.MetaTitle;
             this.HinhAnh = sanpham.Image;
             this.DonGia = sanpham.Price.Value;
             this.SoLuong = SL;
