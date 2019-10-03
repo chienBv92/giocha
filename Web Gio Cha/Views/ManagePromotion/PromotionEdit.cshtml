@@ -1,0 +1,235 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.EF;
+
+@model TblPromotion
+@{
+    ViewBag.Title = AdminLabel.PromotionRegisterTitle;
+    if (@Model.id != null && @Model.id > 0)
+    {
+        ViewBag.Title = AdminLabel.PromotionUpdateTitle;
+    }
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="PromotionEdit" class="edit-screen">
+    @using (Html.BeginForm("Edit", "ManagePromotion", FormMethod.Post, new { id = "formRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        <div id="title">@ViewBag.Title</div>
+        <input id="ID" name="ID" type="hidden" value="@Model.id">
+        @Html.HiddenFor(m => m.del_flg, new { @class = "sp-id" })
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.PromotionName <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.PromotionName, new { @class = "txt-w-250", maxlength = 100 })
+        </div>
+        
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.PriceMin <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.PriceMin, new { @class = "txt-w-100 money", maxlength = 9 }) <span>VND</span>
+
+            <label class="title-row" style="margin-left:45px">@AdminLabel.PriceMax <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.PriceMax, new { @class = "txt-w-100 money", maxlength = 9 })
+            <span>VND</span>
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblDiscount </label>
+            @Html.TextBoxFor(m => m.Discount, new { @class = "txt-w-50 discount", maxlength = 2 })
+            <span>%</span>
+        </div>
+
+        <div class="form-group">
+            @Html.Label(@AdminLabel.lblStatus, new { @for = "STATUS", @class = "title-row" })
+            @if (Model.Status == null || Model.Status == false)
+            {
+                <input id="Status" type="checkbox">
+                <input id="STATUS_HIDDEN" name="Status" type="hidden" value="false">
+            }
+            else
+            {
+                <input id="Status" type="checkbox" checked="checked">
+                <input id="STATUS_HIDDEN" name="Status" type="hidden" value="true">
+            }
+        </div>
+
+        <div class="form-group action-button-bottom">
+            <button type="button" id="btnBack" name="btnBack" class="btn btn-default"><i class="btn-icon btn-back">@AdminLabel.btnBack</i></button>
+            <div class="pull-right">
+                <button type="button" id="btnClear" name="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                <button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-orange"><i class="btn-icon btn-edit">@AdminLabel.btnRegister</i></button>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+
+    var PromotionListUrl = '@Url.Action("PromotionList", "ManagePromotion")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+    WebDuhoc.utility.formatMoney();
+    $(function () {
+        var oldDistrict = $('#ID').val();
+        if (oldDistrict == 0) {
+            $("#Status").prop('checked', true).change();
+            $('#STATUS_HIDDEN').val(true);
+
+        }
+
+        $(document).on("input", "#Discount", function () {
+            this.value = this.value.replace(/\D/g, '');
+        });
+    });
+
+    function validateData() {
+        var invalidMess = [];
+
+        var promotionName = $('#PromotionName').val();
+        var PriceMin = $('#PriceMin').val();
+        var PriceMax = $('#PriceMax').val();
+        var Discount = $('#Discount').val();
+        PriceMin = WebDuhoc.utility.convertMoneyToInt(PriceMin, true);
+        PriceMax = WebDuhoc.utility.convertMoneyToInt(PriceMax, true);
+        Discount = WebDuhoc.utility.convertMoneyToInt(Discount, true);
+
+        var displayFlg = $('#Status').val();
+        var errContent = [];
+        var errDisplay = [];
+        var invalidMess = [];
+
+        if (promotionName == null || promotionName.trim() == "") {
+            errDisplay = '@AdminLabel.PromotionName' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (promotionName.trim().length > 100) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @AdminLabel.PromotionName, Constant.MAX_EMAIL_LENGTH)");
+        }
+
+        if (PriceMin > PriceMax) {
+            invalidMess.push("@string.Format(Message.CheckValueMax, @AdminLabel.PriceMin, @AdminLabel.PriceMax)");
+        }
+        if (Discount > 99) {
+            invalidMess.push("@string.Format(Message.CheckValueMax, @AdminLabel.DiscountPercent, Constant.MAX_DISCOUNT)");
+        }
+
+        return invalidMess;
+    }
+
+    $(document).off('#Status');
+    $(document).on('change', '#Status', function () {
+        if ($('#Status').is(":checked")) {
+            $('#STATUS_HIDDEN').val(true);
+        } else {
+            $('#STATUS_HIDDEN').val(false);
+        }
+    });
+
+    $(document).off('#btnSubmit');
+    $(document).on('click', '#btnSubmit', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('.validation-summary-errors').remove();
+        var invalidMess = validateData();
+        if (invalidMess.length > 0) {
+            WebDuhoc.utility.showClientError(invalidMess);
+            return false;
+        }
+
+        var PriceMin = $('#PriceMin').val();
+        if (PriceMin.length > 0) {
+            var price = WebDuhoc.utility.convertMoneyToInt(PriceMin, true);
+        }
+        $('#PriceMin').val(price);
+
+        var PriceMax = $('#PriceMax').val();
+        if (PriceMax.length > 0) {
+            var price = WebDuhoc.utility.convertMoneyToInt(PriceMax, true);
+        }
+        $('#PriceMax').val(price);
+
+        var formData = new FormData($('#formRegis')[0]);
+        $.ajax(
+            {
+                url: '@Url.Action("Edit", "ManagePromotion")',
+                data: formData,
+                mimeType: "multipart/form-data",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    var result = jQuery.parseJSON(res);
+                    var message = "";
+                    if (result.ErrorMessages) {
+                        for (var i = 0; i < result.ErrorMessages.length; i++) {
+                            message += result.ErrorMessages[i] + "\n";
+                        }
+                        WebDuhoc.utility.showMessageModal(message, true);
+                    } else {
+                        message = result.isNew == true ? "@Message.RegisterSuccess" : "@Message.UpdateSuccess";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                            window.location.href = PromotionListUrl;
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    window.location.href = '/Common/Error/';
+                }
+            });
+        event.preventDefault();
+
+    });
+
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmClear)', function (action) {
+            $('.validation-summary-errors').remove();
+            if (action) {
+                if ($('#ID').val() == 0) {
+                    $("#PromotionName").val('');
+                    $("#PriceMin").val(0);
+                    $("#PriceMax").val(0);
+                    $("#Discount").val(0);
+
+                    $("#Status").prop('checked', true).change();
+                    $('#STATUS_HIDDEN').val('1');
+
+                } else {
+                    $("#PromotionName").val('@Model.PromotionName');
+                    $("#PriceMin").val('@Model.PriceMin');
+                    $("#PriceMax").val('@Model.PriceMax');
+                    $("#Discount").val('@Model.Discount');
+
+                    $("#STATUS_HIDDEN").val('@Model.Status').change();
+                    if ('@Model.Status' == '0') {
+                        $("#STATUS").prop("checked", false);
+                    } else {
+                        $("#STATUS").prop("checked", true);
+                    }
+
+                }
+            }
+        })
+    });
+
+    // Button Back
+    $(document).off('#btnBack');
+    $(document).on('click', '#btnBack', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmBack)', function (action) {
+            if (action) {
+
+                $(window).off('beforeunload');
+                window.location.href = PromotionListUrl;
+            }
+        })
+    });
+
+</script>
+
+
+
+

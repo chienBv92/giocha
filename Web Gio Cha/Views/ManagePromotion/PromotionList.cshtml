@@ -1,0 +1,280 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.EF;
+
+@model TblPromotion
+@{
+    ViewBag.Title = AdminLabel.PromotionList;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div id="CityList">
+    <div id="topContent">
+        <div id="title">@ViewBag.Title</div>
+        @using (Html.BeginForm("Search", "AdminManageDistrict", FormMethod.Post, new { id = "formSearch", enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div id="searchArea" class="clearfix">
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.DistricName</label>
+                    @Html.TextBoxFor(m => m.PromotionName, new { @class = "txt-w-250", @style = "ime-mode: auto;", maxlength = 100 })
+                </div>
+
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblPrice </label>
+                    @Html.TextBoxFor(m => m.PriceMin, new { @class = "txt-w-100 money", maxlength = 9 }) <span>VND</span>
+
+                </div>
+
+                <div class="form-group">
+                    @Html.Label(@AdminLabel.lblDelete, new { @for = "del_flg", @class = "title-row" })
+                    @if (String.IsNullOrEmpty(Model.del_flg) || Model.del_flg.Equals("0"))
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="0">
+                    }
+                    else
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox" checked="checked">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="1">
+                    }
+                </div>
+            </div>
+
+            <hr />
+            <div id="searchAction">
+                <div class="pull-right">
+                    <button type="button" id="btnSearch" class="btn btn-green"><i class="btn-icon btn-search-white">@AdminLabel.btnSearch</i></button>
+                    <button type="button" id="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                </div>
+            </div>
+        }
+    </div>
+    <div id="registButton">
+        <form id="frUpdatePromotion" method="POST" action="@Url.Action("PromotionEdit", "ManagePromotion")">
+            <input type="hidden" id="hdnpromotionCd" name="promotionId" value="0" />
+        </form>
+        <button type="button" id="btnRegister" name="btnRegister" class="btn btn-orange"><i class="btn-icon btn-regist"></i>@AdminLabel.btnRegister</button>
+    </div>
+    <hr />
+    <div id="mainContent">
+        <table id="InfoTable" class="dataTable cellspacing= " 0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>STT</th>
+                    <th>@AdminLabel.PromotionName</th>
+                    <th>@AdminLabel.PriceMin</th>
+                    <th>@AdminLabel.PriceMax</th>
+                    <th>@AdminLabel.lblDiscount</th>
+                    <th>@AdminLabel.CityDisplay</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var UrlPromotionRegister = '@Url.Action("PromotionEdit", "ManagePromotion")';
+    var UrlPromotionList = '@Url.Action("PromotionList", "ManagePromotion")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+    WebDuhoc.utility.formatMoney();
+
+    var dataTable = null;
+    var sort_colum = 0;
+    var sort_type = 'asc';
+    var deletelink = "Xóa";
+    var PROMOTION_ID = 0;
+    var ORDER = 1;
+    var PROMOTION_NAME = 2;
+    var PRICE_MIN = 3;
+    var PRICE_MAX = 4;
+    var DISCOUNT = 5;
+    var STATUS = 6;
+    var DELETE = 7;
+
+    var rows_checked_list = [];
+
+    $(function () {
+        var oSorting = {
+            "bSort": false
+        };
+
+        var oPaginate = {
+            "bPaginate": true,
+            "iDisplayLength": 10, // setup amount record
+            "bStateSave": false
+        };
+
+        var oServerSide = {
+            "bServerSide": true,
+            "sAjaxSource": '@Url.Action("List", "ManagePromotion")',
+            "fnServerParams": serverParams,
+            "fnInitComplete": displayComplete,
+            "fnDrawCallback": drawCallback,
+            "autoWidth": false,
+            "info": false
+        };
+        // Content in table
+        var aoColumnDefs = [
+             { "sName": "PROMOTION_ID", "bVisible": false, "aTargets": [PROMOTION_ID] },
+             { "bSortable": false, "aTargets": [ORDER], "sWidth": "10%", "sClass": "cell_center order text-overflow", "sName": "ORDER" },
+             {
+                 "bSortable": false, "aTargets": [PROMOTION_NAME], "sWidth": "10%", "sClass": "cell_center",
+                 "mRender": function (data, type, full) { return buildActionLink(full[PROMOTION_ID], full[PROMOTION_NAME]); }
+             },
+             {
+                 "bSortable": false, "aTargets": [PRICE_MIN], "sWidth": "10%", "sClass": "cell_center",
+                 "mRender": function (data, type, full) { return formatMoney(full[PRICE_MIN]) }
+             },
+             {
+                 "bSortable": false, "aTargets": [PRICE_MAX], "sWidth": "10%", "sClass": "cell_center",
+                 "mRender": function (data, type, full) { return formatMoney(full[PRICE_MAX]) }
+             },
+             { "bSortable": false, "aTargets": [DISCOUNT], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [STATUS], "sWidth": "10%", "sClass": "cell_center" },
+
+             { "bSortable": false, "aTargets": [DELETE], "sWidth": "10%", "sClass": "cell_center", "mRender": function (data, type, full) { return bindDeleteElement(full[PROMOTION_ID], 'delete-promotion-link btn btn-red', deletelink); } }
+
+        ];
+
+        // Tham so search input
+        function serverParams(aoData) {
+            aoData.push(
+                { "name": "PriceMin", "value": $("#PriceMin").val() },
+                { "name": "PromotionName", "value": $("#PromotionName").val() },
+                { "name": "del_flg", "value": $("#DEL_FLG_HIDDEN").val() }
+            );
+        }
+
+        function displayComplete(data) {
+            dataList = data.aaData;
+
+            if (sort_colum == 0) {
+                $('#InfoTable tr th:not(.sorting_disabled)').removeClass('sorting_asc sorting_desc').addClass('sorting').removeAttr('aria-sort');
+            }
+        }
+
+        function formatMoney(money) {
+            var money = WebDuhoc.utility.convertIntToMoney(money);
+            return money + " VND";
+        }
+
+        function drawCallback() { }
+
+        function buildActionLink(id, content) {
+            var html = '';
+            {
+                html += '<a class="PromotionEdit promotioncd link" data-promotioncd="' + id + '">' + content + '</a>';
+            }
+            return html;
+        }
+
+        function bindDeleteElement(id, className, label) {
+            return '<a class="' + className + '" data-promotioncd="' + id + '">' + label + '</a>';
+        }
+
+        dataTable = CreateDataTable('#InfoTable', oSorting, oPaginate, oServerSide, aoColumnDefs);
+
+    });
+
+    $(function () {
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+
+    });
+
+    $(document).off('#del_flg');
+    $(document).on('change', '#del_flg', function () {
+        if ($('#del_flg').is(":checked")) {
+            $('#DEL_FLG_HIDDEN').val('1');
+        } else {
+            $('#DEL_FLG_HIDDEN').val('0');
+        }
+        searchPromotion();
+    });
+
+
+    // Button Search
+    $(document).off('#btnSearch');
+    $(document).on('click', '#btnSearch', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        searchPromotion();
+    });
+
+    function searchPromotion() {
+
+        var PriceMin = $('#PriceMin').val();
+        if (PriceMin.length > 0) {
+            var price = WebDuhoc.utility.convertMoneyToInt(PriceMin, true);
+        }
+        $('#PriceMin').val(price);
+
+        dataTable.fnPageChange('first');
+    }
+
+    // Click Button Clear
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $("#DEL_FLG").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+
+        $("#PriceMin").val(0);
+        $("#PromotionName").val("");
+
+        searchPromotion();
+    })
+
+    // Click redirect to Employee Register
+    $(document).off('#btnRegister');
+    $(document).on('click', '#btnRegister', function () {
+        window.location.href = UrlPromotionRegister; // Redirect to other Url
+
+    })
+    // click link edit
+    $(document).off('.PromotionEdit');
+    $(document).on('click', '.PromotionEdit', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        var code = $(this).data('promotioncd');
+        $('#hdnpromotionCd').val($(this).data('promotioncd'));
+
+        $('#frUpdatePromotion').submit();
+    });
+
+    // Click link delete   delete-Account-link
+    $(document).off('.delete-promotion-link');
+    $(document).on('click', '.delete-promotion-link', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        var promotionId = $(this).data('promotioncd');
+
+        if (promotionId == '') return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmDelete, "khuyến mại")', function (action) {
+            if (action) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: '@Url.Action("DeletePromotion")',
+                    data: { PROMOTION_ID: promotionId },
+                    success: function (data) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.DeleteSuccess)", true);
+                        dataTable.fnStandingRedraw();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.ConfirmDeleteError)", true);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+<style>
+    #CityList {
+        margin: 25px;
+    }
+</style>

@@ -183,4 +183,7 @@
   <data name="RegisterAccountSuccess" xml:space="preserve">
     <value>Tài khoản đăng kí thành công! Vui lòng đăng nhập!</value>
   </data>
+  <data name="CheckValueMax" xml:space="preserve">
+    <value>{0} không được vượt quá  {1} !</value>
+  </data>
 </root>

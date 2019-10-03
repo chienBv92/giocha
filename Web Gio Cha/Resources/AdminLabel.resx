@@ -294,4 +294,25 @@
   <data name="lblUserName" xml:space="preserve">
     <value>Họ Tên</value>
   </data>
+  <data name="DiscountPercent" xml:space="preserve">
+    <value>Giảm giá</value>
+  </data>
+  <data name="PriceMax" xml:space="preserve">
+    <value>Giá tối đa</value>
+  </data>
+  <data name="PriceMin" xml:space="preserve">
+    <value>Giá tối thiểu</value>
+  </data>
+  <data name="PromotionList" xml:space="preserve">
+    <value>Danh sách khuyến mại</value>
+  </data>
+  <data name="PromotionName" xml:space="preserve">
+    <value>Tên khuyến mại</value>
+  </data>
+  <data name="PromotionRegisterTitle" xml:space="preserve">
+    <value>Đăng kí khuyến mại</value>
+  </data>
+  <data name="PromotionUpdateTitle" xml:space="preserve">
+    <value>Cập nhật khuyến mại</value>
+  </data>
 </root>

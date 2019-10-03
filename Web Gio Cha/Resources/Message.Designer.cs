@@ -79,6 +79,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} không được vượt quá  {1} !.
+        /// </summary>
+        public static string CheckValueMax {
+            get {
+                return ResourceManager.GetString("CheckValueMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bạn muốn chuyển sang màn hình List?.
         /// </summary>
         public static string ConfirmBack {

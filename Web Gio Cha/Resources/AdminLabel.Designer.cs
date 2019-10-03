@@ -133,6 +133,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Giảm giá.
+        /// </summary>
+        public static string DiscountPercent {
+            get {
+                return ResourceManager.GetString("DiscountPercent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thứ tự .
         /// </summary>
         public static string DisplayOrder {
@@ -529,6 +538,24 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Giá tối đa.
+        /// </summary>
+        public static string PriceMax {
+            get {
+                return ResourceManager.GetString("PriceMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Giá tối thiểu.
+        /// </summary>
+        public static string PriceMin {
+            get {
+                return ResourceManager.GetString("PriceMin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Giá ship.
         /// </summary>
         public static string PriceShip {
@@ -588,6 +615,42 @@ namespace Web_Gio_Cha.Resources {
         public static string ProductUpdate {
             get {
                 return ResourceManager.GetString("ProductUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danh sách khuyến mại.
+        /// </summary>
+        public static string PromotionList {
+            get {
+                return ResourceManager.GetString("PromotionList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên khuyến mại.
+        /// </summary>
+        public static string PromotionName {
+            get {
+                return ResourceManager.GetString("PromotionName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng kí khuyến mại.
+        /// </summary>
+        public static string PromotionRegisterTitle {
+            get {
+                return ResourceManager.GetString("PromotionRegisterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật khuyến mại.
+        /// </summary>
+        public static string PromotionUpdateTitle {
+            get {
+                return ResourceManager.GetString("PromotionUpdateTitle", resourceCulture);
             }
         }
     }

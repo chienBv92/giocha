@@ -1467,3 +1467,16 @@ button.active {
     margin-bottom: 0.125rem;
 }
 /*end css form dropdownlist*/
+
+#PromotionEdit #PromotionName{
+    width:500px;
+}
+
+#PromotionEdit #PromotionName{
+    width:500px;
+}
+
+#PromotionEdit #PromotionName{
+    width:500px;
+    max-width:500px;
+}

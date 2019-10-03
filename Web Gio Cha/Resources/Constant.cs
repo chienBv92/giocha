@@ -26,6 +26,8 @@ namespace Web_Gio_Cha.Resources
         public const int MAX_USER_NAME_LENGTH = 50;
         public const int MIN_INPUT_PASS = 6;
         public const int MAX_INPUT_PASS = 50;
+        public const int MAX_DISCOUNT = 99;
+
         public const string DEFAULT_VALUE = "0";
         public const string DEFAULT_PASSWORD = "123456";
 

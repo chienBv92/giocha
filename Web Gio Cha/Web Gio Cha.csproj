@@ -185,6 +185,7 @@
     <Compile Include="Controllers\ManageMenuContentController.cs" />
     <Compile Include="Controllers\ManageNewsController.cs" />
     <Compile Include="Controllers\ManageProductController.cs" />
+    <Compile Include="Controllers\ManagePromotionController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Da\BaseDa.cs" />
@@ -193,6 +194,7 @@
     <Compile Include="Da\ManageDistrictDa.cs" />
     <Compile Include="Da\ManageMenuDa.cs" />
     <Compile Include="Da\ManageNewsDa.cs" />
+    <Compile Include="Da\ManagePromotionDa.cs" />
     <Compile Include="Da\MenuContentDa.cs" />
     <Compile Include="Da\OrderCartDa.cs" />
     <Compile Include="Da\ProductCategoryDa.cs" />
@@ -246,6 +248,9 @@
     <Compile Include="EF\TblOrderHistory.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\TblPromotion.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\TblUser.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -293,6 +298,7 @@
     <Compile Include="Services\CommonService.cs" />
     <Compile Include="Services\KanjiService.cs" />
     <Compile Include="Services\ManageDistrictService.cs" />
+    <Compile Include="Services\ManagePromotionService.cs" />
     <Compile Include="Services\MenuService.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\OrderCartService.cs" />
@@ -1699,7 +1705,9 @@
     <Content Include="Scripts\zxcvbn.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\ManageDistrict\DistrictEdit.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1781,6 +1789,8 @@
     <Content Include="Views\Category\GetProductSameCategory.cshtml" />
     <Content Include="Views\GioHang\XemGioHang.cshtml" />
     <Content Include="Views\GioHang\DatHang.cshtml" />
+    <Content Include="Views\ManagePromotion\PromotionEdit.cshtml" />
+    <Content Include="Views\ManagePromotion\PromotionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
