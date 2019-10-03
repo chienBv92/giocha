@@ -1781,7 +1781,6 @@
     <Content Include="Views\Category\GetProductSameCategory.cshtml" />
     <Content Include="Views\GioHang\XemGioHang.cshtml" />
     <Content Include="Views\GioHang\DatHang.cshtml" />
-    <Content Include="Views\GioHang\DatHang - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
