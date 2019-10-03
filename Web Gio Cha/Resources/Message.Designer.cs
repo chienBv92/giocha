@@ -214,6 +214,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tài khoản đăng kí thành công! Vui lòng đăng nhập!.
+        /// </summary>
+        public static string RegisterAccountSuccess {
+            get {
+                return ResourceManager.GetString("RegisterAccountSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đăng ký thành công!.
         /// </summary>
         public static string RegisterSuccess {

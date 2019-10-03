@@ -27,8 +27,8 @@ namespace Web_Gio_Cha.Services
             User.Phone = model.Phone;
             User.IsAdmin = false;
             // Chưa xác nhận email
-            User.Email_Confirm = Constant.ConfirmEmail.NONE;
-            User.Status = Constant.Status.NONE;
+            User.Email_Confirm = Constant.ConfirmEmail.CONFIRMED;
+            User.Status = Constant.Status.ACTIVE;
 
             User.del_flg = Constant.DeleteFlag.NON_DELETE;
             User.CreatedDate = DateTime.Now;

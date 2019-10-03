@@ -36,7 +36,7 @@ namespace Web_Gio_Cha.Controllers
             {
                 return 0;
             }
-            return lstGioHang.Sum(n => n.SoLuong);
+            return lstGioHang.Count();
         }
         // phương thức tính tiền
         public decimal TongTien()
@@ -215,6 +215,7 @@ namespace Web_Gio_Cha.Controllers
 
         #region Order by cart
         // Xem giỏ hàng
+        [HttpGet]
         public ActionResult DatHang()
         {
             CmnEntityModel currentUser = Session["CmnEntityModel"] as CmnEntityModel;
@@ -234,6 +235,7 @@ namespace Web_Gio_Cha.Controllers
                     Value = f.ID.ToString(),
                     Text = f.Name
                 }).ToList();
+                model.DISTRICT_LIST.Insert(0, new SelectListItem { Value = Constant.DEFAULT_VALUE, Text = "Chọn Quận/huyện" });
 
                 model.UserID = currentUser.ID;
                 model.UserName = currentUser.UserName;
@@ -241,16 +243,22 @@ namespace Web_Gio_Cha.Controllers
                 model.Receive_Address = currentUser.USER_ADDRESS;
                 model.Email = currentUser.Email;
                 model.Receive_Phone = currentUser.Phone;
+
                 List<ItemGioHang> lstGioHang = LayGioHang();
-                model.ItemGioHangList = lstGioHang;
+                ViewBag.lstGioHangItem = lstGioHang;
+
                 model.TongSoLuong = TinhTongSoLuong();
-                model.TongTien = TongTien();
+                model.TongTienHang = TongTien();
                 if (model.Receive_District > 0)
                 {
                     var getDistrict = dataAccess.getCityByID(model.Receive_District);
                     model.PriceShip = getDistrict != null ? getDistrict.PriceShip.Value : 0;
                 }
-                model.PriceTotal = model.TongTien + model.PriceShip;
+                if (model.TongTienHang > 500000)
+                {
+                    model.PriceDiscountTotal = (int)model.TongTienHang * 5 / 100;
+                }
+                model.PriceTotal = model.TongTienHang + model.PriceShip - model.PriceDiscountTotal;
             }
 
             return View(model);
@@ -268,11 +276,14 @@ namespace Web_Gio_Cha.Controllers
                     if (ModelState.IsValid)
                     {
                         bool isNew = false;
-
-                        if (model.ItemGioHangList.Count() > 0 && model.UserID > 0)
+                        List<ItemGioHang> lstGioHang = LayGioHang();
+                        if (lstGioHang.Count() > 0 && model.UserID > 0)
                         {
                             isNew = true;
-                            var orderId = service.InsertOrder(model);
+                            var orderId = service.InsertOrder(model, lstGioHang);
+                            lstGioHang = new List<ItemGioHang>();
+                            Session["GioHang"] = lstGioHang;
+
                             JsonResult result = Json(new { orderId = orderId, isNew = isNew }, JsonRequestBehavior.AllowGet);
                             return result;
                         }
@@ -287,6 +298,7 @@ namespace Web_Gio_Cha.Controllers
                     }
 
                     return new EmptyResult();
+
                 }
             }
             catch (Exception ex)
@@ -294,6 +306,7 @@ namespace Web_Gio_Cha.Controllers
                 Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
                 System.Web.HttpContext.Current.Session["ERROR"] = ex;
                 return new EmptyResult();
+
             }
         }
         #endregion

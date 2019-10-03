@@ -224,5 +224,25 @@ namespace Web_Gio_Cha.Controllers
 
         #endregion
 
+        #region FIND DISTRCIT
+        public ActionResult getDictrictByID(long districtID)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                // Declare new DataAccess object
+                ManageDistrictDa dataAccess = new ManageDistrictDa();
+
+                var exist = dataAccess.getCityByID(districtID);
+                JsonResult result = Json(new
+                {
+                    exist
+                }, JsonRequestBehavior.AllowGet);
+
+                return result;
+
+            }
+            return new EmptyResult();
+        }
+        #endregion
     }
 }

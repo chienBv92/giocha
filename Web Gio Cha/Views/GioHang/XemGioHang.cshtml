@@ -5,9 +5,8 @@
 }
 
 <div id="view-cart" class="row" border="0" cellspacing="0" cellpadding="0">
-    <div class="row form-group nomargin" style="padding-bottom:15px;    ">
-        <div class="col-md-3 col-sm-3 col-xs-3"></div>
-        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham black" style="margin-top:10px"> GIỎ HÀNG CỦA BẠN</span></div>
+    <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 txt-header">
+        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class=" black" style="margin-top:10px; font-weight:bold"> GIỎ HÀNG CỦA BẠN</span></div>
     </div>
     @if (Model == null || Model.Count() == 0)
     {
@@ -16,24 +15,43 @@
     }
     else
     {
-        <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin">
+        <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin nopadding">
+            <hr style="margin-top:15px; margin-bottom:5px"/>
+            <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nopadding">
+                <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 th-text">
+                    Hình ảnh
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6 th-text">
+                    Tên sản phẩm
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 th-text">
+                    Đơn giá
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 th-text">
+                    Số lượng
+                </div>
+                <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 th-text">
+                    Tổng tiền
+                </div>
+            </div>
+
             @for (int i = 0; i < Model.Count(); i++)
             {
                 var link = "/xem-chi-tiet/" + Model[i].MetaTitle + "/" + Model[i].IdSanPham;
-                
+
                 var imglink = Model[i].HinhAnh != null ? Model[i].HinhAnh : "/Images/demosanpham1.jpg";
-                <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 product-cart" style="display:inline-block; margin:5px">
+                <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 product-cart nopadding">
                     <input id="IdSanPham" name="ID" type="hidden" value="@Model[i].IdSanPham">
 
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
-                        <img class="ImgProduct-view" src="@imglink" title="@Model[i].TenSanPham" alt="giò chả Vân Bảo" style="height:70px"/>
+                        <img class="ImgProduct-view" src="@imglink" title="@Model[i].TenSanPham" alt="giò chả Vân Bảo" style="height:70px" />
                     </div>
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6">
+                    <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6 nopadding">
                         <a class="col-md-12 left title-product" href="@link" title="@Model[i].TenSanPham">@Model[i].TenSanPham</a>
-                        <a class="left delete-cart" href="@Url.Action("XoaGioHang", "GioHang", new { @Id = @Model[i].IdSanPham, @strUrl = Request.Url.ToString() })">Xóa</a>
+                        <a class="col-md-12 left delete-cart" href="@Url.Action("XoaGioHang", "GioHang", new { @Id = @Model[i].IdSanPham, @strUrl = Request.Url.ToString() })">Xóa</a>
                     </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
-                        <p class="bold left money donGia">@Model[i].DonGia</p>
+                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 nopadding">
+                        <p class="bold center money donGia" style="width:100%">@Model[i].DonGia</p>
                         <input id="DonGia" name="DonGia" type="hidden" value="@Model[i].DonGia">
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 quantity">
@@ -43,13 +61,13 @@
                         <button class="btn btn-default touchspin-up col-md-4" type="button">+</button>
 
                     </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
-                        <p class="bold left money tienHang">@Model[i].TienHang</p>
+                    <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 nopadding">
+                        <p class="bold center money tienHang" style="width:100%">@Model[i].TienHang</p>
                     </div>
                 </div>
 
             }
-            <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
+            <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:5px">
                 <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12">
 
                 </div>
@@ -58,7 +76,7 @@
                     <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; color:red">@ViewBag.TongTien</div>
                 </div>
             </div>
-            <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
+            <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-bottom:10px">
                 <div class="col-md-3 col-sm-6 col-xs-6 col-xs-12 left" style="margin-top:20px">
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="margin-top:20px">

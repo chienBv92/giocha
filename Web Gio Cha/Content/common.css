@@ -453,3 +453,28 @@ input[type="password"], select {
     width: 100%!important;
     height: auto!important;
   }
+
+#view-cart{
+    margin-right: 5px;
+    margin-left: 5px;
+    border-left: 4px solid #F7950C;
+    border-right: 4px solid #F7950C;
+    border-bottom: 4px solid #F7950C;
+
+}
+#view-cart .txt-header{
+    padding: 8px 0px 8px 15px;
+    text-align: left;
+    background: #F7950C;
+
+}
+
+#view-cart .product-cart{
+    display: inline-block;
+    margin-top: 6px;
+    background: honeydew;
+}
+#view-cart .th-text{
+    text-align:center;
+    font-weight:bold;
+}

@@ -14,7 +14,7 @@ namespace Web_Gio_Cha.Services
     public class OrderCartService : BaseService
     {
         #region REGIST/ UPDATE
-        public long InsertOrder(OrderModel model)
+        public long InsertOrder(OrderModel model, List<ItemGioHang> lstGioHang)
         {
             long res = 0;
             // Declare new DataAccess object
@@ -26,8 +26,10 @@ namespace Web_Gio_Cha.Services
                 {
                     Order order = new Order();
                     order.UserID = model.UserID;
+                    order.TongTienHang = model.TongTienHang;
                     order.PriceTotal = model.PriceTotal;
                     order.PriceShip = model.PriceShip;
+                    order.PriceDiscountTotal = model.PriceDiscountTotal;
                     order.PaymentMethod = model.METHOD_TYPE;
                     order.Paid = PayStatus.None;
                     order.Note = model.Note;
@@ -45,7 +47,7 @@ namespace Web_Gio_Cha.Services
 
                     if (res > 0)
                     {
-                        foreach (var data in model.ItemGioHangList)
+                        foreach (var data in lstGioHang)
                         {
                             OrderDetail detail = new OrderDetail();
                             detail.OrderID = res;

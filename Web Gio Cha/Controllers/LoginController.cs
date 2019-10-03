@@ -85,6 +85,7 @@ namespace Web_Gio_Cha.Controllers
         #endregion
 
         #region REGISTER/ UPDATE
+        [HttpGet]
         public ActionResult Register(long UserId = 0)
         {
             UserModel model = new UserModel();
@@ -127,7 +128,7 @@ namespace Web_Gio_Cha.Controllers
                                     if (res <= 0)
                                         transaction.Dispose();
                                     // send mail confirm account
-                                    res = sendMailRegisterAccount(model);
+                                    //res = sendMailRegisterAccount(model);
                                     transaction.Complete();
                                 }
                                 else

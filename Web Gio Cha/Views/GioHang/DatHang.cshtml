@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Đặt Hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var listSanPham = ViewBag.lstGioHangItem as IList<ItemGioHang>;
 }
 
 <div id="DatHang" class="row" border="0" cellspacing="0" cellpadding="0">
@@ -12,7 +13,7 @@
         <div class="col-md-3 col-sm-3 col-xs-3"></div>
         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham black" style="margin-top:10px"> ĐẶT HÀNG</span></div>
     </div>
-    @if (Model.ItemGioHangList == null || Model.ItemGioHangList.Count() == 0)
+    @if (listSanPham == null || listSanPham.Count() == 0)
     {
         <p style="font-size:2em;padding:10px;margin:10px"> Giỏ hàng trống! </p>
         <a href="@Url.Action("Index","Home")" style="font-size:2em;padding:10px;margin:10px">Vui lòng quay trở lại trang chủ để mua hàng !! </a>
@@ -22,40 +23,32 @@
         using (Html.BeginForm("CartSubmit", "GioHang", FormMethod.Post, new { id = "formOrderCart", enctype = "multipart/form-data", @class = "form-horizontal" }))
         {
             <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin">
+                @Html.HiddenFor(m => m.TongTienHang, new { @class = "" })
+                @Html.HiddenFor(m => m.PriceDiscountTotal, new { @class = "" })
+                @Html.HiddenFor(m => m.PriceShip, new { @class = "" })
+                @Html.HiddenFor(m => m.PriceTotal, new { @class = "" })
+                @Html.HiddenFor(m => m.UserID, new { @class = "UserID" })
 
-                @for (int i = 0; i < Model.ItemGioHangList.Count(); i++)
+                @for (int i = 0; i < listSanPham.Count(); i++)
                 {
-                    @Html.HiddenFor(m => m.ItemGioHangList);
-                    @Html.HiddenFor(m => m.ItemGioHangList[i].IdSanPham, new { @class = "setup-id" })
-                    @Html.HiddenFor(m => m.ItemGioHangList[i].HinhAnh, new { @class = "noi-vung" })
-                    @Html.HiddenFor(m => m.ItemGioHangList[i].MetaTitle, new { @class = "noi-tinh" })
-                    @Html.HiddenFor(m => m.ItemGioHangList[i].SoLuong, new { @class = "special-city" })
-                    @Html.HiddenFor(m => m.ItemGioHangList[i].TenSanPham, new { @class = "noi-thanh" })
-                    @Html.HiddenFor(m => m.ItemGioHangList[i].TienHang, new { @class = "ship-type" })
-                    @Html.HiddenFor(m => m.ItemGioHangList[i].DonGia, new { @class = " del-flg" })
-                                                           
-                    var link = "/xem-chi-tiet/" + Model.ItemGioHangList[i].MetaTitle + "/" + Model.ItemGioHangList[i].IdSanPham;
-
-                                                           var imglink = Model.ItemGioHangList[i].HinhAnh != null ? Model.ItemGioHangList[i].HinhAnh : "/Images/demosanpham1.jpg";
+                    var link = "/xem-chi-tiet/" + listSanPham[i].MetaTitle + "/" + listSanPham[i].IdSanPham;
+                    var imglink = listSanPham[i].HinhAnh != null ? listSanPham[i].HinhAnh : "/Images/demosanpham1.jpg";
                     <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 product-cart" style="display:inline-block; margin:5px">
-                        <input id="IdSanPham" name="ID" type="hidden" value="@Model.ItemGioHangList[i].IdSanPham">
-
                         <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
-                            <img class="ImgProduct-view" src="@imglink" title="@Model.ItemGioHangList[i].TenSanPham" alt="giò chả Vân Bảo" style="height:70px" />
+                            <img class="ImgProduct-view" src="@imglink" title="@listSanPham[i].TenSanPham" alt="giò chả Vân Bảo" style="height:70px" />
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6">
-                            <a class="col-md-12 left title-product" href="@link" title="@Model.ItemGioHangList[i].TenSanPham">@Model.ItemGioHangList[i].TenSanPham</a>
+                            <a class="col-md-12 left title-product" href="@link" title="@listSanPham[i].TenSanPham">@listSanPham[i].TenSanPham</a>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
-                            <p class="left money donGia">@Model.ItemGioHangList[i].DonGia</p>
-                            <input id="DonGia" name="DonGia" type="hidden" value="@Model.ItemGioHangList[i].DonGia">
+                            <p class="left money donGia">@listSanPham[i].DonGia</p>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 quantity">
 
-                            <p class="qty col-md-4">@Model.ItemGioHangList[i].SoLuong</p>
+                            <p class="qty col-md-4">@listSanPham[i].SoLuong</p>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
-                            <p class="left money tienHang">@Model.ItemGioHangList[i].TienHang</p>
+                            <p class="left money tienHang">@listSanPham[i].TienHang</p>
                         </div>
                     </div>
 
@@ -65,32 +58,43 @@
 
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
-                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Tổng tiền:</div>
-                        <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12 bold" style="width:50%;text-align:right">@Model.TongTien</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Tạm tính:</div>
+                        <div class="money TongTien col-md-6 col-sm-6 col-xs-6 col-xs-12 bold" style="width:50%;text-align:right">@Model.TongTienHang</div>
                     </div>
                 </div>
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Chiết khấu:</div>
+                        <div class="money PriceDiscountTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; text-align:right">@Model.PriceDiscountTotal</div>
+                    </div>
+                </div>
+
                 <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
 
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
                         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Phí vận chuyển:</div>
-                        <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; text-align:right">@Model.PriceShip</div>
+                        <div class="money PriceShip col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; text-align:right">@Model.PriceShip</div>
                     </div>
                 </div>
+
                 <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
 
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
                         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Tổng tiền:</div>
-                        <div class="money moneyTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; color:red; text-align:right">@Model.PriceTotal</div>
+                        <div class="money PriceTotal col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; color:red; text-align:right">@Model.PriceTotal</div>
                     </div>
                 </div>
 
                 <div id="title" class="col-md-12 col-sm-6 col-xs-6 col-xs-12 left bold" style="background-color: #F7950C; margin-top:10px">
                     <span style="margin-top:10px" class="lblCustomer">THÔNG TIN KHÁCH HÀNG</span>
-                    
+
                 </div>
 
                 <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
@@ -104,7 +108,7 @@
                         <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
                             <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Quận:</div>
                             <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
-                                @Html.DropDownListFor(m => m.Receive_District, Model.DISTRICT_LIST, new { @class = "username txt-box", maxlength = 100 })
+                                @Html.DropDownListFor(m => m.Receive_District, Model.DISTRICT_LIST, new { @class = "Receive_District txt-box", maxlength = 100 })
                             </div>
                         </div>
                         <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
@@ -150,7 +154,7 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="margin-top:20px">
                         <button class="" onclick="window.location.href = '/xem-gio-hang'" style="height:27px">Quay lại giỏ hàng</button>
-                        <button class="btn btn-green" id="btnCartSubmit">Xác nhận đặt hành</button>
+                        <button type="button" class="btn btn-green" id="btnCartSubmit">Xác nhận đặt hành</button>
                     </div>
                 </div>
             </div>
@@ -240,53 +244,59 @@
             return false;
         }
 
-        //var existDistrictCD = false;
-        ////var districtCd = $('#ID').val().trim();
-
-        //var value = $('#PriceShip').val();
-        //if (value.length > 0) {
-        //    var price = WebDuhoc.utility.convertMoneyToInt(value, true);
-        //}
-        //$('#PriceShip').val(price);
-
-        $("#formOrderCart").submit();
-
-    });
-
-    $('#formOrderCart').submit(function (event) {
-        var formData = new FormData($(this)[0]);
+        var formData = new FormData($('#formOrderCart')[0]);
         $.ajax(
-            {
-                url: '@Url.Action("CartSubmit", "GioHang")',
-                data: formData,
-                mimeType: "multipart/form-data",
-                type: 'POST',
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
-                    var result = jQuery.parseJSON(res);
-                    var message = "";
-                    if (result.ErrorMessages) {
-                        for (var i = 0; i < result.ErrorMessages.length; i++) {
-                            message += result.ErrorMessages[i] + "\n";
-                        }
-                        WebDuhoc.utility.showMessageModal(message, true);
-                    } else {
-                        message = result.isNew == true ? "Đã đặt đơn thành công! Vui lòng kiểm tra quản lí đơn!" : "";
-                        WebDuhoc.utility.showMessageModal(message, false, function () {
-                            window.location.href = managerOrderUrl;
-                        });
-                    }
-                },
-                error: function (xhr) {
-                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
-                    window.location.href = '/Common/Error/';
-                }
-            });
+        {
+            url: '@Url.Action("CartSubmit", "GioHang")',
+            data: formData,
+            mimeType: "multipart/form-data",
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                console.log(res);
+                var result = jQuery.parseJSON(res);
+                message = result.orderId > 0 ? "Đã đặt đơn thành công! Vui lòng kiểm tra quản lí đơn!" : "Có lỗi trong quá trình đăng ký!";
+                WebDuhoc.utility.showMessageModal(message, false, function () {
+                    window.location.href = '/trang-chu';
+                });
+
+            },
+            error: function (xhr) {
+                //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                window.location.href = '/Common/Error/';
+            }
+        });
         event.preventDefault();
+
     });
 
+    $("#Receive_District").change(function () {
+        var districtID = $('#Receive_District').val();
+
+        if (districtID != null && districtID > 0) {
+
+            var paramCheckExist = {
+                districtID: districtID
+            };
+
+            var data = WebDuhoc.utility.getDataByAjax('@Url.Action("getDictrictByID", "ManageDistrict")', paramCheckExist);
+            if (typeof (data) != 'undefined' || data != null) {
+                Info = data.exist;
+                if (Info != null) {
+                    $("#PriceShip").val(Info.PriceShip);
+                    var TongTienHang = $('#TongTienHang').val();
+                    var PriceDiscountTotal = $('#PriceDiscountTotal').val();
+                    var PriceTotal = parseInt(TongTienHang) + Info.PriceShip - parseInt(PriceDiscountTotal);
+                    $('#PriceTotal').val(PriceTotal);
+
+                    $(".PriceShip").text(WebDuhoc.utility.convertIntToMoney(Info.PriceShip));
+                    $(".PriceTotal").text(WebDuhoc.utility.convertIntToMoney(PriceTotal));
+                }
+            }
+        }
+    });
 </script>
 
 <style>
