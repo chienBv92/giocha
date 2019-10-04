@@ -17,7 +17,7 @@ namespace Web_Gio_Cha.Da
             return pro;
         }
 
-        public TblPromotion getPromotionForDiscount(decimal priceTotal)
+        public TblPromotion getPromotionForDiscount(decimal priceTotal = 0)
         {
             TblPromotion pro = da.TblPromotion.Where(s => s.Status == true && s.del_flg == Constant.DeleteFlag.NON_DELETE && s.PriceMin <= priceTotal && s.PriceMax > priceTotal).SingleOrDefault();
             return pro;

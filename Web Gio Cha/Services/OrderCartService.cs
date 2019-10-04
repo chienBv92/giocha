@@ -47,6 +47,7 @@ namespace Web_Gio_Cha.Services
 
                     if (res > 0)
                     {
+                        long res1 = 0;
                         foreach (var data in lstGioHang)
                         {
                             OrderDetail detail = new OrderDetail();
@@ -56,11 +57,15 @@ namespace Web_Gio_Cha.Services
                             detail.Price = data.TienHang;
                             detail.del_flg = Constant.DeleteFlag.NON_DELETE;
 
-                            res = dataAccess.InsertOrderDetail(detail);
+                            res1 = dataAccess.InsertOrderDetail(detail);
+                            if (res1 <= 0)
+                                transaction.Dispose();
+
+                            res1 = dataAccess.UpdateQuantityProduct(detail.ProductID, detail.Quantity.Value);
+                            if (res1 <= 0)
+                                transaction.Dispose();
                         }
                     }
-                    if (res <= 0)
-                        transaction.Dispose();
 
                     transaction.Complete();
                 }

@@ -459,6 +459,11 @@ input[type="password"], select {
     height: auto!important;
   }
 
+#viewProductDetail .btnGioHang {
+    width: 100%!important;
+    height: auto!important;
+  }
+
 #view-cart{
     margin-right: 5px;
     margin-left: 5px;
@@ -494,4 +499,7 @@ a, button{
     cursor:pointer!important;
 }
 
-
+#MenuBottom .link-menu-bottom{
+    color: #fff;
+    line-height: 32px;
+}

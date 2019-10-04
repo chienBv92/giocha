@@ -1791,6 +1791,8 @@
     <Content Include="Views\GioHang\DatHang.cshtml" />
     <Content Include="Views\ManagePromotion\PromotionEdit.cshtml" />
     <Content Include="Views\ManagePromotion\PromotionList.cshtml" />
+    <Content Include="Views\GioHang\Thongbao.cshtml" />
+    <Content Include="Views\Shared\MenuBottom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

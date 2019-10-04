@@ -46,9 +46,19 @@
                 </div>
 
                 <div class="col-md-12 col-sm-12 col-xs-12" style="display:inline-block">
-                    <div class="col-md-4 col-sm-4 col-xs-4 bold left">
-                        <a href="@Url.Action("ThemGioHang", "GioHang", new { @IdSanPham = Model.ID, @strUrl= Request.Url.ToString() })"><img class="btn-img" src="~/Images/btBogio.jpg" alt="" /></a>
-                    </div>
+
+                    @if (Model.Quantity > 0)
+                    {
+                        <div class="col-md-4 col-sm-6 col-xs-12 bold left">
+                            <a href="@Url.Action("ThemGioHang", "GioHang", new { @IdSanPham = Model.ID, @strUrl = Request.Url.ToString() })"><img class="btnGioHang" src="~/Images/btBogio.jpg" alt="giò chả Vân Bảo" style="height:23px" /></a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12 col-sm-12 col-xs-12 bold left">
+                            <span style="color:red; line-height:23px">Tạm hết hàng! Quý khách quay lại sau!</span>
+                        </div>
+                    }
                 </div>
 
             </div>
@@ -57,7 +67,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12 left">
             @Html.Raw(Model.Detail)
         </div>
-        {Html.RenderAction("GetProductSameCategory", "Category", new { @categoryId = Model.CategoryID, @strUrl = Request.Url.ToString() });}
+                    { Html.RenderAction("GetProductSameCategory", "Category", new { @categoryId = Model.CategoryID, @strUrl = Request.Url.ToString() }); }
 
     }
     else
@@ -69,7 +79,6 @@
 
 </div>
 <style>
-
 </style>
 <script>
     $(document).ready(function () {

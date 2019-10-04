@@ -28,6 +28,17 @@ namespace Web_Gio_Cha.Da
             return entity.OrderID;
         }
 
+        public long UpdateQuantityProduct(long ProductID, int quantity)
+        {
+            var product = da.Product.Find(ProductID);
+            if (product != null)
+            {
+                product.Quantity = product.Quantity - quantity;
+                da.SaveChanges();
+            }
+            return ProductID;
+        }
+
         public Order getOrderByID(long Id)
         {
             Order product = da.Order.Where(s => s.ID == Id).SingleOrDefault();

@@ -51,66 +51,9 @@
                 @RenderBody()
             </div>
         </div>
-        @*<table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td bgcolor="#FFFFFF">
-                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                <tr>
-                                    @RenderPage("~/Views/Shared/BodyLeft.cshtml")
+       
+        @RenderPage("~/Views/Shared/MenuBottom.cshtml")
 
-                                    @RenderBody()
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td align="center" bgcolor="#FFFFFF">
-                            <table width="827" border="0" cellspacing="0" cellpadding="0" style="margin-top:20px">
-                                <tr>
-                                    <td width="827" height="32" align="center" class="linkfooter" style="background-image: url(Images/bgfooter2.jpg); background-repeat:no-repeat; background-repeat:no-repeat; color:#FFF"> <a href="#">Trang chủ</a> | <a href="#">Giới thiệu</a> |	<a href="#">Tin tức</a> |     <a href="#">Sản phẩm</a> | 	  <a href="#">Trợ giúp</a> |	 <a href="#">Liên hệ</a></td>
-                                </tr>
-                                <tr>
-                                    <td height="110" align="center" valign="middle" style="border-bottom:1px solid #CCC; border-left:1px solid #CCC; border-right:1px solid #CCC"><a href="#"><img src="Images/huongdanthanhtoan.jpg" width="715" height="90" border="0" /></a></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td height="18" style="background-image:url(Images/bgfooter.jpg); background-position: center; background-repeat:no-repeat"></td>
-                    </tr>
-                </table>
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td bgcolor="#FFFFFF">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td align="center" bgcolor="#FFFFFF">
-                        <table width="827" border="0" cellspacing="0" cellpadding="0" style="margin-top:20px">
-                            <tr>
-                                <td width="827" height="32" align="center" class="linkfooter" style="background-image: url(Images/bgfooter2.jpg); background-repeat:no-repeat; background-repeat:no-repeat; color:#FFF"><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a><a href="#"></a></td>
-                            </tr>
-                            <tr>
-                                <td height="110" align="center" valign="middle" style="border-bottom:1px solid #CCC; border-left:1px solid #CCC; border-right:1px solid #CCC"><a href="#"><img src="Images/huongdanthanhtoan.jpg" width="715" height="90" border="0" /></a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td height="18" style="background-image:url(Images/bgfooter.jpg); background-position: center; background-repeat:no-repeat"></td>
-                </tr>
-            </table>
-            @*<td align="left" valign="top" style="padding-top:16px"><img src="Images/bg_menuRight.png" width="55" height="119" /></td><td align="left" valign="top" style="padding-top:16px"><img src="Images/bg_menuRight.png" width="55" height="119" /></td>*@
         @RenderPage("~/Views/Shared/Footer.cshtml")
     </div>
     @Scripts.Render("~/bundles/jquery")

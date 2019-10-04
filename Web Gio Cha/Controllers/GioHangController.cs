@@ -68,19 +68,21 @@ namespace Web_Gio_Cha.Controllers
             if (sanphamcheck != null)
             {
                 // kiểm tra số lượng sản phẩm tồn
-                //if (sanpham.SoLuongTon < sanphamcheck.SoLuong)
-                //{
-                //    return View("ThongBao");
-                //}
+                if (sanpham.Quantity < sanphamcheck.SoLuong + 1)
+                {
+                    return View("ThongBao");
+                    //return Content("<script>alert(\"Sản phẩm đã hết hàng!\")</script>");
+                }
                 sanphamcheck.SoLuong++;
                 sanphamcheck.TienHang = sanphamcheck.SoLuong * sanphamcheck.DonGia;
                 return Redirect(strUrl);
             }
             ItemGioHang itemGH = new ItemGioHang(IdSanPham);
-            //if (sanpham.SoLuongTon < itemGH.SoLuong)
-            //{
-            //    return View("ThongBao");
-            //}
+            if (sanpham.Quantity < itemGH.SoLuong)
+            {
+                return View("ThongBao");
+                //return Content("<script>alert(\"Sản phẩm đã hết hàng!\")</script>");
+            }
             lstGioHang.Add(itemGH);
 
             Session["GioHang"] = lstGioHang;
@@ -117,31 +119,40 @@ namespace Web_Gio_Cha.Controllers
             List<ItemGioHang> lstGioHang = LayGioHang();
             // trường hợp đã tồn tại một sản phẩm trong giỏ hàng
             ItemGioHang sanphamcheck = lstGioHang.SingleOrDefault(n => n.IdSanPham == Id);
+            int response = 0;
             if (sanphamcheck != null)
             {
-                // kiểm tra số lượng sản phẩm tồn
-                //if (sanpham.SoLuongTon < sanphamcheck.SoLuong)
-                //{
-                //    return View("ThongBao");
-                //}
-                sanphamcheck.SoLuong++;
-                sanphamcheck.TienHang = sanphamcheck.SoLuong * sanphamcheck.DonGia;
+                 //kiểm tra số lượng sản phẩm tồn
+                if (sanpham.Quantity < sanphamcheck.SoLuong + 1)
+                {
+                    response = -1;
+                }
+                else
+                {
+                    sanphamcheck.SoLuong++;
+                    sanphamcheck.TienHang = sanphamcheck.SoLuong * sanphamcheck.DonGia;
+                    response = 1;
+                }
             }
             else
             {
                 ItemGioHang itemGH = new ItemGioHang(Id);
-                //if (sanpham.SoLuongTon < itemGH.SoLuong)
-                //{
-                //    return View("ThongBao");
-                //}
-                lstGioHang.Add(itemGH);
+                if (sanpham.Quantity < itemGH.SoLuong)
+                {
+                    response = -1;
+                }
+                else
+                {
+                    response = 1;
+                    lstGioHang.Add(itemGH);
+                }
             }
             
             Session["GioHang"] = lstGioHang;
             double TongSoLuong = TinhTongSoLuong();
             decimal TotalMoney = TongTien();
 
-            JsonResult result = Json(new { TongSoLuong = TongSoLuong, TotalMoney = TotalMoney }, JsonRequestBehavior.AllowGet);
+            JsonResult result = Json(new { TongSoLuong = TongSoLuong, TotalMoney = TotalMoney, response = response }, JsonRequestBehavior.AllowGet);
             return result;
         }
 
@@ -160,17 +171,28 @@ namespace Web_Gio_Cha.Controllers
             List<ItemGioHang> lstGioHang = LayGioHang();
             // trường hợp đã tồn tại một sản phẩm trong giỏ hàng
             ItemGioHang sanphamcheck = lstGioHang.SingleOrDefault(n => n.IdSanPham == Id);
+            int response = 0;
+
             if (sanphamcheck != null)
             {
-                sanphamcheck.SoLuong = qty;
-                sanphamcheck.TienHang = sanphamcheck.SoLuong * sanphamcheck.DonGia;
+                //kiểm tra số lượng sản phẩm tồn
+                if (sanpham.Quantity < qty)
+                {
+                    response = -1;
+                }
+                else
+                {
+                    sanphamcheck.SoLuong = qty;
+                    sanphamcheck.TienHang = sanphamcheck.SoLuong * sanphamcheck.DonGia;
+                    response = 1;
+                }
             }
 
             Session["GioHang"] = lstGioHang;
             double TongSoLuong = TinhTongSoLuong();
             decimal TotalMoney = TongTien();
 
-            JsonResult result = Json(new { TongSoLuong = TongSoLuong, TotalMoney = TotalMoney }, JsonRequestBehavior.AllowGet);
+            JsonResult result = Json(new { TongSoLuong = TongSoLuong, TotalMoney = TotalMoney, response = response }, JsonRequestBehavior.AllowGet);
             return result;
         }
 
@@ -252,11 +274,15 @@ namespace Web_Gio_Cha.Controllers
                 if (model.Receive_District > 0)
                 {
                     var getDistrict = dataAccess.getCityByID(model.Receive_District);
-                    model.PriceShip = getDistrict != null ? getDistrict.PriceShip.Value : 0;
+                    model.PriceShip = getDistrict != null ? (int)getDistrict.PriceShip.Value : 0;
                 }
-                if (model.TongTienHang > 500000)
+                ManagePromotionDa promotionDa = new ManagePromotionDa();
+
+                var getPromotion = promotionDa.getPromotionForDiscount(model.TongTienHang);
+                if (getPromotion != null)
                 {
-                    model.PriceDiscountTotal = (int)model.TongTienHang * 5 / 100;
+                    var discount = getPromotion.Discount.HasValue ? getPromotion.Discount.Value : 0;
+                    model.PriceDiscountTotal = (int)(model.TongTienHang * discount / 100);
                 }
                 model.PriceTotal = model.TongTienHang + model.PriceShip - model.PriceDiscountTotal;
             }
