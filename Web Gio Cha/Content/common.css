@@ -6,6 +6,20 @@
 
 /*==========  Mobile First Method  ==========*/
 
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+    width: 100%;
+    padding-right: ($grid-gutter-width / 2);
+    padding-left: ($grid-gutter-width / 2);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
 /* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
     .slideshow {
@@ -28,6 +42,10 @@
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
+    .container,
+    .container-sm {
+        max-width: 540px;
+    }
     .slideshow {
         height: 150px;
     }
@@ -43,6 +61,13 @@
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
+    .container,
+    .container-sm,
+    .container-md {
+        max-width: 720px;
+        width: 80%;
+    }
+
     .menu tbody tr td {
         width: 80px;
     }
@@ -70,6 +95,14 @@
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
+    .container,
+    .container-sm,
+    .container-md,
+    .container-lg {
+        max-width: 960px;
+        width: 80%;
+    }
+
     .menu tbody tr td {
         width: 106px;
     }
@@ -92,6 +125,16 @@
 
     .prd-content {
         height: 205px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl {
+        max-width: 1140px;
     }
 }
 
@@ -282,7 +325,6 @@ h1 {
     color: #FFF;
     background-image: url(../Images/bg_danhmucLeft.jpg);
     height: 24px;
-    width: 176px;
     line-height: 24px;
     text-align: left;
     display: block;
@@ -415,7 +457,7 @@ input[type="password"], select {
 
 .div-menu:before {
     height: 150px;
-    width: 80px;
+    width: 60px;
     content: "";
     background-image: url(../Images/bg_menuLeft.png);
     background-repeat: no-repeat;
@@ -427,11 +469,11 @@ input[type="password"], select {
 
 .div-menu:after {
     height: 150px;
-    width: 80px;
+    width: 60px;
     content: "";
     background-image: url(../Images/bg_menuRight.png);
     background-repeat: no-repeat;
-    right: -79px;
+    right: -60px;
     top: 15px;
     position: absolute;
     display: inline-block;
