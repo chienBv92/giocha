@@ -87,11 +87,11 @@
     }
 
     .product {
-        height: 255px;
+        height: 250px;
     }
 
     .prd-content {
-        height: 205px;
+        height: 192px;
     }
 }
 
@@ -367,21 +367,26 @@ input[type="password"], select {
 
 .prd-img {
     width: 100%;
-    height: 100px;
+    height: 110px;
+    border-radius: 10px;
 }
 
 .ImgProduct-view {
     width: 100%!important;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .break-text{
+    line-height:18px;
     overflow: hidden;
-    max-height: 35px;
-    height:35px;
+    max-height: 36px;
+    height:36px;
     word-break: break-word; 
 }
 
-.discount:after {
+ /*chua dung giam gia*/
+/*.discount:after {
     content: attr(data-content);
     width: 40px;
     height: 40px;
@@ -393,7 +398,7 @@ input[type="password"], select {
     line-height: 30px;
     position: absolute;
     display: inline-block;
-}
+}*/
 
 .btn-img {
     width: 100%;
@@ -478,3 +483,15 @@ input[type="password"], select {
     text-align:center;
     font-weight:bold;
 }
+#view-cart .donGia{
+    line-height:60px;
+}
+#view-cart .tienHang{
+    line-height:60px;
+}
+
+a, button{
+    cursor:pointer!important;
+}
+
+
