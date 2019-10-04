@@ -9,13 +9,14 @@ namespace Web_Gio_Cha.Models.Define
     public class OrderModel
     {
         public double TongSoLuong { get; set; }
-        public decimal TongTien { get; set; }
+        public decimal TongTienHang { get; set; }
 
-        public IList<ItemGioHang> ItemGioHangList { get; set; }
+        //public IList<ItemGioHang> ItemGioHangList { get; set; }
 
         public long UserID { get; set; }
         public decimal PriceShip { get; set; }
         public decimal PriceTotal { get; set; }
+        public decimal PriceDiscountTotal { get; set; }
 
         public string UserName { get; set; }
         public string Email { get; set; }
