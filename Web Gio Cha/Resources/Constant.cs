@@ -168,37 +168,52 @@ namespace Web_Gio_Cha.Resources
 
         public const int TakingOrder = 1;
 
-        public const int TakedOrder = 2;
+        public const int Shiping = 2;
 
-        public const int Shiping = 3;
+        public const int Delivery = 3;
 
-        public const int Delivery = 4;
+        public const int Finished = 4;
 
-        public const int ReShip = 5;
+        public const int Cancel = 5;
 
-        public const int ReturnOrder = 6;
-
-        public const int ReturnOrderSuccess = 7;
-
-        public const int Finished = 8;
-
-        public const int WaitCOD = 9;
-
-        public const int Error = 10;
+        public const int Error = 6;
 
         public static readonly OrderedDictionary Items = new OrderedDictionary
             {
                 { Create, "Mới khởi tạo" },
                 { TakingOrder, "Đã duyệt" },
-                { TakedOrder, "Đã lấy hàng" },
                 { Shiping, "Đang giao hàng" },
                 { Delivery, "Đã giao" },
-                { ReShip, "Chờ giao lại" },
-                { ReturnOrder, "Hoàn hàng" },
-                { ReturnOrderSuccess, " Đã hoàn hàng" },
                 { Finished, "Hoàn tất" },
-                { WaitCOD, "Chờ COD" },
+                { Cancel, "Hủy" },
                 { Error, "Lỗi" }
             }.AsReadOnly();
+    }
+
+    public class SortType
+    {
+
+        public const string ASC = "ASC";
+
+        public const string DESC = "DESC";
+
+        public const string ASC_NAME = "Tăng dần";
+
+        public const string DESC_NAME = "Giảm dần";
+    }
+
+    public class SortAdminOrderShipList
+    {
+        public const string CREATE_DATE = "CREATE_DATE";
+        public const string ORDER_CODE = "ORDER_CODE";
+        public const string TOTAL_MONEY = "TOTAL_MONEY";
+
+        public static readonly OrderedDictionary Items = new OrderedDictionary
+        {
+            { CREATE_DATE, "Ngày khởi tạo" },
+            { ORDER_CODE, "Mã đơn hàng" },
+            { TOTAL_MONEY, "Tổng tiền thu" }
+            
+        }.AsReadOnly();
     }
 }

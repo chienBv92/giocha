@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShipOnline.UtilityService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -26,6 +27,11 @@ namespace Web_Gio_Cha.Services
                 {
                     Order order = new Order();
                     order.UserID = model.UserID;
+                    int maxOrder = dataAccess.getMaxOrder() + 1;
+
+                    order.Code = "VB" + DateTime.Now.ToString("ddMM") + maxOrder.ToString("D6");
+                    order.LINK_QRCODE = QRCodeServices.creatQR(order.Code);
+
                     order.TongTienHang = model.TongTienHang;
                     order.PriceTotal = model.PriceTotal;
                     order.PriceShip = model.PriceShip;

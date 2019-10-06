@@ -315,4 +315,43 @@
   <data name="PromotionUpdateTitle" xml:space="preserve">
     <value>Cập nhật khuyến mại</value>
   </data>
+  <data name="AdminOrderList" xml:space="preserve">
+    <value>Danh sách đơn hàng</value>
+  </data>
+  <data name="lblCreateDateOrder" xml:space="preserve">
+    <value>Ngày tạo đơn</value>
+  </data>
+  <data name="lblMethod" xml:space="preserve">
+    <value>Phương thức TT</value>
+  </data>
+  <data name="lblOrderCode" xml:space="preserve">
+    <value>Mã đơn hàng</value>
+  </data>
+  <data name="lblPayStatus" xml:space="preserve">
+    <value>Đã thanh toán</value>
+  </data>
+  <data name="lblReceiveAddress" xml:space="preserve">
+    <value>Địa chỉ</value>
+  </data>
+  <data name="lblReceiveName" xml:space="preserve">
+    <value>Tên người mua</value>
+  </data>
+  <data name="lblReceivePhone" xml:space="preserve">
+    <value>SĐT người mua</value>
+  </data>
+  <data name="lblTienChietKhau" xml:space="preserve">
+    <value>Chiết khấu</value>
+  </data>
+  <data name="lblTienShip" xml:space="preserve">
+    <value>Tiền ship</value>
+  </data>
+  <data name="lblTienThu" xml:space="preserve">
+    <value>Tiền thu</value>
+  </data>
+  <data name="lblTongTienHang" xml:space="preserve">
+    <value>Tổng tiền hàng</value>
+  </data>
+  <data name="lblDistrictName" xml:space="preserve">
+    <value>Quận huyện</value>
+  </data>
 </root>

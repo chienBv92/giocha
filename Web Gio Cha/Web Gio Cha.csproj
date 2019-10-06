@@ -49,6 +49,10 @@
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MessagingToolkit.QRCode, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.QRCode.1.3.0\lib\MessagingToolkit.QRCode.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -172,6 +176,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminManageOrderController.cs" />
     <Compile Include="Controllers\AdminSystemController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -188,6 +193,7 @@
     <Compile Include="Controllers\ManagePromotionController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Da\AdminOrderDa.cs" />
     <Compile Include="Da\BaseDa.cs" />
     <Compile Include="Da\CommonDa.cs" />
     <Compile Include="Da\KanjiDa.cs" />
@@ -258,6 +264,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AdminOrderList.cs" />
     <Compile Include="Models\Define\CityModel.cs" />
     <Compile Include="Models\Define\DataTableModel.cs" />
     <Compile Include="Models\Define\GioHang.cs" />
@@ -294,6 +301,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserLabel.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\AdminOrderService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CommonService.cs" />
     <Compile Include="Services\KanjiService.cs" />
@@ -1465,6 +1473,7 @@
     <Content Include="ckfinder\skins\v1\uipanel.css" />
     <Content Include="ckfinder\translations.txt" />
     <Content Include="Content\Admin.css" />
+    <Content Include="Content\AdminOrderList.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -1494,45 +1503,46 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Icons\add-cart.png" />
-    <Content Include="Icons\cart.png" />
-    <Content Include="Icons\icon-hot.gif" />
-    <Content Include="Icons\icon_cap_nhat_trang_thai.png" />
-    <Content Include="Icons\icon_chinh_sua.png" />
-    <Content Include="Icons\icon_dia_chi.png" />
-    <Content Include="Icons\icon_dien_thoai.png" />
-    <Content Include="Icons\icon_ds_hoa_don.png" />
-    <Content Include="Icons\icon_exel.png" />
-    <Content Include="Icons\icon_facebook.png" />
-    <Content Include="Icons\icon_google.png" />
-    <Content Include="Icons\icon_history.png" />
-    <Content Include="Icons\icon_logout.png" />
-    <Content Include="Icons\icon_mail.png" />
-    <Content Include="Icons\icon_map.png" />
-    <Content Include="Icons\icon_nguoi_dung.png" />
-    <Content Include="Icons\icon_phan_don.png" />
-    <Content Include="Icons\icon_quang_cao.png" />
-    <Content Include="Icons\icon_quan_li.png" />
-    <Content Include="Icons\icon_tai_khoan.png" />
-    <Content Include="Icons\icon_tien.png" />
-    <Content Include="Icons\icon_trang_chu.png" />
-    <Content Include="Icons\icon_trang_thai\icon_cap_nhat_gio.png" />
-    <Content Include="Icons\icon_trang_thai\icon_cho_COD.png" />
-    <Content Include="Icons\icon_trang_thai\icon_cho_giao_lai.png" />
-    <Content Include="Icons\icon_trang_thai\icon_dang_giao.png" />
-    <Content Include="Icons\icon_trang_thai\icon_da_duyet.png" />
-    <Content Include="Icons\icon_trang_thai\icon_da_giao.png" />
-    <Content Include="Icons\icon_trang_thai\icon_da_hoan_hang.png" />
-    <Content Include="Icons\icon_trang_thai\icon_da_lay.png" />
-    <Content Include="Icons\icon_trang_thai\icon_hoan_hang.png" />
-    <Content Include="Icons\icon_trang_thai\icon_hoan_tat.png" />
-    <Content Include="Icons\icon_trang_thai\icon_moi_khoi_tao.png" />
-    <Content Include="Icons\icon_xoa.png" />
-    <Content Include="Icons\icon_youtube.png" />
-    <Content Include="Icons\News.png" />
-    <Content Include="Icons\qrcode.png" />
-    <Content Include="Icons\Setting.png" />
-    <Content Include="Icons\vieclam-hot.gif" />
+    <Content Include="Icon\add-cart.png" />
+    <Content Include="Icon\cart.png" />
+    <Content Include="Icon\icon-hot.gif" />
+    <Content Include="Icon\icon_cap_nhat_trang_thai.png" />
+    <Content Include="Icon\icon_chinh_sua.png" />
+    <Content Include="Icon\icon_dia_chi.png" />
+    <Content Include="Icon\icon_dien_thoai.png" />
+    <Content Include="Icon\icon_ds_hoa_don.png" />
+    <Content Include="Icon\icon_exel.png" />
+    <Content Include="Icon\icon_facebook.png" />
+    <Content Include="Icon\icon_google.png" />
+    <Content Include="Icon\icon_history.png" />
+    <Content Include="Icon\icon_in.svg" />
+    <Content Include="Icon\icon_logout.png" />
+    <Content Include="Icon\icon_mail.png" />
+    <Content Include="Icon\icon_map.png" />
+    <Content Include="Icon\icon_nguoi_dung.png" />
+    <Content Include="Icon\icon_phan_don.png" />
+    <Content Include="Icon\icon_quang_cao.png" />
+    <Content Include="Icon\icon_quan_li.png" />
+    <Content Include="Icon\icon_tai_khoan.png" />
+    <Content Include="Icon\icon_tien.png" />
+    <Content Include="Icon\icon_trang_chu.png" />
+    <Content Include="Icon\icon_trang_thai\icon_cap_nhat_gio.png" />
+    <Content Include="Icon\icon_trang_thai\icon_cho_COD.png" />
+    <Content Include="Icon\icon_trang_thai\icon_cho_giao_lai.png" />
+    <Content Include="Icon\icon_trang_thai\icon_dang_giao.png" />
+    <Content Include="Icon\icon_trang_thai\icon_da_duyet.png" />
+    <Content Include="Icon\icon_trang_thai\icon_da_giao.png" />
+    <Content Include="Icon\icon_trang_thai\icon_da_hoan_hang.png" />
+    <Content Include="Icon\icon_trang_thai\icon_da_lay.png" />
+    <Content Include="Icon\icon_trang_thai\icon_hoan_hang.png" />
+    <Content Include="Icon\icon_trang_thai\icon_hoan_tat.png" />
+    <Content Include="Icon\icon_trang_thai\icon_moi_khoi_tao.png" />
+    <Content Include="Icon\icon_xoa.png" />
+    <Content Include="Icon\icon_youtube.png" />
+    <Content Include="Icon\News.png" />
+    <Content Include="Icon\qrcode.png" />
+    <Content Include="Icon\Setting.png" />
+    <Content Include="Icon\vieclam-hot.gif" />
     <Content Include="ImageAd\ajax-loader.gif" />
     <Content Include="ImageAd\allocation.png" />
     <Content Include="ImageAd\attention.png" />
@@ -1676,6 +1686,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.js" />
+    <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.dataTables.js" />
     <Content Include="Scripts\jquery.numeric.js" />
     <Content Include="Scripts\jquery.pngFix.js" />
@@ -1793,9 +1805,11 @@
     <Content Include="Views\ManagePromotion\PromotionList.cshtml" />
     <Content Include="Views\GioHang\Thongbao.cshtml" />
     <Content Include="Views\Shared\MenuBottom.cshtml" />
+    <Content Include="Views\AdminManageOrder\OrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="QRcode\" />
     <Folder Include="UPLOAD\Images\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

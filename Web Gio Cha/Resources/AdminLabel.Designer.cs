@@ -61,6 +61,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danh sách đơn hàng.
+        /// </summary>
+        public static string AdminOrderList {
+            get {
+                return ResourceManager.GetString("AdminOrderList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quay lại List.
         /// </summary>
         public static string btnBack {
@@ -223,6 +232,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngày tạo đơn.
+        /// </summary>
+        public static string lblCreateDateOrder {
+            get {
+                return ResourceManager.GetString("lblCreateDateOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xóa.
         /// </summary>
         public static string lblDelete {
@@ -255,6 +273,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblDistrict {
             get {
                 return ResourceManager.GetString("lblDistrict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quận huyện.
+        /// </summary>
+        public static string lblDistrictName {
+            get {
+                return ResourceManager.GetString("lblDistrictName", resourceCulture);
             }
         }
         
@@ -340,6 +367,33 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phương thức TT.
+        /// </summary>
+        public static string lblMethod {
+            get {
+                return ResourceManager.GetString("lblMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã đơn hàng.
+        /// </summary>
+        public static string lblOrderCode {
+            get {
+                return ResourceManager.GetString("lblOrderCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã thanh toán.
+        /// </summary>
+        public static string lblPayStatus {
+            get {
+                return ResourceManager.GetString("lblPayStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số điện thoại.
         /// </summary>
         public static string lblPhone {
@@ -394,6 +448,33 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ.
+        /// </summary>
+        public static string lblReceiveAddress {
+            get {
+                return ResourceManager.GetString("lblReceiveAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên người mua.
+        /// </summary>
+        public static string lblReceiveName {
+            get {
+                return ResourceManager.GetString("lblReceiveName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SĐT người mua.
+        /// </summary>
+        public static string lblReceivePhone {
+            get {
+                return ResourceManager.GetString("lblReceivePhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đăng kí tin tức.
         /// </summary>
         public static string lblRegisterNews {
@@ -430,6 +511,33 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chiết khấu.
+        /// </summary>
+        public static string lblTienChietKhau {
+            get {
+                return ResourceManager.GetString("lblTienChietKhau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiền ship.
+        /// </summary>
+        public static string lblTienShip {
+            get {
+                return ResourceManager.GetString("lblTienShip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiền thu.
+        /// </summary>
+        public static string lblTienThu {
+            get {
+                return ResourceManager.GetString("lblTienThu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tiêu đề.
         /// </summary>
         public static string lblTitleNews {
@@ -444,6 +552,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblToDate {
             get {
                 return ResourceManager.GetString("lblToDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tổng tiền hàng.
+        /// </summary>
+        public static string lblTongTienHang {
+            get {
+                return ResourceManager.GetString("lblTongTienHang", resourceCulture);
             }
         }
         

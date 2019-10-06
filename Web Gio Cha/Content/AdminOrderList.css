@@ -1,0 +1,487 @@
+﻿
+.min-w-100{
+    min-width:100px
+}
+#AdminOrderShipList {
+        margin: 0px;
+    }
+
+        #AdminOrderShipList .color-red {
+            color: red;
+        }
+
+    .ui-datepicker-today {
+        background: #fcc !important;
+    }
+
+    #AdminOrderShipList .DivTop {
+        width: 100%;
+    }
+
+        #AdminOrderShipList .DivTop .DivTopRight {
+            display: inline-block;
+            background: #0B5147;
+        }
+
+            #AdminOrderShipList .DivTop .DivTopRight .DivTopRightTop {
+                height: 30px;
+                width: 100%;
+                display: inline-block;
+                margin-top: 10px;
+                background: #0B5147;
+                color: white;
+            }
+
+            #AdminOrderShipList .DivTop .DivTopRight .date {
+                width: 85px;
+            }
+
+            
+            #AdminOrderShipList #COD_DATE{
+                width: 125px;
+                margin-left:10px;
+            }
+
+            #AdminOrderShipList .DivTop .DivTopRight #btnCreatNew {
+                margin-right: 30px;
+            }
+
+            #AdminOrderShipList .DivTop .DivTopRight #TEXT_SEARCH {
+                width: 180px !important;
+                max-width: 180px !important;
+                margin-left: 10px;
+            }
+            #AdminOrderShipList .DivTop .DivTopRight #CUSTOMER_ID {
+                width: 60px !important;
+                max-width: 60px !important;
+                margin-left: 10px;
+            }
+             #AdminOrderShipList .DivTop .DivTopRight #LIST_ID {
+                width: 105px !important;
+                max-width: 200px !important;
+                margin-left: 10px;
+            }
+
+            #AdminOrderShipList .DivTop .DivTopRight #btnSearch {
+                margin-right: 10px;
+                margin-left: 10px;
+                margin-bottom: 0px;
+                float: right;
+            }
+
+            #AdminOrderShipList .DivTop .DivTopRight #btnClear {
+                margin-bottom: 0px;
+                float: right;
+            }
+
+            #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom {
+                margin-top: 10px;
+                height: 30px;
+                width: 100%;
+                display: inline-block;
+                background: #0B5147;
+            }
+
+                #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .employee-all {
+                    width: 120px;
+                }
+
+                #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus {
+                    margin-left: 10px;
+                    display: inline-block;
+                    height: 30px;
+                }
+
+                    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .selectStatusText {
+                        margin-top: 7px;
+                        color: white;
+                    }
+
+                    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .divStatus {
+                        width: 140px;
+                        display: inline-block;
+                    }
+
+                    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .selectStatusText .textDisp {
+                        font-weight: normal;
+                    }
+
+                    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .menu {
+                        text-decoration: none;
+                        display: none;
+                        margin-top: 10px;
+                    }
+
+                        #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .menu ul {
+                            font-weight: normal;
+                            position: absolute;
+                            top: 42px;
+                            left: 0px;
+                        }
+
+                        #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .menu li {
+                            float: left;
+                            width: 165px;
+                            line-height: 1.5;
+                            position: relative;
+                            background: #8537A5;
+                            padding-top: 5px;
+                            padding-left: 10px;
+                            z-index: 100;
+                        }
+
+    #AdminOrderShipList .DivToptBottom {
+        display: inline-block;
+    }
+
+    #AdminOrderShipList .DivToptBottom .divActionSelect{
+        display: inline-block;
+        float:right;
+        margin-right:10px;
+        width:200px;
+    }
+
+        #AdminOrderShipList .DivToptBottom .divActionSelect .menu {
+            text-decoration: none;
+            display: none;
+            margin-top: 15px;
+            margin-left: -20px;
+            list-style-type: none;
+        }
+
+        #AdminOrderShipList .DivToptBottom .divActionSelect .menu ul {
+            font-weight: normal;
+            position: absolute;
+            top: 42px;
+            left: 0px;
+        }
+
+        #AdminOrderShipList .DivToptBottom .divActionSelect .menu li {
+            float: left;
+            width: 185px;
+            line-height: 2;
+            position: relative;
+            background: #8537A5;
+            padding-top: 5px;
+            padding-left: 0px;
+            z-index: 100;
+            padding-bottom:10px;
+        }
+
+    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .menu li:hover {
+        background: #00ff21;
+        cursor: pointer;
+    }
+
+    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .menu ul ul {
+        left: 150px;
+        top: 0px;
+    }
+
+    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .divOtherSelect {
+        width: 110px;
+        display: inline-block;
+    }
+
+    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .divStatusAll {
+        width: 200px;
+        display: inline-block;
+    }
+
+    #AdminOrderShipList .DivTop .DivTopRight .DivTopRightBottom .selectStatus .divOtherSelect .clickOther {
+        text-decoration: none;
+        cursor: pointer;
+        color: white;
+    }
+
+    #AdminOrderShipList .DivToptBottom .divActionSelect .clickActionSpecial {
+        text-decoration: none;
+        cursor: pointer;
+        color: #000000;
+        font-weight:bold;
+    }
+
+    #AdminOrderShipList .DivToptBottom {
+        padding-top: 10px;
+        height: 45px;
+        width: 100%;
+        display: inline-block;
+        background: #e6e6e5;
+    }
+
+    .clickOther a:hover {
+        color: #4cff00;
+    }
+
+    #AdminOrderShipList #divResultLeft {
+        float: left;
+        width: 300px;
+        min-height: 565px;
+        background: #0B5147;
+        color: white;
+    }
+
+    #AdminOrderShipList #divResulRight {
+        float: right;
+        width: 100%;
+        min-height: 500px;
+    }
+
+        #AdminOrderShipList #divResulRight #mainContent {
+            margin: 20px;
+        }
+
+            #AdminOrderShipList #divResulRight #mainContent #InfoTable {
+                width: 100%;
+            }
+
+    #AdminOrderShipList .col-left {
+        float: left;
+        width: 30%;
+    }
+
+        #AdminOrderShipList .col-left tr {
+            height: 43px;
+        }
+
+    #AdminOrderShipList .col-right {
+        float: left;
+        margin-left: -1px;
+        max-width: 70%;
+    }
+
+        #AdminOrderShipList .col-left tr {
+            height: 43px;
+        }
+
+        #AdminOrderShipList .col-right tr {
+            height: 43px;
+        }
+
+    #mainContent .dragOn {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .lblTable {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    #tbLeft .receive-name {
+        max-width: 150px;
+        text-overflow: ellipsis;
+    }
+
+    #tbLeft .createDate {
+        width: 80px !important;
+    }
+
+    .col-right #InfoTable .productName {
+        max-width: 200px;
+        white-space: nowrap !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .col-right #InfoTable .receiveName {
+        max-width: 200px;
+        white-space: nowrap !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    #divResultLeft .divLeftTop {
+        width: 300px;
+        height: 125px;
+    }
+
+        #divResultLeft .divLeftTop .divLeftImage {
+            background: #c79f9f;
+            width: 120px;
+            height: 125px;
+            float: left;
+        }
+
+        #divResultLeft .divLeftTop .divLeftInfo {
+            width: 260px;
+            height: 125px;
+            float: left;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+            #divResultLeft .divLeftTop .divLeftInfo a {
+                color: wheat;
+            }
+
+                #divResultLeft .divLeftTop .divLeftInfo a:hover {
+                    color: #65aeeb;
+                }
+
+            #divResultLeft .divLeftTop .divLeftInfo .textInfo {
+                margin-top: 5px;
+                margin-bottom: 5px;
+                font-size: 14px;
+            }
+
+            #divResultLeft .divLeftTop .divLeftInfo .logout {
+                float: right;
+                margin-right: 20px;
+            }
+
+            #divResultLeft .divLeftTop .divLeftInfo .UserView {
+                margin-left: 20px;
+            }
+
+    #divResultLeft .divLeftMain {
+        margin: 20px;
+    }
+
+        #divResultLeft .divLeftMain .titleSummary {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #divResultLeft .divLeftMain .summary-money {
+            margin-bottom: 10px;
+            margin-left: 30px;
+        }
+
+            #divResultLeft .divLeftMain .summary-money .color-red {
+                color: red;
+            }
+
+    #mainContent .div-scroll-y {
+        height: 217px;
+        min-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #mainContent .mainTable {
+        width: 100%;
+        max-height: 485px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #AdminOrderShipList #btnExportCsv {
+        float: left;
+        margin-left: 20px;
+    }
+
+     #AdminOrderShipList #btnExportList {
+        float: left;
+        margin-left: 20px;
+    }
+
+    #AdminOrderShipList #btnCreatNew {
+        float: left;
+        margin-left: 20px;
+    }
+
+    #AdminOrderShipList #btnPrintPDF {
+        float: left;
+        margin-left: 20px;
+    }
+
+    #AdminOrderShipList .dataTables_info {
+        margin-left: 20px;
+    }
+
+    #AdminOrderShipList .DivTop .product_type {
+        height: 27px;
+        width: 100px;
+        max-width: 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 13px;
+    }
+
+    #AdminOrderShipList .DivTop .group-sender, #AdminOrderShipList .DivTop .group-receive {
+        height: 27px;
+        width: 130px;
+        max-width: 130px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 13px;
+    }
+
+    #AdminOrderShipList .DivTop .product_type {
+        height: 27px;
+        width: 130px;
+        max-width: 130px;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 13px;
+    }
+
+    #AdminOrderShipList #SORT_TYPE {
+        margin-bottom: -2px;
+    }
+
+    #AdminOrderShipList input[name="SELECT_TYPE"] {
+        margin-bottom: -2px;
+    }
+
+    #AdminOrderShipList .DivToptBottom .employee-sender {
+        width: 140px;
+    }
+
+    #AdminOrderShipList .DivToptBottom .employee-receive {
+        width: 140px;
+    }
+
+    #AdminOrderShipList #divResulRight .mainTable .checkBox {
+        width: 15px;
+    }
+
+    #AdminOrderShipList #divResulRight .mainTable .ma-kho {
+        width: 12px;
+    }
+
+    #AdminOrderShipList #divResulRight .mainTable .shipCd {
+        width: 12px;
+    }
+
+    #AdminOrderShipList .btn[disabled], #AdminOrderShipList #btnEditStatus :disabled {
+        cursor: not-allowed !important;
+        pointer-events: all;
+    }
+
+    #AdminOrderShipList .icon-error::after {
+        content: url('/Images/attention.png');
+    }
+
+    #AdminOrderShipList .icon-new::after {
+        content: url('/Icon/icon_trang_thai/icon_moi_khoi_tao.png');
+    }
+    #AdminOrderShipList .icon-TakingOrder::after {
+        content: url('/Icon/icon_trang_thai/icon_da_duyet.png');
+    }
+    #AdminOrderShipList .icon-TakedOrder::after {
+        content: url('/Icon/icon_trang_thai/icon_da_lay.png');
+    }
+     #AdminOrderShipList .icon-Shiping::after {
+        content: url('/Icon/icon_trang_thai/icon_dang_giao.png');
+    }
+      #AdminOrderShipList .icon-Delivery::after {
+        content: url('/Icon/icon_trang_thai/icon_da_giao.png');
+    }
+       #AdminOrderShipList .icon-ReShip::after {
+        content: url('/Icon/icon_trang_thai/icon_cho_giao_lai.png');
+    }
+        #AdminOrderShipList .icon-ReturnOrder::after {
+        content: url('/Icon/icon_trang_thai/icon_hoan_hang.png');
+    }
+         #AdminOrderShipList .icon-ReturnOrderSuccess::after {
+        content: url('/Icon/icon_trang_thai/icon_da_hoan_hang.png');
+    }
+         #AdminOrderShipList .icon-Finished::after {
+        content: url('/Icon/icon_trang_thai/icon_hoan_tat.png');
+    }
+         #AdminOrderShipList .icon-WaitCOD::after {
+        content: url('/Icon/icon_trang_thai/icon_cho_COD.png');
+    }

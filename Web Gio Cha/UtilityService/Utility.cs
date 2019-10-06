@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Net.Mail;
 using Web_Gio_Cha.UtilityService;
+using Web_Gio_Cha.Resources;
 
 namespace Web_Gio_Cha.UtilityServices
 {
@@ -176,6 +177,42 @@ namespace Web_Gio_Cha.UtilityServices
             return (sb.ToString().Normalize(NormalizationForm.FormD)).Replace(" ","-");
         }
 
+        public static IList<SelectListItem> SortTypeList()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            Dictionary<string, string> sortType = new Dictionary<string, string>();
+
+            sortType.Add(SortType.ASC_NAME, SortType.ASC);
+            sortType.Add(SortType.DESC_NAME, SortType.DESC);
+
+            foreach (KeyValuePair<string, string> pair in sortType)
+            {
+                list.Add(new SelectListItem() { Text = pair.Key, Value = pair.Value, Selected = false });
+            }
+
+            return list;
+        }
+
+        public static IList<SelectListItem> getListStatusAll()
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            Dictionary<string, string> statusList = new Dictionary<string, string>();
+
+            statusList.Add(OrderStatus.Items[OrderStatus.Create].ToString(), OrderStatus.Create.ToString());
+            statusList.Add(OrderStatus.Items[OrderStatus.TakingOrder].ToString(), OrderStatus.TakingOrder.ToString());
+            statusList.Add(OrderStatus.Items[OrderStatus.Shiping].ToString(), OrderStatus.Shiping.ToString());
+            statusList.Add(OrderStatus.Items[OrderStatus.Delivery].ToString(), OrderStatus.Delivery.ToString());
+            statusList.Add(OrderStatus.Items[OrderStatus.Finished].ToString(), OrderStatus.Finished.ToString());
+            statusList.Add(OrderStatus.Items[OrderStatus.Cancel].ToString(), OrderStatus.Cancel.ToString());
+            statusList.Add(OrderStatus.Items[OrderStatus.Error].ToString(), OrderStatus.Error.ToString());
+
+            foreach (KeyValuePair<string, string> pair in statusList)
+            {
+                list.Add(new SelectListItem() { Text = pair.Key, Value = pair.Value, Selected = false });
+            }
+
+            return list;
+        }
 
         //public static IList<SelectListItem> GetNoticeStatus()
         //{
