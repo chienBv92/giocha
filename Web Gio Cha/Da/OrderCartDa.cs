@@ -51,6 +51,11 @@ namespace Web_Gio_Cha.Da
             return user;
         }
 
+        public int getMaxOrder()
+        {
+            int countOrder = da.Order.Count();
+            return countOrder;
+        }
         #endregion
     }
 

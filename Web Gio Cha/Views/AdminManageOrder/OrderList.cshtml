@@ -18,13 +18,25 @@
                     @Html.DropDownListFor(m => m.Receive_District, Model.DISTRICT_LIST, new { @class = "Receive_District txt-box", maxlength = 100 })
 
 
-                    <span style="margin-left:20px">Từ:</span><input type="text" id="FROM_DATE" name="FROM_DATE" value="" class=" date ime-mode" maxlength=10 />
+                    @*<span style="margin-left:20px">Từ:</span><input type="text" id="FROM_DATE" name="FROM_DATE" value="" class=" date ime-mode" maxlength=10 />
                     <span style="margin-left:20px">Đến:</span>
                     <input type="text" id="TO_DATE" name="TO_DATE" value="" class="date ime-mode" maxlength=10 />
+                    <span style="margin-left:40px"></span>*@
+
+                    <span style="margin-left:20px">Từ:</span>
+                    <span class="date datepicker-days">
+                        @Html.TextBoxFor(m => m.FROM_DATE, "{0:dd/MM/yyyy}", new { @class = "date ime-mode", maxlength = 10 })
+                        <button type="button" class="btn btn-default btn-add-on"><i class="btn-icon btn-calendar"></i></button>
+                    </span>
+                    <span style="margin-left:20px">Đến:</span>
+                    <span class="date datepicker-days">
+                        @Html.TextBoxFor(m => m.TO_DATE, "{0:dd/MM/yyyy}", new { @class = "date ime-mode", maxlength = 10 })
+                        <button type="button" class="btn btn-default btn-add-on"><i class="btn-icon btn-calendar"></i></button>
+                    </span>
                     <span style="margin-left:40px"></span>
                     <input type="text" id="Code" name="Code" value="" placeholder="Nhập mã đơn hàng" class="" maxlength=15 />
 
-                    <input type="text" id="UserID" name="UserID" value="" placeholder="ID KH" class="" maxlength=6 />
+                    <input type="text" id="UserID" name="UserID" value="" placeholder="ID KH" class="" maxlength=6 style="width:80px" />
 
                     @Html.Label(@AdminLabel.lblDelete, new { @for = "del_flg", @class = "" })
                     @if (String.IsNullOrEmpty(Model.del_flg) || Model.del_flg.Equals("0"))
@@ -167,9 +179,9 @@
 <script>
     var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
 
-    WebDuhoc.utility.validFullHalfSize($("#CUSTOMER_ID"));
-    WebDuhoc.utility.imeControl($("#CUSTOMER_ID"), 'disable');
-    WebDuhoc.utility.checkInputNumber($("#CUSTOMER_ID"));
+    WebDuhoc.utility.validFullHalfSize($("#UserID"));
+    WebDuhoc.utility.imeControl($("#UserID"), 'disable');
+    WebDuhoc.utility.checkInputNumber($("#UserID"));
 
     $("#del_flg").prop('checked', false).change();
     $('#DEL_FLG_HIDDEN').val('0');
@@ -214,7 +226,6 @@
     var rows_checked_list = [];
     var checkedDataList = [];
     var UrlLogin = '@Url.Action("Login", "Login")';
-    var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
     var dataSummary;
     $(function () {
         var oSorting = {
@@ -443,8 +454,6 @@
     });
 
     $(function () {
-        var UrlOrderRegister = '@Url.Action("Index", "Home")';
-
         //$(document).ready(function () {
         //    $("html").on("contextmenu", function () {
         //        return false;
@@ -458,21 +467,22 @@
         var fromDateText = $.datepicker.formatDate("dd/mm/yy", new Date(Now.getFullYear(), Now.getMonth(), Now.getDate() - 15));
         $('#FROM_DATE').attr('value', fromDateText).val(fromDateText);
         $('#TO_DATE').attr('value', nowDate).val(nowDate);
-        // Khoi tao cho ngay bat dau
-        $('input[name="FROM_DATE"]').datepicker({
-            singleDatePicker: true,
-            autoclose: true,
-            dateFormat: 'dd/MM/yyyy',
-            setDate: fromDate,
-            todayHighlight: true
-        });
 
-        $('input[name="TO_DATE"]').datepicker({
-            singleDatePicker: true,
-            autoclose: true,
-            dateFormat: 'dd/MM/yyyy',
-            todayHighlight: true
-        });
+        // Khoi tao cho ngay bat dau
+        //$('#FROM_DATE').datepicker({
+        //    //singleDatePicker: true,
+        //    //autoclose: true,
+        //    format: 'dd/mm/yyyy',
+        //    setDate: fromDate,
+        //    todayHighlight: true
+        //});
+
+        //$('input[name="TO_DATE"]').datepicker({
+        //    singleDatePicker: true,
+        //    autoclose: true,
+        //    dateFormat: 'dd/mm/yyyy',
+        //    todayHighlight: true
+        //});
 
         $('input[name=SELECT_TYPE]').change();
 
@@ -567,7 +577,7 @@
 
         var orderId = $(this).data('order-id');
         if (orderId > 0) {
-            var urlGetInfor = '@Url.Action("ViewOrderDetail", "OrderShip")';
+            var urlGetInfor = '@Url.Action("ViewOrderDetail", "AdminManageOrder")';
             var param = {
                 OrderId: orderId
             };

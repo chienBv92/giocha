@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShipOnline.UtilityService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,8 @@ namespace Web_Gio_Cha.Controllers
 {
     public class AdminManageOrderController : BaseController
     {
+        private static log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         // GET: AdminOrderShip
         #region LIST
         [HttpGet]
@@ -56,55 +59,57 @@ namespace Web_Gio_Cha.Controllers
             {
                 using (AdminOrderService service = new AdminOrderService())
                 {
-                    int total_row = 0;
-                    var OrderSummaryInfo = new AdminOrderList();
-                    AdminOrderDa da = new AdminOrderDa();
-                    if (!string.IsNullOrEmpty(condition.ORDER_STATUS_LIST))
+                    try
                     {
-                        List<string> statusList = condition.ORDER_STATUS_LIST.Split(',').ToList();
-                        if (statusList.Count > 0)
+                        int total_row = 0;
+                        var OrderSummaryInfo = new AdminOrderList();
+                        AdminOrderDa da = new AdminOrderDa();
+                        if (!string.IsNullOrEmpty(condition.ORDER_STATUS_LIST))
                         {
-                            condition.ORDER_STATUS_LIST = string.Join("','", statusList.ToArray());
+                            List<string> statusList = condition.ORDER_STATUS_LIST.Split(',').ToList();
+                            if (statusList.Count > 0)
+                            {
+                                condition.ORDER_STATUS_LIST = string.Join("','", statusList.ToArray());
+                            }
                         }
-                    }
-                    
-                    var dataList = service.SearchOrderList(dt, condition, out total_row).ToList();
-                    var totalDataNoneStatus = service.SearchOrderListTotalNoneStatus(dt, condition);
 
-                    OrderSummaryInfo.TotalStatus_0 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Create).ToList().Count();
-                    OrderSummaryInfo.TotalStatus_1 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.TakingOrder).ToList().Count();
-                    OrderSummaryInfo.TotalStatus_2 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Shiping).ToList().Count();
-                    OrderSummaryInfo.TotalStatus_3 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Delivery).ToList().Count();
-                    OrderSummaryInfo.TotalStatus_4 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Finished).ToList().Count();
-                    OrderSummaryInfo.TotalStatus_5 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Cancel).ToList().Count();
-                    OrderSummaryInfo.TotalStatus_6 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Error).ToList().Count();
+                        var dataList = service.SearchOrderList(dt, condition, out total_row).ToList();
+                        var totalDataNoneStatus = service.SearchOrderListTotalNoneStatus(dt, condition);
 
-                    OrderSummaryInfo.TotalStatusAll = totalDataNoneStatus.Count();
-                    for (int i = 0; i < dataList.Count(); i++ )
-                    {
-                        var getProductDetail = da.getlistProductByOrder(dataList[i].ID).Take(3);
-                        List<string> listName = new List<string>();
-                        foreach (var det in getProductDetail)
+                        OrderSummaryInfo.TotalStatus_0 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Create).ToList().Count();
+                        OrderSummaryInfo.TotalStatus_1 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.TakingOrder).ToList().Count();
+                        OrderSummaryInfo.TotalStatus_2 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Shiping).ToList().Count();
+                        OrderSummaryInfo.TotalStatus_3 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Delivery).ToList().Count();
+                        OrderSummaryInfo.TotalStatus_4 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Finished).ToList().Count();
+                        OrderSummaryInfo.TotalStatus_5 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Cancel).ToList().Count();
+                        OrderSummaryInfo.TotalStatus_6 = totalDataNoneStatus.Where(i => i.Status == OrderStatus.Error).ToList().Count();
+
+                        OrderSummaryInfo.TotalStatusAll = totalDataNoneStatus.Count();
+                        for (int i = 0; i < dataList.Count(); i++)
                         {
-                            det.Name = det.Name.Length > 10 ? det.Name.Substring(0, 10) : det.Name;
-                            listName.Add(det.Name);
+                            var getProductDetail = da.getlistProductByOrder(dataList[i].ID).Take(3);
+                            List<string> listName = new List<string>();
+                            foreach (var det in getProductDetail)
+                            {
+                                det.Name = det.Name.Length > 10 ? det.Name.Substring(0, 10) : det.Name;
+                                listName.Add(det.Name);
+                            }
+                            if (listName.Count > 0)
+                            {
+                                dataList[i].Product_Name = string.Join(", ", listName);
+                            }
                         }
-                        if (listName.Count > 0)
-                        {
-                            dataList[i].Product_Name = string.Join(", ", listName);
-                        }
-                    }
 
-                    OrderSummaryInfo.thisMonth = Utility.GetCurrentDateOnly().Month;
-                    //var thismonth = Utility.GetCurrentDateOnly().ToString("MM/yyyy");
-                    //var dataThisMonth = service.SearchOrderByMonth(thismonth);
-                    //OrderSummaryInfo.TotalOrderthisMonth = dataThisMonth.Count();
+                        OrderSummaryInfo.thisMonth = Utility.GetCurrentDateOnly().Month;
+                        //var thismonth = Utility.GetCurrentDateOnly().ToString("MM/yyyy");
+                        //var dataThisMonth = service.SearchOrderByMonth(thismonth);
+                        //OrderSummaryInfo.TotalOrderthisMonth = dataThisMonth.Count();
 
-                    int totalRowCount = dataList.Count();
-                    int lastItem = dt.iDisplayLength + dt.iDisplayStart;
+                        int totalRowCount = dataList.Count();
+                        int lastItem = dt.iDisplayLength + dt.iDisplayStart;
 
-                    var tableData = (from i in dataList
-                                     select new object[]
+                        var tableData = (from i in dataList
+                                         select new object[]
                                 {
                                     i.ID,
                                     i.Code,
@@ -125,18 +130,23 @@ namespace Web_Gio_Cha.Controllers
                                     i.del_flg
                                 });
 
-                    var result = Json(new
+                        var result = Json(new
+                        {
+                            sEcho = dt.sEcho,
+                            iTotalRecords = total_row,
+                            iTotalDisplayRecords = total_row,
+                            objOrderSummaryInfo = OrderSummaryInfo,
+                            aaData = tableData
+                        });
+                        Session["SearchAdminOrderShipList"] = condition;
+                        
+                        result.MaxJsonLength = Int32.MaxValue;
+                        return result;
+                    }
+                    catch (Exception ex)
                     {
-                        sEcho = dt.sEcho,
-                        iTotalRecords = total_row,
-                        iTotalDisplayRecords = total_row,
-                        objOrderSummaryInfo = OrderSummaryInfo,
-                        aaData = tableData
-                    });
-                    Session["SearchAdminOrderShipList"] = condition;
-
-                    result.MaxJsonLength = Int32.MaxValue;
-                    return result;
+                        logger.Error(ex);
+                    }
                 }
             }
             else
@@ -146,5 +156,57 @@ namespace Web_Gio_Cha.Controllers
             return new EmptyResult();
         }
         #endregion
+
+        #region VIEW ORDER SHIP
+        public ActionResult ViewOrderDetail(long OrderId = 0)
+        {
+            AdminOrderList model = new AdminOrderList();
+            CmnEntityModel currentUser = Session["CmnEntityModel"] as CmnEntityModel;
+
+            if (currentUser == null || currentUser.IsAdmin == false)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            CommonService comService = new CommonService();
+            CommonDa da = new CommonDa();
+            AdminOrderDa dataAccess = new AdminOrderDa();
+            if (OrderId > 0)
+            {
+                AdminOrderList infor = new AdminOrderList();
+                infor = dataAccess.getInforOrder(OrderId);
+                model = infor != null ? infor : model;
+                //var inforUserSender = da.getInforUser(model.USER_ID);
+                //if (inforUserSender != null)
+                //{
+                //    model.SENDER_CITY_NAME = inforUserSender.CITY_NAME;
+                //    model.SENDER_DISTRICT_NAME = inforUserSender.DISTRICT_NAME;
+                //    model.SENDER_TOWN_NAME = inforUserSender.TOWN_NAME;
+                //    model.SENDER_NAME = inforUserSender.USER_NAME;
+                //    model.SENDER_PHONE = inforUserSender.USER_PHONE;
+                //    model.SENDER_ADDRESS = inforUserSender.USER_ADDRESS;
+                //}
+
+                model.ORDER_STATUS_TEXT = OrderStatus.Items[model.Status].ToString();
+
+                
+
+                if (String.IsNullOrEmpty(model.LINK_QRCODE))
+                {
+                    model.LINK_QRCODE = QRCodeServices.creatQR(model.Code);
+                    dataAccess.UpdateQRLink(OrderId, model.LINK_QRCODE);
+                }
+                if (!String.IsNullOrEmpty(model.LINK_QRCODE))
+                {
+                    model.LINK_QRCODE = model.LINK_QRCODE.Replace("~", "");
+                }
+
+            }
+
+            return this.PartialView("ViewOrderDetail", model);
+        }
+
+        #endregion
+
     }
 }

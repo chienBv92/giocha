@@ -1806,6 +1806,7 @@
     <Content Include="Views\GioHang\Thongbao.cshtml" />
     <Content Include="Views\Shared\MenuBottom.cshtml" />
     <Content Include="Views\AdminManageOrder\OrderList.cshtml" />
+    <Content Include="Views\AdminManageOrder\ViewOrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

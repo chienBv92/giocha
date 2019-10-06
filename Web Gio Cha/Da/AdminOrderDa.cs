@@ -19,6 +19,58 @@ namespace Web_Gio_Cha.Da
             return lst;
         }
 
+        public AdminOrderList getInforOrder(long OrderId)
+        {
+            var lstOrder =  (from pro in da.Order
+                            join user in da.TblUser on pro.UserID equals user.ID
+                            join dis in da.TblCity on pro.Receive_District equals dis.ID
+                            where pro.ID == OrderId && pro.del_flg == Constant.DeleteFlag.NON_DELETE
+                          
+                            select new AdminOrderList
+                            {
+                                ID = pro.ID,
+                                Code = pro.Code,
+                                Status = pro.Status,
+                                TongTienHang = pro.TongTienHang,
+                                PriceDiscountTotal = pro.PriceDiscountTotal,
+                                PriceShip = pro.PriceShip,
+                                PriceTotal = pro.PriceTotal,
+                                UserName = user.UserName,
+                                Receive_Phone = pro.Receive_Phone,
+                                DistrictName = dis.Name,
+                                Receive_Address = pro.Receive_Address,
+                                CreatedDate = pro.CreatedDate,
+                                //CREATE_DATE_STRING = pro.CreatedDate.HasValue ? pro.CreatedDate.Value.ToString("dd/MM/yyyy hh:mm") : "",
+                                PaymentMethod = pro.PaymentMethod,
+                                Paid = pro.Paid,
+                                del_flg = pro.del_flg
+                            }).SingleOrDefault();
+            return lstOrder;
+        }
+
+        public long UpdateQRLink(long OrderId, string LINK_QRCODE)
+        {
+            var order = da.Order.Find(OrderId);
+            if (order != null)
+            {
+                try
+                {
+                    // set data
+                    order.LINK_QRCODE = LINK_QRCODE;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return entity.ID;
+        }
+
         #region LIST
         public IEnumerable<AdminOrderList> SearchOrderList(DataTableModel dt, AdminOrderList model, out int total_row)
         {
