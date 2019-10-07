@@ -12,6 +12,8 @@ using Web_Gio_Cha.Resources;
 using Web_Gio_Cha.Services;
 using Web_Gio_Cha.UtilityService;
 using WebDuhoc.Models.Define;
+using Rotativa;
+using Rotativa.MVC;
 
 namespace Web_Gio_Cha.Controllers
 {
@@ -48,6 +50,8 @@ namespace Web_Gio_Cha.Controllers
 
             model.SORT_TYPE_LIST = UtilityServices.UtilityServices.SortTypeList();
             model.STATUS_SELECT_LIST = UtilityServices.UtilityServices.getListStatusAll();
+            model.TO_DATE = DateTime.Now;
+            model.FROM_DATE = model.TO_DATE.Value.AddDays(-15);
 
             return View(model);
         }
@@ -160,7 +164,7 @@ namespace Web_Gio_Cha.Controllers
         #region VIEW ORDER SHIP
         public ActionResult ViewOrderDetail(long OrderId = 0)
         {
-            AdminOrderList model = new AdminOrderList();
+            ViewOrderModel model = new ViewOrderModel();
             CmnEntityModel currentUser = Session["CmnEntityModel"] as CmnEntityModel;
 
             if (currentUser == null || currentUser.IsAdmin == false)
@@ -173,23 +177,28 @@ namespace Web_Gio_Cha.Controllers
             AdminOrderDa dataAccess = new AdminOrderDa();
             if (OrderId > 0)
             {
-                AdminOrderList infor = new AdminOrderList();
+                ViewOrderModel infor = new ViewOrderModel();
                 infor = dataAccess.getInforOrder(OrderId);
                 model = infor != null ? infor : model;
-                //var inforUserSender = da.getInforUser(model.USER_ID);
-                //if (inforUserSender != null)
-                //{
-                //    model.SENDER_CITY_NAME = inforUserSender.CITY_NAME;
-                //    model.SENDER_DISTRICT_NAME = inforUserSender.DISTRICT_NAME;
-                //    model.SENDER_TOWN_NAME = inforUserSender.TOWN_NAME;
-                //    model.SENDER_NAME = inforUserSender.USER_NAME;
-                //    model.SENDER_PHONE = inforUserSender.USER_PHONE;
-                //    model.SENDER_ADDRESS = inforUserSender.USER_ADDRESS;
-                //}
+                string CompanyCd = "00000";
+                var inforCompany = da.getInfoCompany(CompanyCd);
+                if (inforCompany != null)
+                {
+                    model.CompanyName = inforCompany.COMPANY_NAME;
+                    model.CompanyAddress = inforCompany.COMPANY_ADDRESS;
+                    model.CompanyEmail = inforCompany.COMPANY_EMAIL;
+                    model.CompanyPhone = inforCompany.COMPANY_PHONE;
+                }
 
+                model.AddressCustomer = model.DistrictName + ", " + model.Receive_Address;
                 model.ORDER_STATUS_TEXT = OrderStatus.Items[model.Status].ToString();
 
-                
+                var getOrderDetail = dataAccess.getOrderDetail(model.ID).Take(3);
+                ViewBag.listOrderDetail = getOrderDetail.ToList();
+                foreach (var data in getOrderDetail)
+                {
+                    model.ProductDetailTotal += data.ProductName + " (Số lượng: " + data.Quantity.ToString() + "), ";
+                }
 
                 if (String.IsNullOrEmpty(model.LINK_QRCODE))
                 {
@@ -208,5 +217,76 @@ namespace Web_Gio_Cha.Controllers
 
         #endregion
 
+        #region PRINT PDF
+        [HttpPost]
+        public ActionResult PrintOrderCustom(string ORDER_ID_STRING)
+        {
+            CmnEntityModel currentUser = Session["CmnEntityModel"] as CmnEntityModel;
+
+            if (currentUser == null || currentUser.IsAdmin == false)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            CommonService comService = new CommonService();
+            CommonDa da = new CommonDa();
+            AdminOrderDa dataAccess = new AdminOrderDa();
+            List<ViewOrderModel> listOrderDetail = new List<ViewOrderModel>();
+            ViewOrderModel model = new ViewOrderModel();
+
+            if (!string.IsNullOrEmpty(ORDER_ID_STRING))
+            {
+                List<long> ORDER_ID_LIST = ORDER_ID_STRING.Split(',').Select(long.Parse).ToList();
+                if (ORDER_ID_LIST.Count > 0)
+                {
+                    for (int i = 0; i < ORDER_ID_LIST.Count(); i++)
+                    {
+                        if (ORDER_ID_LIST[i] > 0)
+                        {
+                            ViewOrderModel infor = new ViewOrderModel();
+                            infor = dataAccess.getInforOrder(ORDER_ID_LIST[i]);
+                            model = infor != null ? infor : model;
+                            string CompanyCd = "00000";
+                            var inforCompany = da.getInfoCompany(CompanyCd);
+                            if (inforCompany != null)
+                            {
+                                model.CompanyName = inforCompany.COMPANY_NAME;
+                                model.CompanyAddress = inforCompany.COMPANY_ADDRESS;
+                                model.CompanyEmail = inforCompany.COMPANY_EMAIL;
+                                model.CompanyPhone = inforCompany.COMPANY_PHONE;
+                            }
+
+                            model.AddressCustomer = model.DistrictName + ", " + model.Receive_Address;
+                            model.ORDER_STATUS_TEXT = OrderStatus.Items[model.Status].ToString();
+
+                            var getOrderDetail = dataAccess.getOrderDetail(model.ID).Take(3);
+                            ViewBag.listOrderDetail = getOrderDetail.ToList();
+                            foreach (var data in getOrderDetail)
+                            {
+                                model.ProductDetailTotal += data.ProductName + " (Số lượng: " + data.Quantity.ToString() + "), ";
+                            }
+
+                            if (String.IsNullOrEmpty(model.LINK_QRCODE))
+                            {
+                                model.LINK_QRCODE = QRCodeServices.creatQR(model.Code);
+                                dataAccess.UpdateQRLink(ORDER_ID_LIST[i], model.LINK_QRCODE);
+                            }
+                            if (!String.IsNullOrEmpty(model.LINK_QRCODE))
+                            {
+                                model.LINK_QRCODE = model.LINK_QRCODE.Replace("~", "");
+                            }
+                            listOrderDetail.Add(model);
+                        }
+                    }
+                }
+                //return new ViewAsPdf("ViewOrderDetailPDF", listOrderDetail);
+                return PartialView("ViewOrderDetailPDF", listOrderDetail);
+
+            }
+
+            return new EmptyResult();
+        }
+
+        #endregion
     }
 }

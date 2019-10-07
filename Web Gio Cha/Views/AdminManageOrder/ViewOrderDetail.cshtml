@@ -2,143 +2,113 @@
 @using Web_Gio_Cha.Models;
 
 
-@model AdminOrderList
+@model ViewOrderModel
 @{
-    ViewBag.Title = "HÓA ĐƠN VẬN CHUYỂN";
+    ViewBag.Title = "HÓA ĐƠN ĐIỆN TỬ";
 }
 
 <div id="PopupGetInforOrder">
 
     <div class="modal-body">
         <div class="title">
-            HÓA ĐƠN VẬN CHUYỂN
+            @ViewBag.Title
         </div>
         <div class="headerLeft">
             <div class="headerLeftTop">
-                <div class="logo-tokeiShip"><img class="img-logo" src="~/Icon/logo_hoa_don.svg" alt="giao hang hen gio" /></div>
-                <div class="shipCode">Mã đơn: @Model.Code</div>
-                <div class="StoreCode"><span>Mã lưu kho: </span></div>
-            </div>
-            <div class="headerLeftBottom">
-                <table class="tblLeftBottom">
-                    <tr class="headerTable">
-                        <td class="col-table-1 center">Trạng thái đơn hàng</td>
-                        <td class="col-table-2 center">Nhân viên tiếp nhận</td>
-                        <td class="col-table-3 center">Dự kiến giao hàng</td>
-                    </tr>
-                    <tr class="contentTable">
-                        <td class="col-table-1 center">@Model.ORDER_STATUS_TEXT</td>
-                        <td class="col-table-2 center"></td>
-                        <td class="col-table-3 center"><span>h -</span><span>h Ngày: </span></td>
-                    </tr>
-                </table>
-            </div>
+                <div class="logo-tokeiShip"><img class="img-logo" src="~/Images/logo.png" alt="giò chả Vân Bảo" /></div>
+                <div class="topLeftHead" style="float:right">
+                    <div class="shipCode col-md-12">Mã đơn: @Model.Code</div>
+                    <div class="StoreCode"><span>Mã lưu kho: VB-00001</span></div>
 
+                    <div class="txtCompanyInfo" style="padding-top:10px"><span>Địa chỉ: @Model.CompanyAddress</span></div>
+                    <div class="txtCompanyInfo"><span>SĐT: @Model.CompanyPhone</span></div>
+                </div>
+
+            </div>
         </div>
         <div class="headerRight">
-            @*<img class="img-QRcode" src="~/QRcode/T000010000007.png" alt="giao hang hen gio" />*@
-            <img class="img-QRcode" src="@Model.LINK_QRCODE" alt="giao hang hen gio" />
+            <img class="img-QRcode" src="@Model.LINK_QRCODE" alt="giò chả Vân Bảo" />
         </div>
 
         <div id="MainTable">
             <table class="tblMainTable">
                 <tr class="headerMainTable">
                     <td class="col-table-1 center"></td>
-                    <td class="col-table-2 center">THÔNG TIN NGƯỜI GỬI</td>
-                    <td class="col-table-3 center">THÔNG TIN NGƯỜI NHẬN</td>
+                    <td class="col-table-3 center">THÔNG TIN KHÁCH HÀNG</td>
                 </tr>
                 <tr class="contentTable row-1">
                     <td class="col-table-1 center text-bold">Họ tên</td>
-                    <td class="col-table-2 center">"Model.SENDER_NAME"</td>
-                    <td class="col-table-3 center">"Model.RECEIVED_NAME"</td>
+                    <td class="col-table-3 center">@Model.UserName"</td>
                 </tr>
                 <tr class="contentTable row-2">
                     <td class="col-table-1 center text-bold">Số điện thoại</td>
-                    <td class="col-table-2 center">"Model.SENDER_PHONE"</td>
-                    <td class="col-table-3 center">"Model.RECEIVED_PHONE"</td>
+                    <td class="col-table-3 center">@Model.Receive_Phone</td>
                 </tr>
                 <tr class="contentTable row-3">
                     <td class="col-table-1 center text-bold">Địa chỉ</td>
-                    <td class="col-table-2 center">
-                        @*@if (Model.SENDER_ADDRESS != null && Model.SENDER_ADDRESS.Length > 45)
-                        {
-                            <div title="@Model.SENDER_ADDRESS">@Model.SENDER_ADDRESS.Substring(0, 45) ...</div>
-                        }
-                        else
-                        {
-                            <div title="@Model.SENDER_ADDRESS">@Model.SENDER_ADDRESS</div>
-                        }*@
-
-                        @*<div>@Model.SENDER_TOWN_NAME, @Model.SENDER_DISTRICT_NAME, @Model.SENDER_CITY_NAME</div>*@
-                    </td>
                     <td class="col-table-3 center">
-                        @*@if (Model.RECEIVED_ADDRESS != null && Model.RECEIVED_ADDRESS.Length > 45)
+                        <div>@Model.DistrictName</div>
+                        @if (Model.AddressCustomer != null && Model.AddressCustomer.Length > 45)
                         {
-                            <div title="@Model.RECEIVED_ADDRESS">@Model.RECEIVED_ADDRESS.Substring(0, 45) ...</div>
+                            <div title="@Model.Receive_Address">@Model.Receive_Address.Substring(0, 45) ...</div>
                         }
                         else
                         {
-                            <div title="@Model.RECEIVED_ADDRESS">@Model.RECEIVED_ADDRESS</div>
+                            <div title="@Model.Receive_Address">@Model.Receive_Address</div>
                         }
-                        <div>@Model.RECEIVE_TOWN_NAME, @Model.RECEIVE_DISTRICT_NAME, @Model.RECEIVE_CITY_NAME</div>*@
                     </td>
                 </tr>
                 <tr class="contentTable row-4">
-                    <td class="col-table-1 center text-bold">Cước phí</td>
-                    <td class="col-table-2 center">
-                        @*@if (Model.USER_PAYMENT == "0")
-                        {
-                            <div class="money-product">@Model.PRICE_SHIP.ToString("#,##0") VND</div>
-                        }
-                        else
-                        {
-                            <div class="money-product">0 VND</div>
-                        }*@
-                    </td>
+                    <td class="col-table-1 center text-bold">Tổng tiền hàng:</td>
                     <td class="col-table-3 center">
-                        @*@if (Model.USER_PAYMENT == "1")
-                        {
-                            <div class="money-product">@Model.PRICE_SHIP.ToString("#,##0") VND</div>
-                        }
-                        else
-                        {
-                            <div class="money-product">0 VND</div>
-                        }*@
+                        @Model.TongTienHang.Value.ToString("#,##0") VND
                     </td>
                 </tr>
-                <tr class="contentTable row-5">
-                    <td class="col-table-1 center"></td>
-                    <td class="col-table-2 "><div class="title-money">Thu hộ: </div> <div class="money-product">@*@Model.PRICE_PRODUCT.Value.ToString("#,##0")*@ VND</div></td>
-                    <td class="col-table-3 "><div class="title-money">Giá hàng: </div> <div class="money-product">@*@Model.PRICE_PRODUCT.Value.ToString("#,##0")*@ VND</div></td>
+                <tr class="contentTable row-4">
+                    <td class="col-table-1 center text-bold">Chiết khấu:</td>
+                    <td class="col-table-3 center">
+                        @Model.PriceDiscountTotal.Value.ToString("#,##0") VND
+                    </td>
+                </tr>
+                <tr class="contentTable row-4">
+                    <td class="col-table-1 center text-bold">Tiền ship:</td>
+                    <td class="col-table-3 center">
+                        @Model.PriceShip.Value.ToString("#,##0") VND
+                    </td>
                 </tr>
                 <tr class="contentTable row-6 text-bold">
-                    <td class="col-table-1 center">Tổng</td>
-                    <td class="col-table-2 center">COD</td>
-                    <td class="col-table-3"><div class="title-money">Thu: </div> <div class="money-product">@Model.PriceTotal.Value.ToString("#,##0") VND</div></td>
+                    <td class="col-table-1 center">Tổng thu:</td>
+                    <td class="col-table-3 center">
+                        @if (Model.Paid == true)
+                        {
+                            <span class="" style="color:#000000">@Model.PriceTotal.Value.ToString("#,##0") VND</span>
+                            <span class="" style="color:#000000"> (Đã thanh toán) </span>
+                        }
+                        else
+                        {
+                            <span class="" style="color:#ff0000">@Model.PriceTotal.Value.ToString("#,##0") VND</span>
+                            <span class="" style="color:#ff0000"> (Thu tại nhà) </span>
+                        }
+
+                    </td>
                 </tr>
             </table>
         </div>
         <div id="TableBottom">
             <table class="tblTableBottom">
                 <tr class="headerTable text-bold">
-                    <td class="col-table-1 center">Tên hàng hóa</td>
-                    <td class="col-table-2 center">Khối lượng</td>
-                    <td class="col-table-3 center">Kích thước</td>
-                    <td class="col-table-4 center">Loại hàng</td>
-                    <td class="col-table-5 center">Giao hàng</td>
+                    <td class="col-table-1 center">Thông tin chi tiết</td>
+                    <td class="col-table-2 center">Tên hàng hóa : (Số lượng)</td>
                 </tr>
                 <tr class="contentTable row-1">
-                    @*<td class="col-table-1 center" title="@Model.PRODUCT_NAME">@Model.PRODUCT_NAME</td>
-
-                    <td class="col-table-2 center">@Model.PRODUCT_WEIGHT_TEXT</td>
-                    <td class="col-table-3 center">@Model.PRODUCT_SIZE_TEXT</td>
-                    <td class="col-table-4 center">@Model.PRODUCT_TYPE_TEXT</td>
-                    <td class="col-table-5 center">@Model.OTHER_REQUIREMENT_TEXT</td>*@
+                    <td class="col-table-1 center note-display">(có thể không hiển thị hết tất cả các sản phẩm nếu đơn hàng quá dài)</td>
+                    <td class="col-table-2 center special-wrap" title="@Model.ProductDetailTotal">@Model.ProductDetailTotal</td>
                 </tr>
+
                 <tr class="contentTable row-1">
                     <td class="col-table-1 text-bold center">Ghi chú</td>
 
-                    @*<td class="col-table-note" colspan="4" title="@Model.NOTE">@Model.NOTE</td>*@
+                    <td class="col-table-note" colspan="4" title="@Model.Note">@Model.Note</td>
                 </tr>
             </table>
         </div>
@@ -155,13 +125,13 @@
             </div>
             <div style="float:right">
                 @*@if (Model.ORDER_STATUS == 0 || Model.ORDER_STATUS == 1 || Model.ORDER_STATUS == 2 || Model.ORDER_STATUS == 5)
-                {
-                    <button type="button" class="btn btn-orange" id="btnCancelOrder"><i class="btn-icon btn-edit">Hủy đơn</i></button>
-                }
-                @if (Model.ORDER_STATUS == 0 || Model.ORDER_STATUS == 2)
-                {
-                    <button type="button" class="btn btn-orange " id="btnEditOrder"><i class="btn-icon btn-edit">Chỉnh sửa</i></button>
-                }*@
+                    {
+                        <button type="button" class="btn btn-orange" id="btnCancelOrder"><i class="btn-icon btn-edit">Hủy đơn</i></button>
+                    }
+                    @if (Model.ORDER_STATUS == 0 || Model.ORDER_STATUS == 2)
+                    {
+                        <button type="button" class="btn btn-orange " id="btnEditOrder"><i class="btn-icon btn-edit">Chỉnh sửa</i></button>
+                    }*@
                 <button type="button" class="btn btn-orange " id="btnPrintOrder"><i class="btn-icon btn-edit">In hóa đơn</i></button>
                 <button type="button" class="btn btn-orange " id="btnCreatNewOrder"><i class="btn-icon btn-edit">Tạo đơn mới</i></button>
                 <button type="button" class="btn btn-orange " id="btnManageOrder"><i class="btn-icon btn-edit">Quản lí đơn hàng</i></button>
@@ -188,13 +158,14 @@
     }
 
     #PopupGetInforOrder .headerLeft {
-        width: 750px;
-        height: 120px;
+        width: 800px;
+        height: 80px;
         display: inline-block;
+        border-bottom: 1px solid;
     }
 
     #PopupGetInforOrder .headerLeftTop {
-        width: 750px;
+        width: 800px;
         height: 70px;
         display: inline-block;
     }
@@ -207,6 +178,7 @@
 
     #PopupGetInforOrder .headerLeft .img-logo {
         width: 220px;
+        height: 70px;
     }
 
     #PopupGetInforOrder .headerLeft .shipCode {
@@ -227,6 +199,19 @@
         font-weight: bold;
         margin-left: 20px;
     }
+
+    #PopupGetInforOrder .topLeftHead {
+        float: right;
+        display: inline-block;
+        padding: 0px;
+        width: 500px;
+        height: 60px;
+    }
+
+        #PopupGetInforOrder .topLeftHead .txtCompanyInfo {
+            padding-left: 20px;
+            font-size: 11px;
+        }
 
     #PopupGetInforOrder .headerLeftBottom {
         width: 750px;
@@ -270,15 +255,15 @@
 
     #PopupGetInforOrder .headerRight {
         background: #ffd800;
-        width: 140px;
-        height: 130px;
+        width: 80px;
+        height: 70px;
         display: inline-block;
         float: right;
     }
 
         #PopupGetInforOrder .headerRight .img-QRcode {
-            width: 140px;
-            height: 130px;
+            width: 80px;
+            height: 70px;
         }
 
     .tblMainTable {
@@ -304,7 +289,7 @@
         }
 
         .tblMainTable .col-table-3 {
-            width: 350px;
+            width: 700px;
             border: 1px solid #70AD47;
         }
 
@@ -325,7 +310,6 @@
 
         .tblMainTable .row-6 {
             line-height: 34px;
-            color: red;
         }
 
         .tblMainTable .money-product {
@@ -352,12 +336,19 @@
         }
 
         .tblTableBottom .col-table-1 {
-            width: 340px;
+            width: 190px;
             border: 1px solid;
+        }
+        .tblTableBottom .note-display{
+            font-size:12px;
+            font-style:italic;
+            white-space: normal!important;
+            text-overflow: clip;
+            word-break: break-word;
         }
 
         .tblTableBottom .col-table-2 {
-            width: 100px;
+            width: 700px;
             border: 1px solid;
         }
 
@@ -405,7 +396,7 @@
     }
 
     #showPopup .viewOrderDetail-popup {
-        height: 565px !important;
+        min-height: 565px !important;
     }
 </style>
 
@@ -418,29 +409,29 @@
     $('#showPopup .main-popup').addClass('viewOrderDetail-popup');
 
     $("#PopupGetInforOrder #btnClosePopup").click(function () {
-        ShipOnline.utility.ClosePopup();
+        WebDuhoc.utility.ClosePopup();
     });
 
     $(document).off('#btnCreatNewOrder');
     $(document).on('click', '#btnCreatNewOrder', function () {
-        if (!ShipOnline.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
 
         window.location.href = registerOrderUrl;
-        //ShipOnline.utility.ClosePopup();
+        //WebDuhoc.utility.ClosePopup();
     });
 
     $(document).off('#btnManageOrder');
     $(document).on('click', '#btnManageOrder', function () {
-        if (!ShipOnline.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
 
         window.location.href = OrderShipListUrl;
     });
 
     $(document).off('#btnCancelOrder');
     $(document).on('click', '#btnCancelOrder', function () {
-        if (!ShipOnline.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
 
-        ShipOnline.utility.showConfirmModal('@string.Format(ShipOnline.Resources.Message.msgConfirmCancelOrder)', function (action) {
+        WebDuhoc.utility.showConfirmModal('@string.Format(Message.msgConfirmCancelOrder)', function (action) {
             if (action) {
                 $("#frmCancelOrder").submit();
             }
@@ -456,26 +447,20 @@
             success: function (result) {
                 window.parent.$('.ui-dialog-content:visible').dialog('close');
                 if (result.resultdelete) {
-                    ShipOnline.utility.showMessageModal("@string.Format(Message.CancelSuccess, "OK")", true);
-                    ShipOnline.utility.ClosePopup();
+                    WebDuhoc.utility.showMessageModal("@string.Format(Message.CancelSuccess, "OK")", true);
+                    WebDuhoc.utility.ClosePopup();
 
                     dataTable.fnStandingRedraw();
 
-                }
-                else if (result.resultUp) {
-                    ShipOnline.utility.showMessageModal("@string.Format(Message.CancelSuccessChangeReship, "OK")", true);
-                    ShipOnline.utility.ClosePopup();
-
-                    dataTable.fnStandingRedraw();
                 }
                 else {
-                    ShipOnline.utility.showMessageModal("@string.Format(Message.CancelFailed, "OK")", false);
+                    WebDuhoc.utility.showMessageModal("@string.Format(Message.CancelFailed, "OK")", false);
                 }
 
             },
             error: function (xhr) {
                 window.parent.$('.ui-dialog-content:visible').dialog('close');
-                ShipOnline.utility.showMessageModal("@string.Format(Message.CancelFailed, "OK")", true);
+                WebDuhoc.utility.showMessageModal("@string.Format(Message.CancelFailed, "OK")", true);
             }
         });
         event.preventDefault();
@@ -483,7 +468,7 @@
 
     $(document).off('#btnPrintOrder');
     $(document).on('click', '#btnPrintOrder', function () {
-        if (!ShipOnline.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
 
         var orderId = $('.hdnOrderId').val();
         $('#ORDER_ID_STRING').val(orderId.toString());
@@ -493,7 +478,7 @@
 
     $(document).off('#btnEditOrder');
     $(document).on('click', '#btnEditOrder', function () {
-        if (!ShipOnline.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
 
         debugger;
         $('#hdnOrderid').val($('.hdnOrderId').val());

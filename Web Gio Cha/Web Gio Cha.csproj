@@ -54,6 +54,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -245,6 +253,9 @@
     <Compile Include="EF\TblCity.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="EF\TblCompany.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="EF\TblMenuContent.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -264,6 +275,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ViewOrderModel.cs" />
     <Compile Include="Models\AdminOrderList.cs" />
     <Compile Include="Models\Define\CityModel.cs" />
     <Compile Include="Models\Define\DataTableModel.cs" />
@@ -1646,6 +1658,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\rightSearch.jpg" />
     <Content Include="Images\sanphamdemo2.jpg" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="EF\Model.edmx">
@@ -1678,6 +1691,7 @@
     <Content Include="ckeditor4.8\samples\toolbarconfigurator\font\fontello.woff" />
     <Content Include="ckeditor4.8\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="ckeditor4.8\skins\moono-lisa\readme.md" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\public.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dataTables.fixedColumns.js" />
@@ -1807,6 +1821,7 @@
     <Content Include="Views\Shared\MenuBottom.cshtml" />
     <Content Include="Views\AdminManageOrder\OrderList.cshtml" />
     <Content Include="Views\AdminManageOrder\ViewOrderDetail.cshtml" />
+    <Content Include="Views\AdminManageOrder\ViewOrderDetailPDF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

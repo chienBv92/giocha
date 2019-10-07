@@ -61,6 +61,24 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xảy ra lỗi trong quá trình xử lí!.
+        /// </summary>
+        public static string CancelFailed {
+            get {
+                return ResourceManager.GetString("CancelFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã hủy đơn thành công!.
+        /// </summary>
+        public static string CancelSuccess {
+            get {
+                return ResourceManager.GetString("CancelSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} tối đa {1} kí tự!.
         /// </summary>
         public static string CheckMaxLength {
@@ -165,6 +183,15 @@ namespace Web_Gio_Cha.Resources {
         public static string IncorrectFormat {
             get {
                 return ResourceManager.GetString("IncorrectFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn chắc chắn muốn hủy đơn?.
+        /// </summary>
+        public static string msgConfirmCancelOrder {
+            get {
+                return ResourceManager.GetString("msgConfirmCancelOrder", resourceCulture);
             }
         }
         

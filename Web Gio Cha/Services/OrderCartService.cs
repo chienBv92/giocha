@@ -59,6 +59,7 @@ namespace Web_Gio_Cha.Services
                             OrderDetail detail = new OrderDetail();
                             detail.OrderID = res;
                             detail.ProductID = data.IdSanPham;
+                            detail.ProductName = data.TenSanPham;
                             detail.Quantity = data.SoLuong;
                             detail.Price = data.TienHang;
                             detail.del_flg = Constant.DeleteFlag.NON_DELETE;

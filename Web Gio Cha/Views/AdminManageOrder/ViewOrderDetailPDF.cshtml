@@ -1,0 +1,656 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+
+
+@model List<ViewOrderModel>
+@{
+    ViewBag.Title = "HÓA ĐƠN ĐIỆN TỬ";
+}
+
+<div>
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        <div id="ViewOrderPdf">
+            <div class="divMain">
+                <div class="title">
+                    HÓA ĐƠN VẬN CHUYỂN
+                </div>
+                <div class="headerLeft">
+                    <div class="headerLeftTop">
+                        <div class="logo-tokeiShip"><img class="img-logo" src="~/Icon/logo_hoa_don.svg" alt="giao hang hen gio" /></div>
+                        <div style="display:flex">
+                            <div class="divShipcd">
+                                <div class="divNone"></div>
+                                <div class="shipCode">Mã đơn: @Model[i].Code</div>
+                            </div>
+                            <div class="divShipcd">
+                                <div class="StoreCode"><span>Mã lưu kho: </span></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="headerRight">
+                    <img class="img-QRcode" src="@Model[i].LINK_QRCODE" />
+                </div>
+
+                <div id="MainTable">
+                    <table class="tblMainTable">
+                        <tr class="headerMainTable">
+                            <td class="col-table-1 center"></td>
+                            <td class="col-table-3 center">THÔNG TIN NGƯỜI NHẬN</td>
+                        </tr>
+                        <tr class="contentTable row-1">
+                            <td class="col-table-1 center text-bold">Họ tên</td>
+                            <td class="col-table-3 center">@Model[i].UserName</td>
+                        </tr>
+                        <tr class="contentTable row-2">
+                            <td class="col-table-1 center text-bold">Số điện thoại</td>
+                            <td class="col-table-3 center">@Model[i].Receive_Phone</td>
+                        </tr>
+                        <tr class="contentTable row-3">
+                            <td class="col-table-1 center text-bold addressCol">Địa chỉ</td>
+                            <td class="col-table-3 center">
+                                <div style="line-height:23px">@Model[i].DistrictName</div>
+                                @if (Model[i].Receive_Address != null && Model[i].Receive_Address.Length > 45)
+                                {
+                                    <div style="line-height:23px" title="@Model[i].Receive_Address">@Model[i].Receive_Address.Substring(0, 45) ...</div>
+                                }
+                                else
+                                {
+                                    <div style="line-height:23px" title="@Model[i].Receive_Address">@Model[i].Receive_Address</div>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr class="contentTable row-4">
+                            <td class="col-table-1 center text-bold">Tổng tiền hàng:</td>
+                            <td class="col-table-3 center">
+                                @Model[i].TongTienHang.Value.ToString("#,##0") VND
+                            </td>
+                        </tr>
+                        <tr class="contentTable row-4">
+                            <td class="col-table-1 center text-bold">Chiết khấu:</td>
+                            <td class="col-table-3 center">
+                                @Model[i].PriceDiscountTotal.Value.ToString("#,##0") VND
+                            </td>
+                        </tr>
+                        <tr class="contentTable row-4">
+                            <td class="col-table-1 center text-bold">Tiền ship:</td>
+                            <td class="col-table-3 center">
+                                @Model[i].PriceShip.Value.ToString("#,##0") VND
+                            </td>
+                        </tr>
+                        <tr class="contentTable row-6 text-bold">
+                            <td class="col-table-1 center">Tổng thu:</td>
+                            <td class="col-table-3 center">
+                                @if (Model[i].Paid == true)
+                                {
+                                    <span class="" style="color:#000000">@Model[i].PriceTotal.Value.ToString("#,##0") VND</span>
+                                    <span class="" style="color:#000000"> (Đã thanh toán) </span>
+                                }
+                                else
+                                {
+                                    <span class="" style="color:#ff0000">@Model[i].PriceTotal.Value.ToString("#,##0") VND</span>
+                                    <span class="" style="color:#ff0000"> (Thu tại nhà) </span>
+                                }
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="TableBottom">
+                    <table class="tblTableBottom">
+                        <tr class="headerTable text-bold">
+                            <td class="col-table-1 center">Thông tin chi tiết</td>
+                            <td class="col-table-2 center">Tên hàng hóa : (Số lượng)</td>
+                        </tr>
+                        <tr class="contentTable row-1">
+                            <td class="col-table-1 center note-display">(có thể không hiển thị hết tất cả các sản phẩm nếu đơn hàng quá dài)</td>
+                            <td class="col-table-2 center special-wrap" title="@Model[i].ProductDetailTotal">@Model[i].ProductDetailTotal</td>
+                        </tr>
+                        <tr class="contentTable row-1">
+                            <td class="col-table-1 text-bold center">Ghi chú</td>
+
+                            <td class="col-table-note" colspan="4" title="@Model[i].Note">@Model[i].Note</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="divPhanTrang">
+            <hr style="border-top: 2px dashed black;color:transparent;" />
+        </div>
+    }
+
+</div>
+
+@*<style>
+    #PopupGetInforOrder .title {
+        color: #70AD47;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: center;
+        margin: 0px;
+    }
+
+    #PopupGetInforOrder .headerLeft {
+        width: 800px;
+        height: 80px;
+        display: inline-block;
+        border-bottom: 1px solid;
+    }
+
+    #PopupGetInforOrder .headerLeftTop {
+        width: 800px;
+        height: 70px;
+        display: inline-block;
+    }
+
+    #PopupGetInforOrder .headerLeft .logo-tokeiShip {
+        width: 220px;
+        height: 60px;
+        display: inline-block;
+    }
+
+    #PopupGetInforOrder .headerLeft .img-logo {
+        width: 220px;
+        height: 70px;
+    }
+
+    #PopupGetInforOrder .headerLeft .shipCode {
+        width: 220px;
+        display: inline-block;
+        border: 1px solid #70AD47;
+        padding: 5px;
+        text-align: center;
+        font-weight: bold;
+        margin-left: 30px;
+    }
+
+    #PopupGetInforOrder .headerLeft .StoreCode {
+        display: inline-block;
+        border: 1px solid #70AD47;
+        padding: 5px;
+        text-align: center;
+        font-weight: bold;
+        margin-left: 20px;
+    }
+
+    #PopupGetInforOrder .topLeftHead {
+        float: right;
+        display: inline-block;
+        padding: 0px;
+        width: 500px;
+        height: 60px;
+    }
+
+        #PopupGetInforOrder .topLeftHead .txtCompanyInfo {
+            padding-left: 20px;
+            font-size: 11px;
+        }
+
+    #PopupGetInforOrder .headerLeftBottom {
+        width: 750px;
+        height: 60px;
+        display: inline-block;
+    }
+
+    #PopupGetInforOrder .tblLeftBottom {
+        width: 750px;
+        height: 60px;
+        border-top: 2px solid #808080;
+        display: inline-block;
+    }
+
+    .tblLeftBottom .headerTable {
+        font-weight: bold;
+        line-height: 33px;
+    }
+
+    .tblLeftBottom .col-table-1 {
+        width: 220px;
+    }
+
+    .tblLeftBottom .col-table-2 {
+        width: 230px;
+    }
+
+    .line-30 {
+        line-height: 30px;
+    }
+
+    .tblLeftBottom .col-table-3 {
+        width: 300px;
+    }
+
+    .tblLeftBottom .contentTable {
+        background: #EDEDED;
+        color: #70AD47;
+        line-height: 21px;
+    }
+
+    #PopupGetInforOrder .headerRight {
+        background: #ffd800;
+        width: 80px;
+        height: 70px;
+        display: inline-block;
+        float: right;
+    }
+
+        #PopupGetInforOrder .headerRight .img-QRcode {
+            width: 80px;
+            height: 70px;
+        }
+
+    .tblMainTable {
+        border: 1px solid #70AD47;
+        margin-top: 5px;
+    }
+
+        .tblMainTable .headerMainTable {
+            font-weight: bold;
+            line-height: 33px;
+            background: #70AD47;
+            color: white;
+        }
+
+        .tblMainTable .col-table-1 {
+            width: 190px;
+            border: 1px solid #70AD47;
+        }
+
+        .tblMainTable .col-table-2 {
+            width: 350px;
+            border: 1px solid #70AD47;
+        }
+
+        .tblMainTable .col-table-3 {
+            width: 700px;
+            border: 1px solid #70AD47;
+        }
+
+        .tblMainTable .row-1, .tblMainTable .row-2 {
+            line-height: 23px;
+        }
+
+        .tblMainTable .row-3 {
+            max-height: 34px;
+            white-space: pre-line;
+            text-overflow: ellipsis;
+        }
+
+        .tblMainTable .row-4, .tblMainTable .row-5 {
+            line-height: 23px;
+            color: #70AD47;
+        }
+
+        .tblMainTable .row-6 {
+            line-height: 34px;
+        }
+
+        .tblMainTable .money-product {
+            width: 140px;
+            text-align: right;
+            float: right;
+            margin-right: 120px;
+        }
+
+        .tblMainTable .title-money {
+            margin-left: 10px;
+            width: 70px;
+            float: left;
+        }
+    /*////*/
+    .tblTableBottom {
+        margin-top: 10px;
+        border: 1px solid;
+    }
+
+        .tblTableBottom .headerTable {
+            font-weight: bold;
+            line-height: 33px;
+        }
+
+        .tblTableBottom .col-table-1 {
+            width: 190px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .note-display {
+            font-size: 12px;
+            font-style: italic;
+            white-space: normal !important;
+            text-overflow: clip;
+            word-break: break-word;
+        }
+
+        .tblTableBottom .col-table-2 {
+            width: 700px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .col-table-3 {
+            width: 150px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .col-table-4, .tblTableBottom .col-table-5 {
+            width: 150px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .row-1 {
+            line-height: 24px;
+            border: 1px solid #000000;
+        }
+
+    .text-bold {
+        font-weight: bold;
+    }
+
+    .tblTableBottom .col-table-note {
+        border: 1px solid;
+        padding-left: 10px;
+    }
+
+    #showPopup .modal-popup.viewOrderDetail-screen {
+        width: 950px !important;
+        margin-top: 10px;
+        height: 560px !important;
+        margin-right: 190px;
+    }
+
+    #showPopup .main-popup {
+        overflow-y: hidden;
+    }
+
+    #PopupGetInforOrder .text-green {
+        color: #70AD47;
+    }
+
+    #PopupGetInforOrder .divButton {
+        margin-top: 20px;
+    }
+
+    #showPopup .viewOrderDetail-popup {
+        min-height: 565px !important;
+    }
+</style>*@
+
+<style>
+    #ViewOrderPdf {
+        width: 950px !important;
+        margin-top: 10px;
+        height: 565px !important;
+        margin: auto;
+    }
+
+        #ViewOrderPdf .center {
+            text-align: center;
+        }
+
+    .divPhanTrang {
+        margin-top: 50px;
+        height: 73px;
+    }
+
+    #ViewOrderPdf .divMain {
+        margin: 20px;
+    }
+
+    #ViewOrderPdf .title {
+        color: #70AD47;
+        font-weight: bold;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    #ViewOrderPdf .headerLeft {
+        width: 755px;
+        height: 140px;
+        display: inline-block;
+        float: left;
+    }
+
+    #ViewOrderPdf .headerLeftTop {
+        width: 750px;
+        height: 70px;
+        display: inline-flex;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        position: static;
+    }
+
+    #ViewOrderPdf .headerLeft .logo-tokeiShip {
+        width: 250px;
+        height: 70px;
+        display: inline-block;
+    }
+
+    #ViewOrderPdf .headerLeft .divShipcd {
+        width: 262px;
+        height: 70px;
+        display: inline-block;
+    }
+
+    #ViewOrderPdf .headerLeft .img-logo {
+        width: 240px;
+    }
+
+    #ViewOrderPdf .headerLeft .shipCode {
+        width: 220px;
+        display: inline-block;
+        border: 1px solid #70AD47;
+        padding: 5px;
+        text-align: center;
+        font-weight: bold;
+        margin-left: 20px;
+    }
+
+    #ViewOrderPdf .headerLeft .divNone {
+        width: 220px;
+        display: inline-block;
+        height: 23px;
+    }
+
+    #ViewOrderPdf .headerLeft .StoreCode {
+        display: inline-block;
+        border: 1px solid #70AD47;
+        padding: 5px;
+        text-align: center;
+        font-weight: bold;
+        margin-left: 12px;
+        margin-top: 23px;
+    }
+
+    #ViewOrderPdf .headerLeftBottom {
+        width: 750px;
+        height: 60px;
+        display: inline-block;
+    }
+
+    #ViewOrderPdf .tblLeftBottom {
+        width: 750px;
+        height: 60px;
+        border-top: 2px solid #808080;
+        display: inline-block;
+    }
+
+    .tblLeftBottom .headerTable {
+        font-weight: bold;
+        line-height: 33px;
+    }
+
+    .tblLeftBottom .col-table-1 {
+        width: 220px;
+    }
+
+    .tblLeftBottom .col-table-2 {
+        width: 230px;
+    }
+
+    .line-30 {
+        line-height: 30px;
+    }
+
+    .tblLeftBottom .col-table-3 {
+        width: 300px;
+    }
+
+    .tblLeftBottom .contentTable {
+        background: #EDEDED;
+        color: #70AD47;
+        line-height: 21px;
+    }
+
+    #ViewOrderPdf .headerRight {
+        width: 150px;
+        height: 140px;
+        display: inline-block;
+        float: right;
+    }
+
+        #ViewOrderPdf .headerRight .img-QRcode {
+            width: 140px;
+            height: 140px;
+        }
+
+    .tblMainTable {
+        border: 1px solid #70AD47;
+        margin-top: 5px;
+        border-collapse: collapse;
+        width: 900px;
+    }
+
+        .tblMainTable .headerMainTable {
+            font-weight: bold;
+            line-height: 33px;
+            background: #70AD47;
+            color: white;
+        }
+
+        .tblMainTable .col-table-1 {
+            width: 190px;
+            border: 1px solid #70AD47;
+        }
+
+        .tblMainTable .col-table-2 {
+            width: 350px;
+            border: 1px solid #70AD47;
+        }
+
+        .tblMainTable .col-table-3 {
+            width: 350px;
+            border: 1px solid #70AD47;
+        }
+
+        .tblMainTable .row-1, .tblMainTable .row-2 {
+            line-height: 23px;
+        }
+
+        .tblMainTable .row-3 {
+            max-height: 34px;
+            line-height: 1px;
+            white-space: pre-line;
+            text-overflow: ellipsis;
+        }
+
+        .tblMainTable .row-4, .tblMainTable .row-5 {
+            line-height: 23px;
+            color: #70AD47;
+        }
+
+        .tblMainTable .row-6 {
+            line-height: 34px;
+            color: red;
+        }
+
+        .tblMainTable .money-product {
+            width: 140px;
+            text-align: right;
+            float: right;
+            margin-right: 120px;
+        }
+
+        .tblMainTable .title-money {
+            margin-left: 10px;
+            width: 70px;
+            float: left;
+        }
+
+        .tblMainTable .addressCol {
+            height: 80px;
+        }
+    /*////*/
+    .tblTableBottom {
+        margin-top: 10px;
+        border: 1px solid;
+        border-collapse: collapse;
+        width: 900px;
+    }
+
+        .tblTableBottom .headerTable {
+            font-weight: bold;
+            line-height: 33px;
+        }
+
+        .tblTableBottom .col-table-1 {
+            width: 340px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .col-table-2 {
+            width: 100px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .col-table-3 {
+            width: 150px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .col-table-4, .tblTableBottom .col-table-5 {
+            width: 150px;
+            border: 1px solid;
+        }
+
+        .tblTableBottom .row-1 {
+            line-height: 24px;
+            border: 1px solid #000000;
+        }
+
+        .tblTableBottom .col-table-note {
+            padding-left: 10px;
+        }
+
+    .text-bold {
+        font-weight: bold;
+    }
+
+    #showPopup .modal-popup.viewOrderDetail-screen {
+        width: 950px !important;
+        margin-top: 10px;
+        height: 560px !important;
+        margin: auto;
+    }
+
+    #showPopup .main-popup {
+        overflow-y: hidden;
+    }
+
+    #ViewOrderPdf .text-green {
+        color: #70AD47;
+    }
+
+    #ViewOrderPdf .divButton {
+        margin-top: 20px;
+    }
+
+    #showPopup .viewOrderDetail-popup {
+        height: 550px !important;
+    }
+</style>
+

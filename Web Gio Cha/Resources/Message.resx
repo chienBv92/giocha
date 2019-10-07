@@ -186,4 +186,13 @@
   <data name="CheckValueMax" xml:space="preserve">
     <value>{0} không được vượt quá  {1} !</value>
   </data>
+  <data name="CancelFailed" xml:space="preserve">
+    <value>Xảy ra lỗi trong quá trình xử lí!</value>
+  </data>
+  <data name="CancelSuccess" xml:space="preserve">
+    <value>Đã hủy đơn thành công!</value>
+  </data>
+  <data name="msgConfirmCancelOrder" xml:space="preserve">
+    <value>Bạn chắc chắn muốn hủy đơn?</value>
+  </data>
 </root>

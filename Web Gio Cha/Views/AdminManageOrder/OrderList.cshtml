@@ -149,17 +149,17 @@
         <form id="frmExportData" method="post" action="@Url.Action("ExportCSVCustom")">
             <input id="ORDER_ID_STRING2" type="hidden" name="ORDER_ID_STRING2" value="" />
         </form>
-        <form id="frmPrintPdf" target="_blank" method="post" action="@Url.Action("PrintOrderCustom", "OrderShip")">
+        <form id="frmPrintPdf" target="_blank" method="post" action="@Url.Action("PrintOrderCustom", "AdminManageOrder")">
             <input id="ORDER_ID_STRING" type="hidden" name="ORDER_ID_STRING" value="" />
         </form>
-        <form id="frmDeleteOrder" method="post" action="@Url.Action("DeleteOrder", "AdminOrderShip")">
+        <form id="frmDeleteOrder" method="post" action="@Url.Action("DeleteOrder", "AdminManageOrder")">
             <input id="ORDER_ID_STRING_DELETE" type="hidden" name="ORDER_ID_STRING_DELETE" value="" />
         </form>
         <form id="frmExportList" method="post" action="@Url.Action("ExportFileExcel")">
             <input id="ORDER_ID_LIST" type="hidden" name="ORDER_ID_LIST" value="" />
         </form>
        
-        <form id="frmUpdateSpecial" method="post" action="@Url.Action("UpdateSpecial", "AdminOrderShip")">
+        <form id="frmUpdateSpecial" method="post" action="@Url.Action("UpdateSpecial", "AdminManageOrder")">
             <input id="ORDER_ID_SPECIAL" type="hidden" name="ORDER_ID_SPECIAL" value="" />
             <input id="SELECT_STATUS_SPECIAL" type="hidden" name="SELECT_STATUS_SPECIAL" value="" />
         </form>
@@ -461,12 +461,13 @@
         //});
 
         WebDuhoc.utility.setInitSortCol();
-        var Now = new Date();
-        var nowDate = $.datepicker.formatDate("dd/mm/yy", new Date());
-        var fromDate = new Date(Now.getFullYear(), Now.getMonth(), Now.getDate() - 15);
-        var fromDateText = $.datepicker.formatDate("dd/mm/yy", new Date(Now.getFullYear(), Now.getMonth(), Now.getDate() - 15));
-        $('#FROM_DATE').attr('value', fromDateText).val(fromDateText);
-        $('#TO_DATE').attr('value', nowDate).val(nowDate);
+        //var Now = new Date();
+        //$.datepicker.fo
+        //var nowDate = $.datepicker.formatDate("dd/mm/yy", new Date());
+        //var fromDate = new Date(Now.getFullYear(), Now.getMonth(), Now.getDate() - 15);
+        //var fromDateText = $.datepicker.formatDate("dd/mm/yy", new Date(Now.getFullYear(), Now.getMonth(), Now.getDate() - 15));
+        //$('#FROM_DATE').attr('value', fromDateText).val(fromDateText);
+        //$('#TO_DATE').attr('value', nowDate).val(nowDate);
 
         // Khoi tao cho ngay bat dau
         //$('#FROM_DATE').datepicker({

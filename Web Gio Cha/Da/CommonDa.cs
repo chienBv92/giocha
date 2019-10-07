@@ -15,5 +15,11 @@ namespace Web_Gio_Cha.Da
 
             return cate;
         }
+
+        public TblCompany getInfoCompany(string CompanyCd)
+        {
+            TblCompany comp = da.TblCompany.Where(s => s.COMPANY_CD == CompanyCd && s.DEL_FLG == Constant.DeleteFlag.NON_DELETE).SingleOrDefault();
+            return comp;
+        }
     }
 }

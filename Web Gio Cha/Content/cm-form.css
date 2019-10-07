@@ -33,36 +33,36 @@ button {
 }
 
 .btn-ds_don {
-    background: url('../Icons/icon_ds_hoa_don.png') no-repeat left center;
+    background: url('../Icon/icon_ds_hoa_don.png') no-repeat left center;
     margin-left: 1px;
 }
 .btn-icon-user{
-    background: url('../Icons/icon_nguoi_dung.png') no-repeat left center;
+    background: url('../Icon/icon_nguoi_dung.png') no-repeat left center;
     margin-left: 1px;
 }
 .btn-icon-address{
-    background: url('../Icons/icon_dia_chi.png') no-repeat left center;
+    background: url('../Icon/icon_dia_chi.png') no-repeat left center;
     margin-left: 1px;
 }
 .btn-icon-Advertisement{
-    background: url('../Icons/icon_quang_cao.png') no-repeat left center;
+    background: url('../Icon/icon_quang_cao.png') no-repeat left center;
     margin-left: 1px;
 }
 .btn-icon-news{
-    background: url('../Icons/News.png') no-repeat left center;
+    background: url('../Icon/News.png') no-repeat left center;
     margin-left: 1px;
 }
 .btn-icon-manage{
-    background: url('../Icons/icon_quan_li.png') no-repeat left center;
+    background: url('../Icon/icon_quan_li.png') no-repeat left center;
     margin-left: 1px;
 }
 .btn-icon-money{
-    background: url('../Icons/icon_tien.png') no-repeat left center;
+    background: url('../Icon/icon_tien.png') no-repeat left center;
     margin-left: 1px;
 }
 
 .btn-icon-setting{
-    background: url('../Icons/Setting.png') no-repeat left center;
+    background: url('../Icon/Setting.png') no-repeat left center;
     margin-left: 1px;
 }
 .btn-claim {
@@ -115,7 +115,7 @@ button {
 }
 
 .btn-logout {
-    background: url('../Icons/icon_logout.png') no-repeat left center;
+    background: url('../Icon/icon_logout.png') no-repeat left center;
     margin-left: 1px;
 }
 
@@ -124,7 +124,7 @@ button {
 }
 
 .btn-menu-open {
-    background: url('../Icons/icon_trang_chu.png') no-repeat left center;
+    background: url('../Icon/icon_trang_chu.png') no-repeat left center;
     margin-left: 2px;
 }
 

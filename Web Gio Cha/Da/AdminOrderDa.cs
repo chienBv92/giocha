@@ -19,14 +19,21 @@ namespace Web_Gio_Cha.Da
             return lst;
         }
 
-        public AdminOrderList getInforOrder(long OrderId)
+        public IList<OrderDetail> getOrderDetail(long Id)
+        {
+            var lst = da.OrderDetail.SqlQuery("Select * from  OrderDetail where OrderID = {0}", Id).ToList();
+
+            return lst;
+        }
+
+        public ViewOrderModel getInforOrder(long OrderId)
         {
             var lstOrder =  (from pro in da.Order
                             join user in da.TblUser on pro.UserID equals user.ID
                             join dis in da.TblCity on pro.Receive_District equals dis.ID
                             where pro.ID == OrderId && pro.del_flg == Constant.DeleteFlag.NON_DELETE
-                          
-                            select new AdminOrderList
+
+                             select new ViewOrderModel
                             {
                                 ID = pro.ID,
                                 Code = pro.Code,
@@ -68,7 +75,7 @@ namespace Web_Gio_Cha.Da
             else
                 return 0;
 
-            return entity.ID;
+            return order.ID;
         }
 
         #region LIST
