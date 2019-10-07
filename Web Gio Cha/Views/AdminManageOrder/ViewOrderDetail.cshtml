@@ -16,7 +16,7 @@
         <div class="headerLeft">
             <div class="headerLeftTop">
                 <div class="logo-tokeiShip"><img class="img-logo" src="~/Images/logo.png" alt="giò chả Vân Bảo" /></div>
-                <div class="topLeftHead" style="float:right">
+                <div class="topLeftHead">
                     <div class="shipCode col-md-12">Mã đơn: @Model.Code</div>
                     <div class="StoreCode"><span>Mã lưu kho: VB-00001</span></div>
 
@@ -112,7 +112,7 @@
                 </tr>
             </table>
         </div>
-        <form id="frmCancelOrder" method="post" action="@Url.Action("CancelOrder", "AdminOrderShip")">
+        <form id="frmCancelOrder" method="post" action="@Url.Action("CancelOrder", "AdminManageOrder")">
             <input id="ORDER_ID" type="hidden" name="ORDER_ID" value="@Model.ID" />
             <input id="ORDER_STATUS" type="hidden" name="ORDER_STATUS" value="@Model.Status" />
         </form>
@@ -137,7 +137,7 @@
                 <button type="button" class="btn btn-orange " id="btnManageOrder"><i class="btn-icon btn-edit">Quản lí đơn hàng</i></button>
             </div>
         </div>
-        <form id="frmPrintPdf" target="_blank" method="post" action="@Url.Action("PrintOrderCustom", "OrderShip")">
+        <form id="frmPrintPdf" target="_blank" method="post" action="@Url.Action("PrintOrderCustom", "AdminManageOrder")">
             <input id="ORDER_ID_STRING" type="hidden" name="ORDER_ID_STRING" value="" />
         </form>
 
@@ -204,8 +204,8 @@
         float: right;
         display: inline-block;
         padding: 0px;
-        width: 500px;
-        height: 60px;
+        width: 560px;
+        height: 70px;
     }
 
         #PopupGetInforOrder .topLeftHead .txtCompanyInfo {
@@ -254,7 +254,6 @@
     }
 
     #PopupGetInforOrder .headerRight {
-        background: #ffd800;
         width: 80px;
         height: 70px;
         display: inline-block;

@@ -5,6 +5,7 @@
 @model List<ViewOrderModel>
 @{
     ViewBag.Title = "HÓA ĐƠN ĐIỆN TỬ";
+    Layout = null;
 }
 
 <div>
@@ -13,21 +14,18 @@
         <div id="ViewOrderPdf">
             <div class="divMain">
                 <div class="title">
-                    HÓA ĐƠN VẬN CHUYỂN
+                    @ViewBag.Title
                 </div>
                 <div class="headerLeft">
                     <div class="headerLeftTop">
-                        <div class="logo-tokeiShip"><img class="img-logo" src="~/Icon/logo_hoa_don.svg" alt="giao hang hen gio" /></div>
-                        <div style="display:flex">
-                            <div class="divShipcd">
-                                <div class="divNone"></div>
-                                <div class="shipCode">Mã đơn: @Model[i].Code</div>
-                            </div>
-                            <div class="divShipcd">
-                                <div class="StoreCode"><span>Mã lưu kho: </span></div>
-                            </div>
-                        </div>
+                        <div class="logo-tokeiShip"><img class="img-logo" src="~/Images/logo.png" alt="giò chả Vân Bảo" /></div>
+                        <div class="topLeftHead">
+                            <div class="shipCode col-md-12">Mã đơn: @Model[i].Code</div>
+                            <div class="StoreCode"><span>Mã lưu kho: VB-00001</span></div>
 
+                            <div class="txtCompanyInfo" style="padding-top:10px"><span>Địa chỉ: @Model[i].CompanyAddress</span></div>
+                            <div class="txtCompanyInfo"><span>SĐT: @Model[i].CompanyPhone</span></div>
+                        </div>
                     </div>
                 </div>
                 <div class="headerRight">
@@ -38,7 +36,7 @@
                     <table class="tblMainTable">
                         <tr class="headerMainTable">
                             <td class="col-table-1 center"></td>
-                            <td class="col-table-3 center">THÔNG TIN NGƯỜI NHẬN</td>
+                            <td class="col-table-3 center">THÔNG TIN KHÁCH HÀNG</td>
                         </tr>
                         <tr class="contentTable row-1">
                             <td class="col-table-1 center text-bold">Họ tên</td>
@@ -49,16 +47,16 @@
                             <td class="col-table-3 center">@Model[i].Receive_Phone</td>
                         </tr>
                         <tr class="contentTable row-3">
-                            <td class="col-table-1 center text-bold addressCol">Địa chỉ</td>
+                            <td class="col-table-1 center text-bold">Địa chỉ</td>
                             <td class="col-table-3 center">
-                                <div style="line-height:23px">@Model[i].DistrictName</div>
+                                <div>@Model[i].DistrictName</div>
                                 @if (Model[i].Receive_Address != null && Model[i].Receive_Address.Length > 45)
                                 {
-                                    <div style="line-height:23px" title="@Model[i].Receive_Address">@Model[i].Receive_Address.Substring(0, 45) ...</div>
+                                    <div title="@Model[i].Receive_Address">@Model[i].Receive_Address.Substring(0, 45) ...</div>
                                 }
                                 else
                                 {
-                                    <div style="line-height:23px" title="@Model[i].Receive_Address">@Model[i].Receive_Address</div>
+                                    <div title="@Model[i].Receive_Address">@Model[i].Receive_Address</div>
                                 }
 
                             </td>
@@ -126,259 +124,6 @@
 
 </div>
 
-@*<style>
-    #PopupGetInforOrder .title {
-        color: #70AD47;
-        font-weight: bold;
-        font-size: 18px;
-        text-align: center;
-        margin: 0px;
-    }
-
-    #PopupGetInforOrder .headerLeft {
-        width: 800px;
-        height: 80px;
-        display: inline-block;
-        border-bottom: 1px solid;
-    }
-
-    #PopupGetInforOrder .headerLeftTop {
-        width: 800px;
-        height: 70px;
-        display: inline-block;
-    }
-
-    #PopupGetInforOrder .headerLeft .logo-tokeiShip {
-        width: 220px;
-        height: 60px;
-        display: inline-block;
-    }
-
-    #PopupGetInforOrder .headerLeft .img-logo {
-        width: 220px;
-        height: 70px;
-    }
-
-    #PopupGetInforOrder .headerLeft .shipCode {
-        width: 220px;
-        display: inline-block;
-        border: 1px solid #70AD47;
-        padding: 5px;
-        text-align: center;
-        font-weight: bold;
-        margin-left: 30px;
-    }
-
-    #PopupGetInforOrder .headerLeft .StoreCode {
-        display: inline-block;
-        border: 1px solid #70AD47;
-        padding: 5px;
-        text-align: center;
-        font-weight: bold;
-        margin-left: 20px;
-    }
-
-    #PopupGetInforOrder .topLeftHead {
-        float: right;
-        display: inline-block;
-        padding: 0px;
-        width: 500px;
-        height: 60px;
-    }
-
-        #PopupGetInforOrder .topLeftHead .txtCompanyInfo {
-            padding-left: 20px;
-            font-size: 11px;
-        }
-
-    #PopupGetInforOrder .headerLeftBottom {
-        width: 750px;
-        height: 60px;
-        display: inline-block;
-    }
-
-    #PopupGetInforOrder .tblLeftBottom {
-        width: 750px;
-        height: 60px;
-        border-top: 2px solid #808080;
-        display: inline-block;
-    }
-
-    .tblLeftBottom .headerTable {
-        font-weight: bold;
-        line-height: 33px;
-    }
-
-    .tblLeftBottom .col-table-1 {
-        width: 220px;
-    }
-
-    .tblLeftBottom .col-table-2 {
-        width: 230px;
-    }
-
-    .line-30 {
-        line-height: 30px;
-    }
-
-    .tblLeftBottom .col-table-3 {
-        width: 300px;
-    }
-
-    .tblLeftBottom .contentTable {
-        background: #EDEDED;
-        color: #70AD47;
-        line-height: 21px;
-    }
-
-    #PopupGetInforOrder .headerRight {
-        background: #ffd800;
-        width: 80px;
-        height: 70px;
-        display: inline-block;
-        float: right;
-    }
-
-        #PopupGetInforOrder .headerRight .img-QRcode {
-            width: 80px;
-            height: 70px;
-        }
-
-    .tblMainTable {
-        border: 1px solid #70AD47;
-        margin-top: 5px;
-    }
-
-        .tblMainTable .headerMainTable {
-            font-weight: bold;
-            line-height: 33px;
-            background: #70AD47;
-            color: white;
-        }
-
-        .tblMainTable .col-table-1 {
-            width: 190px;
-            border: 1px solid #70AD47;
-        }
-
-        .tblMainTable .col-table-2 {
-            width: 350px;
-            border: 1px solid #70AD47;
-        }
-
-        .tblMainTable .col-table-3 {
-            width: 700px;
-            border: 1px solid #70AD47;
-        }
-
-        .tblMainTable .row-1, .tblMainTable .row-2 {
-            line-height: 23px;
-        }
-
-        .tblMainTable .row-3 {
-            max-height: 34px;
-            white-space: pre-line;
-            text-overflow: ellipsis;
-        }
-
-        .tblMainTable .row-4, .tblMainTable .row-5 {
-            line-height: 23px;
-            color: #70AD47;
-        }
-
-        .tblMainTable .row-6 {
-            line-height: 34px;
-        }
-
-        .tblMainTable .money-product {
-            width: 140px;
-            text-align: right;
-            float: right;
-            margin-right: 120px;
-        }
-
-        .tblMainTable .title-money {
-            margin-left: 10px;
-            width: 70px;
-            float: left;
-        }
-    /*////*/
-    .tblTableBottom {
-        margin-top: 10px;
-        border: 1px solid;
-    }
-
-        .tblTableBottom .headerTable {
-            font-weight: bold;
-            line-height: 33px;
-        }
-
-        .tblTableBottom .col-table-1 {
-            width: 190px;
-            border: 1px solid;
-        }
-
-        .tblTableBottom .note-display {
-            font-size: 12px;
-            font-style: italic;
-            white-space: normal !important;
-            text-overflow: clip;
-            word-break: break-word;
-        }
-
-        .tblTableBottom .col-table-2 {
-            width: 700px;
-            border: 1px solid;
-        }
-
-        .tblTableBottom .col-table-3 {
-            width: 150px;
-            border: 1px solid;
-        }
-
-        .tblTableBottom .col-table-4, .tblTableBottom .col-table-5 {
-            width: 150px;
-            border: 1px solid;
-        }
-
-        .tblTableBottom .row-1 {
-            line-height: 24px;
-            border: 1px solid #000000;
-        }
-
-    .text-bold {
-        font-weight: bold;
-    }
-
-    .tblTableBottom .col-table-note {
-        border: 1px solid;
-        padding-left: 10px;
-    }
-
-    #showPopup .modal-popup.viewOrderDetail-screen {
-        width: 950px !important;
-        margin-top: 10px;
-        height: 560px !important;
-        margin-right: 190px;
-    }
-
-    #showPopup .main-popup {
-        overflow-y: hidden;
-    }
-
-    #PopupGetInforOrder .text-green {
-        color: #70AD47;
-    }
-
-    #PopupGetInforOrder .divButton {
-        margin-top: 20px;
-    }
-
-    #showPopup .viewOrderDetail-popup {
-        min-height: 565px !important;
-    }
-</style>*@
-
 <style>
     #ViewOrderPdf {
         width: 950px !important;
@@ -408,15 +153,15 @@
     }
 
     #ViewOrderPdf .headerLeft {
-        width: 755px;
-        height: 140px;
+        width: 800px;
+        height: 80px;
         display: inline-block;
-        float: left;
+        border-bottom: 1px solid;
     }
 
     #ViewOrderPdf .headerLeftTop {
-        width: 750px;
-        height: 70px;
+        width: 800px;
+        height: 80px;
         display: inline-flex;
         display: -webkit-box;
         display: -webkit-flex;
@@ -425,7 +170,7 @@
     }
 
     #ViewOrderPdf .headerLeft .logo-tokeiShip {
-        width: 250px;
+        width: 220px;
         height: 70px;
         display: inline-block;
     }
@@ -437,8 +182,21 @@
     }
 
     #ViewOrderPdf .headerLeft .img-logo {
-        width: 240px;
+        width: 220px;
+        height: 70px;
     }
+
+    #ViewOrderPdf .topLeftHead {
+    float: right;
+    display: inline-block;
+    padding: 0px;
+    width: 560px;
+    height: 70px;
+}
+     #ViewOrderPdf .topLeftHead .txtCompanyInfo {
+            padding-left: 20px;
+            font-size: 12px;
+        }
 
     #ViewOrderPdf .headerLeft .shipCode {
         width: 220px;
@@ -447,7 +205,7 @@
         padding: 5px;
         text-align: center;
         font-weight: bold;
-        margin-left: 20px;
+        margin-left: 30px;
     }
 
     #ViewOrderPdf .headerLeft .divNone {
@@ -462,8 +220,7 @@
         padding: 5px;
         text-align: center;
         font-weight: bold;
-        margin-left: 12px;
-        margin-top: 23px;
+        margin-left: 20px;
     }
 
     #ViewOrderPdf .headerLeftBottom {
@@ -507,15 +264,15 @@
     }
 
     #ViewOrderPdf .headerRight {
-        width: 150px;
-        height: 140px;
+        width: 80px;
+        height: 70px;
         display: inline-block;
         float: right;
     }
 
         #ViewOrderPdf .headerRight .img-QRcode {
-            width: 140px;
-            height: 140px;
+            width: 80px;
+            height: 70px;
         }
 
     .tblMainTable {
@@ -543,7 +300,7 @@
         }
 
         .tblMainTable .col-table-3 {
-            width: 350px;
+            width: 700px;
             border: 1px solid #70AD47;
         }
 
@@ -553,8 +310,6 @@
 
         .tblMainTable .row-3 {
             max-height: 34px;
-            line-height: 1px;
-            white-space: pre-line;
             text-overflow: ellipsis;
         }
 
@@ -567,6 +322,14 @@
             line-height: 34px;
             color: red;
         }
+
+    .tblTableBottom .note-display {
+        font-size: 12px;
+        font-style: italic;
+        white-space: normal !important;
+        text-overflow: clip;
+        word-break: break-word;
+    }
 
         .tblMainTable .money-product {
             width: 140px;
@@ -598,12 +361,12 @@
         }
 
         .tblTableBottom .col-table-1 {
-            width: 340px;
+            width: 190px;
             border: 1px solid;
         }
 
         .tblTableBottom .col-table-2 {
-            width: 100px;
+            width: 700px;
             border: 1px solid;
         }
 

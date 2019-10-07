@@ -281,8 +281,14 @@
              { "bSortable": false, "aTargets": [RECEIVE_ADDRESS], "sWidth": "10%", "sClass": "cell_left" },
 
              { "bSortable": false, "aTargets": [CREATE_DATE], "sWidth": "10%", "sClass": "cell_center" },
-             { "bSortable": false, "aTargets": [PAYMENT_METHOD], "sWidth": "10%", "sClass": "cell_center" },
-             { "bSortable": false, "aTargets": [PAID], "sWidth": "10%", "sClass": "cell_center" }
+             {
+                 "bSortable": false, "aTargets": [PAYMENT_METHOD], "sWidth": "10%", "sClass": "cell_center"
+             },
+             {
+                 "bSortable": false, "aTargets": [PAID], "sWidth": "10%", "sClass": "cell_center",
+                 "mRender": function (data, type, full) { return buildActionLinkUpdateMoney(full[ORDER_ID], full[PAID]); }
+
+             }
         ];
 
         // Tham so search input
@@ -389,6 +395,14 @@
             var html = '';
             {
                 html += '<a class="viewOrderDetail link" data-order-id="' + id + '">' + content + '</a>';
+            }
+            return html;
+        }
+
+        function buildActionLinkUpdateMoney(id, content) {
+            var html = '';
+            {
+                html += '<a class="viewUpdateMoney link" data-order-id="' + id + '">' + content + '</a>';
             }
             return html;
         }
