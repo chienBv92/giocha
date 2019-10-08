@@ -20,6 +20,8 @@ namespace Web_Gio_Cha.EF
         public string Password { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
+        public Nullable<int> Receive_District { get; set; }
+        public string Receive_Address { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> Status { get; set; }

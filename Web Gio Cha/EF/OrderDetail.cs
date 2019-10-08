@@ -16,6 +16,7 @@ namespace Web_Gio_Cha.EF
     {
         public long OrderID { get; set; }
         public long ProductID { get; set; }
+        public string ProductName { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> Type { get; set; }

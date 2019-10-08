@@ -175,7 +175,7 @@
     <value>Giá gốc</value>
   </data>
   <data name="lblProductName" xml:space="preserve">
-    <value>Tên sản phẩm</value>
+    <value>Sản phẩm</value>
   </data>
   <data name="lblPromotion" xml:space="preserve">
     <value>Khuyến mại</value>
@@ -328,7 +328,7 @@
     <value>Mã đơn hàng</value>
   </data>
   <data name="lblPayStatus" xml:space="preserve">
-    <value>Đã thanh toán</value>
+    <value>TT thanh toán</value>
   </data>
   <data name="lblReceiveAddress" xml:space="preserve">
     <value>Địa chỉ</value>

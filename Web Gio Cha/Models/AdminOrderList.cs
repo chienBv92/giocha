@@ -46,6 +46,7 @@ namespace Web_Gio_Cha.Models
         public int thisMonth { set; get; }
         public int TotalOrderthisMonth { set; get; }
 
+        public int OldStatus { get; set; }
 
         public AdminOrderList()
         {

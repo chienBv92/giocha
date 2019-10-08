@@ -452,7 +452,7 @@
     }
 
     #AdminOrderShipList .icon-error::after {
-        content: url('/Images/attention.png');
+        content: url('/ImageAd/attention.png');
     }
 
     #AdminOrderShipList .icon-new::after {
@@ -484,4 +484,7 @@
     }
          #AdminOrderShipList .icon-WaitCOD::after {
         content: url('/Icon/icon_trang_thai/icon_cho_COD.png');
+    }
+           #AdminOrderShipList .icon-huy::after {
+        content: url('/Icon/icon_trang_thai/icon_huy.png');
     }

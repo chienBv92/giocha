@@ -26,6 +26,7 @@
           <Property Name="UserID" Type="bigint" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="Status" Type="int" />
+          <Property Name="TongTienHang" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PriceTotal" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PriceDiscountTotal" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PriceShip" Type="decimal" Precision="18" Scale="0" />
@@ -39,8 +40,9 @@
           <Property Name="Receive_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Receive_Phone" Type="varchar" MaxLength="13" />
           <Property Name="del_flg" Type="char" MaxLength="1" />
-          <Property Name="Code" Type="varchar" MaxLength="10" />
+          <Property Name="Code" Type="varchar" MaxLength="12" />
           <Property Name="Success" Type="char" MaxLength="1" />
+          <Property Name="LINK_QRCODE" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -49,6 +51,7 @@
           </Key>
           <Property Name="OrderID" Type="bigint" Nullable="false" />
           <Property Name="ProductID" Type="bigint" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="250" />
           <Property Name="Quantity" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
           <Property Name="Type" Type="int" />
@@ -153,11 +156,32 @@
           <Property Name="PriceShip" Type="decimal" Precision="18" Scale="0" />
           <Property Name="del_flg" Type="char" MaxLength="1" />
         </EntityType>
+        <EntityType Name="TblCompany">
+          <Key>
+            <PropertyRef Name="COMPANY_ID" />
+          </Key>
+          <Property Name="COMPANY_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COMPANY_CD" Type="char" MaxLength="5" />
+          <Property Name="COMPANY_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="COMPANY_LAT" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="COMPANY_LNG" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="COMPANY_ADDRESS" Type="nvarchar" MaxLength="250" />
+          <Property Name="LINK_MAP" Type="nvarchar" MaxLength="100" />
+          <Property Name="COMPANY_PHONE" Type="varchar" MaxLength="13" />
+          <Property Name="COMPANY_EMAIL" Type="varchar" MaxLength="100" />
+          <Property Name="LOGO" Type="nvarchar" MaxLength="250" />
+          <Property Name="FACE_PAGE" Type="nvarchar" MaxLength="250" />
+          <Property Name="DEL_FLG" Type="char" MaxLength="1" />
+          <Property Name="INS_DATE" Type="datetime" />
+          <Property Name="INS_USER_ID" Type="bigint" />
+          <Property Name="UPD_DATE" Type="datetime" />
+          <Property Name="UPD_USER_ID" Type="bigint" />
+        </EntityType>
         <EntityType Name="TblMenuContent">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MenuCd" Type="int" Nullable="false" />
           <Property Name="Menu_Content" Type="ntext" />
           <Property Name="Status" Type="bit" />
@@ -190,16 +214,20 @@
           <Property Name="DATE_HISTORY" Type="datetime" />
           <Property Name="USER_HISTORY" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp01' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="TblTemp01">
-          <Property Name="id" Type="bigint" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp02' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="TblTemp02">
-          <Property Name="id" Type="bigint" />
-        </EntityType>-->
+        <EntityType Name="TblPromotion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PromotionName" Type="nvarchar" MaxLength="100" />
+          <Property Name="PriceMin" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PriceMax" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Discount" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="FromDate" Type="datetime" />
+          <Property Name="ToDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="del_flg" Type="char" MaxLength="1" />
+        </EntityType>
         <!--Errors Found During Generation:
 warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp03' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="TblTemp03">
@@ -220,6 +248,8 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Receive_District" Type="int" />
+          <Property Name="Receive_Address" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="Status" Type="bit" />
@@ -236,9 +266,11 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <EntitySet Name="Slide" EntityType="Self.Slide" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblAddressUser" EntityType="Self.TblAddressUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblCity" EntityType="Self.TblCity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblCompany" EntityType="Self.TblCompany" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblMenuContent" EntityType="Self.TblMenuContent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblNews" EntityType="Self.TblNews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblOrderHistory" EntityType="Self.TblOrderHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblPromotion" EntityType="Self.TblPromotion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblUser" EntityType="Self.TblUser" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -254,9 +286,11 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <EntitySet Name="Slide" EntityType="GioChaModel.Slide" />
           <EntitySet Name="TblAddressUser" EntityType="GioChaModel.TblAddressUser" />
           <EntitySet Name="TblCity" EntityType="GioChaModel.TblCity" />
+          <EntitySet Name="TblCompany" EntityType="GioChaModel.TblCompany" />
           <EntitySet Name="TblMenuContent" EntityType="GioChaModel.TblMenuContent" />
           <EntitySet Name="TblNews" EntityType="GioChaModel.TblNews" />
           <EntitySet Name="TblOrderHistory" EntityType="GioChaModel.TblOrderHistory" />
+          <EntitySet Name="TblPromotion" EntityType="GioChaModel.TblPromotion" />
           <EntitySet Name="TblUser" EntityType="GioChaModel.TblUser" />
         </EntityContainer>
         <EntityType Name="Menu">
@@ -280,6 +314,7 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <Property Name="UserID" Type="Int64" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Int32" />
+          <Property Name="TongTienHang" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PriceTotal" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PriceDiscountTotal" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PriceShip" Type="Decimal" Precision="18" Scale="0" />
@@ -293,8 +328,9 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <Property Name="Receive_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Receive_Phone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Code" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
           <Property Name="Success" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="LINK_QRCODE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -303,6 +339,7 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           </Key>
           <Property Name="OrderID" Type="Int64" Nullable="false" />
           <Property Name="ProductID" Type="Int64" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Type" Type="Int32" />
@@ -407,11 +444,32 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <Property Name="PriceShip" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
+        <EntityType Name="TblCompany">
+          <Key>
+            <PropertyRef Name="COMPANY_ID" />
+          </Key>
+          <Property Name="COMPANY_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COMPANY_CD" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="COMPANY_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COMPANY_LAT" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="COMPANY_LNG" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="COMPANY_ADDRESS" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="LINK_MAP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COMPANY_PHONE" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="COMPANY_EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LOGO" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="FACE_PAGE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DEL_FLG" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="INS_DATE" Type="DateTime" Precision="3" />
+          <Property Name="INS_USER_ID" Type="Int64" />
+          <Property Name="UPD_DATE" Type="DateTime" Precision="3" />
+          <Property Name="UPD_USER_ID" Type="Int64" />
+        </EntityType>
         <EntityType Name="TblMenuContent">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MenuCd" Type="Int32" Nullable="false" />
           <Property Name="Menu_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Boolean" />
@@ -444,6 +502,20 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <Property Name="DATE_HISTORY" Type="DateTime" Precision="3" />
           <Property Name="USER_HISTORY" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="TblPromotion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PromotionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PriceMin" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PriceMax" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Discount" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="FromDate" Type="DateTime" Precision="3" />
+          <Property Name="ToDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="del_flg" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
         <EntityType Name="TblUser">
           <Key>
             <PropertyRef Name="ID" />
@@ -454,6 +526,8 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Receive_District" Type="Int32" />
+          <Property Name="Receive_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="Boolean" />
@@ -484,6 +558,7 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
           <EntitySetMapping Name="Order">
             <EntityTypeMapping TypeName="GioChaModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="LINK_QRCODE" ColumnName="LINK_QRCODE" />
                 <ScalarProperty Name="Success" ColumnName="Success" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="del_flg" ColumnName="del_flg" />
@@ -499,6 +574,7 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
                 <ScalarProperty Name="PriceShip" ColumnName="PriceShip" />
                 <ScalarProperty Name="PriceDiscountTotal" ColumnName="PriceDiscountTotal" />
                 <ScalarProperty Name="PriceTotal" ColumnName="PriceTotal" />
+                <ScalarProperty Name="TongTienHang" ColumnName="TongTienHang" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -513,6 +589,7 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
@@ -622,6 +699,28 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TblCompany">
+            <EntityTypeMapping TypeName="GioChaModel.TblCompany">
+              <MappingFragment StoreEntitySet="TblCompany">
+                <ScalarProperty Name="UPD_USER_ID" ColumnName="UPD_USER_ID" />
+                <ScalarProperty Name="UPD_DATE" ColumnName="UPD_DATE" />
+                <ScalarProperty Name="INS_USER_ID" ColumnName="INS_USER_ID" />
+                <ScalarProperty Name="INS_DATE" ColumnName="INS_DATE" />
+                <ScalarProperty Name="DEL_FLG" ColumnName="DEL_FLG" />
+                <ScalarProperty Name="FACE_PAGE" ColumnName="FACE_PAGE" />
+                <ScalarProperty Name="LOGO" ColumnName="LOGO" />
+                <ScalarProperty Name="COMPANY_EMAIL" ColumnName="COMPANY_EMAIL" />
+                <ScalarProperty Name="COMPANY_PHONE" ColumnName="COMPANY_PHONE" />
+                <ScalarProperty Name="LINK_MAP" ColumnName="LINK_MAP" />
+                <ScalarProperty Name="COMPANY_ADDRESS" ColumnName="COMPANY_ADDRESS" />
+                <ScalarProperty Name="COMPANY_LNG" ColumnName="COMPANY_LNG" />
+                <ScalarProperty Name="COMPANY_LAT" ColumnName="COMPANY_LAT" />
+                <ScalarProperty Name="COMPANY_NAME" ColumnName="COMPANY_NAME" />
+                <ScalarProperty Name="COMPANY_CD" ColumnName="COMPANY_CD" />
+                <ScalarProperty Name="COMPANY_ID" ColumnName="COMPANY_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TblMenuContent">
             <EntityTypeMapping TypeName="GioChaModel.TblMenuContent">
               <MappingFragment StoreEntitySet="TblMenuContent">
@@ -662,6 +761,21 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TblPromotion">
+            <EntityTypeMapping TypeName="GioChaModel.TblPromotion">
+              <MappingFragment StoreEntitySet="TblPromotion">
+                <ScalarProperty Name="del_flg" ColumnName="del_flg" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="PriceMax" ColumnName="PriceMax" />
+                <ScalarProperty Name="PriceMin" ColumnName="PriceMin" />
+                <ScalarProperty Name="PromotionName" ColumnName="PromotionName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TblUser">
             <EntityTypeMapping TypeName="GioChaModel.TblUser">
               <MappingFragment StoreEntitySet="TblUser">
@@ -671,6 +785,8 @@ warning 6013: The table/view 'gio99066_giochadb.dbo.TblTemp04' does not have a p
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Receive_Address" ColumnName="Receive_Address" />
+                <ScalarProperty Name="Receive_District" ColumnName="Receive_District" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

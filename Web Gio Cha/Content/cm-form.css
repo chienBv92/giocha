@@ -129,7 +129,7 @@ button {
 }
 
 .btn-menu-close {
-    background: url('../Images/btn_icon_slice/ico_menu_close.png') no-repeat left center;
+    background: url('../ImageAd/btn_icon_slice/ico_menu_close.png') no-repeat left center;
 }
 
 .btn-header-close {
@@ -139,17 +139,17 @@ button {
 }
 
 .btn-header-open {
-    background: url('../Images/btn_icon_slice/ico_header_open.png') no-repeat left center;
+    background: url('../ImageAd/btn_icon_slice/ico_header_open.png') no-repeat left center;
     margin-left: 10px;
     margin-right: 0px;
 }
 
 .btn-back {
-    background: url('../Images/btn_icon_slice/icon_back.png') no-repeat left center;
+    background: url('../ImageAd/btn_icon_slice/icon_back.png') no-repeat left center;
 }
 
 .btn-key {
-    background: url('../Images/btn_icon_slice/icon_key.png') no-repeat left center;
+    background: url('../ImageAd/btn_icon_slice/icon_key.png') no-repeat left center;
 }
 
 

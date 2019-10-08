@@ -129,7 +129,7 @@ namespace Web_Gio_Cha.Controllers
                                     i.Receive_Address,
                                     i.CreatedDate.HasValue ? i.CreatedDate.Value.ToString("dd/MM/yyyy hh:mm") : "",
                                     PaymentMethodType.Items[i.PaymentMethod],
-                                    i.Paid == false ? PayStatus.Items[0] : PayStatus.Items[1],
+                                    i.Paid == true ?  true : false,
                                     i.Status,
                                     i.del_flg
                                 });
@@ -287,6 +287,122 @@ namespace Web_Gio_Cha.Controllers
             return new EmptyResult();
         }
 
+        #endregion
+
+        #region UPDATE STATUS AND PAYMENT
+        public ActionResult UpdatePayment(long OrderId = 0)
+        {
+            if (Request.IsAjaxRequest())
+            {
+                if (ModelState.IsValid && OrderId > 0)
+                {
+                    using (var service = new AdminOrderService())
+                    {
+                        var deleteResult = service.UpdatePayment(OrderId);
+
+                        JsonResult result = Json(new
+                        {
+                            statusCode = deleteResult ? Constant.SUCCESSFUL : Constant.INTERNAL_SERVER_ERROR
+                        }, JsonRequestBehavior.AllowGet);
+
+                        return result;
+                    }
+                }
+                else
+                {
+                    var errors = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+                }
+            }
+
+            return new EmptyResult();
+        }
+
+        public ActionResult PopupUpdateStatus(long OrderId = 0, int oldStatus = 0)
+        {
+            AdminOrderList model = new AdminOrderList();
+            CommonController con = new CommonController();
+
+            model.ID = OrderId;
+            model.OldStatus = oldStatus;
+            model.STATUS_SELECT_LIST = UtilityServices.UtilityServices.getListStatusAll().Where(i => i.Value != oldStatus.ToString()).ToList();
+
+            return this.PartialView("PopupUpdateStatus", model);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateStatusOrder(AdminOrderList model)
+        {
+            try
+            {
+                using (AdminOrderService service = new AdminOrderService())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        {
+                            var update = service.UpdateStatusOrder(model);
+
+                            JsonResult result = Json(new { result = update }, JsonRequestBehavior.AllowGet);
+                            return result;
+                        }
+                    }
+                    else
+                    {
+                        var ErrorMessages = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+                    }
+
+                    return new EmptyResult();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                System.Web.HttpContext.Current.Session["ERROR"] = ex;
+                return new EmptyResult();
+            }
+        }
+
+        public ActionResult PopupUpdateNote(long OrderId = 0, string oldNote = "")
+        {
+            AdminOrderList model = new AdminOrderList();
+            CommonController con = new CommonController();
+
+            model.ID = OrderId;
+            model.Note = oldNote;
+
+            return this.PartialView("PopupUpdateNote", model);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateNoteOrder(AdminOrderList model)
+        {
+            try
+            {
+                using (AdminOrderService service = new AdminOrderService())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        {
+                            var update = service.UpdateNoteOrder(model);
+
+                            JsonResult result = Json(new { result = update }, JsonRequestBehavior.AllowGet);
+                            return result;
+                        }
+                    }
+                    else
+                    {
+                        var ErrorMessages = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+                    }
+
+                    return new EmptyResult();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                System.Web.HttpContext.Current.Session["ERROR"] = ex;
+                return new EmptyResult();
+            }
+        }
         #endregion
     }
 }

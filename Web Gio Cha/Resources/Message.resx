@@ -195,4 +195,22 @@
   <data name="msgConfirmCancelOrder" xml:space="preserve">
     <value>Bạn chắc chắn muốn hủy đơn?</value>
   </data>
+  <data name="ConfirmPayment" xml:space="preserve">
+    <value>Bạn muốn cập nhập thanh toán cho hóa đơn ?</value>
+  </data>
+  <data name="FailedPayment" xml:space="preserve">
+    <value>Thanh toán thất bại!</value>
+  </data>
+  <data name="msgConfirmUpdateStatus" xml:space="preserve">
+    <value>Bạn muốn chuyển trạng thái đơn hàng?</value>
+  </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>Đã thanh toán cho đơn hàng!</value>
+  </data>
+  <data name="UpdateFailed" xml:space="preserve">
+    <value>Cập nhật thất bại!</value>
+  </data>
+  <data name="msgConfirmUpdateNote" xml:space="preserve">
+    <value>Bạn muốn thêm ghi chú cho đơn hàng?</value>
+  </data>
 </root>

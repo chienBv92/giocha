@@ -19,9 +19,9 @@
 
 
                     @*<span style="margin-left:20px">Từ:</span><input type="text" id="FROM_DATE" name="FROM_DATE" value="" class=" date ime-mode" maxlength=10 />
-                    <span style="margin-left:20px">Đến:</span>
-                    <input type="text" id="TO_DATE" name="TO_DATE" value="" class="date ime-mode" maxlength=10 />
-                    <span style="margin-left:40px"></span>*@
+                        <span style="margin-left:20px">Đến:</span>
+                        <input type="text" id="TO_DATE" name="TO_DATE" value="" class="date ime-mode" maxlength=10 />
+                        <span style="margin-left:40px"></span>*@
 
                     <span style="margin-left:20px">Từ:</span>
                     <span class="date datepicker-days">
@@ -99,13 +99,14 @@
                                 (<span class="count-Status-6">0</span>)
                             </div>
                         </div>
+
                     </div>
                 </div>
             }
         </div>
 
         <div class="DivToptBottom">
-            @Html.DropDownListFor(m => m.SORT_COL, new SelectList(SortAdminOrderShipList.Items, "Key", "Value"), "Chọn ưu tiên sắp xếp", new { @class = "sort_drop", style="margin-left:30px" })
+            @Html.DropDownListFor(m => m.SORT_COL, new SelectList(SortAdminOrderShipList.Items, "Key", "Value"), "Chọn ưu tiên sắp xếp", new { @class = "sort_drop", style = "margin-left:30px" })
             @foreach (var item in Model.SORT_TYPE_LIST)
             {
                 <label class="margin-right-10">
@@ -113,7 +114,11 @@
                     @item.Text
                 </label>
             }
-
+            <span style="float:right; margin-right:20px">
+                @Html.DropDownListFor(m => m.PaymentMethod, new SelectList(PaymentMethodType.Items, "Key", "Value"), new { @class = "user-payment" })
+                @Html.DropDownListFor(m => m.Paid, new SelectList(PayStatus.Items, "Key", "Value"), "Tình trạng đơn hàng", new { @class = "user-payment" })
+            </span>
+            
         </div>
     </div>
     <div id="divResulRight">
@@ -158,7 +163,7 @@
         <form id="frmExportList" method="post" action="@Url.Action("ExportFileExcel")">
             <input id="ORDER_ID_LIST" type="hidden" name="ORDER_ID_LIST" value="" />
         </form>
-       
+
         <form id="frmUpdateSpecial" method="post" action="@Url.Action("UpdateSpecial", "AdminManageOrder")">
             <input id="ORDER_ID_SPECIAL" type="hidden" name="ORDER_ID_SPECIAL" value="" />
             <input id="SELECT_STATUS_SPECIAL" type="hidden" name="SELECT_STATUS_SPECIAL" value="" />
@@ -253,9 +258,9 @@
              { "sName": "ORDER_ID", "bVisible": false, "aTargets": [ORDER_ID] },
              { "sName": "ORDER_ID", "bVisible": false, "aTargets": [ORDER_CODE] },
 
-             { "bSortable": false, "aTargets": [ORDER_STATUS_TEXT], "sWidth": "10%", "sClass": "cell_center" },
+             //{ "bSortable": false, "aTargets": [ORDER_STATUS_TEXT], "sWidth": "10%", "sClass": "cell_center" },
 
-             //{ "bSortable": false, "aTargets": [ORDER_STATUS_TEXT], "sWidth": "5%", "sClass": "cell_left", "mRender": function (data, inside, full) { return buildActionHistory(full[ORDER_ID], full[ORDER_STATUS_TEXT], full[ORDER_STATUS]); } },
+             { "bSortable": false, "aTargets": [ORDER_STATUS_TEXT], "sWidth": "5%", "sClass": "cell_left", "mRender": function (data, inside, full) { return buildActionHistory(full[ORDER_ID], full[ORDER_STATUS_TEXT], full[ORDER_STATUS]); } },
 
              { "bSortable": false, "aTargets": [PRODUCT_NAME], "sWidth": "10%", "sClass": "cell_left min-w-100" },
              {
@@ -301,6 +306,8 @@
                 { "name": "Code", "value": $("#Code").val() },
                 { "name": "Receive_District", "value": $("#Receive_District").val() },
                 { "name": "del_flg", "value": $("#DEL_FLG_HIDDEN").val() },
+                 { "name": "PaymentMethod", "value": $("#PaymentMethod").val() },
+                { "name": "Paid", "value": $("#Paid").val() },
 
                 { "name": "SORT_COL", "value": $("#hdnSortCol").val() },
                 { "name": "SORT_TYPE", "value": $("#hdnSortType").val() }
@@ -329,7 +336,7 @@
             $(".count-Status-4").text(dataSummary.TotalStatus_4);
             $(".count-Status-5").text(dataSummary.TotalStatus_5);
             $(".count-Status-6").text(dataSummary.TotalStatus_6);
-            
+
             $(".this-month").text(dataSummary.thisMonth);
             $(".total-order-month").text(dataSummary.TotalOrderthisMonth);
 
@@ -379,14 +386,9 @@
 
             $('#InfoTable_paginate a.first').before('<button type="button" id="btnPrintPDF" disabled name="btnPrintPDF" class="btn btn-default">' +
                '<i class="btn-icon btn-print-order">In hóa đơn</i>' + '</button>');
-            $('#InfoTable_paginate a.first').before('<button type="button" id="btnExportCsv" name="btnExportCsv" class="btn btn-orange">' +
-             '<i class="btn-icon btn-exportCSV">Xuất file CSV</i>' + '</button>');
 
-            $('#InfoTable_paginate a.first').before('<button type="button" id="btnExportList" disabled name="btnExportList" class="btn btn-orange">' +
-           '<i class="btn-icon btn-exportDS">Xuất DS đơn</i>' + '</button>');
-
-            $('#InfoTable_paginate a.first').before('<button type="button" id="btnEditStatus" disabled name="btnEditStatus" class="btn btn-orange">' +
-             '<i class="btn-icon btn-change_status">Cập nhật trạng thái</i>' + '</button>');
+           // $('#InfoTable_paginate a.first').before('<button type="button" id="btnExportList" disabled name="btnExportList" class="btn btn-orange">' +
+           //'<i class="btn-icon btn-exportDS">Xuất DS đơn</i>' + '</button>');
 
             $('select[name="InfoTable_length"]').addClass('select_record');
         }
@@ -401,8 +403,11 @@
 
         function buildActionLinkUpdateMoney(id, content) {
             var html = '';
+            if(content == false)
             {
-                html += '<a class="viewUpdateMoney link" data-order-id="' + id + '">' + content + '</a>';
+                html += '<a class="viewUpdateMoney link" data-order-id="' + id + '">' + "Chưa thanh toán" + '</a>';
+            } else {
+                html += '<label class="" data-order-id="' + id + '">' + "Đã thanh toán" + '</label>';
             }
             return html;
         }
@@ -421,7 +426,7 @@
                 html += '<div class="" data-order-id="' + id + '">' + content + '</div>';
 
             } else {
-                html += '<a class="viewStatusHistory link" data-order-id="' + id + '" data-oldstatus="' + oldStatus + '">' + content + '</a>';
+                html += '<a class="linkUpdateStatus link" data-order-id="' + id + '" data-oldstatus="' + oldStatus + '">' + content + '</a>';
             }
             return html;
         }
@@ -445,19 +450,19 @@
             if (flgStatus == '@OrderStatus.TakingOrder') {
                 html += " <i class='icon-TakingOrder' title='Đã duyệt'> </i>";
             }
-            
+
             if (flgStatus == '@OrderStatus.Shiping') {
                 html += " <i class='icon-Shiping' title='Đang giao'> </i>";
             }
             if (flgStatus == '@OrderStatus.Delivery') {
                 html += " <i class='icon-Delivery' title='Đã giao'> </i>";
             }
-            
+
             if (flgStatus == '@OrderStatus.Finished') {
                 html += " <i class='icon-Finished' title='Hoàn tất'> </i>";
             }
             if (flgStatus == '@OrderStatus.Cancel') {
-                html += " <i class='icon-WaitCOD' title='Chờ COD'> </i>";
+                html += " <i class='icon-huy' title='hủy'> </i>";
             }
 
             return html;
@@ -571,7 +576,7 @@
         if ($('#ORDER_STATUS_6').is(":checked")) {
             res.push(6);
         }
-       
+
         return res;
     }
     $('input[name="ORDER_STATUS"]').on('change', function () {
@@ -626,6 +631,16 @@
         searchOrder();
     });
 
+    $("#PaymentMethod").change(function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+        searchOrder();
+    });
+
+    $("#Paid").change(function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+        searchOrder();
+    });
+
     $(document).off('.paginate_button');
     $(document).on('click', '.paginate_button', function () {
         var result = WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null);
@@ -671,38 +686,9 @@
         searchOrder();
     })
 
-    // Button update Status
-    $(document).off('#btnEditStatus');
-    $(document).on('click', '#btnEditStatus', function () {
-        var result = WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null);
-        if (!result) {
-            return false;
-        }
-
-        $(this).blur();
-
-        var OrderIdString = checkedDataList.toString();
-        var listStatus = getStatusList();
-        var status = 0;
-        if (listStatus.length == 1) {
-            status = listStatus[0];
-        }
-        var urlGetStatus = '@Url.Action("GetStatusList", "AdminOrderShip")';
-        var param = {
-            OrderIdString: OrderIdString,
-            status: status,
-        };
-        WebDuhoc.utility.ShowPopup(urlGetStatus, param);
-    });
 
     function setStatusButtonStatus() {
         var listStatus = getStatusList();
-
-        if (checkedDataList.length > 0) {
-            $('#btnEditStatus').prop('disabled', false);
-        } else {
-            $('#btnEditStatus').prop('disabled', true);
-        }
 
         if (checkedDataList.length > 0) {
             $('#btnPrintPDF').prop('disabled', false);
@@ -785,7 +771,6 @@
             data: $(this).serialize(),
             type: 'POST',
             success: function (result) {
-                window.parent.$('.ui-dialog-content:visible').dialog('close');
                 if (!result.result) {
                     WebDuhoc.utility.showMessageModal("@string.Format(Message.ConfirmDeleteError, "OK")", true);
                 }
@@ -797,7 +782,6 @@
 
             },
             error: function (xhr) {
-                window.parent.$('.ui-dialog-content:visible').dialog('close');
                 WebDuhoc.utility.showMessageModal("@string.Format(Message.ConfirmDeleteError, "OK")", true);
             }
         });
@@ -855,8 +839,8 @@
     }
 
     // Click view Status History
-    $(document).off('.viewStatusHistory');
-    $(document).on('click', '.viewStatusHistory', function () {
+    $(document).off('.linkUpdateStatus');
+    $(document).on('click', '.linkUpdateStatus', function () {
         var result = WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null);
         if (!result) {
             return false;
@@ -872,7 +856,7 @@
         }
 
         if (oldStatus != null) {
-            var urlGetSelectTime = '@Url.Action("PopupViewStatusHistory", "AdminOrderShip")';
+            var urlGetSelectTime = '@Url.Action("PopupUpdateStatus", "AdminManageOrder")';
             var param = {
                 OrderId: OrderId,
                 oldStatus: oldStatus
@@ -880,6 +864,31 @@
             WebDuhoc.utility.ShowPopup(urlGetSelectTime, param);
         }
 
+    });
+
+    $(document).off('.viewUpdateMoney');
+    $(document).on('click', '.viewUpdateMoney', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+
+        var OrderId = parseInt($(this).data('order-id'));
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(Message.ConfirmPayment)', function (action) {
+            if (action) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: '@Url.Action("UpdatePayment")',
+                    data: { "OrderId": OrderId },
+                    success: function () {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.PaymentSuccess, "OK")", false);
+                        dataTable.fnStandingRedraw();
+                    },
+                    error: function () {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.FailedPayment)", true);
+                    }
+                });
+            }
+        });
     });
 
 </script>

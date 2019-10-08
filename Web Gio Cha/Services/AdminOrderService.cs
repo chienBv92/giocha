@@ -29,6 +29,98 @@ namespace Web_Gio_Cha.Services
             return results;
         }
         #endregion
+
+        #region UPDATE STATUS AND PAYMENT
+        public bool UpdatePayment(long OrderId)
+        {
+            AdminOrderDa dataAccess = new AdminOrderDa();
+
+            long result = 0;
+
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    result = dataAccess.UpdatePayment(OrderId);
+
+                    if (result > 0)
+                        transaction.Complete();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Dispose();
+                    result = -1;
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
+            }
+
+            return (result > 0);
+        }
+
+        public bool UpdateStatusOrder(AdminOrderList model)
+        {
+            AdminOrderDa dataAccess = new AdminOrderDa();
+
+            long result = 0;
+
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    result = dataAccess.UpdateStatusOrder(model);
+
+                    if (result > 0)
+                        transaction.Complete();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Dispose();
+                    result = -1;
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
+            }
+
+            return (result > 0);
+        }
+
+        public bool UpdateNoteOrder(AdminOrderList model)
+        {
+            AdminOrderDa dataAccess = new AdminOrderDa();
+
+            long result = 0;
+
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    result = dataAccess.UpdateNoteOrder(model);
+
+                    if (result > 0)
+                        transaction.Complete();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Dispose();
+                    result = -1;
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
+            }
+
+            return (result > 0);
+        }
+        #endregion
     }
 
 }

@@ -151,6 +151,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn muốn cập nhập thanh toán cho hóa đơn ?.
+        /// </summary>
+        public static string ConfirmPayment {
+            get {
+                return ResourceManager.GetString("ConfirmPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bạn có muốn {0}?.
         /// </summary>
         public static string ConfirmSubmitData {
@@ -174,6 +183,15 @@ namespace Web_Gio_Cha.Resources {
         public static string DistrictNameLength {
             get {
                 return ResourceManager.GetString("DistrictNameLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thanh toán thất bại!.
+        /// </summary>
+        public static string FailedPayment {
+            get {
+                return ResourceManager.GetString("FailedPayment", resourceCulture);
             }
         }
         
@@ -223,6 +241,24 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn muốn thêm ghi chú cho đơn hàng?.
+        /// </summary>
+        public static string msgConfirmUpdateNote {
+            get {
+                return ResourceManager.GetString("msgConfirmUpdateNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn muốn chuyển trạng thái đơn hàng?.
+        /// </summary>
+        public static string msgConfirmUpdateStatus {
+            get {
+                return ResourceManager.GetString("msgConfirmUpdateStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email chưa được đăng ký! Vui lòng đăng ký!.
         /// </summary>
         public static string msgEmailNotExist {
@@ -237,6 +273,15 @@ namespace Web_Gio_Cha.Resources {
         public static string msgErrorWhenCheckExist {
             get {
                 return ResourceManager.GetString("msgErrorWhenCheckExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đã thanh toán cho đơn hàng!.
+        /// </summary>
+        public static string PaymentSuccess {
+            get {
+                return ResourceManager.GetString("PaymentSuccess", resourceCulture);
             }
         }
         
@@ -282,6 +327,15 @@ namespace Web_Gio_Cha.Resources {
         public static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thất bại!.
+        /// </summary>
+        public static string UpdateFailed {
+            get {
+                return ResourceManager.GetString("UpdateFailed", resourceCulture);
             }
         }
         

@@ -50,6 +50,7 @@ namespace Web_Gio_Cha.Da
                                 //CREATE_DATE_STRING = pro.CreatedDate.HasValue ? pro.CreatedDate.Value.ToString("dd/MM/yyyy hh:mm") : "",
                                 PaymentMethod = pro.PaymentMethod,
                                 Paid = pro.Paid,
+                                Note = pro.Note,
                                 del_flg = pro.del_flg
                             }).SingleOrDefault();
             return lstOrder;
@@ -92,8 +93,9 @@ namespace Web_Gio_Cha.Da
                               where (model.TO_DATE.HasValue ? pro.CreatedDate <= model.TO_DATE : 1 == 1)
                               where ((model.Receive_District.HasValue && model.Receive_District > 0) ? pro.Receive_District == model.Receive_District : 1 == 1)
                               where ((model.UserID.HasValue && model.UserID > 0)? pro.UserID == model.UserID : 1 == 1)
-                              where (model.PaymentMethod.HasValue ? pro.PaymentMethod == model.PaymentMethod.Value : 1 == 1)
-                            where (!String.IsNullOrEmpty(model.ORDER_STATUS_LIST) == true ? pro.Status.ToString().Contains(model.ORDER_STATUS_LIST) : 1 == 1)
+                              where ((model.PaymentMethod.HasValue && model.PaymentMethod > 0) ? pro.PaymentMethod == model.PaymentMethod.Value : 1 == 1)
+                              where (model.Paid.HasValue ? pro.Paid == model.Paid.Value : 1 == 1)
+                              where (!String.IsNullOrEmpty(model.ORDER_STATUS_LIST) == true ? pro.Status.ToString().Contains(model.ORDER_STATUS_LIST) : 1 == 1)
 
                               select new AdminOrderList
                               {
@@ -177,7 +179,8 @@ namespace Web_Gio_Cha.Da
                             where (model.TO_DATE.HasValue ? pro.CreatedDate <= model.TO_DATE : 1 == 1)
                             where ((model.Receive_District.HasValue && model.Receive_District > 0) ? pro.Receive_District == model.Receive_District : 1 == 1)
                             where ((model.UserID.HasValue && model.UserID > 0) ? pro.UserID == model.UserID : 1 == 1)
-                            where (model.PaymentMethod.HasValue ? pro.PaymentMethod == model.PaymentMethod.Value : 1 == 1)
+                            where ((model.PaymentMethod.HasValue && model.PaymentMethod >0) ? pro.PaymentMethod == model.PaymentMethod.Value : 1 == 1)
+                            where (model.Paid.HasValue ? pro.Paid == model.Paid.Value : 1 == 1)
 
                             select new AdminOrderList
                             {
@@ -208,6 +211,78 @@ namespace Web_Gio_Cha.Da
             var lstProduct = da.Product.Where(x => x.Is_Hot.Value && x.Status.Value && x.del_flg.Equals("0")).OrderByDescending(o => o.ModifiedDate).OrderByDescending(o => o.CreatedDate).Take(maxItem);
             return lstProduct.ToList();
         }
+        #endregion
+
+        #region UPDATE STATUS AND PAYMENT
+        public long UpdatePayment(long OrderId = 0)
+        {
+            var order = da.Order.Where(x => x.ID == OrderId).SingleOrDefault();
+            if (order != null)
+            {
+                try
+                {
+                    // set data
+                    order.Paid = PayStatus.Paid;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return order.ID;
+        }
+
+        public long UpdateStatusOrder(AdminOrderList model)
+        {
+            var order = da.Order.Where(x => x.ID == model.ID).SingleOrDefault();
+            if (order != null)
+            {
+                try
+                {
+                    // set data
+                    order.Status = model.Status;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return order.ID;
+        }
+
+        public long UpdateNoteOrder(AdminOrderList model)
+        {
+            var order = da.Order.Where(x => x.ID == model.ID).SingleOrDefault();
+            if (order != null)
+            {
+                try
+                {
+                    // set data
+                    order.Note = model.Note;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return order.ID;
+        }
+
         #endregion
     }
 }

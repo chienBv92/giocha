@@ -1548,6 +1548,7 @@
     <Content Include="Icon\icon_trang_thai\icon_da_lay.png" />
     <Content Include="Icon\icon_trang_thai\icon_hoan_hang.png" />
     <Content Include="Icon\icon_trang_thai\icon_hoan_tat.png" />
+    <Content Include="Icon\icon_trang_thai\icon_huy.png" />
     <Content Include="Icon\icon_trang_thai\icon_moi_khoi_tao.png" />
     <Content Include="Icon\icon_xoa.png" />
     <Content Include="Icon\icon_youtube.png" />
@@ -1822,6 +1823,8 @@
     <Content Include="Views\AdminManageOrder\OrderList.cshtml" />
     <Content Include="Views\AdminManageOrder\ViewOrderDetail.cshtml" />
     <Content Include="Views\AdminManageOrder\ViewOrderDetailPDF.cshtml" />
+    <Content Include="Views\AdminManageOrder\PopupUpdateStatus.cshtml" />
+    <Content Include="Views\AdminManageOrder\PopupUpdateNote.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

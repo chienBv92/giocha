@@ -385,7 +385,7 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đã thanh toán.
+        ///   Looks up a localized string similar to TT thanh toán.
         /// </summary>
         public static string lblPayStatus {
             get {
@@ -421,7 +421,7 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên sản phẩm.
+        ///   Looks up a localized string similar to Sản phẩm.
         /// </summary>
         public static string lblProductName {
             get {

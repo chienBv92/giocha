@@ -1,0 +1,123 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+
+@model AdminOrderList
+@{
+    ViewBag.Title = "Cập nhật trạng thái";
+}
+
+<!DOCTYPE html>
+<div id="PopupGetTimeList">
+    <div id="title" class="modal-header popupTitle">
+        @ViewBag.Title
+    </div>
+    <div class="modal-body">
+        <div id="updateStatus">
+            @using (Html.BeginForm("ChangeDateTimeShip", "AdminManageOrder", FormMethod.Post, new { id = "formUpdateStatus", enctype = "multipart/form-data" }))
+            {
+                
+                    <div class="selectStatus">
+                        @Html.Label("Chọn trạng thái", new { @class = "title-row text-white margin-35" })
+                        @Html.DropDownListFor(m => m.Status, Model.STATUS_SELECT_LIST, "Chọn trạng thái", new { @class = "margin-left-15 w-120 select-time" })
+
+                        <div class="status-select-error"></div>
+                    </div>
+
+                <div class="action-button-bottom">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-default" id="btnClosePopup"><i class="btn-icon btn-back">Đóng</i></button>
+                    <button type="button" class="btn btn-orange pull-right" id="btnUpdateStatus"><i class="btn-icon btn-edit">Cập nhật</i></button>
+                    @Html.HiddenFor(m => m.ID, new { @class = "hdnOrderId" })
+                    @Html.HiddenFor(m => m.OldStatus, new { @class = "hdnOldStatus" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    $('#showPopup .modal-popup').addClass('changeStatusPopup');
+    $('#showPopup .main-popup').addClass('StatusPopup-content');
+
+    $("#PopupGetTimeList #btnClosePopup").click(function () {
+        WebDuhoc.utility.ClosePopup();
+    });
+
+    $(document).off('#btnUpdateStatus');
+    $(document).on('click', '#btnUpdateStatus', function (e) {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+
+        var selectStatus = $('#PopupGetTimeList #Status').val();
+
+        var validate = true;
+        if (selectStatus == null || selectStatus.trim() == "" ) {
+            $('.status-select-error').text('Vui lòng chọn trạng thái!');
+            validate = false;
+        } 
+        else {
+            $('.status-select-error').text('');
+            validate = true;
+        }
+
+        if (validate) {
+            WebDuhoc.utility.showConfirmModal('@string.Format(Message.msgConfirmUpdateStatus)', function (action) {
+                if (action) {
+                    var OrderId = $('.hdnOrderId').val();
+                    if (OrderId >0)
+                    {
+                        $.ajax({
+                            url: '@Url.Action("UpdateStatusOrder", "AdminManageOrder")',
+                            dataType: 'json',
+                            data: $("#formUpdateStatus").serialize(),
+                            type: 'POST',
+                            success: function (result) {
+                                if (!result.result) {
+                                    WebDuhoc.utility.showMessageModal("@string.Format(Message.UpdateFailed, "OK")", true);
+                                }
+                                else {
+                                    WebDuhoc.utility.showMessageModal("@string.Format(Message.UpdateSuccess, "OK")", false);
+                                    WebDuhoc.utility.ClosePopup();
+                                    dataTable.fnStandingRedraw();
+                                }
+
+                            },
+                            error: function (xhr) {
+                                WebDuhoc.utility.showMessageModal("@string.Format(Message.UpdateFailed, "OK")", true);
+                            }
+                        });
+                        event.preventDefault();
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+<style>
+    #showPopup .modal-popup.changeStatusPopup {
+        width: 520px !important;
+        margin-top: 55px;
+        margin-right: 400px;
+    }
+
+    #showPopup .main-popup.StatusPopup-content {
+        height: 215px !important;
+    }
+
+    #PopupGetTimeList {
+        height: 210px;
+    }
+
+        #PopupGetTimeList .selectStatus {
+            margin-bottom: 40px;
+        }
+
+        #PopupGetTimeList .status-select-error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+</style>

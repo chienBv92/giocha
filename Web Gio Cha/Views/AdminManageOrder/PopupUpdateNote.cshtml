@@ -1,0 +1,120 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+
+@model AdminOrderList
+@{
+    ViewBag.Title = "Cập nhật ghi chú";
+}
+
+<!DOCTYPE html>
+<div id="PopupUpdateNote">
+    <div id="title" class="modal-header popupTitle">
+        @ViewBag.Title
+    </div>
+    <div class="modal-body">
+        <div id="updateStatus">
+            @using (Html.BeginForm("ChangeDateTimeShip", "AdminManageOrder", FormMethod.Post, new { id = "formUpdateNote", enctype = "multipart/form-data" }))
+            {
+
+                <div class="selectStatus">
+                    @Html.Label("Ghi chú: ", new { @class = "title-row text-white margin-35" })
+                    @Html.TextAreaFor(m => m.Note, new { @class = "note", maxlength = 100 })
+
+                </div>
+
+                <div class="action-button-bottom">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-default" id="btnClosePopup"><i class="btn-icon btn-back">Đóng</i></button>
+                    <button type="button" class="btn btn-orange pull-right" id="btnUpdateNote"><i class="btn-icon btn-edit">Cập nhật</i></button>
+                    @Html.HiddenFor(m => m.ID, new { @class = "hdnOrderId" })
+                    @Html.HiddenFor(m => m.Note, new { @class = "hdnOldNote" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    $('#showPopup .modal-popup').addClass('changeStatusPopup');
+    $('#showPopup .main-popup').addClass('StatusPopup-content');
+
+    $("#PopupUpdateNote #btnClosePopup").click(function () {
+        WebDuhoc.utility.ClosePopup();
+    });
+
+    $(document).off('#btnUpdateNote');
+    $(document).on('click', '#btnUpdateNote', function (e) {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+
+        var note = $('#PopupUpdateNote #Note').val();
+
+        var validate = true;
+
+        if (validate) {
+            WebDuhoc.utility.showConfirmModal('@string.Format(Message.msgConfirmUpdateNote)', function (action) {
+                if (action) {
+                    var OrderId = $('.hdnOrderId').val();
+                    if (OrderId >0)
+                    {
+                        $.ajax({
+                            url: '@Url.Action("UpdateNoteOrder", "AdminManageOrder")',
+                            dataType: 'json',
+                            data: $("#formUpdateNote").serialize(),
+                            type: 'POST',
+                            success: function (result) {
+                                if (!result.result) {
+                                    WebDuhoc.utility.showMessageModal("@string.Format(Message.UpdateFailed, "OK")", true);
+                                }
+                                else {
+                                    WebDuhoc.utility.showMessageModal("@string.Format(Message.UpdateSuccess, "OK")", false);
+                                    WebDuhoc.utility.ClosePopup();
+                                    dataTable.fnStandingRedraw();
+                                }
+
+                            },
+                            error: function (xhr) {
+                                WebDuhoc.utility.showMessageModal("@string.Format(Message.UpdateFailed, "OK")", true);
+                            }
+                        });
+                        event.preventDefault();
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+<style>
+    #showPopup .modal-popup.changeStatusPopup {
+        width: 520px !important;
+        margin-top: 55px;
+        margin-right: 400px;
+    }
+
+    #showPopup .main-popup.StatusPopup-content {
+        height: 260px !important;
+    }
+
+    #PopupUpdateNote {
+        height: 260px;
+    }
+
+        #PopupUpdateNote .selectStatus {
+            margin-bottom: 20px;
+        }
+
+        #PopupUpdateNote #Note {
+            width: 300px;
+            max-width: 300px;
+            height: 90px;
+        }
+
+        #PopupUpdateNote .status-select-error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+</style>

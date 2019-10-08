@@ -98,7 +98,7 @@
             <table class="tblTableBottom">
                 <tr class="headerTable text-bold">
                     <td class="col-table-1 center">Thông tin chi tiết</td>
-                    <td class="col-table-2 center">Tên hàng hóa : (Số lượng)</td>
+                    <td class="col-table-2 center">Tên hàng hóa (Số lượng: xx)</td>
                 </tr>
                 <tr class="contentTable row-1">
                     <td class="col-table-1 center note-display">(có thể không hiển thị hết tất cả các sản phẩm nếu đơn hàng quá dài)</td>
@@ -109,6 +109,7 @@
                     <td class="col-table-1 text-bold center">Ghi chú</td>
 
                     <td class="col-table-note" colspan="4" title="@Model.Note">@Model.Note</td>
+                    
                 </tr>
             </table>
         </div>
@@ -132,9 +133,8 @@
                     {
                         <button type="button" class="btn btn-orange " id="btnEditOrder"><i class="btn-icon btn-edit">Chỉnh sửa</i></button>
                     }*@
+                <button type="button" class="btn btn-green" id="btnTakeNote"><i class="btn-icon btn-edit">Thêm ghi chú</i></button>
                 <button type="button" class="btn btn-orange " id="btnPrintOrder"><i class="btn-icon btn-edit">In hóa đơn</i></button>
-                <button type="button" class="btn btn-orange " id="btnCreatNewOrder"><i class="btn-icon btn-edit">Tạo đơn mới</i></button>
-                <button type="button" class="btn btn-orange " id="btnManageOrder"><i class="btn-icon btn-edit">Quản lí đơn hàng</i></button>
             </div>
         </div>
         <form id="frmPrintPdf" target="_blank" method="post" action="@Url.Action("PrintOrderCustom", "AdminManageOrder")">
@@ -145,6 +145,7 @@
             <input id="hdnOrderid" type="hidden" name="ORDER_ID" value="0" />
         </form>
         @Html.HiddenFor(m => m.ID, new { @class = "hdnOrderId" })
+        @Html.HiddenFor(m => m.Note, new { @class = "hdnNote" })
     </div>
 </div>
 
@@ -400,7 +401,6 @@
 </style>
 
 <script>
-    var OrderShipListUrl = '@Url.Action("OrderShipList", "OrderShip")';
     var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
     var registerOrderUrl = '@Url.Action("Index", "Home")';
 
@@ -409,21 +409,6 @@
 
     $("#PopupGetInforOrder #btnClosePopup").click(function () {
         WebDuhoc.utility.ClosePopup();
-    });
-
-    $(document).off('#btnCreatNewOrder');
-    $(document).on('click', '#btnCreatNewOrder', function () {
-        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
-
-        window.location.href = registerOrderUrl;
-        //WebDuhoc.utility.ClosePopup();
-    });
-
-    $(document).off('#btnManageOrder');
-    $(document).on('click', '#btnManageOrder', function () {
-        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
-
-        window.location.href = OrderShipListUrl;
     });
 
     $(document).off('#btnCancelOrder');
@@ -475,13 +460,27 @@
         $('#frmPrintPdf').submit();
     });
 
-    $(document).off('#btnEditOrder');
-    $(document).on('click', '#btnEditOrder', function () {
+    $(document).off('#btnTakeNote');
+    $(document).on('click', '#btnTakeNote', function () {
         if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
 
-        debugger;
-        $('#hdnOrderid').val($('.hdnOrderId').val());
+        var OrderId = $('.hdnOrderId').val();
+        var oldNote = $('.hdnNote').val();
 
-        $('#frmEditOrder').submit();
+        if (OrderId == null || OrderId < 0) {
+            return;
+        }
+
+        if (OrderId > 0) {
+            var urlGetSelectTime = '@Url.Action("PopupUpdateNote", "AdminManageOrder")';
+            var param = {
+                OrderId: OrderId,
+                oldNote: oldNote
+            };
+            WebDuhoc.utility.ShowPopup(urlGetSelectTime, param);
+        }
+
     });
+
+
 </script>
