@@ -17,12 +17,6 @@
                     <span style="margin-left:20px">Quận / huyện:</span>
                     @Html.DropDownListFor(m => m.Receive_District, Model.DISTRICT_LIST, new { @class = "Receive_District txt-box", maxlength = 100 })
 
-
-                    @*<span style="margin-left:20px">Từ:</span><input type="text" id="FROM_DATE" name="FROM_DATE" value="" class=" date ime-mode" maxlength=10 />
-                        <span style="margin-left:20px">Đến:</span>
-                        <input type="text" id="TO_DATE" name="TO_DATE" value="" class="date ime-mode" maxlength=10 />
-                        <span style="margin-left:40px"></span>*@
-
                     <span style="margin-left:20px">Từ:</span>
                     <span class="date datepicker-days">
                         @Html.TextBoxFor(m => m.FROM_DATE, "{0:dd/MM/yyyy}", new { @class = "date ime-mode", maxlength = 10 })

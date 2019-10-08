@@ -3,37 +3,100 @@
 }
 
 <div class="row nomargin">
-    <div class="col-md-12 col-sm-12 hidden-xs div-menu" align="center" valign="top" bgcolor="#FFFFFF" style="height: 69px; background-image:url(/Images/background_menu.jpg); background-repeat:no-repeat; background-size:100% 101%; background-origin:padding-box; padding-top:10px">
-        <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a> <a href="#" class="Texttopmenu"></a>
-        <table class="menu" border="0" cellspacing="0" cellpadding="0" style="margin-top:6px;">
-            <tr>
-                <td height="41" align="center" class="Texttopmenu"><a href="/trang-chu">TRANG CHỦ</a></td>
-                <td align="center" class="Texttopmenu"><a href="/gioi-thieu">GIỚI THIỆU</a></td>
-                <td align="center" class="Texttopmenu"><a href="/tin-tuc">TIN TỨC</a></td>
-                <td align="center" class="Texttopmenu"><a href="/san-pham">SẢN PHẨM</a></td>
-                <td align="center" class="Texttopmenu"><a href="/tro-giup">TRỢ GIÚP</a></td>
-                <td align="center" class="Texttopmenu"><a href="/lien-he">LIÊN HỆ</a></td>
+    <nav class="navbar navbar-default navHeader">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>*@
+                <a class="navbar-brand" href="/trang-chu" style="margin-left:40px;">Trang chủ</a>
 
-                @if (currentUser != null)
-                {
-                    if (currentUser.IsAdmin == true)
+                <button class="navbar-toggle" type="button" id="btnDispMenu" data-toggle="collapse" data-target="#navbarResponsive">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav leftNavBar">
+                    <li class="linkMenu"><a href="/gioi-thieu" class="Texttopmenu">GIỚI THIỆU</a></li>
+                    <li class="linkMenu"><a href="/tin-tuc" class="Texttopmenu">TIN TỨC</a></li>
+                    <li class="linkMenu"><a href="/san-pham" class="Texttopmenu">SẢN PHẨM</a></li>
+                    <li class="linkMenu"><a href="/tro-giup" class="Texttopmenu">TRỢ GIÚP</a></li>
+                    <li class="linkMenu"><a href="/lien-he" class="Texttopmenu">LIÊN HỆ</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right" style="margin-right:30px">
+                    @if (currentUser != null)
                     {
-                        <td align="center" class="Texttopmenu"><a style="width:120px" href="/admin">Quản trị hệ thống</a></td>
-                        <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        if (currentUser.IsAdmin == true)
+                        {
+                            <li><a href="/admin">Quản trị hệ thống</a></li>
+                        }
+                        <li class="dropdown" style="min-width:162px">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tài khoản: @currentUser.UserName<span class="caret"></span></a>
+                            <ul class="dropdown-menu" style="width:auto">
+                                <li><a href="#">Đơn hàng</a></li>
+                                <li><a href="#">Thông tin tài khoản</a></li>
+                                <li><a href="/thoat">Đăng xuất</a></li>
+                            </ul>
+                        </li>
                     }
                     else
                     {
-                        <td align="center" class="loginInfo">Chào: @currentUser.UserName </td>
-                        <td align="center" class="Texttopmenu"><a href="/thoat">Thoát</a></td>
+                        <li><a href="/dang-ky">Đăng ký</a></li>
+                        <li><a href="/dang-nhap">Đăng nhập</a></li>
                     }
-                }
-                else
-                {
-                    <td align="center" class="Texttopmenu"><a href="/dang-ky">Đăng ký</a></td>
-                    <td align="center" class="Texttopmenu"><a href="/dang-nhap">Đăng nhập</a></td>
-                }
-
-            </tr>
-        </table>
-    </div>
+                    
+                    
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 </div>
+
+<style>
+    .navHeader {
+        height: 69px;
+        background-image: url(/Images/background_menu.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% 101%;
+        background-origin: padding-box;
+        padding-top: 10px;
+        margin-bottom:0px;
+    }
+   
+    .leftNavBar li{
+        min-width:106px;
+        height:45px;
+    }
+     .navbar li:hover{
+        background:#ebb734
+    }
+
+    .navbar li a{
+        color: #FFF!important;
+    }
+    .navbar li a:hover{
+        color:#000000;
+    }
+
+    .navbar-nav > li > .dropdown-menu{
+        background:#ebb734;
+    }
+    .navbar-right li {
+        height:45px;
+    }
+</style>
+
+<script>
+    $("#btnDispMenu").click(function () {
+        $("#navbarResponsive").toggle();
+    })
+</script>

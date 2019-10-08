@@ -1825,6 +1825,7 @@
     <Content Include="Views\AdminManageOrder\ViewOrderDetailPDF.cshtml" />
     <Content Include="Views\AdminManageOrder\PopupUpdateStatus.cshtml" />
     <Content Include="Views\AdminManageOrder\PopupUpdateNote.cshtml" />
+    <Content Include="Views\Shared\Menu - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
