@@ -68,13 +68,13 @@
         width: 80px;
     }
 
-    .Texttopmenu {
-        font-size: 8px;
+    .textresponsive {
+        font-size: 12px;
     }
 
-        .Texttopmenu a {
-            font-size: 8px;
-        }
+    .textresponsive a {
+        font-size: 12px;
+    }
 
     .slideshow {
         height: 150px;
@@ -104,13 +104,13 @@
         width: 106px;
     }
 
-    .Texttopmenu {
-        font-size: 12px;
+    .textresponsive {
+        font-size: 14px;
     }
 
-        .Texttopmenu a {
-            font-size: 12px;
-        }
+    .textresponsive a {
+        font-size: 14px;
+    }
 
     .slideshow {
         height: 300px;
