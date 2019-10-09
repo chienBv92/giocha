@@ -11,6 +11,11 @@ namespace Web_Gio_Cha.Models
     public class ViewOrderModel: Order
     {
         public string ORDER_STATUS_TEXT { get; set; }
+
+        public string PAYMENT_METHOD_TEXT { get; set; }
+        public string PAID_TEXT { get; set; }
+        public List<SelectListItem> DISTRICT_LIST { get; set; }
+
         public string Product_Name { get; set; }
         public string UserName { get; set; }
         public string DistrictName { get; set; }

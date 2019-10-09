@@ -26,11 +26,42 @@ namespace Web_Gio_Cha.Da
             return lst;
         }
 
-        public Order getOrderByCode(string Code)
-        {
-            var lst = da.Order.Where(i => i.Code == Code).SingleOrDefault();
+        //public Order getOrderByCode(string Code)
+        //{
+        //    var lst = da.Order.Where(i => i.Code == Code).SingleOrDefault();
 
-            return lst;
+        //    return lst;
+        //}
+
+        public ViewOrderModel getOrderByCode(string Code)
+        {
+            var lstOrder = (from pro in da.Order
+                            join user in da.TblUser on pro.UserID equals user.ID
+                            join dis in da.TblCity on pro.Receive_District equals dis.ID
+                            where pro.Code == Code && pro.del_flg == Constant.DeleteFlag.NON_DELETE
+
+                            select new ViewOrderModel
+                            {
+                                ID = pro.ID,
+                                Code = pro.Code,
+                                Status = pro.Status,
+                                TongTienHang = pro.TongTienHang,
+                                PriceDiscountTotal = pro.PriceDiscountTotal,
+                                PriceShip = pro.PriceShip,
+                                PriceTotal = pro.PriceTotal,
+                                UserName = user.UserName,
+                                Receive_District = pro.Receive_District,
+                                Receive_Phone = pro.Receive_Phone,
+                                DistrictName = dis.Name,
+                                Receive_Address = pro.Receive_Address,
+                                CreatedDate = pro.CreatedDate,
+                                //CREATE_DATE_STRING = pro.CreatedDate.HasValue ? pro.CreatedDate.Value.ToString("dd/MM/yyyy hh:mm") : "",
+                                PaymentMethod = pro.PaymentMethod,
+                                Paid = pro.Paid,
+                                Note = pro.Note,
+                                del_flg = pro.del_flg
+                            }).SingleOrDefault();
+            return lstOrder;
         }
 
         public ViewOrderModel getInforOrder(long OrderId)

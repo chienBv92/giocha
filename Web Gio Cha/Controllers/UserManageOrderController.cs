@@ -39,15 +39,6 @@ namespace Web_Gio_Cha.Controllers
             CommonService comService = new CommonService();
             CommonController comControl = new CommonController();
 
-            int HaNoiCity = 1;
-            model.DISTRICT_LIST = dataAccess.getDistrictList(HaNoiCity).ToList().Select(
-            f => new SelectListItem
-            {
-                Value = f.ID.ToString(),
-                Text = f.Name
-            }).ToList();
-            model.DISTRICT_LIST.Insert(0, new SelectListItem { Value = Constant.DEFAULT_VALUE, Text = "Chọn Quận/huyện" });
-
             model.SORT_TYPE_LIST = UtilityServices.UtilityServices.SortTypeList();
             model.STATUS_SELECT_LIST = UtilityServices.UtilityServices.getListStatusAll();
             model.TO_DATE = DateTime.Now;
@@ -207,16 +198,45 @@ namespace Web_Gio_Cha.Controllers
 
             AdminOrderDa da = new AdminOrderDa();
             UserOrderService service = new UserOrderService();
+            //ViewOrderModel model = new ViewOrderModel();
+           
 
-            IList<OrderDetail> listDetail = new List<OrderDetail>();
+            IList<ItemGioHang> listDetail = new List<ItemGioHang>();
             var getOrder = da.getOrderByCode(Code);
             if (getOrder != null)
             {
                 var getOrderDetail = da.getOrderDetail(getOrder.ID);
-                listDetail = getOrderDetail;
+                foreach (var item in getOrderDetail)
+                {
+                    ItemGioHang sanpham = new ItemGioHang(item.ProductID);
+                    sanpham.SoLuong = item.Quantity.HasValue ? item.Quantity.Value : 0;
+                    sanpham.DonGia = item.Price.HasValue ? item.Price.Value : 0;
+                    sanpham.TienHang = sanpham.DonGia * sanpham.SoLuong;
+
+                    listDetail.Add(sanpham);
+                }
+                ViewBag.listDetail = listDetail;
+                getOrder.ORDER_STATUS_TEXT = OrderStatus.Items[getOrder.Status].ToString();
+                getOrder.PAYMENT_METHOD_TEXT = PaymentMethodType.Items[getOrder.PaymentMethod].ToString();
+                getOrder.PAID_TEXT = getOrder.Paid == true ? PayStatus.Items[1].ToString() : PayStatus.Items[0].ToString();
+                int HaNoiCity = 1;
+                ManageDistrictDa dataAccess = new ManageDistrictDa();
+
+                getOrder.DISTRICT_LIST = dataAccess.getDistrictList(HaNoiCity).ToList().Select(
+                f => new SelectListItem
+                {
+                    Value = f.ID.ToString(),
+                    Text = f.Name
+                }).ToList();
+                getOrder.DISTRICT_LIST.Insert(0, new SelectListItem { Value = Constant.DEFAULT_VALUE, Text = "Chọn Quận/huyện" });
+                
+            }
+            else
+            {
+                return HttpNotFound();
             }
 
-            return View(listDetail);
+            return View(getOrder);
         }
 
         #endregion

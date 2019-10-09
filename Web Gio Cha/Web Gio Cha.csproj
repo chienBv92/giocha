@@ -1672,6 +1672,14 @@
     <Content Include="Images\rightSearch.jpg" />
     <Content Include="Images\sanphamdemo2.jpg" />
     <Content Include="Images\tikiKm.png" />
+    <Content Include="QRcode\VB0610000026.png" />
+    <Content Include="QRcode\VB0610000027.png" />
+    <Content Include="QRcode\VB0710000028.png" />
+    <Content Include="QRcode\VB0710000029.png" />
+    <Content Include="QRcode\VB0810000030.png" />
+    <Content Include="QRcode\VB0810000031.png" />
+    <Content Include="QRcode\VB0810000032.png" />
+    <Content Include="QRcode\VB0810000033.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1744,6 +1752,14 @@
     <Content Include="Scripts\WebDuhoc.Utility.js" />
     <Content Include="Scripts\zxcvbn.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UPLOAD\Images\BanhDaKe.jpg" />
+    <Content Include="UPLOAD\Images\cha-ca-la-vong.jpg" />
+    <Content Include="UPLOAD\Images\cha-lua.jpg" />
+    <Content Include="UPLOAD\Images\gio me.jpg" />
+    <Content Include="UPLOAD\Images\gio-bo-nghe-an.jpg" />
+    <Content Include="UPLOAD\Images\gio-xao.jpg" />
+    <Content Include="UPLOAD\Images\nem-chua-ran.jpg" />
+    <Content Include="UPLOAD\Images\nem-nuong-nha-trang.jpg" />
     <Content Include="Views\ManageDistrict\DistrictEdit.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1846,8 +1862,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="QRcode\" />
-    <Folder Include="UPLOAD\Images\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
