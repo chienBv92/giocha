@@ -1,103 +1,195 @@
 ﻿@{
     var currentUser = HttpContext.Current.Session["CmnEntityModel"] as Web_Gio_Cha.Models.CmnEntityModel;
 }
-
-<div class="row nomargin">
-    <nav class="navbar navbar-default navHeader">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header" style="display:inline-block">
-                @*<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>*@
-                <a class="navbar-brand" href="/trang-chu" style="margin-left:40px;">Trang chủ</a>
-                <a href="/xem-gio-hang" style="cursor:pointer" class="gioHangTop"> <img class="Viewcart" src="~/Icon/cart.png" alt="" title="Giỏ hàng" style="width:40px; padding-top:5px" /></a>
-
-                <button class="navbar-toggle right" type="button" id="btnDispMenu" data-toggle="collapse" data-target="#navbarResponsive">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbarResponsive" style="background-color:#ff6a00">
-                <ul class="nav navbar-nav leftNavBar">
-                    <li class="linkMenu"><a href="/gioi-thieu" class="Texttopmenu">GIỚI THIỆU</a></li>
-                    <li class="linkMenu"><a href="/tin-tuc" class="Texttopmenu">TIN TỨC</a></li>
-                    <li class="linkMenu"><a href="/san-pham" class="Texttopmenu">SẢN PHẨM</a></li>
-                    <li class="linkMenu"><a href="/tro-giup" class="Texttopmenu">TRỢ GIÚP</a></li>
-                    <li class="linkMenu"><a href="/lien-he" class="Texttopmenu">LIÊN HỆ</a></li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right" style="margin-right:30px">
-                    @if (currentUser != null)
+<div class="row nomargin pr-menu">
+    <nav class="navbar navbar-inverse nav-format">
+        <div class="navbar-header" style="text-align:right;">
+            <button type="button" class="navbar-toggle" id="btnDispMenu" data-toggle="collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/xem-gio-hang" style="cursor:pointer; margin-top:20px;" class="gioHangTop"> <img class="Viewcart" src="~/Icon/cart_menu.png" alt="" title="Giỏ hàng" style="width:20px; margin:15px 15px 0;" /></a>
+            <a href="" class="navbar-brand" style="height:0;"><img src="~/Icon/Home.png" alt="Home" title="Giỏ hàng" style="width:20px; margin:0 5px;" /></a>
+        </div>
+        <div class="navbar-collapse collapse" id="menu">
+            <ul class="nav navbar-nav">
+                <li class="textresponsive"><a href="">Giới thiệu</a></li>
+                <li class="textresponsive"><a href="">Tin tức</a></li>
+                <li class="textresponsive"><a href="">Sản phẩm</a></li>
+                <li class="textresponsive"><a href="">Trợ giúp</a></li>
+                <li class="textresponsive"><a href="">Liên hệ</a></li>
+                @if (currentUser != null)
+                {
+                    if (currentUser.IsAdmin == true)
                     {
-                        if (currentUser.IsAdmin == true)
-                        {
-                            <li><a href="/admin">Quản trị hệ thống</a></li>
-                        }
-                        <li class="dropdown" style="min-width:162px">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tài khoản: @currentUser.UserName<span class="caret"></span></a>
-                            <ul class="dropdown-menu" style="width:auto">
-                                <li><a href="/danh-sach-don">Đơn hàng</a></li>
-                                <li><a href="/tai-khoan">Thông tin tài khoản</a></li>
-                                <li><a href="/thoat">Đăng xuất</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="/admin">Quản trị hệ thống</a></li>
                     }
-                    else
-                    {
-                        <li><a href="/dang-ky">Đăng ký</a></li>
-                        <li><a href="/dang-nhap">Đăng nhập</a></li>
-                    }
-                    
-                </ul>
-
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+                    <li class="dropdown textresponsive" style="min-width:162px">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tài khoản: @currentUser.UserName<span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="width:auto">
+                            <li class="textresponsive"><a href="/danh-sach-don">Đơn hàng</a></li>
+                            <li class="textresponsive"><a href="/tai-khoan">Thông tin tài khoản</a></li>
+                            <li class="textresponsive"><a href="/thoat">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="textresponsive"><a href="/dang-ky">Đăng ký</a></li>
+                    <li class="textresponsive"><a href="/dang-nhap">Đăng nhập</a></li>
+                }
+            </ul>
+        </div>
     </nav>
 </div>
 
 <style>
-    .navHeader {
-        height: 69px;
-        background-image: url(/Images/background_menu.jpg);
-        background-repeat: no-repeat;
-        background-size: 100% 101%;
-        background-origin: padding-box;
-        padding-top: 10px;
-        margin-bottom:0px;
-    }
-   
-    .leftNavBar li{
-        min-width:106px;
-        height:45px;
-    }
-     .navbar li:hover{
-        background:#ebb734
+    #btnDispMenu {
+        border-color: #ffffff;
     }
 
-    .navbar li a{
-        color: #FFF!important;
-    }
-    .navbar li a:hover{
-        color:#000000;
+    #menu {
+        border-color: #ffffff;
     }
 
-    .navbar-nav > li > .dropdown-menu{
-        background:#ebb734;
+    .pr-menu {
+        padding: 20px 0 10px;
+        background-color: #ffffff;
+        border-radius: 20px 20px 0px 0px;
     }
-    .navbar-right li {
-        height:45px;
-    }
+
+        .pr-menu .nav-format {
+            background-color: #ff6a00;
+            border: none;
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+
+
+
+            .pr-menu .nav-format li {
+            }
+
+                .pr-menu .nav-format li:hover {
+                    background-color: #f68b16;
+                }
+
+            .pr-menu .nav-format a {
+                color: #ffffff !important;
+            }
 </style>
 
 <script>
     $("#btnDispMenu").click(function () {
-        $("#navbarResponsive").toggle();
+        $("#menu").slideToggle(300);
     })
 </script>
+
+@*<div class="row nomargin">
+        <nav class="navbar navbar-default navHeader">
+            <div class="row nomargin" style="background-color:#ff6a00">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header" style="display:inline-block">
+                    <ul class="nav navbar-nav leftNavBar nomargin" style="display:inline-block">
+                        <li class="linkMenu">
+                            <a class="navbar-brand textresponsive" href="/trang-chu" style="margin:0 20px;">Trang chủ</a>
+                        </li>
+                    </ul>
+
+                    <div>
+                        <a href="/xem-gio-hang" style="cursor:pointer" class="gioHangTop"> <img class="Viewcart" src="~/Icon/cart.png" alt="" title="Giỏ hàng" style="width:40px; padding-top:5px" /></a>
+                    </div>
+
+                    <button class="navbar-toggle right" type="button" id="btnDispMenu" data-toggle="collapse" data-target="#navbarResponsive">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="navbarResponsive" style="background-color:#ff6a00">
+                    <ul class="nav navbar-nav leftNavBar">
+                        <li class="linkMenu"><a href="/gioi-thieu" class="textresponsive">Giới thiệu</a></li>
+                        <li class="linkMenu"><a href="/tin-tuc" class="textresponsive">Tin tức</a></li>
+                        <li class="linkMenu"><a href="/san-pham" class="textresponsive">Sản phẩm</a></li>
+                        <li class="linkMenu"><a href="/tro-giup" class="textresponsive">Trợ giúp</a></li>
+                        <li class="linkMenu"><a href="/lien-he" class="textresponsive">Liên hệ</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right" style="margin-right:30px">
+                        @if (currentUser != null)
+                        {
+                            if (currentUser.IsAdmin == true)
+                            {
+                                <li><a href="/admin">Quản trị hệ thống</a></li>
+                            }
+                            <li class="dropdown" style="min-width:162px">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tài khoản: @currentUser.UserName<span class="caret"></span></a>
+                                <ul class="dropdown-menu" style="width:auto">
+                                    <li><a href="/danh-sach-don" class="textresponsive">Đơn hàng</a></li>
+                                    <li><a href="/tai-khoan" class="textresponsive">Thông tin tài khoản</a></li>
+                                    <li><a href="/thoat" class="textresponsive">Đăng xuất</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a href="/dang-ky" class="textresponsive">Đăng ký</a></li>
+                            <li><a href="/dang-nhap" class="textresponsive">Đăng nhập</a></li>
+                        }
+
+                    </ul>
+
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+
+    <style>
+        .navHeader {
+            height: 69px;
+            background-image: url(/Images/background_menu.jpg);
+            background-repeat: no-repeat;
+            background-size: 100% 101%;
+            background-origin: padding-box;
+            padding-top: 15px;
+            margin-bottom: 0px;
+            border: none;
+            border-radius: inherit;
+        }
+
+        .linkMenu {
+            min-width: 70px;
+            height: 45px;
+        }
+
+        .navbar li:hover {
+            background: #ebb734
+        }
+
+        .navbar li a {
+            color: #FFF !important;
+        }
+
+            .navbar li a:hover {
+                color: #000000;
+            }
+
+        .navbar-nav > li > .dropdown-menu {
+            background: #ebb734;
+        }
+
+        .navbar-right li {
+            height: 45px;
+        }
+    </style>
+
+    <script>
+        $("#btnDispMenu").click(function () {
+            $("#navbarResponsive").toggle();
+        })
+    </script>*@
+
