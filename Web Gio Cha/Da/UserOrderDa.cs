@@ -54,50 +54,50 @@ namespace Web_Gio_Cha.Da
             total_row = lstOrder.Count();
 
             // Sắp xếp theo lựa chọn
-            if (!String.IsNullOrEmpty(model.SORT_COL))
-            {
-                switch (model.SORT_COL)
-                {
-                    case SortAdminOrderShipList.CREATE_DATE:
-                        if (model.SORT_TYPE == SortType.ASC)
-                        {
-                            lstOrder = lstOrder.OrderBy(i => i.CreatedDate).ThenBy(i => i.Code).ThenBy(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
-                        }
-                        else
-                        {
-                            lstOrder = lstOrder.OrderByDescending(i => i.CreatedDate).ThenByDescending(i => i.Code).ThenByDescending(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
-                        }
-                        break;
+            //if (!String.IsNullOrEmpty(model.SORT_COL))
+            //{
+            //    switch (model.SORT_COL)
+            //    {
+            //        case SortAdminOrderShipList.CREATE_DATE:
+            //            if (model.SORT_TYPE == SortType.ASC)
+            //            {
+            //                lstOrder = lstOrder.OrderBy(i => i.CreatedDate).ThenBy(i => i.Code).ThenBy(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
+            //            }
+            //            else
+            //            {
+            //                lstOrder = lstOrder.OrderByDescending(i => i.CreatedDate).ThenByDescending(i => i.Code).ThenByDescending(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
+            //            }
+            //            break;
 
-                    case SortAdminOrderShipList.ORDER_CODE:
-                        if (model.SORT_TYPE == SortType.ASC)
-                        {
-                            lstOrder = lstOrder.OrderBy(i => i.Code).ThenBy(i => i.CreatedDate).ThenBy(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
-                        }
-                        else
-                        {
-                            lstOrder = lstOrder.OrderByDescending(i => i.Code).ThenByDescending(i => i.CreatedDate).ThenByDescending(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
-                        }
-                        break;
+            //        case SortAdminOrderShipList.ORDER_CODE:
+            //            if (model.SORT_TYPE == SortType.ASC)
+            //            {
+            //                lstOrder = lstOrder.OrderBy(i => i.Code).ThenBy(i => i.CreatedDate).ThenBy(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
+            //            }
+            //            else
+            //            {
+            //                lstOrder = lstOrder.OrderByDescending(i => i.Code).ThenByDescending(i => i.CreatedDate).ThenByDescending(i => i.PriceTotal).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
+            //            }
+            //            break;
 
-                    case SortAdminOrderShipList.TOTAL_MONEY:
-                        if (model.SORT_TYPE == SortType.ASC)
-                        {
-                            lstOrder = lstOrder.OrderBy(i => i.PriceTotal).ThenBy(i => i.CreatedDate).ThenBy(i => i.Code).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
-                        }
-                        else
-                        {
-                            lstOrder = lstOrder.OrderByDescending(i => i.PriceTotal).ThenByDescending(i => i.CreatedDate).ThenByDescending(i => i.Code).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
-                        }
-                        break;
-                }
-            }
-            else
-            {
-                lstOrder = lstOrder.OrderByDescending(i => i.CreatedDate).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
-            }
+            //        case SortAdminOrderShipList.TOTAL_MONEY:
+            //            if (model.SORT_TYPE == SortType.ASC)
+            //            {
+            //                lstOrder = lstOrder.OrderBy(i => i.PriceTotal).ThenBy(i => i.CreatedDate).ThenBy(i => i.Code).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
+            //            }
+            //            else
+            //            {
+            //                lstOrder = lstOrder.OrderByDescending(i => i.PriceTotal).ThenByDescending(i => i.CreatedDate).ThenByDescending(i => i.Code).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
+            //            }
+            //            break;
+            //    }
+            //}
+            //else
+            //{
+            //    lstOrder = lstOrder.OrderByDescending(i => i.CreatedDate); ;
+            //}
 
-            return lstOrder;
+            return lstOrder.OrderByDescending(i => i.CreatedDate);
         }
 
         public IEnumerable<AdminOrderList> SearchOrderListTotalNoneStatus(DataTableModel dt, AdminOrderList model)

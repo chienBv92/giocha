@@ -14,6 +14,7 @@ using Web_Gio_Cha.UtilityService;
 using WebDuhoc.Models.Define;
 using Rotativa;
 using Rotativa.MVC;
+using PagedList;
 
 namespace Web_Gio_Cha.Controllers
 {
@@ -23,11 +24,11 @@ namespace Web_Gio_Cha.Controllers
 
         // GET: UserManageOrder
         #region LIST ORDER USER
-        public ActionResult ManageOrderList(AdminOrderList condition)
+        public ActionResult ManageOrderList(AdminOrderList condition, int? page)
         {
             CmnEntityModel currentUser = Session["CmnEntityModel"] as CmnEntityModel;
 
-            if (currentUser == null || currentUser.IsAdmin == false)
+            if (currentUser == null)
             {
                 return RedirectToAction("Login", "Login");
             }
@@ -78,8 +79,15 @@ namespace Web_Gio_Cha.Controllers
                     dataList[i].Product_Name = string.Join(", ", listName);
                 }
             }
+            if (Request.HttpMethod != "GET")
+            {
+                page = 1;
+            }
+            int Pagesize = 20;
+            // tạo biến số trang hiện tại
+            int PageNumber = (page ?? 1);
 
-            return View(dataList);
+            return View(dataList.ToPagedList(PageNumber, Pagesize));
         }
 
         [HttpPost]
@@ -192,7 +200,7 @@ namespace Web_Gio_Cha.Controllers
         {
             CmnEntityModel currentUser = Session["CmnEntityModel"] as CmnEntityModel;
 
-            if (currentUser == null || currentUser.IsAdmin == false)
+            if (currentUser == null)
             {
                 return RedirectToAction("Login", "Login");
             }

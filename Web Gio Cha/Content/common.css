@@ -529,6 +529,43 @@ input[type="password"], select {
     line-height:60px;
 }
 
+#view-order-list{
+    margin-right: 5px;
+    margin-left: 5px;
+    border-left: 4px solid #F7950C;
+    border-right: 4px solid #F7950C;
+    border-bottom: 4px solid #F7950C;
+
+}
+#view-order-list .txt-header{
+    padding: 8px 0px 8px 15px;
+    text-align: left;
+    background: #F7950C;
+
+}
+
+#view-order-list .product-cart{
+    display: inline-block;
+    margin-top: 6px;
+    background: honeydew;
+    line-height:30px;
+}
+#view-order-list .th-text{
+    text-align:center;
+    font-weight:bold;
+}
+#view-order-list .donGia{
+    line-height:60px;
+}
+#view-order-list .tienHang{
+    line-height:60px;
+}
+
+#view-order-list .TxtHeader{
+    border-bottom:1px solid;
+    line-height:30px;
+}
+
 a, button{
     cursor:pointer!important;
 }

@@ -1,14 +1,15 @@
 ﻿@using Web_Gio_Cha.Resources;
 @using Web_Gio_Cha.Models;
+@using PagedList.Mvc;
 
-@model List<Web_Gio_Cha.Models.AdminOrderList>
+@model PagedList.PagedList<AdminOrderList>
+
 @{
     ViewBag.Title = AdminLabel.AdminOrderList;
-    //Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="view-cart" class="row" border="0" cellspacing="0" cellpadding="0">
+<div id="view-order-list" class="row" border="0" cellspacing="0" cellpadding="0">
     <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 txt-header">
         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class=" black" style="margin-top:10px; font-weight:bold"> ĐƠN HÀNG CỦA BẠN</span></div>
     </div>
@@ -21,14 +22,14 @@
     {
         <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin nopadding">
             <hr style="margin-top:15px; margin-bottom:5px"/>
-            <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nopadding">
+            <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nopadding TxtHeader">
                 <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 th-text">
                     Mã đơn hàng
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 th-text">
                     Ngày mua
                 </div>
-                <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6 th-text">
+                <div class="col-md-4 col-sm-4 col-xs-6 col-xs-12 th-text">
                     Tên sản phẩm
                 </div>
                 <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 th-text">
@@ -38,7 +39,6 @@
                     Trạng thái đơn
                 </div>
             </div>
-
             @for (int i = 0; i < Model.Count(); i++)
             {
                 var link = "/chi-tiet-don-hang/" + Model[i].Code;
@@ -54,12 +54,12 @@
                         <p class="center" style="width:100%">@Model[i].CREATE_DATE_STRING</p>
                     </div>
 
-                    <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6 nopadding">
-                        <p class="left" style="width:100%" title="@Model[i].Product_Name">@Model[i].Product_Name</p>
+                    <div class="col-md-4 col-sm-4 col-xs-6 col-xs-12 nopadding">
+                        <p class="left col-md-12" style="width:100%" title="@Model[i].Product_Name">@Model[i].Product_Name</p>
                     </div>
                     
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 nopadding">
-                        <p class="bold right money  tongTien" style="width:100%">@Model[i].PriceTotal</p>
+                        <p class="col-md-12 bold right money tongTien" style="width:100%">@Model[i].PriceTotal</p>
                     </div>
 
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 nopadding">
@@ -69,6 +69,11 @@
                 </div>
 
             }
+            <div class="clearfix"></div>
+            <div class="dlink" style="margin:5px;padding:10px">
+                Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+                @Html.PagedListPager(Model, page => @Url.Action("ManageOrderList", new { @page = page }))
+            </div>
             
             <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-bottom:10px">
                 <div class="col-md-3 col-sm-6 col-xs-6 col-xs-12 left" style="margin-top:20px">
