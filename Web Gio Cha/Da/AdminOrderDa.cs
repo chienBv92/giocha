@@ -26,6 +26,13 @@ namespace Web_Gio_Cha.Da
             return lst;
         }
 
+        public Order getOrderByCode(string Code)
+        {
+            var lst = da.Order.Where(i => i.Code == Code).SingleOrDefault();
+
+            return lst;
+        }
+
         public ViewOrderModel getInforOrder(long OrderId)
         {
             var lstOrder =  (from pro in da.Order

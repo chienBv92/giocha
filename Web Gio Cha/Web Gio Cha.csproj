@@ -201,6 +201,7 @@
     <Compile Include="Controllers\ManagePromotionController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserManageOrderController.cs" />
     <Compile Include="Da\AdminOrderDa.cs" />
     <Compile Include="Da\BaseDa.cs" />
     <Compile Include="Da\CommonDa.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Da\ProductCategoryDa.cs" />
     <Compile Include="Da\ProductDa.cs" />
     <Compile Include="Da\UserDa.cs" />
+    <Compile Include="Da\UserOrderDa.cs" />
     <Compile Include="EF\Menu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -325,6 +327,7 @@
     <Compile Include="Services\ProductCategoryService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\SendMailService.cs" />
+    <Compile Include="Services\UserOrderService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UtilityService\CacheUtil.cs" />
@@ -1659,6 +1662,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="Images\rightSearch.jpg" />
     <Content Include="Images\sanphamdemo2.jpg" />
+    <Content Include="Images\tikiKm.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1826,6 +1830,8 @@
     <Content Include="Views\AdminManageOrder\PopupUpdateStatus.cshtml" />
     <Content Include="Views\AdminManageOrder\PopupUpdateNote.cshtml" />
     <Content Include="Views\Shared\Menu - Copy.cshtml" />
+    <Content Include="Views\UserManageOrder\ManageOrderList.cshtml" />
+    <Content Include="Views\UserManageOrder\OrderDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

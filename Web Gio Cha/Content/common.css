@@ -8,6 +8,10 @@
 
 /* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
+    .container{
+        width:100%;
+    }
+
     .slideshow {
         height: 100px;
     }
@@ -24,10 +28,19 @@
     .prd-content {
         height: 205px;
     }
+
+    .gioHangTop {
+        /*display:inline-block;*/
+    }
 }
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
+
+    .container{
+        width:100%;
+    }
+
     .slideshow {
         height: 150px;
     }
@@ -39,10 +52,18 @@
     .prd-content {
         height: 300px;
     }
+     .gioHangTop {
+        /*display:block;*/
+    }
 }
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 768px) {
+
+    .container{
+        width:100%;
+    }
+
     .menu tbody tr td {
         width: 80px;
     }
@@ -66,10 +87,19 @@
     .prd-content {
         height: 220px;
     }
+
+     .gioHangTop {
+        display:none;
+    }
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (min-width : 992px) {
+
+    .container{
+        width:80%;
+    }
+
     .menu tbody tr td {
         width: 106px;
     }
@@ -92,6 +122,10 @@
 
     .prd-content {
         height: 192px;
+    }
+
+     .gioHangTop {
+        display:none;
     }
 }
 

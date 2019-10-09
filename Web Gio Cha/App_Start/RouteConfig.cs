@@ -20,6 +20,24 @@ namespace Web_Gio_Cha
              defaults: new { controller = "AdminSystem", action = "Index", id = UrlParameter.Optional }
          );
 
+            routes.MapRoute(
+            name: "OrderDetail",
+            url: "chi-tiet-don-hang/{Code}",
+            defaults: new { controller = "UserManageOrder", action = "OrderDetail", id = UrlParameter.Optional }
+        );
+
+            routes.MapRoute(
+             name: "UserOrderList",
+             url: "danh-sach-don/{id}",
+             defaults: new { controller = "UserManageOrder", action = "ManageOrderList", id = UrlParameter.Optional }
+         );
+
+            routes.MapRoute(
+          name: "AccountInfo",
+          url: "tai-khoan/{id}",
+          defaults: new { controller = "AdminSystem", action = "Index", id = UrlParameter.Optional }
+      );
+
             // Tao Url view liên hệ
             routes.MapRoute(
            name: "DatHang",
