@@ -1,0 +1,124 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+
+@model AdminOrderList
+@{
+    ViewBag.Title = "Xác nhận hủy đơn hàng";
+}
+
+<!DOCTYPE html>
+<div id="PopupCancelOrder">
+    <div id="title" class="modal-header popupTitle">
+        @ViewBag.Title
+    </div>
+    <div class="modal-body">
+        <div id="updateStatus">
+            @using (Html.BeginForm("ChangeDateTimeShip", "AdminManageOrder", FormMethod.Post, new { id = "formCancelOrder", enctype = "multipart/form-data" }))
+            {
+
+                <div class="selectStatus">
+                    @Html.Label("Lý do hủy: ", new { @class = "title-row text-white margin-35" })
+                    @Html.TextAreaFor(m => m.ReasonCancel, new { @class = "note", maxlength = 100 })
+
+                </div>
+
+                <div class="action-button-bottom">
+                    @Html.AntiForgeryToken()
+                    <button type="button" class="btn btn-default" id="btnClosePopup"><i class="btn-icon btn-back">Đóng</i></button>
+                    <button type="button" class="btn btn-danger pull-right" id="btnCancelOrder"><i class="btn-icon btn-edit">Xác nhận hủy đơn</i></button>
+                    @Html.HiddenFor(m => m.ID, new { @class = "hdnOrderId" })
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    $('#showPopup .modal-popup').addClass('changeStatusPopup');
+    $('#showPopup .main-popup').addClass('StatusPopup-content');
+
+    $("#PopupCancelOrder #btnClosePopup").click(function () {
+        WebDuhoc.utility.ClosePopup();
+    });
+
+    $(document).off('#btnCancelOrder');
+    $(document).on('click', '#btnCancelOrder', function (e) {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+
+        var note = $('#PopupCancelOrder #ReasonCancel').val();
+
+        var validate = true;
+
+        if (validate) {
+            WebDuhoc.utility.showConfirmModal('@string.Format(Message.msgConfirmCancel)', function (action) {
+                if (action) {
+                    var OrderId = $('.hdnOrderId').val();
+                    if (OrderId > 0) {
+                        $.ajax({
+                            url: '@Url.Action("UpdateCancelOrder", "UserManageOrder")',
+                            dataType: 'json',
+                            data: $("#formCancelOrder").serialize(),
+                            type: 'POST',
+                            success: function (result) {
+                                if (!result.result) {
+                                    WebDuhoc.utility.showMessageModal("@string.Format(Message.CancelFailed, "OK")", true);
+                                }
+                                else {
+                                    WebDuhoc.utility.showMessageModal("@string.Format(Message.CancelSuccess, "OK")", false);
+                                    WebDuhoc.utility.ClosePopup();
+                                    window.location.href = '/danh-sach-don';
+                                }
+
+                            },
+                            error: function (xhr) {
+                                WebDuhoc.utility.showMessageModal("@string.Format(Message.CancelFailed, "OK")", true);
+                            }
+                        });
+                        event.preventDefault();
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+<style>
+    #showPopup .modal-popup.changeStatusPopup {
+        width: 520px !important;
+        margin-top: 55px;
+        margin-right: 400px;
+    }
+
+    #showPopup .main-popup.StatusPopup-content {
+        height: 260px !important;
+    }
+
+    #PopupCancelOrder {
+        height: 260px;
+    }
+
+    #PopupCancelOrder #title {
+        font-size:14px;
+        font-weight:bold;
+    }
+    
+
+        #PopupCancelOrder .selectStatus {
+            margin-bottom: 20px;
+        }
+
+        #PopupCancelOrder .note {
+            width: 300px;
+            max-width: 300px;
+            height: 90px;
+        }
+
+        #PopupCancelOrder .status-select-error {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+</style>

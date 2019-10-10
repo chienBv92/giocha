@@ -213,4 +213,10 @@
   <data name="msgConfirmUpdateNote" xml:space="preserve">
     <value>Bạn muốn thêm ghi chú cho đơn hàng?</value>
   </data>
+  <data name="msgConfirmCancel" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn hủy đơn?</value>
+  </data>
+  <data name="msgConfirmUpdateInfo" xml:space="preserve">
+    <value>Bạn muốn chỉnh sửa thông tin cho đơn hàng?</value>
+  </data>
 </root>

@@ -11,8 +11,9 @@
 <div id="DatHang" class="row" border="0" cellspacing="0" cellpadding="0">
     <div class="row form-group nomargin" style="padding-bottom:15px;    ">
         <div class="col-md-3 col-sm-3 col-xs-3"></div>
-        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham black" style="margin-top:10px">CHI TIẾT ĐƠN HÀNG</span></div>
+        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham black" style="margin-top:10px">CHI TIẾT ĐƠN HÀNG: @Model.Code</span></div>
     </div>
+    @Html.HiddenFor(m => m.ID, new {@class = "hdnOrderId"})
     @if (listSanPham == null || listSanPham.Count() == 0)
     {
         <p style="font-size:2em;padding:10px;margin:10px"> Giỏ hàng trống! </p>
@@ -20,7 +21,7 @@
     }
     else
     {
-        using (Html.BeginForm("CartSubmit", "GioHang", FormMethod.Post, new { id = "formOrderCart", enctype = "multipart/form-data", @class = "form-horizontal" }))
+        using (Html.BeginForm("CartSubmit", "GioHang", FormMethod.Post, new { id = "formOrder", enctype = "multipart/form-data", @class = "form-horizontal" }))
         {
             <div class="col-md-12 col-sm-8 col-xs-8 col-xs-12 nomargin">
               
@@ -45,12 +46,18 @@
                             <p class="left money tienHang">@listSanPham[i].TienHang</p>
                         </div>
                     </div>
-
                 }
+                @Html.HiddenFor(m => m.TongTienHang, new { @class = "" })
+                @Html.HiddenFor(m => m.PriceDiscountTotal, new { @class = "" })
+                @Html.HiddenFor(m => m.PriceShip, new { @class = "" })
+                @Html.HiddenFor(m => m.PriceTotal, new { @class = "" })
+                @Html.HiddenFor(m => m.UserID, new { @class = "UserID" })
+                @Html.HiddenFor(m => m.ID, new { @class = "orderID" })
+
                 <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
                         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; text-align:left">Trạng thái đơn hàng:</div>
-                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12 bold" style="width:50%;text-align:left">@Model.ORDER_STATUS_TEXT</div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12 bold" style="width:50%;text-align:left;color:red">@Model.ORDER_STATUS_TEXT</div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
                         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Tạm tính:</div>
@@ -59,6 +66,11 @@
                 </div>
                 <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-top:10px">
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
+                        @if (Model.Status == OrderStatus.Cancel)
+                        {
+                            <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; text-align:left">Lý do hủy đơn:</div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%;text-align:left">@Model.ReasonCancel</div>
+                        }
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12">
                         <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="width:50%; font-weight:bold; text-align:left">Chiết khấu:</div>
@@ -86,7 +98,7 @@
                 </div>
                 <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
                     <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left padding-0" style="margin-top:20px">
-                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block; line-height:28px">
                             <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Họ Tên:</div>
                             <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
                                 @if (Model.Status == OrderStatus.Create)
@@ -95,11 +107,11 @@
                                 }
                                 else
                                 {
-                                    @Html.Label(Model.UserName, new { @class = "address", maxlength = 100 })
+                                    @Html.Label(Model.UserName, new { @class = "address txt-nomal", maxlength = 100 })
                                 }
                             </div>
                         </div>
-                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block; line-height:28px">
                             <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Quận:</div>
                             <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
                                 @if (Model.Status == OrderStatus.Create)
@@ -108,11 +120,11 @@
                                 }
                                 else
                                 {
-                                    @Html.Label(Model.DistrictName, new { @class = "address", maxlength = 100 })
+                                    @Html.Label(Model.DistrictName, new { @class = "address txt-nomal", maxlength = 100 })
                                 }
                             </div>
                         </div>
-                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block; line-height:28px">
                             <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Địa chỉ:</div>
                             <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
                                 @if (Model.Status == OrderStatus.Create)
@@ -121,11 +133,11 @@
                                 }
                                 else
                                 {
-                                    @Html.Label(Model.Receive_Address, new { @class = "address", maxlength = 100 })
+                                    @Html.Label(Model.Receive_Address, new { @class = "address txt-nomal", maxlength = 100 })
                                 }
                             </div>
                         </div>
-                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block">
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5" style="display:inline-block; line-height:28px">
                             <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left" style="line-height:28px">Số điện thoại:</div>
                             <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left">
                                 @if (Model.Status == OrderStatus.Create)
@@ -134,13 +146,13 @@
                                 }
                                 else
                                 {
-                                    @Html.Label(Model.Receive_Phone, new { @class = "phone", maxlength = 100 })
+                                    @Html.Label(Model.Receive_Phone, new { @class = "phone txt-nomal", maxlength = 100 })
                                 }
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 padding-0" style="margin-top:20px">
-                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5 padding-0" style="display:inline-block">
+                        <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12 margintop-5 padding-0" style="display:inline-block; line-height:28px">
                             <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12 left padding-0" style="line-height:28px">Ghi chú:</div>
                             <div class="col-md-8 col-sm-6 col-xs-6 col-xs-12 left padding-0">
                                 @if (Model.Status == OrderStatus.Create)
@@ -149,7 +161,7 @@
                                 }
                                 else
                                 {
-                                    @Html.Label(Model.Note, new { @class = "note", maxlength = 100 })
+                                    @Html.Label(Model.Note, new { @class = "note txt-nomal", maxlength = 100 })
                                 }
 
                             </div>
@@ -169,13 +181,13 @@
 
                 <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
                     <div class="col-md-3 col-sm-6 col-xs-6 col-xs-12 left" style="margin-top:20px">
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="margin-top:20px">
                         <button type="button" class="" onclick="window.location.href = '/danh-sach-don'" style="height:27px">Quay lại danh sách đơn</button>
+                    </div>
+                    <div class="col-md-9 col-sm-6 col-xs-6 col-xs-12" style="margin-top:20px">
                         @if (Model.Status == OrderStatus.Create)
                         {
-                            <button type="button" class="btn btn-danger" id="btnCancel">Hủy</button>
-                            <button type="button" class="btn btn-green" id="btnEditInfo">Chỉnh sửa</button>
+                            <button type="button" class="btn btn-danger" id="btnCancel" style="float:right">Hủy</button>
+                            <button type="button" class="btn btn-green" id="btnEditInfo" style="float:right"><i class="btn-icon btn-edit"> </i>Chỉnh sửa thông tin</button>
                         }
                       
                     </div>
@@ -256,8 +268,8 @@
         return invalidMess;
     }
 
-    $(document).off('#btnCartSubmit');
-    $(document).on('click', '#btnCartSubmit', function () {
+    $(document).off('#btnEditInfo');
+    $(document).on('click', '#btnEditInfo', function () {
         if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
 
         $('.validation-summary-errors').remove();
@@ -266,33 +278,34 @@
             WebDuhoc.utility.showClientError(invalidMess);
             return false;
         }
-
-        var formData = new FormData($('#formOrderCart')[0]);
-        $.ajax(
-        {
-            url: '@Url.Action("CartSubmit", "GioHang")',
-            data: formData,
-            mimeType: "multipart/form-data",
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            success: function (res) {
-                //window.parent.$('.ui-dialog-content:visible').dialog('close');
-                console.log(res);
-                var result = jQuery.parseJSON(res);
-                message = result.orderId > 0 ? "Đã đặt đơn thành công! Vui lòng kiểm tra quản lí đơn!" : "Có lỗi trong quá trình đăng ký!";
-                WebDuhoc.utility.showMessageModal(message, false, function () {
-                    window.location.href = '/danh-sach-don';
+        WebDuhoc.utility.showConfirmModal('@string.Format(Message.msgConfirmUpdateInfo)', function (action) {
+            if (action) {
+                var formData = new FormData($('#formOrder')[0]);
+                $.ajax(
+                {
+                    url: '@Url.Action("UpdateInfo", "UserManageOrder")',
+                    data: formData,
+                    mimeType: "multipart/form-data",
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                        console.log(res);
+                        var result = jQuery.parseJSON(res);
+                        message = result.result == true ? "Đã chỉnh sửa đơn thành công! Vui lòng kiểm tra quản lí đơn!" : "Có lỗi trong quá trình xử lý!";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                            window.location.href = '/danh-sach-don';
+                        });
+                    },
+                    error: function (xhr) {
+                        //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                        window.location.href = '/Common/Error/';
+                    }
                 });
-
-            },
-            error: function (xhr) {
-                //window.parent.$('.ui-dialog-content:visible').dialog('close');
-                window.location.href = '/Common/Error/';
+                event.preventDefault();
             }
         });
-        event.preventDefault();
-
     });
 
     $("#Receive_District").change(function () {
@@ -319,6 +332,32 @@
                 }
             }
         }
+    });
+
+    // Click view Status History
+    $(document).off('#btnCancel');
+    $(document).on('click', '#btnCancel', function () {
+        var result = WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null);
+        if (!result) {
+            return false;
+        }
+
+        $(this).blur();
+
+        var OrderId = $('.hdnOrderId').val();
+
+        if (OrderId == null || OrderId < 0) {
+            return;
+        }
+
+        if (OrderId > 0) {
+            var urlGetSelectTime = '@Url.Action("PopupCancelOrder", "UserManageOrder")';
+            var param = {
+                OrderId: OrderId
+            };
+            WebDuhoc.utility.ShowPopup(urlGetSelectTime, param);
+        }
+
     });
 </script>
 <style>
@@ -380,5 +419,9 @@
     #DatHang .note {
         width: 100%;
         height: 100px;
+    }
+
+    .txt-nomal{
+        font-weight:normal;
     }
 </style>

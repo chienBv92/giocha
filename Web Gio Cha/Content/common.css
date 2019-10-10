@@ -574,3 +574,11 @@ a, button{
     color: #fff;
     line-height: 32px;
 }
+
+.btn-edit {
+    background: url(/ImageAd/icon_edit.png) no-repeat left center;
+}
+.btn-icon {
+    padding-top: 1px;
+    padding-left: 23px;
+}

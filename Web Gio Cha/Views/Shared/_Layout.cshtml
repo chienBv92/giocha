@@ -50,6 +50,17 @@
             </div>
             <div class="col-md-10 col-sm-8 col-xs-12 align-center" valign="top">
                 @RenderBody()
+                <div id="loadingPopup" class="TB_overlayBG">
+                    <div id="TB_load"><img src="~/ImageAd/loading.gif" alt="giò chả Vân Bảo"></div>
+                </div>
+                <div class="modal" id="showPopup" role="dialog" data-keyboard="false" data-backdrop="static">
+                    <div class="modal-dialog modal-popup" role="document" style="width: 1200px">
+                        <div class="modal-content">
+                            <div class="modal-body main-popup">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
        

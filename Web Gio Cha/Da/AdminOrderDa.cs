@@ -59,6 +59,7 @@ namespace Web_Gio_Cha.Da
                                 PaymentMethod = pro.PaymentMethod,
                                 Paid = pro.Paid,
                                 Note = pro.Note,
+                                ReasonCancel = pro.ReasonCancel,
                                 del_flg = pro.del_flg
                             }).SingleOrDefault();
             return lstOrder;
@@ -321,6 +322,65 @@ namespace Web_Gio_Cha.Da
             return order.ID;
         }
 
+        #endregion
+
+        #region CANCEL
+        public long UpdateCancelOrder(AdminOrderList model)
+        {
+            var order = da.Order.Where(x => x.ID == model.ID).SingleOrDefault();
+            if (order != null)
+            {
+                try
+                {
+                    // set data
+                    order.Status = OrderStatus.Cancel;
+                    order.ReasonCancel = model.ReasonCancel;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return order.ID;
+        }
+        #endregion
+
+        #region INFOR ORDER
+        public long UpdateInfo(AdminOrderList model)
+        {
+            var order = da.Order.Where(x => x.ID == model.ID).SingleOrDefault();
+            if (order != null)
+            {
+                try
+                {
+                    // set data
+                    if (order.Receive_District != model.Receive_District)
+                    {
+                        order.Receive_District = model.Receive_District;
+                        order.PriceShip = model.PriceShip;
+                        order.PriceTotal = model.PriceTotal;
+                    }
+                    order.Receive_Phone = model.Receive_Phone;
+                    order.Receive_Address = model.Receive_Address;
+                    order.Note = model.Note;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return order.ID;
+        }
         #endregion
     }
 }

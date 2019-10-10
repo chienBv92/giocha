@@ -205,6 +205,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn có chắc chắn muốn hủy đơn?.
+        /// </summary>
+        public static string msgConfirmCancel {
+            get {
+                return ResourceManager.GetString("msgConfirmCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bạn chắc chắn muốn hủy đơn?.
         /// </summary>
         public static string msgConfirmCancelOrder {
@@ -237,6 +246,15 @@ namespace Web_Gio_Cha.Resources {
         public static string msgConfirmExistMenuCd {
             get {
                 return ResourceManager.GetString("msgConfirmExistMenuCd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn muốn chỉnh sửa thông tin cho đơn hàng?.
+        /// </summary>
+        public static string msgConfirmUpdateInfo {
+            get {
+                return ResourceManager.GetString("msgConfirmUpdateInfo", resourceCulture);
             }
         }
         

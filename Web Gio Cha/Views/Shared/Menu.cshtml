@@ -15,11 +15,11 @@
         </div>
         <div class="navbar-collapse collapse" id="menu">
             <ul class="nav navbar-nav">
-                <li class="textresponsive"><a href="">Giới thiệu</a></li>
-                <li class="textresponsive"><a href="">Tin tức</a></li>
-                <li class="textresponsive"><a href="">Sản phẩm</a></li>
-                <li class="textresponsive"><a href="">Trợ giúp</a></li>
-                <li class="textresponsive"><a href="">Liên hệ</a></li>
+                <li class="textresponsive"><a href="/gioi-thieu">Giới thiệu</a></li>
+                <li class="textresponsive"><a href="/tin-tuc">Tin tức</a></li>
+                <li class="textresponsive"><a href="/san-pham">Sản phẩm</a></li>
+                <li class="textresponsive"><a href="/tro-giup">Trợ giúp</a></li>
+                <li class="textresponsive"><a href="/lien-he">Liên hệ</a></li>
                 @if (currentUser != null)
                 {
                     if (currentUser.IsAdmin == true)
@@ -67,7 +67,9 @@
             margin-bottom: 0;
         }
 
-
+        .dropdown ul {
+            background-color: #ff6a00;
+        }
 
             .pr-menu .nav-format li {
             }

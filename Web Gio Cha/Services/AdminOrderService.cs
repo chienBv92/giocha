@@ -121,6 +121,72 @@ namespace Web_Gio_Cha.Services
             return (result > 0);
         }
         #endregion
+
+        #region CANCEL
+        public bool UpdateCancelOrder(AdminOrderList model)
+        {
+            AdminOrderDa dataAccess = new AdminOrderDa();
+
+            long result = 0;
+
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    result = dataAccess.UpdateCancelOrder(model);
+
+                    if (result > 0)
+                        transaction.Complete();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Dispose();
+                    result = -1;
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
+            }
+
+            return (result > 0);
+        }
+
+        #endregion
+
+        #region UPDATE INFO ORDER
+        public bool UpdateInfo(AdminOrderList model)
+        {
+            AdminOrderDa dataAccess = new AdminOrderDa();
+
+            long result = 0;
+
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    result = dataAccess.UpdateInfo(model);
+
+                    if (result > 0)
+                        transaction.Complete();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Dispose();
+                    result = -1;
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
+            }
+
+            return (result > 0);
+        }
+
+        #endregion
     }
 
 }

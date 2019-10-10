@@ -1529,6 +1529,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Icon\add-cart.png" />
     <Content Include="Icon\cart.png" />
+    <Content Include="Icon\cart_menu.png" />
+    <Content Include="Icon\Home.png" />
     <Content Include="Icon\icon-hot.gif" />
     <Content Include="Icon\icon_cap_nhat_trang_thai.png" />
     <Content Include="Icon\icon_chinh_sua.png" />
@@ -1680,6 +1682,7 @@
     <Content Include="QRcode\VB0810000031.png" />
     <Content Include="QRcode\VB0810000032.png" />
     <Content Include="QRcode\VB0810000033.png" />
+    <Content Include="QRcode\VB0910000035.png" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1770,9 +1773,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -1859,6 +1860,7 @@
     <Content Include="Views\Shared\Menu - Copy.cshtml" />
     <Content Include="Views\UserManageOrder\ManageOrderList.cshtml" />
     <Content Include="Views\UserManageOrder\OrderDetail.cshtml" />
+    <Content Include="Views\UserManageOrder\PopupCancelOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1868,9 +1870,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
