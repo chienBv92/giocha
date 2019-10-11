@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ManagePromotionController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserManageOrderController.cs" />
     <Compile Include="Da\AdminOrderDa.cs" />
     <Compile Include="Da\BaseDa.cs" />
@@ -1861,6 +1862,9 @@
     <Content Include="Views\UserManageOrder\ManageOrderList.cshtml" />
     <Content Include="Views\UserManageOrder\OrderDetail.cshtml" />
     <Content Include="Views\UserManageOrder\PopupCancelOrder.cshtml" />
+    <Content Include="Views\User\ViewAccount.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\UpdateUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

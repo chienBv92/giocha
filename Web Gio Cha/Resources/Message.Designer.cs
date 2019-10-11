@@ -223,6 +223,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bạn chắc chắn muốn thay đổi mật khẩu?.
+        /// </summary>
+        public static string msgConfirmChangePassword {
+            get {
+                return ResourceManager.GetString("msgConfirmChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email đã sử dụng! Vui lòng đăng nhập!.
         /// </summary>
         public static string msgConfirmExistAccount {
@@ -291,6 +300,24 @@ namespace Web_Gio_Cha.Resources {
         public static string msgErrorWhenCheckExist {
             get {
                 return ResourceManager.GetString("msgErrorWhenCheckExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu mới phải khác mật khẩu cũ!.
+        /// </summary>
+        public static string PasswordNotChanged {
+            get {
+                return ResourceManager.GetString("PasswordNotChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu không khớp nhau!.
+        /// </summary>
+        public static string PasswordNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordNotMatch", resourceCulture);
             }
         }
         

@@ -31,6 +31,35 @@ namespace Web_Gio_Cha.Da
                     user.UserName = entity.UserName;
                     user.Name = entity.UserName;
                     user.Phone = entity.Phone;
+                    user.Receive_District = entity.Receive_District;
+                    user.Receive_Address = entity.Receive_Address;
+
+                    user.del_flg = Constant.DeleteFlag.NON_DELETE;
+                    user.ModifiedDate = DateTime.Now;
+
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return entity.ID;
+        }
+
+        public long UpdatePassword(TblUser entity)
+        {
+            var user = da.TblUser.Find(entity.ID);
+            if (user != null)
+            {
+                //kan.HanViet = entity.HanViet;
+                try
+                {
+                    // set data
+                    user.Password = entity.Password;
 
                     user.del_flg = Constant.DeleteFlag.NON_DELETE;
                     user.ModifiedDate = DateTime.Now;
@@ -115,15 +144,28 @@ namespace Web_Gio_Cha.Da
 
         public UserModel getInfoUser(long userId)
         {
-            UserModel model = new UserModel();
+            var data = (from user in da.TblUser
+                            join dis in da.TblCity on user.Receive_District equals dis.ID
 
-            TblUser user = da.TblUser.Where(s => s.ID == userId).SingleOrDefault();
-            if (user != null)
-            {
-                model.ID = user.ID;
+                            where (user.ID == userId)
 
-            }
-            return model;
+                            select new UserModel
+                            {
+                                ID = user.ID,
+                                Email = user.Email,
+                                UserName = user.UserName,
+                                Phone = user.Phone,
+                                Password = user.Password,
+                                Receive_District = user.Receive_District,
+                                DistrictName = dis.Name,
+                                Receive_Address = user.Receive_Address,
+                                Status = user.Status,
+                                CreatedDate = user.CreatedDate,
+                                ModifiedDate = user.ModifiedDate,
+                                del_flg = user.del_flg
+                            }).SingleOrDefault();
+
+            return data;
         }
 
         public bool CheckExistUserEmail(string Email)

@@ -354,4 +354,16 @@
   <data name="lblDistrictName" xml:space="preserve">
     <value>Quận huyện</value>
   </data>
+  <data name="btnChangeInfo" xml:space="preserve">
+    <value>Thay đổi thông tin</value>
+  </data>
+  <data name="btnChangePassword" xml:space="preserve">
+    <value>Đổi mật khẩu</value>
+  </data>
+  <data name="lblNewPassword" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+  </data>
+  <data name="lblRePassword" xml:space="preserve">
+    <value>Nhập lại mật khẩu</value>
+  </data>
 </root>

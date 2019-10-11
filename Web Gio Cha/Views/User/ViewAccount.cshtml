@@ -1,0 +1,122 @@
+﻿@using Web_Gio_Cha.Models;
+@using Web_Gio_Cha.Resources;
+@model UserModel
+@{
+    ViewBag.Title = "Thông tin tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <div id="RegisterUser" class="edit-screen">
+        <h2 id="title" class="title">@ViewBag.Title</h2>
+        <hr />
+        <input id="USER_ID_HIDDEN" name="USER_ID_HIDDEN" type="hidden" value="@Model.ID">
+
+        @Html.HiddenFor(m => m.del_flg, new { @class = "sp-id" })
+        <div class="Content col-md-12">
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 col-xs-12 divInfo">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xs-6 left">
+                    <label class="lblTitle">@AdminLabel.lblEmail:</label>
+                </div>
+                <div class="col-md-9 col-sm-6 col-xs-6 col-xs-6 left">
+                    <span class="">@Model.Email</span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 col-xs-12 divInfo">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xs-6 left">
+                    <label class="lblTitle">@AdminLabel.lblUserName:</label>
+                </div>
+                <div class="col-md-9 col-sm-6 col-xs-6 col-xs-6 left">
+                    <span class="">@Model.UserName</span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 col-xs-12 divInfo">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xs-6 left">
+                    <label class="lblTitle">@AdminLabel.lblAddress:</label>
+                </div>
+                <div class="col-md-9 col-sm-6 col-xs-6 col-xs-6 left">
+                    <span class="">@Model.DistrictName, @Model.Receive_Address</span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 col-xs-12 divInfo">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xs-6 left">
+                    <label class="lblTitle">@AdminLabel.lblPhone:</label>
+                </div>
+                <div class="col-md-9 col-sm-6 col-xs-6 col-xs-6 left">
+                    <span class="">@Model.Phone</span>
+                </div>
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12 col-xs-12 col-xs-12 divInfo">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xs-6 left">
+                    <label class="lblTitle">@AdminLabel.lblInsertDate:</label>
+                </div>
+                <div class="col-md-9 col-sm-6 col-xs-6 col-xs-6 left">
+                    @if (Model.CreatedDate.HasValue)
+                    {
+                        <span>
+                            @Model.CreatedDate.Value.ToString("dd/MM/yyyy")
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <form id="frEditUser" method="POST" action="@Url.Action("UpdateUser", "User")">
+                @*<input type="hidden" id="hdnUserIdEdit" name="UserId" value="0" />*@
+            </form>
+            <form id="frChangPassword" method="GET" action="@Url.Action("ChangePassword", "User")">
+                @*<input type="hidden" id="hdnUserIdChangePass" name="UserId" value="0" />*@
+            </form>
+            <div class="form-group action-button-bottom col-md-12 divInfo">
+                <button type="button" id="btnChangeInfo" name="btnChangeInfo" class="btn btn-green"><i class="btn-icon btn-edit">@AdminLabel.btnChangeInfo</i></button>
+                <button type="button" id="btnChangePassword" name="btnChangePassword" class="btn btn-orange"><i class="btn-icon btn-edit">@AdminLabel.btnChangePassword</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var checkTimeOutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    var UrlLogin = '@Url.Action("Login", "UserAccount")';
+    var UrlHome = '@Url.Action("Index", "Home")';
+
+    $(document).off('#btnChangeInfo');
+    $(document).on('click', '#btnChangeInfo', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+
+        $('#hdnUserIdEdit').val($('#USER_ID_HIDDEN').val());
+
+        $('#frEditUser').submit();
+    });
+
+    $(document).off('#btnChangePassword');
+    $(document).on('click', '#btnChangePassword', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeOutUrl, null)) return;
+
+        $('#hdnUserIdChangePass').val($('#USER_ID_HIDDEN').val());
+
+        $('#frChangPassword').submit();
+    });
+
+</script>
+
+<style>
+    .lblTitle{
+        width:100%;
+        text-align:left;
+    }
+     #btnChangeInfo {
+        float: left;
+    }
+    #btnChangePassword {
+        float: right;
+    }
+
+    .divInfo {
+        display: inline-block;
+    }
+</style>

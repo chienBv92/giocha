@@ -79,6 +79,24 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thay đổi thông tin.
+        /// </summary>
+        public static string btnChangeInfo {
+            get {
+                return ResourceManager.GetString("btnChangeInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đổi mật khẩu.
+        /// </summary>
+        public static string btnChangePassword {
+            get {
+                return ResourceManager.GetString("btnChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xóa.
         /// </summary>
         public static string btnClear {
@@ -376,6 +394,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu mới.
+        /// </summary>
+        public static string lblNewPassword {
+            get {
+                return ResourceManager.GetString("lblNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã đơn hàng.
         /// </summary>
         public static string lblOrderCode {
@@ -480,6 +507,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblRegisterNews {
             get {
                 return ResourceManager.GetString("lblRegisterNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhập lại mật khẩu.
+        /// </summary>
+        public static string lblRePassword {
+            get {
+                return ResourceManager.GetString("lblRePassword", resourceCulture);
             }
         }
         

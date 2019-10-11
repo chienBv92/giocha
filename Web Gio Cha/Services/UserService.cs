@@ -44,9 +44,12 @@ namespace Web_Gio_Cha.Services
             UserDa dataAccess = new UserDa();
 
             TblUser User = new TblUser();
+            User.ID = model.ID;
             User.UserName = model.UserName;
             User.Name = model.Name;
             User.Phone = model.Phone;
+            User.Receive_District = model.Receive_District;
+            User.Receive_Address = model.Receive_Address;
             User.del_flg = Constant.DeleteFlag.NON_DELETE;
             User.ModifiedDate = DateTime.Now;
 
@@ -54,6 +57,28 @@ namespace Web_Gio_Cha.Services
             return res;
         }
 
+        #endregion
+
+        #region CHANGE PASSWORD
+        public long UpdatePassword(UserModel model)
+        {
+            long res = 0;
+            // Declare new DataAccess object
+            UserDa dataAccess = new UserDa();
+            using (var transaction = new TransactionScope())
+            {
+                TblUser entity = new TblUser();
+
+                entity.ID = model.ID;
+                entity.Password = SafePassword.GetSaltedPassword(model.NEW_PASSWORD);
+
+                res = dataAccess.UpdatePassword(entity);
+                if (res <= 0)
+                    transaction.Dispose();
+                transaction.Complete();
+            }
+            return res;
+        }
         #endregion
     }
 }

@@ -35,7 +35,7 @@ namespace Web_Gio_Cha
             routes.MapRoute(
           name: "AccountInfo",
           url: "tai-khoan/{id}",
-          defaults: new { controller = "AdminSystem", action = "Index", id = UrlParameter.Optional }
+          defaults: new { controller = "User", action = "ViewAccount", id = UrlParameter.Optional }
       );
 
             // Tao Url view liên hệ
