@@ -156,5 +156,20 @@ namespace Web_Gio_Cha.Services
 
         #endregion
 
+        #region VIEW TIN TỨC
+        public IEnumerable<TblNews> GetListNews(int maxItem = 0)
+        {
+            ManageNewsDa dataAccess = new ManageNewsDa();
+            IEnumerable<TblNews> results = dataAccess.GetListNews(maxItem);
+            return results;
+        }
+
+        public IEnumerable<TblNews> GetListNewsAll()
+        {
+            ManageNewsDa dataAccess = new ManageNewsDa();
+            IEnumerable<TblNews> results = dataAccess.GetListNewsAll();
+            return results;
+        }
+        #endregion
     }
 }

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Web_Gio_Cha.EF.TblNews>
+@{
+    ViewBag.Title = "Tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="viewNews">
+    @foreach (var news in Model)
+    {
+        var link = "/tin-tuc/" + news.MetaTitle + "/" + news.ID;
+        var imglink = news.Image != null ? news.Image : "/Images/imagenewdemo.jpg";
+
+        <div class="formListNews">
+            <a href="@link" class="NewsView link" title="@news.Name" data-newsid="@news.ID" style="cursor:pointer">
+                <div class="inner-img" style="overflow: hidden; position: relative;">
+                    <img class="img-dsp" src="@imglink" title="@news.Name" alt="giò chả Vân Bảo">
+                </div>
+
+                <div style="overflow: hidden; position: relative;">
+                    <h3 class="titleTxt" style="text-align:left"> @news.Name</h3>
+                    <p class="descript-dsp">@news.DESCRIPTION</p>
+                @if (news.ModifiedDate.HasValue)
+                {
+                    <label class="date-dsp">@news.ModifiedDate.Value.ToString("dd/MM/yyyy HH:mm")</label>
+                }
+            </div>
+        </a>
+
+    </div>
+    }
+
+</div>
+<div class="viewMore">
+    <a href="/tin-tuc-all/" class="clickMore right"> Xem thêm...</a>
+</div>
+
+<style>
+    #viewNews .formListNews {
+        line-height: 23px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        cursor: pointer;
+        border-bottom: 1px dashed;
+    }
+
+        #viewNews .formListNews .NewsView {
+            width: 100%;
+            display: inline-block;
+        }
+
+        #viewNews .formListNews .inner-img {
+            float: left;
+            padding-right: 10px;
+        }
+
+        #viewNews .formListNews .img-dsp {
+            height: 120px;
+            width: 150px;
+            margin: 5px 10px 5px 10px;
+        }
+
+        #viewNews .formListNews .date-dsp {
+            float: right;
+            margin-right: 20px;
+        }
+
+         #viewNews .formListNews .descript-dsp {
+           text-align:left;
+        }
+</style>

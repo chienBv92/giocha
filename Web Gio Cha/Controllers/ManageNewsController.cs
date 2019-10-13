@@ -10,6 +10,8 @@ using Web_Gio_Cha.Models.Define;
 using Web_Gio_Cha.Resources;
 using Web_Gio_Cha.Services;
 using WebDuhoc.Models.Define;
+using PagedList;
+
 
 namespace Web_Gio_Cha.Controllers
 {
@@ -189,6 +191,58 @@ namespace Web_Gio_Cha.Controllers
             return new EmptyResult();
         }
 
+        #endregion
+
+        #region VIEW TIN TUC
+        public ActionResult Index()
+        {
+            if (ModelState.IsValid)
+            {
+                using (NewsService service = new NewsService())
+                {
+                    int maxItem = 10;
+                    var dataList = service.GetListNews(maxItem);
+                    return View(dataList);
+                }
+            }
+            return View();
+        }
+
+        public ActionResult AllNews(int? page)
+        {
+            NewsService service = new NewsService();
+            if (Request.HttpMethod != "GET")
+            {
+                page = 1;
+            }
+            int Pagesize = 20;
+            // tạo biến số trang hiện tại
+            int PageNumber = (page ?? 1);
+
+            var dataList = service.GetListNewsAll().ToPagedList(PageNumber, Pagesize);
+            
+            return View(dataList);
+        }
+
+        public ActionResult NewsDetail(long newsId = 0)
+        {
+            TblNews model = new TblNews();
+            ManageNewsDa dataAccess = new ManageNewsDa();
+            NewsService service = new NewsService();
+
+            model.Status = Constant.Status.ACTIVE;
+
+            if (newsId > 0)
+            {
+                TblNews infor = new TblNews();
+                infor = dataAccess.getInfoNews(newsId);
+                model = infor != null ? infor : model;
+                model.Content = HttpUtility.HtmlDecode(model.Content);
+                @ViewBag.listNewMore = service.GetListNews(10);
+            }
+
+            return View(model);
+        }
         #endregion
 
     }

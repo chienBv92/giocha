@@ -117,9 +117,21 @@ namespace Web_Gio_Cha
           );
 
             routes.MapRoute(
+            name: "NewsDetail",
+            url: "tin-tuc/{metatitle}/{newsId}",
+            defaults: new { controller = "ManageNews", action = "NewsDetail", id = UrlParameter.Optional }
+        );
+
+            routes.MapRoute(
+             name: "NewsAll",
+             url: "tin-tuc-all/{id}",
+             defaults: new { controller = "ManageNews", action = "AllNews", id = UrlParameter.Optional }
+         );
+
+            routes.MapRoute(
               name: "News",
               url: "tin-tuc/{id}",
-              defaults: new { controller = "Home", action = "News", id = UrlParameter.Optional }
+              defaults: new { controller = "ManageNews", action = "Index", id = UrlParameter.Optional }
           );
 
             routes.MapRoute(

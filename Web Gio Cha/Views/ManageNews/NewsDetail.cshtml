@@ -1,0 +1,94 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Tất cả tin tức";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Web_Gio_Cha.EF.TblNews
+
+<div id="viewNewsDetail">
+    <div class="title">
+        <h3 class="titleTxt"> @Model.Name</h3>
+    </div>
+    <hr />
+    <div class="content">
+        @Html.Raw(Model.Content)
+    </div>
+    <div class="txtDate">
+        @if (@Model.CreatedDate.HasValue)
+        {
+            @Model.CreatedDate.Value.ToString("dd/MM/yyyy hh:mm")
+        }
+    </div>
+    <div class="col-md-12" style="display:inline-block">
+        <div class="col-md-4 col-sm-12 col-xs-12 col-xs-12">
+            <span class="Titlesanpham" style="margin-top:10px">TIN MỚI ĐĂNG<a href="#"></a></span>
+        </div>
+    </div>
+
+    <div class="col-md-12 divListMore">
+        @foreach (var news in @ViewBag.listNewMore as IList<Web_Gio_Cha.EF.TblNews>)
+        {
+            var link = "/tin-tuc/" + news.MetaTitle + "/" + news.ID;
+            var imglink = news.Image != null ? news.Image : "/Images/imagenewdemo.jpg";
+
+            <div class="newMore">
+                <div class="">
+                    <img src="/Images/bulletNews.gif" height="9" style="width:10px!important" />
+                    <a href="@link" class="txtTile">@news.Name</a>
+                    <label class="date-dsp">
+                        @if (news.CreatedDate.HasValue)
+                        {
+                            news.CreatedDate.Value.ToString("dd/MM/yyyy");
+                        }
+                    </label>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <div class="viewMore">
+        <a href="/tin-tuc-all/" class="clickMore right"> Xem thêm...</a>
+    </div>
+</div>
+
+
+<style>
+    #viewNewsDetail {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+        #viewNewsDetail img {
+            width: 100% !important;
+        }
+
+        #viewNewsDetail .titleTxt {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        #viewNewsDetail .content {
+            text-align: left;
+        }
+
+        #viewNewsDetail .txtDate {
+            text-align: right;
+            font-size: 11px;
+            font-style: italic;
+        }
+
+        #viewNewsDetail .newMore {
+            text-align: left;
+            margin-left: 40px;
+            margin-bottom: 5px;
+        }
+
+        #viewNewsDetail .divListMore {
+            display: inline-block;
+            margin-top: 10px;
+        }
+</style>

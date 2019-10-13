@@ -1865,6 +1865,9 @@
     <Content Include="Views\User\ViewAccount.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\UpdateUser.cshtml" />
+    <Content Include="Views\ManageNews\Index.cshtml" />
+    <Content Include="Views\ManageNews\AllNews.cshtml" />
+    <Content Include="Views\ManageNews\NewsDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

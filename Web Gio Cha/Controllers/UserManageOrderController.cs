@@ -200,7 +200,6 @@ namespace Web_Gio_Cha.Controllers
             UserOrderService service = new UserOrderService();
             //ViewOrderModel model = new ViewOrderModel();
            
-
             IList<ItemGioHang> listDetail = new List<ItemGioHang>();
             var getOrder = da.getOrderByCode(Code);
             if (getOrder != null)

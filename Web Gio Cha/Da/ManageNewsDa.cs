@@ -39,6 +39,7 @@ namespace Web_Gio_Cha.Da
                     news.Content = entity.Content;
                     news.Image = entity.Image;
                     news.Status = entity.Status;
+                    news.DESCRIPTION = entity.DESCRIPTION;
                     news.del_flg = Constant.DeleteFlag.NON_DELETE;
                     news.ModifiedDate = DateTime.Now;
                     news.ModifiedBy = CmnEntityModel.ID;
@@ -151,6 +152,20 @@ namespace Web_Gio_Cha.Da
             return news.ID;
         }
 
+        #endregion
+
+        #region VIEW TIN TỨC
+        public List<TblNews> GetListNews(int maxItem)
+        {
+            var lstNews = da.TblNews.Where(x=>x.Status.Value && x.del_flg.Equals("0")).OrderByDescending(o => o.ModifiedDate).ThenByDescending(o => o.CreatedDate).Take(maxItem);
+            return lstNews.ToList();
+        }
+
+        public List<TblNews> GetListNewsAll()
+        {
+            var lstNews = da.TblNews.Where(x => x.Status.Value && x.del_flg.Equals("0")).OrderByDescending(o => o.ModifiedDate).ThenByDescending(o => o.CreatedDate);
+            return lstNews.ToList();
+        }
         #endregion
 
     }
