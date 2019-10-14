@@ -158,6 +158,13 @@ namespace Web_Gio_Cha.Services
             IEnumerable<Product> results = dataAccess.GetListProductByCategory(categoryID);
             return results;
         }
+
+        public IEnumerable<Product> GetListProductAllCategory()
+        {
+            ProductCategoryDa dataAccess = new ProductCategoryDa();
+            IEnumerable<Product> results = dataAccess.GetListProductAllCategory();
+            return results;
+        }
         #endregion
     }
 }

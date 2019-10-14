@@ -45,6 +45,19 @@ namespace Web_Gio_Cha.Resources
             }.AsReadOnly();
         }
 
+        public class SlideType
+        {
+            public const int Top = 1;
+
+            public const int Left = 2;
+
+            public static readonly OrderedDictionary Items = new OrderedDictionary
+            {
+                { Top, "Top" },
+                { Left, "Left" }
+            }.AsReadOnly();
+        }
+
         public class CityLevel
         {
             public const int City = 0;

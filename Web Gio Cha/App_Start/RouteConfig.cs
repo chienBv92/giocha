@@ -113,7 +113,7 @@ namespace Web_Gio_Cha
             routes.MapRoute(
               name: "Products",
               url: "san-pham/{id}",
-              defaults: new { controller = "Home", action = "Products", id = UrlParameter.Optional }
+              defaults: new { controller = "Product", action = "GetProductAllCategory", id = UrlParameter.Optional }
           );
 
             routes.MapRoute(

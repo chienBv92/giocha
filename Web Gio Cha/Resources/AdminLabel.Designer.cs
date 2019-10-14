@@ -313,6 +313,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chỉnh sửa slide.
+        /// </summary>
+        public static string lblEditSlide {
+            get {
+                return ResourceManager.GetString("lblEditSlide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string lblEmail {
@@ -363,6 +372,24 @@ namespace Web_Gio_Cha.Resources {
         public static string lblInsertName {
             get {
                 return ResourceManager.GetString("lblInsertName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link .
+        /// </summary>
+        public static string lblLink {
+            get {
+                return ResourceManager.GetString("lblLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danh sách slide.
+        /// </summary>
+        public static string lblListSlider {
+            get {
+                return ResourceManager.GetString("lblListSlider", resourceCulture);
             }
         }
         
@@ -511,6 +538,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đăng ký slide.
+        /// </summary>
+        public static string lblRegisterSlider {
+            get {
+                return ResourceManager.GetString("lblRegisterSlider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhập lại mật khẩu.
         /// </summary>
         public static string lblRePassword {
@@ -597,6 +633,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblTongTienHang {
             get {
                 return ResourceManager.GetString("lblTongTienHang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loại slide.
+        /// </summary>
+        public static string lblTypeSlide {
+            get {
+                return ResourceManager.GetString("lblTypeSlide", resourceCulture);
             }
         }
         

@@ -142,6 +142,12 @@ namespace Web_Gio_Cha.Da
             var lstProduct = da.Product.Where(x => x.CategoryID == categoryID && x.Status == true && x.del_flg.Equals("0")).OrderByDescending(o => o.ModifiedDate);
             return lstProduct.ToList();
         }
+
+        public List<Product> GetListProductAllCategory()
+        {
+            var lstProduct = da.Product.Where(x=> x.Status == true && x.del_flg.Equals("0")).OrderByDescending(o => o.ModifiedDate);
+            return lstProduct.ToList();
+        }
         #endregion
     }
 }

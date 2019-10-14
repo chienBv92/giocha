@@ -26,5 +26,15 @@ namespace Web_Gio_Cha.Controllers
                
             return View(model);
         }
+
+        public ActionResult GetProductAllCategory()
+        {
+            ProductCategoryService service = new ProductCategoryService();
+            ProductCategoryDa da = new ProductCategoryDa();
+            int maxItem = 10;
+            ViewBag.CategoryList = da.GetListCategory(maxItem);
+            IEnumerable<Product> model = service.GetListProductAllCategory();
+            return View(model);
+        }
     }
 }

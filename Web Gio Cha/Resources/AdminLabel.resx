@@ -366,4 +366,19 @@
   <data name="lblRePassword" xml:space="preserve">
     <value>Nhập lại mật khẩu</value>
   </data>
+  <data name="lblEditSlide" xml:space="preserve">
+    <value>Chỉnh sửa slide</value>
+  </data>
+  <data name="lblLink" xml:space="preserve">
+    <value>Link </value>
+  </data>
+  <data name="lblListSlider" xml:space="preserve">
+    <value>Danh sách slide</value>
+  </data>
+  <data name="lblRegisterSlider" xml:space="preserve">
+    <value>Đăng ký slide</value>
+  </data>
+  <data name="lblTypeSlide" xml:space="preserve">
+    <value>Loại slide</value>
+  </data>
 </root>

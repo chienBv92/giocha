@@ -7,10 +7,9 @@
     var data = item.Discount;
 
 }
-@* Slideshow *@
-<div class="row form-group nomargin">
-    <div class=" col-md-12 col-sm-12 col-xs-12 slideshow"><img src="/Images/bannerMain.jpg" alt="" style="width:100%;" /></div>
-</div>
+@* Slider Top *@
+@{Html.RenderAction("RenderSlideTop", "Slider");}
+
 @* Favourites *@
 <div class="row form-group nomargin" style="padding-bottom:15px;    ">
     <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham" style="margin-top:10px"> SẢN PHẨM @ViewBag.CategoryName</span></div>

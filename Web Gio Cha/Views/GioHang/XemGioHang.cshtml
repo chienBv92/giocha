@@ -48,7 +48,7 @@
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6 col-xs-6 nopadding">
                         <a class="col-md-12 left title-product" href="@link" title="@Model[i].TenSanPham">@Model[i].TenSanPham</a>
-                        <a class="col-md-12 left delete-cart" href="@Url.Action("XoaGioHang", "GioHang", new { @Id = @Model[i].IdSanPham, @strUrl = Request.Url.ToString() })">Xóa</a>
+                        <a class="col-md-12 left delete-cart" style="color:red" href="@Url.Action("XoaGioHang", "GioHang", new { @Id = @Model[i].IdSanPham, @strUrl = Request.Url.ToString() })">Xóa</a>
                     </div>
                     <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 nopadding">
                         <p class="bold center money donGia" style="width:100%">@Model[i].DonGia</p>

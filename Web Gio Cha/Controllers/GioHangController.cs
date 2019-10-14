@@ -29,6 +29,20 @@ namespace Web_Gio_Cha.Controllers
             return PartialView();
         }
 
+        public ActionResult GioHangPartialTop()
+        {
+            List<ItemGioHang> lstGioHang = Session["GioHang"] as List<ItemGioHang>;
+            if (TinhTongSoLuong() == 0)
+            {
+                ViewBag.TongSoLuong = 0;
+                ViewBag.TongTien = 0;
+                return PartialView();
+            }
+            ViewBag.TongSoLuong = TinhTongSoLuong();
+            ViewBag.TongTien = TongTien();
+            return PartialView();
+        }
+
         public double TinhTongSoLuong()
         {
             List<ItemGioHang> lstGioHang = Session["GioHang"] as List<ItemGioHang>;

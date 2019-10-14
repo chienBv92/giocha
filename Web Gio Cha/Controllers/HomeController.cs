@@ -19,6 +19,10 @@ namespace Web_Gio_Cha.Controllers
                 using (ProductService service = new ProductService())
                 {
                     var dataList = service.SearchProductList();
+                    SliderDa dataAccess = new SliderDa();
+
+                    var listSlideTop = dataAccess.getListSlideView(Constant.SlideType.Top);
+                    ViewBag.listSlideTop = listSlideTop;
                     return View(dataList);
                 }
             }
@@ -59,6 +63,16 @@ namespace Web_Gio_Cha.Controllers
             model = dataAccess.getMenuContentDisplay(MenuCd);
 
             return View(model);
+        }
+
+        public ActionResult RenderFooter()
+        {
+            SliderDa dataAccess = new SliderDa();
+            string myCompany = "00000";
+
+            var infoCompany = dataAccess.getInfoCompany(myCompany);
+
+            return PartialView(infoCompany);
         }
     }
 }

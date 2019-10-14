@@ -209,6 +209,7 @@
     <Compile Include="Controllers\ManagePromotionController.cs" />
     <Compile Include="Controllers\ManageUserController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\SliderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\UserManageOrderController.cs" />
     <Compile Include="Da\AdminOrderDa.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Da\OrderCartDa.cs" />
     <Compile Include="Da\ProductCategoryDa.cs" />
     <Compile Include="Da\ProductDa.cs" />
+    <Compile Include="Da\SliderDa.cs" />
     <Compile Include="Da\UserDa.cs" />
     <Compile Include="Da\UserOrderDa.cs" />
     <Compile Include="EF\Menu.cs">
@@ -331,6 +333,7 @@
     <Compile Include="Services\ManageDistrictService.cs" />
     <Compile Include="Services\ManagePromotionService.cs" />
     <Compile Include="Services\MenuService.cs" />
+    <Compile Include="Services\SlideService.cs" />
     <Compile Include="Services\NewsService.cs" />
     <Compile Include="Services\OrderCartService.cs" />
     <Compile Include="Services\ProductCategoryService.cs" />
@@ -1757,13 +1760,17 @@
     <Content Include="Scripts\zxcvbn.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="UPLOAD\Images\BanhDaKe.jpg" />
+    <Content Include="UPLOAD\Images\banner1.jpg" />
+    <Content Include="UPLOAD\Images\bannerMain.jpg" />
     <Content Include="UPLOAD\Images\cha-ca-la-vong.jpg" />
     <Content Include="UPLOAD\Images\cha-lua.jpg" />
+    <Content Include="UPLOAD\Images\dienthoai.jpg" />
     <Content Include="UPLOAD\Images\gio me.jpg" />
     <Content Include="UPLOAD\Images\gio-bo-nghe-an.jpg" />
     <Content Include="UPLOAD\Images\gio-xao.jpg" />
     <Content Include="UPLOAD\Images\nem-chua-ran.jpg" />
     <Content Include="UPLOAD\Images\nem-nuong-nha-trang.jpg" />
+    <Content Include="UPLOAD\Images\tikiKm.png" />
     <Content Include="Views\ManageDistrict\DistrictEdit.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1780,7 +1787,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -1858,7 +1864,6 @@
     <Content Include="Views\AdminManageOrder\ViewOrderDetailPDF.cshtml" />
     <Content Include="Views\AdminManageOrder\PopupUpdateStatus.cshtml" />
     <Content Include="Views\AdminManageOrder\PopupUpdateNote.cshtml" />
-    <Content Include="Views\Shared\Menu - Copy.cshtml" />
     <Content Include="Views\UserManageOrder\ManageOrderList.cshtml" />
     <Content Include="Views\UserManageOrder\OrderDetail.cshtml" />
     <Content Include="Views\UserManageOrder\PopupCancelOrder.cshtml" />
@@ -1868,6 +1873,13 @@
     <Content Include="Views\ManageNews\Index.cshtml" />
     <Content Include="Views\ManageNews\AllNews.cshtml" />
     <Content Include="Views\ManageNews\NewsDetail.cshtml" />
+    <Content Include="Views\Slider\SliderEdit.cshtml" />
+    <Content Include="Views\Slider\SlideList.cshtml" />
+    <Content Include="Views\Slider\RenderSlideTop.cshtml" />
+    <Content Include="Views\Home\RenderFooter.cshtml" />
+    <Content Include="Views\Slider\RenderSlideLeft.cshtml" />
+    <Content Include="Views\Product\GetProductAllCategory.cshtml" />
+    <Content Include="Views\GioHang\GioHangPartialTop.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

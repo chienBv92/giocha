@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Web_Gio_Cha.EF.Product>
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dataList = ViewBag.CategoryList as IList<Web_Gio_Cha.EF.Product_Category>;
+}
+@foreach (var item in Model)
+{
+    var data = item.Discount;
+
+}
+
+@foreach (var cate in dataList)
+{
+    @* Category *@
+    <div class="row form-group nomargin" style="padding-bottom:15px;    ">
+        <div class="col-md-4 col-sm-6 col-xs-6 col-xs-12"><span class="Titlesanpham" style="margin-top:10px"> SẢN PHẨM @cate.Name.ToUpper()</span></div>
+    </div>
+
+    @* Product item *@
+    <div class="row form-group nomargin">
+        @foreach (var item in Model.Where(i=>i.CategoryID == cate.ID).Take(10))
+        {
+            var link = "/xem-chi-tiet/" + item.MetaTitle + "/" + item.ID;
+            var imglink = item.Image != null ? item.Image : "/Images/demosanpham1.jpg";
+            @* Info product *@
+            <div class="product col-md-3 col-sm-4 col-xs-6">
+                <div class="row nomargin prd-content discount">
+                    <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
+                        <a href="@link"><img class="prd-img" src="@imglink" title="@item.Name" alt="giò chả Vân Bảo" /></a>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 nopadding" style="margin-top:10px">
+                        <p height="20" align="center" class="prd-title break-text" title="@item.Name">@item.Name</p>
+                        @if (item.Discount > 0)
+                        {
+                            <p><strong>Giá gốc: <s class="co0066cc money">@item.PriceBefore</s></strong></p>
+                            <p><strong style="color: #ff0000">Giá KM: <span class="co0066cc money" style="color:#ff0000">@item.Price</span></strong></p>
+                        }
+                        else
+                        {
+                            <p><strong>Giá: <span class="co0066cc money" style="color:#ff0000"> @item.Price</span></strong></p>
+                        }
+                    </div>
+                </div>
+                @* Button *@
+                <div class="row nomargin">
+                    <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
+                        <div class="row nomargin">
+                            <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
+                                @if (item.Quantity > 0)
+                                {
+                                    <a href="@Url.Action("ThemGioHang", "GioHang", new { @IdSanPham = item.ID, @strUrl= Request.Url.ToString() })"><img class="btn-img" src="~/Images/btBogio.jpg" alt="giò chả Vân Bảo" style="height:23px" /></a>
+                                }
+                                else
+                                {
+                                    <span style="color:red; line-height:23px">Hết hàng</span>
+                                }
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-xs-6 padding-2">
+                                <a href="@link"><img class="btn-img" src="~/Images/btChitiet.jpg" alt="giò chả Vân Bảo" style="height:23px" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+<script>
+    $(document).ready(function () {
+        setDiscount();
+
+        // Format money
+        $(".money").each(function () {
+            var data = WebDuhoc.utility.convertIntToMoney($(this).text());
+            $(this).text(data);
+        });
+
+    });
+    function setDiscount() {
+        var data = @Html.Raw(Json.Encode(Model.Select(x=>x.Discount)));
+        var maxItem = data.length;
+        var count = 0;
+        $(".discount").each(function () {
+            if (count < maxItem) {
+                if(data[count] > 0){
+                    $(this).attr('data-content', data[count] + "%");
+                }else{
+                    //$(this).attr('data-content', "none");
+                    //$(this).after().css('display', 'none');
+                    //$(this).css('content', 'none');
+
+                    //var pa = $(this);
+                    //alert(this);
+                }
+                count++;
+            }
+        });
+    }
+
+
+</script>
