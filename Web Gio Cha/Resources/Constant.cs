@@ -29,7 +29,7 @@ namespace Web_Gio_Cha.Resources
         public const int MAX_DISCOUNT = 99;
 
         public const string DEFAULT_VALUE = "0";
-        public const string DEFAULT_PASSWORD = "123456";
+        public const string DEFAULT_PASSWORD = "pass123";
 
 
         public class DeleteFlag
