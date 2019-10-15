@@ -239,5 +239,81 @@ namespace Web_Gio_Cha.Controllers
         }
 
         #endregion
+
+        #region CANCEL ORDER
+        public ActionResult PopupCancelOrder(long OrderId = 0)
+        {
+            AdminOrderList model = new AdminOrderList();
+            CommonController con = new CommonController();
+
+            model.ID = OrderId;
+
+            return this.PartialView("PopupCancelOrder", model);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateCancelOrder(AdminOrderList model)
+        {
+            try
+            {
+                using (AdminOrderService service = new AdminOrderService())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        {
+                            var update = service.UpdateCancelOrder(model);
+
+                            JsonResult result = Json(new { result = update }, JsonRequestBehavior.AllowGet);
+                            return result;
+                        }
+                    }
+                    else
+                    {
+                        var ErrorMessages = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+                    }
+
+                    return new EmptyResult();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                System.Web.HttpContext.Current.Session["ERROR"] = ex;
+                return new EmptyResult();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdateInfo(AdminOrderList model)
+        {
+            try
+            {
+                using (AdminOrderService service = new AdminOrderService())
+                {
+                    if (ModelState.IsValid)
+                    {
+                        {
+                            var update = service.UpdateInfo(model);
+
+                            JsonResult result = Json(new { result = update }, JsonRequestBehavior.AllowGet);
+                            return result;
+                        }
+                    }
+                    else
+                    {
+                        var ErrorMessages = ModelState.Where(x => x.Value.Errors.Count > 0).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+                    }
+
+                    return new EmptyResult();
+                }
+            }
+            catch (Exception ex)
+            {
+                Response.StatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+                System.Web.HttpContext.Current.Session["ERROR"] = ex;
+                return new EmptyResult();
+            }
+        }
+        #endregion
     }
 }
