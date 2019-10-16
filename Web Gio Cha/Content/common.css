@@ -212,7 +212,8 @@ h1 {
     }
 .co4f790d {
     color: #4f790d;
-    line-height: 18px
+    line-height: 18px;
+    margin-bottom:0;
 }
 
 .co12a9c7 {
@@ -333,12 +334,12 @@ h1 {
     .linkfooter a:hover {
         text-decoration: underline
     }
-
+.linkmenuleft{
+    margin:0 1px;
+}
 .linkmenuleft a {
     color: #FFF;
     background-image: url(../Images/bg_danhmucLeft.jpg);
-    height: 24px;
-    width: 176px;
     line-height: 24px;
     text-align: left;
     display: block;
@@ -443,7 +444,7 @@ input[type="password"], select {
 
  /*chua dung giam gia*/
 /*.discount:after {
-    content: attr(data-content);
+    content: attr(data-content);    
     width: 40px;
     height: 40px;
     background-image: url(../Images/deal-tag.png);

@@ -1,3 +1,21 @@
-﻿
-<a href="/xem-gio-hang" style="cursor:pointer; margin-top:20px;" class="gioHangTop"> <img class="Viewcart" src="~/Icon/cart_menu.png" alt="giò chả Vân Bảo" title="Giỏ hàng" style="width:20px; margin-top:15px" /><span style="margin-right:15px">(@ViewBag.TongSoLuong)</span></a>
+﻿<a href="/xem-gio-hang" style="cursor:pointer; margin:20px 30px 0 0;" order-value="@ViewBag.TongSoLuong" class="gioHangTop">
+    <img class="Viewcart" src="~/Icon/cart_menu.png" alt="giò chả Vân Bảo" title="Giỏ hàng" style="width:20px; margin-top:15px" />
+</a>
 
+<style>
+    .gioHangTop:after {
+        content: attr(order-value);   
+        width: 13px;
+        height: 13px;
+        top: 10px;
+        right: 75px;
+        line-height: 13px;
+        position: absolute;
+        display: inline-block;
+        background-color:#ffffff;
+        border-radius:10px;
+        color: #ff6a00;
+        font-size:8px;
+        text-align:center;
+    }
+</style>

@@ -1,24 +1,8 @@
-﻿<td align="left" valign="top" style="background-image:url(/Images/bg_giohang.jpg); background-repeat:no-repeat; height:145px; width:118px">
-    <table width="166" border="0" align="center" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="48"></td>
-            <td height="8"></td>
-        </tr>
-        <tr>
-            <td align="center" class="co4f790d">&nbsp;</td>
-            <td height="24" class="view-cart"><a href="/xem-gio-hang" style="cursor:pointer"> <img class="Viewcart" src="~/Icon/cart.png" alt="" title="Giỏ hàng" /></a></td>
-        </tr>
-        <tr>
-            <td align="center" class="co4f790d">&nbsp;</td>
-            <td height="16" align="left" class="co4f790d soluong" id="update-SoLuong" style="font-weight:bold">@ViewBag.TongSoLuong sản phẩm</td>
-        </tr>
-        <tr>
-            <td align="center" class="co4f790d">&nbsp;</td>
-            <td height="20" align="left" class="co4f790d">Tổng số tiền:</td>
-        </tr>
-        <tr>
-            <td align="center" class="linkgiohang">&nbsp;</td>
-            <td align="left" class="co4f790d money" id="updateTotalMoney" style="font-weight:bold"><strong>@ViewBag.TongTien</strong></td>
-        </tr>
-    </table>
-</td>
+﻿<div class="row nomargin">
+    <div class="col-md-12 col-sm-12 col-xs-12" style="background-image:url(/Images/bg_giohang.jpg); background-repeat:no-repeat; background-size:100%; padding:30px 0 0 10px;">
+        <a href="/xem-gio-hang" style="cursor:pointer"><img style="width:40px; height:40px;" class="Viewcart" src="~/Icon/cart.png" alt="" title="Giỏ hàng"/></a>
+        <p class="co4f790d soluong" id="update-SoLuong" style="font-weight:bold">@ViewBag.TongSoLuong sản phẩm</p>
+        <p class="co4f790d">Tổng số tiền:</p>
+        <p class="co4f790d money" id="updateTotalMoney" style="font-weight:bold"><strong>@ViewBag.TongTien</strong></p>
+    </div>
+</div>
