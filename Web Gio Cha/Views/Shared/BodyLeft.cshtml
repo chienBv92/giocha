@@ -1,30 +1,36 @@
-﻿<table width="200" border="0" cellspacing="0" cellpadding="0"></table>
-<table class="col-md-12" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td align="right" valign="top">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    @{Html.RenderAction("CategoryProductPartial", "Category");}
-                </tr>
-                <tr>
-                    <td align="left">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                            <tr>
-                                <td height="25"></td>
-                            </tr>
-                            <tr>
-                                @{Html.RenderAction("GioHangPartial", "GioHang");}
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
+﻿@*<table width="200" border="0" cellspacing="0" cellpadding="0"></table>
+    <table class="col-md-12" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="right" valign="top">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        @{Html.RenderAction("CategoryProductPartial", "Category");}
+                    </tr>
+                    <tr>
+                        <td align="left">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td height="25"></td>
+                                </tr>
+                                <tr>
+                                    @{Html.RenderAction("GioHangPartial", "GioHang");}
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
 
-            </table>
-        </td>
-        <td width="10" style="background-image:url(/Images/bg_menuLeft.jpg); background-repeat:no-repeat; background-position:top left">&nbsp;</td>
-    </tr>
-</table>
+                </table>
+            </td>
+            <td width="10" style="background-image:url(/Images/bg_menuLeft.jpg); background-repeat:no-repeat; background-position:top left">&nbsp;</td>
+        </tr>
+    </table>
 
-<div>
-    @{Html.RenderAction("RenderSlideLeft", "Slider");}
-</div>
+    <div>
+        @{Html.RenderAction("RenderSlideLeft", "Slider");}
+    </div>*@
+
+
+@{Html.RenderAction("CategoryProductPartial", "Category");}
+@{Html.RenderAction("GioHangPartial", "GioHang");}
+@{Html.RenderAction("RenderSlideLeft", "Slider");}
+

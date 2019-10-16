@@ -1,17 +1,27 @@
 ﻿@model IEnumerable<Web_Gio_Cha.EF.Product_Category>
 
-<td align="right">
-    <table width="160" border="0" align="right" cellpadding="0" cellspacing="1">
-        <tr>
-            <td align="left" valign="middle" class="bold" style="padding-bottom:10px; padding-left:20px; color:#ff3300; font-size:16px">SẢN PHẨM</td>
-        </tr>
-        @foreach (var data in Model)
-        {
-            var link = "/san-pham-" + data.Name + "/" + data.ID;
-            <tr>
-                <td height="24" class="linkmenuleft"><a href="@link">@data.Name</a></td>
-            </tr>
+<div class="row nomargin">
+    <div class="col-md-12 col-sm-12 col-xs-12 nopadding">
+        <p style="text-align:left; font-weight:bold; padding:10px 0 0 10px; color:#ff3300; font-size:16px">SẢN PHẨM</p>
+        <ul class="body-left">
+            @foreach (var data in Model)
+            {
+                var link = "/san-pham-" + data.Name + "/" + data.ID;
+                <li class="linkmenuleft">
+                    <a href="@link">@data.Name</a>
+                </li>
+            }
+        </ul>
+
+    </div>
+</div>
+
+<style>
+    ul.body-left {
+        padding-left: 0px;
+    }
+
+        ul.body-left li {
+            list-style-type: none;
         }
-        
-    </table>
-</td>
+</style>
