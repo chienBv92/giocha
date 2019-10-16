@@ -26,7 +26,7 @@
                 {
                     if (currentUser.IsAdmin == true)
                     {
-                        <li><a href="/admin">Quản trị hệ thống</a></li>
+                        <li class="textresponsive"><a href="/admin">Quản trị hệ thống</a></li>
                     }
                     <li class="dropdown textresponsive" style="min-width:162px">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tài khoản: @currentUser.UserName<span class="caret"></span></a>
@@ -37,12 +37,14 @@
                         </ul>
                     </li>
                 }
-                else
-                {
+            </ul>
+            @if (currentUser == null)
+            {
+                <ul class="nav navbar-nav nav-login">
                     <li class="textresponsive"><a href="/dang-ky">Đăng ký</a></li>
                     <li class="textresponsive"><a href="/dang-nhap">Đăng nhập</a></li>
-                }
-            </ul>
+                </ul>
+            }
         </div>
     </nav>
 </div>
@@ -69,20 +71,20 @@
             margin-bottom: 0;
         }
 
-        .dropdown ul {
-            background-color: #ff6a00;
+    .dropdown ul {
+        background-color: #ff6a00;
+    }
+
+    .pr-menu .nav-format li {
+    }
+
+        .pr-menu .nav-format li:hover {
+            background-color: #f68b16;
         }
 
-            .pr-menu .nav-format li {
-            }
-
-                .pr-menu .nav-format li:hover {
-                    background-color: #f68b16;
-                }
-
-            .pr-menu .nav-format a {
-                color: #ffffff !important;
-            }
+    .pr-menu .nav-format a {
+        color: #ffffff !important;
+    }
 </style>
 
 <script>

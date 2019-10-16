@@ -32,6 +32,9 @@
     .gioHangTop {
         /*display:inline-block;*/
     }
+    .font-size-footer {
+        font-size: 8px;
+    }
 }
 
 /* Extra Small Devices, Phones */
@@ -55,6 +58,10 @@
      .gioHangTop {
         /*display:block;*/
     }
+
+     .font-size-footer{
+         font-size:10px;
+     }
 }
 
 /* Small Devices, Tablets */
@@ -69,11 +76,11 @@
     }
 
     .textresponsive {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .textresponsive a {
-        font-size: 12px;
+        font-size: 11px;
     }
 
     .slideshow {
@@ -91,6 +98,14 @@
      .gioHangTop {
         display:none;
     }
+
+    .nav-login {
+        float: right !important;
+    }
+    .font-size-footer {
+        font-size: 11px;
+    }
+
 }
 
 /* Medium Devices, Desktops */
@@ -126,6 +141,13 @@
 
      .gioHangTop {
         display:none;
+    }
+
+    .nav-login {
+        float: right !important;
+    }
+    .font-size-footer {
+        font-size: 14px;
     }
 }
 
