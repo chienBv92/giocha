@@ -144,10 +144,10 @@ namespace Web_Gio_Cha.Da
 
         public UserModel getInfoUser(long userId)
         {
+            
             var data = (from user in da.TblUser
-                            join dis in da.TblCity on user.Receive_District equals dis.ID
-
-                            where (user.ID == userId)
+                        from dis in da.TblCity.Where(x => x.ID == user.Receive_District).DefaultIfEmpty()
+                        where (user.ID == userId)
 
                             select new UserModel
                             {
