@@ -106,6 +106,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Độ dài {0} phải là {1} chữ số!.
+        /// </summary>
+        public static string CompanyCdLength {
+            get {
+                return ResourceManager.GetString("CompanyCdLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bạn muốn chuyển sang màn hình List?.
         /// </summary>
         public static string ConfirmBack {
@@ -246,6 +255,15 @@ namespace Web_Gio_Cha.Resources {
         public static string msgConfirmExistCategory {
             get {
                 return ResourceManager.GetString("msgConfirmExistCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã công ty bị trùng!.
+        /// </summary>
+        public static string msgConfirmExistCompany {
+            get {
+                return ResourceManager.GetString("msgConfirmExistCompany", resourceCulture);
             }
         }
         

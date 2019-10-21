@@ -192,7 +192,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminManageCompanyController.cs" />
     <Compile Include="Controllers\AdminManageOrderController.cs" />
+    <Compile Include="Controllers\AdminManageUserController.cs" />
     <Compile Include="Controllers\AdminSystemController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -215,6 +217,7 @@
     <Compile Include="Da\AdminOrderDa.cs" />
     <Compile Include="Da\BaseDa.cs" />
     <Compile Include="Da\CommonDa.cs" />
+    <Compile Include="Da\CompanyDa.cs" />
     <Compile Include="Da\KanjiDa.cs" />
     <Compile Include="Da\ManageDistrictDa.cs" />
     <Compile Include="Da\ManageMenuDa.cs" />
@@ -288,6 +291,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Define\CompanyModel.cs" />
     <Compile Include="Models\ViewOrderModel.cs" />
     <Compile Include="Models\AdminOrderList.cs" />
     <Compile Include="Models\Define\CityModel.cs" />
@@ -329,6 +333,7 @@
     <Compile Include="Services\AdminOrderService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\CommonService.cs" />
+    <Compile Include="Services\CompanyService.cs" />
     <Compile Include="Services\KanjiService.cs" />
     <Compile Include="Services\ManageDistrictService.cs" />
     <Compile Include="Services\ManagePromotionService.cs" />
@@ -1880,6 +1885,8 @@
     <Content Include="Views\Slider\RenderSlideLeft.cshtml" />
     <Content Include="Views\Product\GetProductAllCategory.cshtml" />
     <Content Include="Views\GioHang\GioHangPartialTop.cshtml" />
+    <Content Include="Views\AdminManageCompany\CompanyEdit.cshtml" />
+    <Content Include="Views\AdminManageUser\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

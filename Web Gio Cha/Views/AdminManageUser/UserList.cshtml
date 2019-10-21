@@ -1,0 +1,358 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.Models;
+
+@model UserModel
+@{
+    ViewBag.Title = AdminLabel.UserListTitle;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="UserList">
+    <div id="topContent">
+        <div id="title">@ViewBag.Title</div>
+        @using (Html.BeginForm("Search", "AdminManageUser", FormMethod.Post, new { id = "formUserSearch", enctype = "multipart/form-data", @class = "form-horizontal" }))
+        {
+            <div id="searchArea" class="clearfix">
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblEmail</label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "txt-w-250", style = "ime-mode: auto; ", maxlength = 100 })
+                    <label class="label-list">@AdminLabel.lblUserName</label>
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "txt-w-250", maxlength = 50 })
+                </div>
+
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblPhone</label>
+                    @Html.TextBoxFor(m => m.Phone, new { @class = "txt-w-250", maxlength = 13 })
+
+                </div>
+
+                <div class="form-group">
+                    <label class="title-row">@AdminLabel.lblAddress</label>
+                    @Html.DropDownListFor(m => m.Receive_District, Model.DISTRICT_LIST, "", new { @class = "renderDistrict margin-0" })
+
+                    @Html.TextAreaFor(m => m.Receive_Address, new { @class = "note-textarea", maxlength = 100 })
+                </div>
+
+                <div class="form-group">
+                    @Html.Label(@AdminLabel.lblStatus, new { @for = "STATUS", @class = "title-row" })
+                    @if (Model.Status == null || Model.Status == false)
+                    {
+                        <input id="Status" type="checkbox">
+                        <input id="STATUS_HIDDEN" name="Status" type="hidden" value="false">
+                    }
+                    else
+                    {
+                        <input id="Status" type="checkbox" checked="checked">
+                        <input id="STATUS_HIDDEN" name="Status" type="hidden" value="true">
+                    }
+                </div>
+
+                <div class="form-group">
+                    @Html.Label(@AdminLabel.lblDelete, new { @for = "del_flg", @class = "title-row" })
+                    @if (String.IsNullOrEmpty(Model.del_flg) || Model.del_flg.Equals("0"))
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="0">
+                    }
+                    else
+                    {
+                        <input id="del_flg" name="del_flg" type="checkbox" checked="checked">
+                        <input id="DEL_FLG_HIDDEN" name="del_flg" type="hidden" value="1">
+                    }
+                </div>
+
+            </div>
+
+            <hr />
+            <div id="searchAction">
+                <div class="pull-right">
+                    <button type="button" id="btnSearch" class="btn btn-green"><i class="btn-icon btn-search-white">@AdminLabel.btnSearch</i></button>
+                    <button type="button" id="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                </div>
+            </div>
+        }
+    </div>
+
+    @*<div id="registButton">
+        <form id="frUpdateUser" method="POST" action="@Url.Action("UserEdit", "AdminManageUser")">
+            <input type="hidden" id="hdnUserIdEdit" name="UserId" value="0" />
+        </form>
+
+        <button type="button" id="btnRegister" name="btnRegister" class="btn btn-orange"><i class="btn-icon btn-regist"></i>@AdminLabel.btnRegister</button>
+    </div>*@
+
+    <div id="mainContent">
+        <table id="InfoTable" class="dataTable cellspacing= " 0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>STT</th>
+                    <th>@AdminLabel.lblEmail</th>
+                    <th>@AdminLabel.lblUserName</th>
+                    <th>@AdminLabel.DistricName</th>
+                    <th>@AdminLabel.lblAddress</th>
+                    <th>@AdminLabel.lblPhone</th>
+                    <th>@AdminLabel.lblInsertDate</th>
+                    <th>@AdminLabel.lblStatus</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+    var UrlUserRegister = '@Url.Action("UserEdit", "AdminManageUser")';
+    var UrlUserList = '@Url.Action("UserList", "AdminManageUser")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    var dataTable = null;
+    var sort_colum = 0;
+    var sort_type = 'asc';
+    var deletelink = "Xóa";
+    var USER_ID = 0;
+    var ORDER = 1;
+    var USER_EMAIL = 2;
+    var USER_NAME = 3;
+    var DISTRICT_NAME = 4;
+    var USER_ADDRESS = 5;
+    var USER_PHONE = 6;
+    var INS_DATE = 7;
+    var STATUS = 8;
+    var DELETE = 9;
+
+    var rows_checked_list = [];
+
+    $(function () {
+        var oSorting = {
+            "bSort": false
+        };
+
+        var oPaginate = {
+            "bPaginate": true,
+            "iDisplayLength": 20, // setup amount record
+            "bStateSave": false
+        };
+
+        var oServerSide = {
+            "bServerSide": true,
+            "sAjaxSource": '@Url.Action("UserList", "AdminManageUser")',
+            "fnServerParams": serverParams,
+            "fnInitComplete": displayComplete,
+            "fnDrawCallback": drawCallback,
+            "autoWidth": false,
+            "info": false
+        };
+        // Content in table
+        var aoColumnDefs = [
+             { "sName": "USER_ID", "bVisible": false, "aTargets": [USER_ID] },
+             { "sName": "ORDER", "bVisible": false, "aTargets": [ORDER] },
+             { "sName": "USER_EMAIL", "bVisible": false, "aTargets": [USER_EMAIL] },
+             { "sName": "USER_NAME", "bVisible": false, "aTargets": [USER_NAME] },
+             { "bSortable": false, "aTargets": [DISTRICT_NAME], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [USER_ADDRESS], "sWidth": "20%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [USER_PHONE], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [INS_DATE], "sWidth": "10%", "sClass": "cell_center" },
+             { "bSortable": false, "aTargets": [STATUS], "sWidth": "5%", "sClass": "cell_center" },
+
+             { "bSortable": false, "aTargets": [DELETE], "sWidth": "5%", "sClass": "cell_center", "mRender": function (data, type, full) { return bindDeleteElement(full[USER_ID], 'delete-user-link btn btn-red', deletelink); } }
+
+        ];
+
+        // Tham so search input
+        function serverParams(aoData) {
+            aoData.push(
+                { "name": "Receive_District", "value": $("#Receive_District").val() },
+                { "name": "Receive_Address", "value": $("#Receive_Address").val() },
+                { "name": "UserName", "value": $("#UserName").val() },
+                { "name": "Phone", "value": $("#Phone").val() },
+                { "name": "Email", "value": $("#Email").val() },
+                { "name": "del_flg", "value": $("#DEL_FLG_HIDDEN").val() },
+                { "name": "Status", "value": $("#STATUS_HIDDEN").val() }
+            );
+        }
+
+        function displayComplete(data) {
+            dataList = data.aaData;
+
+            if (sort_colum == 0) {
+                $('#InfoTable tr th:not(.sorting_disabled)').removeClass('sorting_asc sorting_desc').addClass('sorting').removeAttr('aria-sort');
+            }
+        }
+
+        function drawCallback() {
+            if ($('#tbLeft').length > 0) {
+                $('#InfoTable').unwrap();
+                $('.col-left, .rBarOn, .bBarOn').remove();
+            }
+
+            var htmlTbLeft = '<table id="tbLeft" class="dataTable" cellspacing="0">'
+                + ' <thead>'
+                + ' <tr>'
+                + ' <th>No</th>'
+                + ' <th>@AdminLabel.lblEmail</th>'
+                + ' <th>@AdminLabel.lblUserName</th>'
+                + ' </tr>'
+                + ' </thead>'
+                + ' <tbody>';
+
+            if (dataList !== null && dataList.length > 0) {
+                for (var i = 0; i < dataList.length; i++) {
+                    var classRow = i % 2 == 0 ? 'odd' : 'even';
+                    //var height = $($('#InfoTable tbody tr')[i]).outerHeight();
+
+                    htmlTbLeft += ' <tr class="' + classRow + '">'
+                        + ' <td class="cell_center">' + WebDuhoc.utility.buildColumShortText(dataList[i][ORDER]) + '</td>'
+                        + ' <td class="cell_center">' + buildActionLink(dataList[i][USER_ID], dataList[i][USER_EMAIL]) + '</td>';
+                    htmlTbLeft += ' <td class="cell_center"> <div>' + WebDuhoc.utility.buildColumShortText(dataList[i][USER_NAME], 'special-wrap') + '</div></td></tr>';
+                }
+            }
+
+            htmlTbLeft += '</tbody></table>';
+
+            $("#InfoTable").wrap('<div class="col-right dragOn"></div>').removeClass('no-footer');
+            $('div.col-right').before('<div class="col-left"> ' + htmlTbLeft + '</div>');
+            $('div.col-right').dragOn();
+
+        }
+
+        function buildActionLink(id, content) {
+            var html = '';
+            {
+                html += '<a class="UserEdit UserId link" data-userid="' + id + '">' + content + '</a>';
+            }
+            return html;
+        }
+
+        function bindDeleteElement(id, className, label) {
+            return '<a class="' + className + '" data-userid="' + id + '">' + label + '</a>';
+        }
+
+        dataTable = CreateDataTable('#InfoTable', oSorting, oPaginate, oServerSide, aoColumnDefs);
+
+    });
+
+    $(function () {
+        $('[name="del_flg"][value="@Model.del_flg"]').prop('checked', true);
+        $('#DEL_FLG_HIDDEN').val('@Model.del_flg');
+        $('[name="Status"][value="@Model.Status"]').prop('checked', true);
+        $('#STATUS_HIDDEN').val('@Model.Status');
+
+    });
+
+    $(document).off('#del_flg');
+    $(document).on('change', '#del_flg', function () {
+        if ($('#del_flg').is(":checked")) {
+            $('#DEL_FLG_HIDDEN').val('1');
+        } else {
+            $('#DEL_FLG_HIDDEN').val('0');
+        }
+
+        searchUser();
+
+    });
+
+    $(document).off('#Status');
+    $(document).on('change', '#Status', function () {
+        if ($('#Status').is(":checked")) {
+            $('#STATUS_HIDDEN').val(true);
+        } else {
+            $('#STATUS_HIDDEN').val(false);
+        }
+        searchUser();
+    });
+
+    $(document).off('#Receive_District');
+    $(document).on('change', '#Receive_District', function () {
+        searchUser();
+    });
+
+    // Button Search
+    $(document).off('#btnSearch');
+    $(document).on('click', '#btnSearch', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        searchUser();
+    });
+
+    function searchUser() {
+
+        dataTable.fnPageChange('first');
+    }
+
+    // Click Button Clear
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $("#del_flg").prop('checked', false).change();
+        $('#DEL_FLG_HIDDEN').val('0');
+        $("#Status").prop('checked', false).change();
+        $('#STATUS_HIDDEN').val(true);
+        $('#Status').val(true);
+
+        $('#Receive_Address').val('');
+        $('#UserName').val('');
+        $('#Phone').val('');
+        $('#Email').val('');
+        $('#Receive_District').val('');
+
+        searchUser();
+    })
+
+    // Click redirect to Employee Register
+    $(document).off('#btnRegister');
+    $(document).on('click', '#btnRegister', function () {
+        window.location.href = UrlUserRegister; // Redirect to other Url
+
+    })
+    // click link edit
+    //$(document).off('.UserEdit');
+    //$(document).on('click', '.UserEdit', function () {
+    //    if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+    //    $('#hdnUserIdEdit').val($(this).data('userid'));
+
+    //    $('#frUpdateUser').submit();
+    //});
+
+    // Click link delete   delete-Account-link
+    $(document).off('.delete-user-link');
+    $(document).on('click', '.delete-user-link', function () {
+
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+        var userId = $(this).data('userid');
+
+        if (userId == '') return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmDelete, "tài khoản")', function (action) {
+            if (action) {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: '@Url.Action("DeleteUser")',
+                    data: { USER_ID: userId },
+                    success: function (data) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.DeleteSuccess)", true);
+                        dataTable.fnStandingRedraw();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        WebDuhoc.utility.showMessageModal("@string.Format(Message.ConfirmDeleteError)", true);
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+
+
+
+<style>
+    #UserList {
+        margin: 25px;
+    }
+</style>

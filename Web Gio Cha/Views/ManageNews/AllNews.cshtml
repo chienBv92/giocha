@@ -9,6 +9,8 @@
 @model PagedList.PagedList<Web_Gio_Cha.EF.TblNews>
 
 <div id="viewNews">
+    <div class=" link left" style="padding:8px 0px 8px 15px; background:#dad7c8;width:100%"><a href="/trang-chu">Trang chủ</a> &nbsp;&nbsp;&nbsp;»&nbsp;&nbsp;&nbsp; <a href="/tin-tuc-all">Tất cả tin tức</a></div>
+
     @foreach (var news in Model)
     {
         var link = "/tin-tuc/" + news.MetaTitle + "/" + news.ID;

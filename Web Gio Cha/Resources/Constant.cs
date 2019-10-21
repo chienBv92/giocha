@@ -24,6 +24,7 @@ namespace Web_Gio_Cha.Resources
         public const int MAX_PHONE_LENGTH = 13;
         public const int MAX_EMAIL_LENGTH = 100;
         public const int MAX_USER_NAME_LENGTH = 50;
+        public const int MAX_ADDRESS_LENGTH = 100;
         public const int MIN_INPUT_PASS = 6;
         public const int MAX_INPUT_PASS = 50;
         public const int MAX_DISCOUNT = 99;

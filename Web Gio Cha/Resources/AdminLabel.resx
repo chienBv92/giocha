@@ -381,4 +381,37 @@
   <data name="lblTypeSlide" xml:space="preserve">
     <value>Loại slide</value>
   </data>
+  <data name="CompanyCode" xml:space="preserve">
+    <value>Mã công ty</value>
+  </data>
+  <data name="CompanyRegisterTitle" xml:space="preserve">
+    <value>Đăng ký thông tin công ty</value>
+  </data>
+  <data name="CompanyUpdateTitle" xml:space="preserve">
+    <value>Chỉnh sửa thông tin công ty</value>
+  </data>
+  <data name="lblComapnyName" xml:space="preserve">
+    <value>Tên công ty</value>
+  </data>
+  <data name="lblFanPage" xml:space="preserve">
+    <value>Fanpage Facebook</value>
+  </data>
+  <data name="lblLatitude" xml:space="preserve">
+    <value>Vĩ độ</value>
+  </data>
+  <data name="lblLogo" xml:space="preserve">
+    <value>Logo</value>
+  </data>
+  <data name="lblLongitude" xml:space="preserve">
+    <value>Kinh độ</value>
+  </data>
+  <data name="lblMap" xml:space="preserve">
+    <value>Bản đồ</value>
+  </data>
+  <data name="lblPosition" xml:space="preserve">
+    <value>Vị trí</value>
+  </data>
+  <data name="UserListTitle" xml:space="preserve">
+    <value>Danh sách người dùng</value>
+  </data>
 </root>

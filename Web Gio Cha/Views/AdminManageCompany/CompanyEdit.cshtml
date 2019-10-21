@@ -1,0 +1,359 @@
+﻿@using Web_Gio_Cha.Resources;
+@using Web_Gio_Cha.EF;
+
+@model TblCompany
+@{
+    ViewBag.Title = AdminLabel.CompanyRegisterTitle;
+    if (@Model.COMPANY_ID != null && @Model.COMPANY_ID > 0)
+    {
+        ViewBag.Title = AdminLabel.CompanyUpdateTitle;
+    }
+
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    <script type="text/javascript" src="~/ckeditor4.8/ckeditor.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script>
+}
+
+<div id="CompanyRegister" class="edit-screen">
+    @using (Html.BeginForm("Edit", "AdminManageUser", FormMethod.Post, new { id = "formCompanyRegis", enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        <div id="title">@ViewBag.Title</div>
+        <input id="COMPANY_ID" name="COMPANY_ID" type="hidden" value="@Model.COMPANY_ID">
+
+        @Html.HiddenFor(m => m.DEL_FLG, new { @class = "sp-id" })
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.CompanyCode <span class="RequiredField">*</span></label>
+            @if (Model.COMPANY_CD == null)
+            {
+                @Html.TextBoxFor(m => m.COMPANY_CD, new { @class = "txt-w-250", style = "ime-mode: auto; ", maxlength = 5 })
+            }
+            else
+            {
+                @Html.TextBoxFor(m => m.COMPANY_CD, new { @class = "ime-mode border-none txt-w-250", @readonly = "readonly" })
+            }
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblComapnyName <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.COMPANY_NAME, new { @class = "txt-name", @maxlength = "100" })
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblAddress <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.COMPANY_ADDRESS, new { @class = "txt-name", maxlength = 250 })
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblPhone <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.COMPANY_PHONE, new { @class = "txt-w-250", maxlength = 13 })
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblEmail <span class="RequiredField">*</span></label>
+            @Html.TextBoxFor(m => m.COMPANY_EMAIL, new { @class = "txt-w-250", maxlength = 100 })
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblMap </label>
+            @Html.TextBoxFor(m => m.LINK_MAP, new { @class = "txt-name", maxlength = 100 })
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblPosition </label>
+            <label>@AdminLabel.lblLatitude    </label>
+            @Html.TextBoxFor(m => m.COMPANY_LAT, new { @class = "txt-nums", maxlength = 10 })
+
+            <label style="margin-left:100px">@AdminLabel.lblLongitude    </label>
+            @Html.TextBoxFor(m => m.COMPANY_LNG, new { @class = "txt-nums", maxlength = 10 })
+        </div>
+
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblFanPage </label>
+            @Html.TextBoxFor(m => m.FACE_PAGE, new { @class = "txt-name", maxlength = 250 })
+        </div>
+        <div class="form-group">
+            <label class="title-row">@AdminLabel.lblLogo </label>
+            @Html.TextBoxFor(m => m.LOGO, new { @class = "txt-logo", maxlength = 250 })
+            <button type="button" id="btnSelectImage" name="btnSelectImage" class="btn btn-default"><i class="btn-icon">Chọn ảnh logo </i></button>
+        </div>
+
+        <div class="form-group action-button-bottom">
+            <button type="button" id="btnBack" name="btnBack" class="btn btn-default"><i class="btn-icon btn-back">@AdminLabel.btnBack</i></button>
+            <div class="pull-right">
+                <button type="button" id="btnClear" name="btnClear" class="btn btn-default"><i class="btn-icon btn-clear">@AdminLabel.btnClear</i></button>
+                <button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-orange"><i class="btn-icon btn-edit">@AdminLabel.btnRegister</i></button>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+
+    var UrlCompanyList = '@Url.Action("CompanyList", "AdminManageCompany")';
+    var checkTimeoutUrl = '@Url.Action("CheckTimeOut", "Common")';
+
+    $(function () {
+        WebDuhoc.utility.formatMoney();
+        WebDuhoc.utility.formatMoneyLabel();
+        WebDuhoc.utility.focusTextbox();
+
+        WebDuhoc.utility.validFullHalfSize($("#COMPANY_CD"));
+        WebDuhoc.utility.imeControl($("#COMPANY_CD"), 'disable');
+        WebDuhoc.utility.validFullHalfSize($("#COMPANY_EMAIL"));
+        WebDuhoc.utility.imeControl($("#COMPANY_EMAIL"), 'disable');
+
+        WebDuhoc.utility.validFullHalfSize($("#COMPANY_PHONE"));
+        WebDuhoc.utility.imeControl($("#COMPANY_PHONE"), 'disable');
+        WebDuhoc.utility.checkInputNumber($("#COMPANY_PHONE"));
+
+        checkInputDecimal($("#COMPANY_LAT"));
+        checkInputDecimal($("#COMPANY_LNG"));
+
+    });
+
+    function checkInputDecimal(control) {
+        control.on("change keyup", function (e) {
+            var text = control.val();
+            var regX = /[^0-9/.]/g;
+
+            if (regX.test(text)) {
+                control.val(text.replace(regX, ''));
+            }
+        });
+    }
+
+    function validateData() {
+        var invalidMess = [];
+
+        var companyCd = $('#COMPANY_CD').val();
+        var companyName = $('#COMPANY_NAME').val();
+        var address = $('#COMPANY_ADDRESS').val();
+        var email = $('#COMPANY_EMAIL').val();
+        var website = $('#COMPANY_WEB').val();
+        var phone = $('#COMPANY_PHONE').val();
+        var fanpage = $('#FACE_PAGE').val();
+        var linkMap = $('#LINK_MAP').val();
+        var logo = $('#LOGO').val();
+
+        var companyOld = $('#COMPANY_ID_HIDDEN').val();
+
+        var errContent = [];
+        var errDisplay = [];
+        var invalidMess = [];
+
+        // validate user company
+        if (companyCd == null || companyCd.trim() == "") { // required content
+            errDisplay = '@AdminLabel.CompanyCode' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (companyCd.trim().length != 5) {
+            invalidMess.push("@string.Format(Message.CompanyCdLength, @AdminLabel.CompanyCode, 5)");
+        }
+
+        // validate company name
+        if (companyName == null || companyName.trim() == "") { // required content
+            errDisplay = '@AdminLabel.lblComapnyName' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (companyName.trim().length > 50) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, AdminLabel.lblComapnyName, Constant.MAX_USER_NAME_LENGTH)");
+        }
+
+        // validate company address
+        if (address == null || address.trim() == "") { // required content
+            errDisplay = '@AdminLabel.lblAddress' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (address.trim().length > 100) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, AdminLabel.lblAddress, Constant.MAX_ADDRESS_LENGTH)");
+        }
+
+
+        // validate user Email
+        if (email == null || email.trim() == "") { // required content
+            errDisplay = '@AdminLabel.lblEmail' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (email.trim().length > 100) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @AdminLabel.lblEmail, Constant.MAX_EMAIL_LENGTH)");
+        }
+        else if (!WebDuhoc.utility.validEmail(email)) {
+            invalidMess.push("@string.Format(@Message.IncorrectFormat, @AdminLabel.lblEmail)");
+        }
+        // validate user phone
+        if (phone == null || phone.trim() == "" || phone == 0) {
+            errDisplay = '@AdminLabel.lblPhone' + Constant.ERR_REQUIRED;
+            invalidMess.push(errDisplay);
+        }
+        else if (phone.trim().length > 13) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, @AdminLabel.lblPhone, Constant.MAX_PHONE_LENGTH)");
+        }
+            // check numberic
+        else if (!WebDuhoc.utility.validPhone(phone)) {
+            invalidMess.push("@string.Format(@Message.IncorrectFormat, @AdminLabel.lblPhone)");
+        }
+
+        // validate company fanpage
+        if (fanpage != null && fanpage.trim().length > Constant.MAX_ADDRESS_LENGTH) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, AdminLabel.lblFanPage, Constant.MAX_ADDRESS_LENGTH)");
+        }
+        // validate company map
+        if (linkMap != null && linkMap.trim().length > Constant.MAX_USER_ACCOUNT_LENGTH) {
+            invalidMess.push("@string.Format(Message.CheckMaxLength, AdminLabel.lblMap, Constant.MAX_ADDRESS_LENGTH)");
+        }
+        return invalidMess;
+    }
+
+    $(document).off('#btnSubmit');
+    $(document).on('click', '#btnSubmit', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        $('.validation-summary-errors').remove();
+        var invalidMess = validateData();
+        if (invalidMess.length > 0) {
+            WebDuhoc.utility.showClientError(invalidMess);
+            return false;
+        }
+
+        var existCompany = false;
+        var companyOld = $('#COMPANY_ID_HIDDEN').val();
+
+        // Chi truong hop dang ki moi thi moi check trung code
+        if (companyOld == 0) {
+            var companyCd = $('#COMPANY_CD').val();
+
+            var paramCheckExist = {
+                companyCd: companyCd
+            };
+
+            var data = WebDuhoc.utility.getDataByAjax('@Url.Action("CheckExistCompanyCd", "AdminManageCompany")', paramCheckExist);
+            if (typeof (data) != 'undefined' || data != null) {
+                existCompany = data.exist;
+            }
+        }
+
+        var confirmMess = existCompany ? '@string.Format(Message.msgConfirmExistCompany)' : '@string.Format(Message.ConfirmSubmitData, (Model.COMPANY_ID > 0 ? Message.Update : Message.Register))';
+        if (existCompany) {
+            WebDuhoc.utility.showMessageModal(confirmMess, true);
+        } else {
+            WebDuhoc.utility.showConfirmModal(confirmMess, function (action) {
+                if (action) {
+                    $("#formCompanyRegis").submit();
+                }
+            })
+        }
+
+    });
+
+    $('#formCompanyRegis').submit(function (event) {
+        var formData = new FormData($(this)[0]);
+        $.ajax(
+            {
+                url: '@Url.Action("Edit", "AdminManageCompany")',
+                data: formData,
+                mimeType: "multipart/form-data",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    var result = jQuery.parseJSON(res);
+                    var message = "";
+                    if (result.ErrorMessages) {
+                        for (var i = 0; i < result.ErrorMessages.length; i++) {
+                            message += result.ErrorMessages[i] + "\n";
+                        }
+                        WebDuhoc.utility.showMessageModal(message, true);
+                    } else {
+                        message = result.isNew == true ? "@Message.RegisterSuccess" : "@Message.UpdateSuccess";
+                        WebDuhoc.utility.showMessageModal(message, false, function () {
+                        });
+                    }
+                },
+                error: function (xhr) {
+                    //window.parent.$('.ui-dialog-content:visible').dialog('close');
+                    window.location.href = '/Common/Error/';
+                }
+            });
+        event.preventDefault();
+    });
+
+    $(document).off('#btnClear');
+    $(document).on('click', '#btnClear', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmClear)', function (action) {
+            $('.validation-summary-errors').remove();
+
+            if (action) {
+                if ($('#COMPANY_ID_HIDDEN').val() == 0) {
+                    $('#COMPANY_CD').val('');
+                    $('#COMPANY_NAME').val('');
+                    $('#COMPANY_ADDRESS').val('');
+                    $('#COMPANY_PHONE').val('');
+                    $('.COMPANY_EMAIL').val('');
+                    $('.COMPANY_WEB').val('');
+                    $('#FACE_PAGE').val('');
+                    $('#LINK_MAP').val('');
+                    $('#LOGO').val('');
+                } else {
+                    $('#COMPANY_NAME').val('@Model.COMPANY_NAME');
+                    $('#COMPANY_ADDRESS').val('@Model.COMPANY_ADDRESS');
+                    $('#COMPANY_PHONE').val('@Model.COMPANY_PHONE');
+                    $('#COMPANY_EMAIL').val('@Model.COMPANY_EMAIL');
+                    $('#FACE_PAGE').val('@Model.FACE_PAGE');
+                    $('#LINK_MAP').val('@Model.LINK_MAP');
+                    $('#LOGO').val('@Model.LOGO');
+                }
+            }
+        })
+    });
+
+    // Button Back
+    $(document).off('#btnBack');
+    $(document).on('click', '#btnBack', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        WebDuhoc.utility.showConfirmModal('@string.Format(@Message.ConfirmBack)', function (action) {
+            if (action) {
+
+                $(window).off('beforeunload');
+                window.location.href = '/admin';
+            }
+        })
+    });
+
+    // Click Button select picture
+    $(document).off('#btnSelectImage');
+    $(document).on('click', '#btnSelectImage', function () {
+        if (!WebDuhoc.utility.getDataByAjax(checkTimeoutUrl, null)) return;
+
+        var finder = new CKFinder();
+        finder.resourceType = 'Images';
+        finder.selectActionFunction = function (url) {
+            $('#LOGO').val(url);
+        }
+        finder.popup();
+    })
+
+</script>
+
+<style>
+    #cke_COMPANY_DESCRIPTION {
+        float: right;
+    }
+
+    #CompanyRegister .txt-name {
+        width: 800px;
+        max-width: 800px;
+    }
+
+    #CompanyRegister .txt-logo {
+        width: 400px;
+        max-width: 400px;
+    }
+
+    #CompanyRegister .txt-nums {
+        width: 100px;
+        max-width: 100px;
+    }
+</style>

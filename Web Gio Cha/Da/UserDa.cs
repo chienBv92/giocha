@@ -6,6 +6,7 @@ using Web_Gio_Cha.EF;
 using Web_Gio_Cha.Models;
 using Web_Gio_Cha.Resources;
 using Web_Gio_Cha.UtilityServices.SafePassword;
+using WebDuhoc.Models.Define;
 
 namespace Web_Gio_Cha.Da
 {
@@ -182,5 +183,70 @@ namespace Web_Gio_Cha.Da
                 return false;
             }
         }
+
+        #region LIST
+        public IEnumerable<UserModel> SearchUserList(DataTableModel dt, UserModel model, out int total_row)
+        {
+            var lstUser = (from user in da.TblUser
+                              from dis in da.TblCity.Where(x => x.ID == user.Receive_District).DefaultIfEmpty()
+                              where (user.del_flg == model.del_flg && (!String.IsNullOrEmpty(model.Name) == true ? user.Name.Contains(model.Name) : 1 == 1))
+                              where (model.Status.HasValue ? user.Status == model.Status : 1 == 1)
+                              where (!String.IsNullOrEmpty(model.Receive_Address) == true ? user.Receive_Address.Contains(model.Receive_Address) : 1 == 1)
+                           where (!String.IsNullOrEmpty(model.Email) == true ? user.Email.Contains(model.Email) : 1 == 1)
+                           where (!String.IsNullOrEmpty(model.UserName) == true ? user.UserName.Contains(model.UserName) : 1 == 1)
+                           where (!String.IsNullOrEmpty(model.Phone) == true ? user.Phone.Contains(model.Phone) : 1 == 1)
+                             where (model.Receive_District > 0 ? user.Receive_District == model.Receive_District : 1 == 1)
+
+                              select new UserModel
+                              {
+                                  ID = user.ID,
+                                  Email = user.Email,
+                                  UserName = user.UserName,
+                                  Phone = user.Phone,
+                                  Password = user.Password,
+                                  Receive_District = user.Receive_District,
+                                  DistrictName = dis.Name,
+                                  Receive_Address = user.Receive_Address,
+                                  Status = user.Status,
+                                  CreatedDate = user.CreatedDate,
+                                  ModifiedDate = user.ModifiedDate,
+                                  del_flg = user.del_flg
+                              });
+
+            total_row = lstUser.Count();
+
+            lstUser = lstUser.OrderByDescending(i => i.ModifiedDate).ThenByDescending(i => i.CreatedDate).Skip(dt.iDisplayStart).Take(dt.iDisplayLength);
+
+            return lstUser;
+        }
+
+        #endregion
+
+        #region DELETE
+        public long DeleteUser(long USER_ID = 0)
+        {
+            var user = da.TblUser.Where(x => x.ID == USER_ID).SingleOrDefault();
+            if (user != null)
+            {
+                try
+                {
+                    // set data
+                    user.del_flg = Constant.DeleteFlag.DELETE;
+
+                    user.ModifiedDate = DateTime.Now;
+                    da.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else
+                return 0;
+
+            return user.ID;
+        }
+
+        #endregion
     }
 }

@@ -95,7 +95,7 @@ namespace Web_Gio_Cha.Controllers
                             List<string> listName = new List<string>();
                             foreach (var det in getProductDetail)
                             {
-                                det.Name = det.Name.Length > 10 ? det.Name.Substring(0, 10) : det.Name;
+                                det.Name = det.Name.Length > 20 ? det.Name.Substring(0, 20) : det.Name;
                                 listName.Add(det.Name);
                             }
                             if (listName.Count > 0)
@@ -161,7 +161,7 @@ namespace Web_Gio_Cha.Controllers
         }
         #endregion
 
-        #region VIEW ORDER SHIP
+        #region VIEW ORDER 
         public ActionResult ViewOrderDetail(long OrderId = 0)
         {
             ViewOrderModel model = new ViewOrderModel();

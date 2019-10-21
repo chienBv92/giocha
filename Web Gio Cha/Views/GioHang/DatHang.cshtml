@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6 quantity">
 
-                            <p class="qty col-md-4">@listSanPham[i].SoLuong</p>
+                            <p class="qty col-md-4"><span>x</span> @listSanPham[i].SoLuong</p>
                         </div>
                         <div class="col-md-2 col-sm-4 col-xs-6 col-xs-6">
                             <p class="left money tienHang">@listSanPham[i].TienHang</p>
@@ -149,7 +149,7 @@
                 </div>
 
 
-                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12">
+                <div class="col-md-12 col-sm-4 col-xs-4 col-xs-12" style="margin-bottom:10px">
                     <div class="col-md-3 col-sm-6 col-xs-6 col-xs-12 left" style="margin-top:20px">
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 col-xs-12" style="margin-top:20px">
@@ -359,4 +359,9 @@
         width: 100%;
         height: 100px;
     }
+     #DatHang {
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 4px solid #F7950C;
+}
 </style>

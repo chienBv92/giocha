@@ -160,6 +160,33 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã công ty.
+        /// </summary>
+        public static string CompanyCode {
+            get {
+                return ResourceManager.GetString("CompanyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký thông tin công ty.
+        /// </summary>
+        public static string CompanyRegisterTitle {
+            get {
+                return ResourceManager.GetString("CompanyRegisterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chỉnh sửa thông tin công ty.
+        /// </summary>
+        public static string CompanyUpdateTitle {
+            get {
+                return ResourceManager.GetString("CompanyUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Giảm giá.
         /// </summary>
         public static string DiscountPercent {
@@ -237,6 +264,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblCategory {
             get {
                 return ResourceManager.GetString("lblCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên công ty.
+        /// </summary>
+        public static string lblComapnyName {
+            get {
+                return ResourceManager.GetString("lblComapnyName", resourceCulture);
             }
         }
         
@@ -331,6 +367,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fanpage Facebook.
+        /// </summary>
+        public static string lblFanPage {
+            get {
+                return ResourceManager.GetString("lblFanPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Từ ngày.
         /// </summary>
         public static string lblFromDate {
@@ -376,6 +421,15 @@ namespace Web_Gio_Cha.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vĩ độ.
+        /// </summary>
+        public static string lblLatitude {
+            get {
+                return ResourceManager.GetString("lblLatitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Link .
         /// </summary>
         public static string lblLink {
@@ -390,6 +444,33 @@ namespace Web_Gio_Cha.Resources {
         public static string lblListSlider {
             get {
                 return ResourceManager.GetString("lblListSlider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logo.
+        /// </summary>
+        public static string lblLogo {
+            get {
+                return ResourceManager.GetString("lblLogo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kinh độ.
+        /// </summary>
+        public static string lblLongitude {
+            get {
+                return ResourceManager.GetString("lblLongitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bản đồ.
+        /// </summary>
+        public static string lblMap {
+            get {
+                return ResourceManager.GetString("lblMap", resourceCulture);
             }
         }
         
@@ -453,6 +534,15 @@ namespace Web_Gio_Cha.Resources {
         public static string lblPhone {
             get {
                 return ResourceManager.GetString("lblPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vị trí.
+        /// </summary>
+        public static string lblPosition {
+            get {
+                return ResourceManager.GetString("lblPosition", resourceCulture);
             }
         }
         
@@ -849,6 +939,15 @@ namespace Web_Gio_Cha.Resources {
         public static string PromotionUpdateTitle {
             get {
                 return ResourceManager.GetString("PromotionUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Danh sách người dùng.
+        /// </summary>
+        public static string UserListTitle {
+            get {
+                return ResourceManager.GetString("UserListTitle", resourceCulture);
             }
         }
     }

@@ -8,6 +8,7 @@ using Web_Gio_Cha.EF;
 using Web_Gio_Cha.Models;
 using Web_Gio_Cha.Resources;
 using Web_Gio_Cha.UtilityServices.SafePassword;
+using WebDuhoc.Models.Define;
 
 namespace Web_Gio_Cha.Services
 {
@@ -79,6 +80,49 @@ namespace Web_Gio_Cha.Services
             }
             return res;
         }
+        #endregion
+
+        #region Search
+        public IEnumerable<UserModel> SearchUserList(DataTableModel dt, UserModel model, out int total_row)
+        {
+            UserDa dataAccess = new UserDa();
+            IEnumerable<UserModel> results = dataAccess.SearchUserList(dt, model, out total_row);
+            return results;
+        }
+
+        #endregion
+
+        #region DELETE
+        public bool DeleteUser(long USER_ID)
+        {
+            UserDa dataAccess = new UserDa();
+
+            long result = 0;
+
+            using (var transaction = new TransactionScope())
+            {
+                try
+                {
+                    result = dataAccess.DeleteUser(USER_ID);
+
+                    if (result > 0)
+                        transaction.Complete();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Dispose();
+                    result = -1;
+                    throw new Exception(ex.Message, ex);
+                }
+                finally
+                {
+                    transaction.Dispose();
+                }
+            }
+
+            return (result > 0);
+        }
+
         #endregion
     }
 }

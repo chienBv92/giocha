@@ -228,4 +228,10 @@
   <data name="PasswordNotMatch" xml:space="preserve">
     <value>Mật khẩu không khớp nhau!</value>
   </data>
+  <data name="CompanyCdLength" xml:space="preserve">
+    <value>Độ dài {0} phải là {1} chữ số!</value>
+  </data>
+  <data name="msgConfirmExistCompany" xml:space="preserve">
+    <value>Mã công ty bị trùng!</value>
+  </data>
 </root>
